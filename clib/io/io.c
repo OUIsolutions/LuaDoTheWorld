@@ -40,7 +40,7 @@ LuaCEmbedResponse  * write_file(LuaCEmbed *args){
     if(write_obj.error){
         return write_obj.error;
     }
-    writed = dtw.write_any_content(write_obj.content,write_obj.size);
+    writed = dtw.write_any_content(filename,write_obj.content,write_obj.size);
     Writeble_free(&write_obj);
     return  lua.response.send_bool(writed);
 }

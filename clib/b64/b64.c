@@ -38,7 +38,7 @@ LuaCEmbedResponse  * base64_decode(LuaCEmbed *args){
         LuaCEmbedTable * table = create_bytes(args,content,size);
         return  lua.response.send_table(table);
     }
-    
+
     content[size] = '\0';
     LuaCEmbedResponse  *response = lua.response.send_str((char*)content);
     free(content);

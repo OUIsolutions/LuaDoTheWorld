@@ -21,6 +21,9 @@ void start_lua_props(LuaCEmbed *l){
     lua.add_callback(l,LIST_ALL,list_all);
     lua.add_callback(l,LIST_ALL_RECURSIVELY,list_all_recursively);
 
+    lua.add_callback(l,BBASE_64_ENCODE_FILE,base64_encode_file);
+    lua.add_callback(l,BBASE_64_ENCODE,base64_encode);
+    lua.add_callback(l,BBASE_64_DECODE,base64_decode);
 
 }
 
