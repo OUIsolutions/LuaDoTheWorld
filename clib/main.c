@@ -5,7 +5,6 @@
 #include "definition.h"
 
 int luaopen_luaDoTheWorld_clib(lua_State *state){
-    printf("chamou saporra\n");
     lua = newLuaCEmbedNamespace();
     dtw = newDtwNamespace();
     bool set_functions_as_public  = false;

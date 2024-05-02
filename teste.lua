@@ -1,5 +1,3 @@
 dtw = require("luaDoTheWorld/luaDoTheWorld")
 
-local image = dtw.load_file("1.png")
-
-lo
+dtw.write_file("teste.txt","vai se ddddd")
