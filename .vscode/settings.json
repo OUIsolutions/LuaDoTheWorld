@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "dependecies.h": "c"
+        "dependecies.h": "c",
+        "definition.h": "c",
+        "namespaces.h": "c"
     }
 }
