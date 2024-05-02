@@ -7,3 +7,9 @@
 #define MOVE_ANY_MERGING "move_any_merging"
 #define REMOVE_ANY "remove_any"
 
+#define LIST_FILES "list_files"
+#define LIST_FILES_RECURSIVELY "list_files_recursively"
+#define LIST_DIRS "list_dirs"
+#define LIST_DIRS_RECURSIVELY "list_dirs_recursively"
+#define LIST_ALL "list_all"
+#define LIST_ALL_RECURSIVELY "list_all_recursively"
