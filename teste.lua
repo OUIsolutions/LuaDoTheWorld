@@ -1,4 +1,6 @@
 dtw = require("luaDoTheWorld/luaDoTheWorld")
 
-dtw.write_file("teste.txt","vai se dddddlua")
-dtw.write_file("teste2.txt",true)
+
+
+dtw.remove_any("teste.txt")
+dtw.remove_any("teste2.txt")
