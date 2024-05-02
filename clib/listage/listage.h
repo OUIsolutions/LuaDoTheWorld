@@ -1,4 +1,5 @@
 
+LuaCEmbedResponse  * aply_listage(LuaCEmbed *args,DtwStringArray* (*callback)(const char *folder,bool concat_path));
 
 
 LuaCEmbedResponse  * list_files(LuaCEmbed *args);

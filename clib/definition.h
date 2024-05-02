@@ -2,3 +2,4 @@
 #include "bytes/bytes.c"
 #include "types/types.c"
 #include "listage/listage.c"
+#include "b64/b64.c"

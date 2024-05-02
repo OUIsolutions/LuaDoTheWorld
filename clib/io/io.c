@@ -42,7 +42,7 @@ LuaCEmbedResponse  * write_file(LuaCEmbed *args){
         writed = dtw.write_string_file_content(filename,content);
     }
 
-    if(type_to_write == lua.types.NUMBER){
+    else if(type_to_write == lua.types.NUMBER){
         double content = lua.args.get_double(args,1);
         double rest = content - (double)(long ) content;
         if(rest == 0){
@@ -57,13 +57,13 @@ LuaCEmbedResponse  * write_file(LuaCEmbed *args){
         }
 
     }
-    if(type_to_write == lua.types.BOOL){
+    else if(type_to_write == lua.types.BOOL){
         bool content  = lua.args.get_bool(args,1);
         const char *converted = content ? "true":"false";
         writed = dtw_write_string_file_content(filename,converted);
     }
 
-    if(type_to_write == lua.types.TABLE){
+    else if(type_to_write == lua.types.TABLE){
         LuaCEmbedTable * bytes = lua.args.get_table(args,1);
         LuaCEmbedResponse  *possible_error = ensure_table_type(bytes,BYTE_TYPE,BYTE_STRING);
         if(possible_error){
@@ -72,6 +72,12 @@ LuaCEmbedResponse  * write_file(LuaCEmbed *args){
         long size = lua.tables.get_long_prop(bytes,SIZE);
         unsigned  char * content = (unsigned  char *)lua.tables.get_long_prop(bytes,CONTENT_POINTER);
         writed =dtw_write_any_content(filename,content,size);
+    }
+    else{
+        char *error = private_LuaCembed_format(NOT_WRITEBLE_ELEMENT,lua.convert_arg_code(type_to_write));
+        LuaCEmbedResponse *response = lua.response.send_error(error);
+        free(error);
+        return response;
     }
     return  lua.response.send_bool(writed);
 }

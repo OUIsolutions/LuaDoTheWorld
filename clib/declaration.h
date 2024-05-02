@@ -3,3 +3,4 @@
 #include "bytes/bytes.h"
 #include "types/types.h"
 #include "listage/listage.h"
+#include "b64/b64.h"
