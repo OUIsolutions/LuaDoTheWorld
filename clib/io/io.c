@@ -29,33 +29,40 @@ LuaCEmbedResponse  * write_file(LuaCEmbed *args){
         char *error_message = lua.get_error_message(args);
         return  lua.response.send_error(error_message);
     }
+    bool writed = false;
     long total_args = lua.args.size(args);
     if(total_args == 0){
-        dtw_write_string_file_content(filename,"");
-        return NULL;
+       writed = dtw.write_string_file_content(filename,"");
+        return lua.response.send_bool(writed);
     }
+
     int type_to_write = lua.args.get_type(args,1);
     if(type_to_write == lua.types.STRING){
         char *content = lua.args.get_str(args,1);
-        dtw_write_string_file_content(filename,content);
-        return NULL;
+        writed = dtw.write_string_file_content(filename,content);
     }
+
     if(type_to_write == lua.types.NUMBER){
         double content = lua.args.get_double(args,1);
         double rest = content - (double)(long ) content;
         if(rest == 0){
-            dtw.write_long_file_content(filename,(long)content);
+            char formatted[20] = {0};
+            sprintf(formatted,"%ld",(long)content);
+            writed = dtw.write_string_file_content(filename,formatted);
         }
         else{
-            dtw.write_double_file_content(filename,content);
+            char formatted[20] = {0};
+            sprintf(formatted,"%lf",content);
+            writed = dtw.write_string_file_content(filename,formatted);
         }
-        return NULL;
+
     }
     if(type_to_write == lua.types.BOOL){
         bool content  = lua.args.get_bool(args,1);
         const char *converted = content ? "true":"false";
-        dtw_write_string_file_content(filename,converted);
+        writed = dtw_write_string_file_content(filename,converted);
     }
+
     if(type_to_write == lua.types.TABLE){
         LuaCEmbedTable * bytes = lua.args.get_table(args,1);
         LuaCEmbedResponse  *possible_error = ensure_table_type(bytes,BYTE_TYPE,BYTE_STRING);
@@ -64,7 +71,66 @@ LuaCEmbedResponse  * write_file(LuaCEmbed *args){
         }
         long size = lua.tables.get_long_prop(bytes,SIZE);
         unsigned  char * content = (unsigned  char *)lua.tables.get_long_prop(bytes,CONTENT_POINTER);
-        dtw_write_any_content(filename,content,size);
+        writed =dtw_write_any_content(filename,content,size);
     }
-    return  NULL;
+    return  lua.response.send_bool(writed);
 }
+
+LuaCEmbedResponse  * copy_any_overwriting(LuaCEmbed *args){
+    char *source = lua.args.get_str(args,0);
+    char *dest = lua.args.get_str(args,1);
+    if(lua.has_errors(args)){
+        char *error_message = lua.get_error_message(args);
+        return  lua.response.send_error(error_message);
+    }
+
+    bool writed = dtw.copy_any(source,dest,DTW_NOT_MERGE);
+    return lua.response.send_bool(writed);
+}
+
+
+LuaCEmbedResponse  * copy_any_merging(LuaCEmbed *args){
+    char *source = lua.args.get_str(args,0);
+    char *dest = lua.args.get_str(args,1);
+    if(lua.has_errors(args)){
+        char *error_message = lua.get_error_message(args);
+        return  lua.response.send_error(error_message);
+    }
+
+    bool writed = dtw.copy_any(source,dest,DTW_MERGE);
+    return lua.response.send_bool(writed);
+}
+
+LuaCEmbedResponse  * move_any_overwriting(LuaCEmbed *args){
+    char *source = lua.args.get_str(args,0);
+    char *dest = lua.args.get_str(args,1);
+    if(lua.has_errors(args)){
+        char *error_message = lua.get_error_message(args);
+        return  lua.response.send_error(error_message);
+    }
+    bool writed = dtw.move_any(source,dest,DTW_NOT_MERGE);
+    return lua.response.send_bool(writed);
+}
+LuaCEmbedResponse  * move_any_merging(LuaCEmbed *args){
+    char *source = lua.args.get_str(args,0);
+    char *dest = lua.args.get_str(args,1);
+    if(lua.has_errors(args)){
+        char *error_message = lua.get_error_message(args);
+        return  lua.response.send_error(error_message);
+    }
+    bool writed = dtw.move_any(source,dest,DTW_MERGE);
+    return lua.response.send_bool(writed);
+}
+
+
+LuaCEmbedResponse  * remove_any(LuaCEmbed *args){
+    char *source = lua.args.get_str(args,0);
+    if(lua.has_errors(args)){
+        char *error_message = lua.get_error_message(args);
+        return  lua.response.send_error(error_message);
+    }
+    bool writed = dtw.remove_any(source);
+    return lua.response.send_bool(writed);
+}
+
+
