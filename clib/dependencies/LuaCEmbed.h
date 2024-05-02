@@ -23172,6 +23172,67 @@ bool LuaCEmbed_get_evaluation_bool(LuaCEmbed *self,const char *code, ...);
 
 
 
+void LuaCEmbed_set_long_lib_prop(LuaCEmbed *self,const char *name,long value);
+
+void LuaCEmbed_set_double_lib_prop(LuaCEmbed *self,const char *name,double value);
+
+void LuaCEmbed_set_bool_lib_prop(LuaCEmbed *self,const char *name,bool value);
+
+void LuaCEmbed_set_string_lib_prop(LuaCEmbed *self,const char *name,const char * value);
+
+void LuaCEmbed_set_table_lib_prop(LuaCEmbed *self,const char *name,LuaCEmbedTable *value);
+
+
+
+
+
+void LuaCEmbed_set_long_lib_prop(LuaCEmbed *self,const char *name,long value){
+    lua_getglobal(self->state,PRIVATE_LUA_CEMBED_MAIN_LIB_TABLE_NAME);
+    lua_pushvalue(self->state,-1);
+    //set the function name
+    lua_pushstring(self->state,name);
+    lua_pushinteger(self->state,value);
+    lua_settable(self->state,-3);
+}
+
+void LuaCEmbed_set_double_lib_prop(LuaCEmbed *self,const char *name,double value){
+    lua_getglobal(self->state,PRIVATE_LUA_CEMBED_MAIN_LIB_TABLE_NAME);
+    lua_pushvalue(self->state,-1);
+    //set the function name
+    lua_pushstring(self->state,name);
+    lua_pushnumber(self->state,value);
+    lua_settable(self->state,-3);
+}
+
+void LuaCEmbed_set_bool_lib_prop(LuaCEmbed *self,const char *name,bool value){
+    lua_getglobal(self->state,PRIVATE_LUA_CEMBED_MAIN_LIB_TABLE_NAME);
+    lua_pushvalue(self->state,-1);
+    //set the function name
+    lua_pushstring(self->state,name);
+    lua_pushboolean(self->state,value);
+    lua_settable(self->state,-3);
+}
+
+void LuaCEmbed_set_string_lib_prop(LuaCEmbed *self,const char *name,const char * value){
+    lua_getglobal(self->state,PRIVATE_LUA_CEMBED_MAIN_LIB_TABLE_NAME);
+    lua_pushvalue(self->state,-1);
+    //set the function name
+    lua_pushstring(self->state,name);
+    lua_pushstring(self->state,value);
+    lua_settable(self->state,-3);
+}
+
+void LuaCEmbed_set_table_lib_prop(LuaCEmbed *self,const char *name,LuaCEmbedTable *value){
+    lua_getglobal(self->state,PRIVATE_LUA_CEMBED_MAIN_LIB_TABLE_NAME);
+    lua_pushvalue(self->state,-1);
+    lua_pushstring(self->state,name);
+    lua_getglobal(self->state,value->global_name);
+    lua_settable(self->state,-3);
+}
+
+
+
+
 
 LuaCEmbedResponse * LuaCEmbed_send_table(LuaCEmbedTable *table);
 
@@ -23351,6 +23412,13 @@ typedef struct{
     long (*get_evaluation_long)(LuaCEmbed *self,const char *code,...);
     double (*get_evaluation_double)(LuaCEmbed *self,const char *code,...);
     bool (*get_evaluation_bool)(LuaCEmbed *self, const char *code,...);
+
+    void (*set_long_lib_prop)(LuaCEmbed *self,const char *name,long value);
+
+    void (*set_double_lib_prop)(LuaCEmbed *self,const char *name,double value);
+    void (*set_bool_lib_prop)(LuaCEmbed *self,const char *name,bool value);
+    void (*set_string_lib_prop)(LuaCEmbed *self,const char *name,const char * value);
+    void (*set_table_lib_prop)(LuaCEmbed *self,const char *name,LuaCEmbedTable *value);
 
 
     int (*evaluete_file)(LuaCEmbed *self, const char *file);
@@ -25787,6 +25855,13 @@ LuaCEmbedNamespace newLuaCEmbedNamespace(){
     self.get_evaluation_bool = LuaCEmbed_get_evaluation_bool;
     self.evaluete_file = LuaCEmbed_evaluete_file;
     self.add_callback = LuaCEmbed_add_callback;
+
+    self.set_bool_lib_prop = LuaCEmbed_set_bool_lib_prop;
+    self.set_long_lib_prop = LuaCEmbed_set_long_lib_prop;
+    self.set_double_lib_prop = LuaCEmbed_set_double_lib_prop;
+    self.set_string_lib_prop = LuaCEmbed_set_string_lib_prop;
+    self.set_table_lib_prop = LuaCEmbed_set_table_lib_prop;
+
     self.free = LuaCEmbed_free;
     return self;
 }

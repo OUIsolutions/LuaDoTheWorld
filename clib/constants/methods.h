@@ -1,0 +1,1 @@
+#define LUA_DELETE "__gc"
