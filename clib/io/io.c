@@ -32,53 +32,16 @@ LuaCEmbedResponse  * write_file(LuaCEmbed *args){
     bool writed = false;
     long total_args = lua.args.size(args);
     if(total_args == 0){
-       writed = dtw.write_string_file_content(filename,"");
+        writed  = dtw.write_string_file_content(filename,"");
         return lua.response.send_bool(writed);
     }
 
-    int type_to_write = lua.args.get_type(args,1);
-    if(type_to_write == lua.types.STRING){
-        char *content = lua.args.get_str(args,1);
-        writed = dtw.write_string_file_content(filename,content);
+    Writeble  write_obj = create_writeble(args,1);
+    if(write_obj.error){
+        return write_obj.error;
     }
-
-    else if(type_to_write == lua.types.NUMBER){
-        double content = lua.args.get_double(args,1);
-        double rest = content - (double)(long ) content;
-        if(rest == 0){
-            char formatted[20] = {0};
-            sprintf(formatted,"%ld",(long)content);
-            writed = dtw.write_string_file_content(filename,formatted);
-        }
-        else{
-            char formatted[20] = {0};
-            sprintf(formatted,"%lf",content);
-            writed = dtw.write_string_file_content(filename,formatted);
-        }
-
-    }
-    else if(type_to_write == lua.types.BOOL){
-        bool content  = lua.args.get_bool(args,1);
-        const char *converted = content ? "true":"false";
-        writed = dtw_write_string_file_content(filename,converted);
-    }
-
-    else if(type_to_write == lua.types.TABLE){
-        LuaCEmbedTable * bytes = lua.args.get_table(args,1);
-        LuaCEmbedResponse  *possible_error = ensure_table_type(bytes,BYTE_TYPE,BYTE_STRING);
-        if(possible_error){
-            return possible_error;
-        }
-        long size = lua.tables.get_long_prop(bytes,SIZE);
-        unsigned  char * content = (unsigned  char *)lua.tables.get_long_prop(bytes,CONTENT_POINTER);
-        writed =dtw_write_any_content(filename,content,size);
-    }
-    else{
-        char *error = private_LuaCembed_format(NOT_WRITEBLE_ELEMENT,lua.convert_arg_code(type_to_write));
-        LuaCEmbedResponse *response = lua.response.send_error(error);
-        free(error);
-        return response;
-    }
+    writed = dtw.write_any_content(write_obj.content,write_obj.size);
+    Writeble_free(&write_obj);
     return  lua.response.send_bool(writed);
 }
 
