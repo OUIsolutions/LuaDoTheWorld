@@ -2,3 +2,4 @@
 #include "methods.h"
 #include "type_codes.h"
 #include "errors.h"
+#include "func_names.h"

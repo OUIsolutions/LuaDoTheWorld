@@ -9,7 +9,7 @@ int luaopen_doTheWorld(lua_State *state){
     dtw = newDtwNamespace();
     bool set_functions_as_public  = false;
     LuaCEmbed * l  = lua.newLuaLib(state,set_functions_as_public);
-
+    lua.add_callback(l,LOAD_FILE,load_file);
+    lua.add_callback(l,WRITE_FILE,write_file);
     return lua.perform(l);
-
 }
