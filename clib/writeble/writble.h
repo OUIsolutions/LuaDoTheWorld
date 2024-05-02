@@ -2,6 +2,7 @@
 
 typedef struct{
     unsigned  char *content;
+    bool clear_content;
     long size;
     LuaCEmbedResponse  *error;
 }Writeble;

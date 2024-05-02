@@ -17,6 +17,7 @@ Writeble  create_writeble(LuaCEmbed *args,int index){
     }
 
     else if(type_to_write == lua.types.NUMBER){
+        self.clear_content = true;
         double content = lua.args.get_double(args,1);
         double rest = content - (double)(long ) content;
         if(rest == 0){
@@ -36,7 +37,7 @@ Writeble  create_writeble(LuaCEmbed *args,int index){
     else if(type_to_write == lua.types.BOOL){
         bool content  = lua.args.get_bool(args,1);
         const char *converted = content ? "true":"false";
-        self.content = (unsigned char*)strdup(converted);
+        self.content = (unsigned char*)converted;
         self.size = (long)strlen(converted);
     }
 
@@ -61,7 +62,7 @@ Writeble  create_writeble(LuaCEmbed *args,int index){
     return self;
 }
 void Writeble_free(Writeble *self){
-    if(self->content){
+    if(self->clear_content){
         free(self->content);
     }
 }
