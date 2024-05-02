@@ -1,6 +1,8 @@
 dtw = require("luaDoTheWorld/luaDoTheWorld")
 
 
+local r = dtw.list_all_recursively("clib")
 
-dtw.remove_any("teste.txt")
-dtw.remove_any("teste2.txt")
+for  i,v in ipairs(r) do 
+    print(v)
+end 
