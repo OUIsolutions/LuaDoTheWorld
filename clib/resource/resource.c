@@ -1,6 +1,9 @@
 
-LuaCEmbedResponse * delete_resource(LuaCEmbedTable  *self,LuaCEmbed *args){
+LuaCEmbedResponse * free_resource(LuaCEmbedTable  *self, LuaCEmbed *args){
     DtwResource  *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
+    dtw.resource.free(resource);
+    return  NULL;
+
 }
 
 LuaCEmbedResponse * resource_to_string(LuaCEmbedTable  *self,LuaCEmbed *args){
@@ -98,11 +101,14 @@ LuaCEmbedResponse * resource_sub_resource(LuaCEmbedTable  *self,LuaCEmbed *args)
 LuaCEmbedResponse * resource_commit(LuaCEmbedTable  *self,LuaCEmbed *args){
     DtwResource  *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
     dtw.resource.commit(resource);
+    return  NULL;
+
 }
 
 LuaCEmbedResponse * resource_destroy(LuaCEmbedTable  *self,LuaCEmbed *args){
     DtwResource  *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
     dtw.resource.destroy(resource);
+    return  NULL;
 }
 
 LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource){
@@ -121,7 +127,7 @@ LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource){
     bool is_root = !resource->child;
 
     if(is_root){
-        lua.tables.set_method(self,DELETE_METHOD,delete_resource);
+        lua.tables.set_method(self, DELETE_METHOD, free_resource);
     }
 
     return self;

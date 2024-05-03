@@ -1,13 +1,6 @@
---local dtw = require("luaDoTheWorld/luaDoTheWorld")
+local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
 
-local function teste(v)
-    if v== nil then 
-    error({teste=30,valor='aaaaa'})
-    end 
-    return "normal"
-end 
+local r = dtw.newResource("a")
 
-local valor ,erro = pcall(teste)
-print(valor)
-print(erro)
+local c = r['b']['c']

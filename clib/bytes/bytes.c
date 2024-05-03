@@ -25,6 +25,7 @@ LuaCEmbedTable * create_bytes(LuaCEmbed  *args,unsigned  char *content,long size
 LuaCEmbedTable * create_bytes_ref(LuaCEmbed  *args,unsigned  char *content,long size){
     LuaCEmbedTable *self = create_bytes(args,content,size);
     lua.tables.set_bool_prop(self,IS_A_REF,true);
+    return self;
 }
 
 LuaCEmbedResponse * is_byte(LuaCEmbed  *args){
