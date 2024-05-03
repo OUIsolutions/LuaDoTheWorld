@@ -26,3 +26,19 @@ LuaCEmbedTable * create_bytes_ref(LuaCEmbed  *args,unsigned  char *content,long 
     LuaCEmbedTable *self = create_bytes(args,content,size);
     lua.tables.set_bool_prop(self,IS_A_REF,true);
 }
+
+LuaCEmbedResponse * is_byte(LuaCEmbed  *args){
+    if(lua.args.get_type(args,0) != lua.types.TABLE){
+        return lua.response.send_bool(false);
+    }
+    LuaCEmbedTable *possible_byte = lua.args.get_table(args,0);
+    if(lua.tables.get_type_prop(possible_byte,DTW_TYPE) != lua.types.NUMBER){
+        return lua.response.send_bool(false);
+    }
+    long type = lua.tables.get_long_prop(possible_byte,DTW_TYPE);
+    if(type != BYTE_TYPE){
+        return lua.response.send_bool(false);
+    }
+    return lua.response.send_bool(true);
+
+}

@@ -80,12 +80,12 @@ LuaCEmbedResponse * create_hasher(LuaCEmbed *args){
     LuaCEmbedTable * self = lua.tables.new_anonymous_table(args);
     DtwHash *hash = newDtwHash();
     lua.tables.set_long_prop(self,HASH_POINTER,(long)hash);
-    lua.tables.set_method(self,DIGESST,hasher_digest);
+    lua.tables.set_method(self, DIGESST_METHOD, hasher_digest);
     lua.tables.set_method(self, TO_STRING_METHOD, hasher_get_value);
     lua.tables.set_method(self, GET_VALUE_METHOD, hasher_get_value);
-    lua.tables.set_method(self,DIGESST_FILE,hasher_digest_file);
-    lua.tables.set_method(self,DIGESST_FOLDER_BY_CONTENT,hasher_digest_folder_by_content);
-    lua.tables.set_method(self,DIGESST_FOLDER_BY_LAST_MODIFICATION,hasher_digest_folder_by_last_modification);
+    lua.tables.set_method(self, DIGESST_FILE_METHOD, hasher_digest_file);
+    lua.tables.set_method(self, DIGESST_FOLDER_BY_CONTENT_METHOD, hasher_digest_folder_by_content);
+    lua.tables.set_method(self, DIGESST_FOLDER_BY_LAST_MODIFICATION_METHOD, hasher_digest_folder_by_last_modification);
     lua.tables.set_method(self, DELETE_METHOD, delete_hasher);
     return lua.response.send_table(self);
 }

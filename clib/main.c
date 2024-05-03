@@ -28,6 +28,8 @@ void start_lua_props(LuaCEmbed *l){
     lua.add_callback(l,GENERATE_SHA,generate_sha);
     lua.add_callback(l,GENERATE_SHA_FROM_FILE,generate_sha_from_file);
     lua.add_callback(l, NEW_RESOURCE, create_resource);
+    lua.add_callback(l,IS_BYTE_FUNC,is_byte);
+
     lua.add_callback(l,NEW_HASHER,create_hasher);
 }
 

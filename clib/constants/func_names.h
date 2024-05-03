@@ -22,3 +22,4 @@
 #define GENERATE_SHA_FROM_FILE "generate_sha_from_file"
 #define NEW_HASHER "new_hasher"
 #define NEW_RESOURCE "new_resource"
+#define IS_BYTE_FUNC "is_byte"

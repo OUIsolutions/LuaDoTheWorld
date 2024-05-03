@@ -95,6 +95,15 @@ LuaCEmbedResponse * resource_sub_resource(LuaCEmbedTable  *self,LuaCEmbed *args)
     return lua.response.send_table(sub);
 }
 
+LuaCEmbedResponse * resource_commit(LuaCEmbedTable  *self,LuaCEmbed *args){
+    DtwResource  *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
+    dtw.resource.commit(resource);
+}
+
+LuaCEmbedResponse * resource_destroy(LuaCEmbedTable  *self,LuaCEmbed *args){
+    DtwResource  *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
+    dtw.resource.destroy(resource);
+}
 
 LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource){
 
@@ -106,6 +115,8 @@ LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource){
     lua.tables.set_method(self,GET_VALUE_METHOD,resource_value);
     lua.tables.set_method(self,INDEX_METHD,resource_sub_resource);
     lua.tables.set_method(self,SET_VALUE_METHOD,resource_set_value);
+    lua.tables.set_method(self,COMMIT_METHOD,resource_commit);
+    lua.tables.set_method(self,DESTROY_METHOD,resource_destroy);
 
     bool is_root = !resource->child;
 
