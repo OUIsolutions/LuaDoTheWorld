@@ -6,3 +6,4 @@
 #include "listage/listage.h"
 #include "b64/b64.h"
 #include "sha/sha.h"
+#include "hasher/hasher.h"
