@@ -7,3 +7,4 @@
 #include "b64/b64.h"
 #include "sha/sha.h"
 #include "hasher/hasher.h"
+#include "resource/resource.h"

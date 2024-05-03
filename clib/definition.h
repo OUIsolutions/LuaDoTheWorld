@@ -6,3 +6,4 @@
 #include "b64/b64.c"
 #include "sha/sha.c"
 #include "hasher/hasher.c"
+#include "resource/resource.c"
