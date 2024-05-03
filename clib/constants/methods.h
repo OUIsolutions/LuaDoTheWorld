@@ -2,3 +2,6 @@
 #define TO_STRING_METHOD "__tostring"
 #define GET_VALUE_METHOD "get_value"
 #define DIGESST "digest"
+#define DIGESST_FOLDER_BY_CONTENT "digest_folder_by_content"
+#define DIGESST_FOLDER_BY_LAST_MODIFICATION "digest_folder_by_last_modification"
+#define DIGESST_FILE "digest_file"

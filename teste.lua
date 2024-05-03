@@ -2,6 +2,6 @@ dtw = require("luaDoTheWorld/luaDoTheWorld")
 
 local hasher = dtw.new_hasher()
 
-hasher.digest("aaaa")
-hasher.digest(10)
+hasher.digest_folder_by_content("clib")
+
 print(tostring(hasher))
