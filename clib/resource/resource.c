@@ -1,7 +1,10 @@
 
 LuaCEmbedResponse * free_resource(LuaCEmbedTable  *self, LuaCEmbed *args){
     DtwResource  *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
-    dtw.resource.free(resource);
+    if(!resource->child){
+        dtw.resource.free(resource);
+    }
+
     return  NULL;
 
 }
@@ -123,12 +126,8 @@ LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource){
     lua.tables.set_method(self,SET_VALUE_METHOD,resource_set_value);
     lua.tables.set_method(self,COMMIT_METHOD,resource_commit);
     lua.tables.set_method(self,DESTROY_METHOD,resource_destroy);
+    lua.tables.set_method(self, DELETE_METHOD, free_resource);
 
-    bool is_root = !resource->child;
-
-    if(is_root){
-        lua.tables.set_method(self, DELETE_METHOD, free_resource);
-    }
 
     return self;
 }
