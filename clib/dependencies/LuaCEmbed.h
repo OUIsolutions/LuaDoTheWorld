@@ -24418,13 +24418,22 @@ void LuaCEmbedTable_set_method(LuaCEmbedTable *self , const char *name, LuaCEmbe
             is_meta = true;
         }
     }
-    bool is_normal = !is_meta;
+    lua_getglobal(self->main_object->state,self->global_name);
 
     if(is_meta){
-        luaL_newmetatable(self->main_object->state,PRIVATE_LUA_CEMBED_TABLE_META_NAME);
-    }
-    if(is_normal){
-        lua_getglobal(self->main_object->state,self->global_name);
+
+
+        int found =lua_getmetatable(self->main_object->state,-1);
+        if(!found){
+
+            //equivalent of meta ={} ;setmetatable(table,meta)
+            lua_getglobal(self->main_object->state,self->global_name);
+            lua_newtable(self->main_object->state);
+            lua_setmetatable(self->main_object->state,-2);
+
+            lua_getglobal(self->main_object->state,self->global_name);
+            lua_getmetatable(self->main_object->state,-1);
+        }
     }
 
 
@@ -24443,8 +24452,10 @@ void LuaCEmbedTable_set_method(LuaCEmbedTable *self , const char *name, LuaCEmbe
     lua_settable(self->main_object->state,-3);
 
     if(is_meta){
+        //equivalent of meta ={} ;setmetatable(table,meta)
         lua_getglobal(self->main_object->state,self->global_name);
-        luaL_setmetatable(self->main_object->state,PRIVATE_LUA_CEMBED_TABLE_META_NAME);
+       lua_getmetatable(self->main_object->state,-1);
+        lua_setmetatable(self->main_object->state,-2);
     }
 
 }
