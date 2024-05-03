@@ -21,3 +21,4 @@
 #define GENERATE_SHA "generate_sha"
 #define GENERATE_SHA_FROM_FILE "generate_sha_from_file"
 #define NEW_HASHER "new_hasher"
+

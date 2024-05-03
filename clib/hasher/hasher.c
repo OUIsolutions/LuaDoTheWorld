@@ -1,4 +1,17 @@
 
+LuaCEmbedResponse * hasher_digest_file(LuaCEmbedTable *self,LuaCEmbed *args){
+    char *filename = lua.args.get_str(args,0);
+    if(lua.has_errors(args)){
+        char *error_message = lua.get_error_message(args);
+        return  lua.response.send_error(error_message);
+    }
+    
+    DtwHash *hash = (DtwHash*)lua.tables.get_long_prop(self,HASH_POINTER);
+
+}
+
+LuaCEmbedResponse * hasher_digest_folder(LuaCEmbedTable *self,LuaCEmbed *args);
+
 
 LuaCEmbedResponse * delete_hasher(LuaCEmbedTable *self,LuaCEmbed *args){
     DtwHash *hash = (DtwHash*)lua.tables.get_long_prop(self,HASH_POINTER);
