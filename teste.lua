@@ -1,5 +1,8 @@
 dtw = require("luaDoTheWorld/luaDoTheWorld")
 
 
-local r = dtw.base64_encode_file("README.md")
-print(r)
+local r = dtw.load_file("deer.jpg")
+dtw.write_file("saida.jpg",r)
+
+local sha  = dtw.generate_sha(r)
+print(sha)

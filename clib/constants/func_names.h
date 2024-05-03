@@ -17,3 +17,6 @@
 #define BBASE_64_ENCODE_FILE "base64_encode_file"
 #define BBASE_64_ENCODE "base64_encode"
 #define BBASE_64_DECODE "base64_decode"
+
+#define GENERATE_SHA "generate_sha"
+#define GENERATE_SHA_FROM_FILE "generate_sha_from_file"

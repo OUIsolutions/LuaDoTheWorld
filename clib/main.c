@@ -25,6 +25,9 @@ void start_lua_props(LuaCEmbed *l){
     lua.add_callback(l,BBASE_64_ENCODE,base64_encode);
     lua.add_callback(l,BBASE_64_DECODE,base64_decode);
 
+    lua.add_callback(l,GENERATE_SHA,generate_sha);
+    lua.add_callback(l,GENERATE_SHA_FROM_FILE,generate_sha_from_file);
+
 }
 
 int load_lua(lua_State *state){

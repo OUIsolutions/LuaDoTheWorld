@@ -5,3 +5,4 @@
 #include "types/types.h"
 #include "listage/listage.h"
 #include "b64/b64.h"
+#include "sha/sha.h"
