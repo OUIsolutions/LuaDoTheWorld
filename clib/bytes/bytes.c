@@ -1,7 +1,11 @@
 
 LuaCEmbedResponse  *delete_bytes(LuaCEmbedTable *self,LuaCEmbed *args){
 
-    
+    bool ref = lua.tables.get_bool_prop(self,IS_A_REF);
+    if(ref){
+        return NULL;
+    }
+
     long pointer = lua.tables.get_long_prop(self,CONTENT_POINTER);
     unsigned  char *converted = (unsigned  char *)pointer;
     free(converted);
@@ -11,8 +15,14 @@ LuaCEmbedResponse  *delete_bytes(LuaCEmbedTable *self,LuaCEmbed *args){
 LuaCEmbedTable * create_bytes(LuaCEmbed  *args,unsigned  char *content,long size){
     LuaCEmbedTable *self = lua.tables.new_anonymous_table(args);
     lua.tables.set_long_prop(self,DTW_TYPE,BYTE_TYPE);
+    lua.tables.set_bool_prop(self,IS_A_REF,false);
     lua.tables.set_long_prop(self,SIZE,size);
     lua.tables.set_long_prop(self,CONTENT_POINTER,(long)content);
     lua.tables.set_method(self, DELETE_METHOD, delete_bytes);
     return self;
+}
+
+LuaCEmbedTable * create_bytes_ref(LuaCEmbed  *args,unsigned  char *content,long size){
+    LuaCEmbedTable *self = create_bytes(args,content,size);
+    lua.tables.set_bool_prop(self,IS_A_REF,true);
 }

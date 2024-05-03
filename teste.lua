@@ -1,8 +1,13 @@
-local dtw = require("luaDoTheWorld/luaDoTheWorld")
+--local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
-local hasher = dtw.new_hasher()
 
-hasher.digest_folder_by_content("fff")
+local function teste(v)
+    if v== nil then 
+    error({teste=30,valor='aaaaa'})
+    end 
+    return "normal"
+end 
 
-print(tostring(hasher))
-
+local valor ,erro = pcall(teste)
+print(valor)
+print(erro)
