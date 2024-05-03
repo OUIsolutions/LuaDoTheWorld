@@ -6,7 +6,7 @@ LuaCEmbedResponse  * generate_sha_from_file(LuaCEmbed *args){
         char *error_message = lua.get_error_message(args);
         return  lua.response.send_error(error_message);
     }
-    
+
     char *sha = dtw.generate_sha_from_file(source);
     if(!sha){
         char *formmated  = private_LuaCembed_format(FILE_NOT_FOUND,source);

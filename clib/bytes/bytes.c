@@ -1,6 +1,9 @@
 
 LuaCEmbedResponse  *delete_bytes(LuaCEmbedTable *self,LuaCEmbed *args){
-    unsigned  char *converted = (unsigned  char *)lua.tables.get_long_prop(self,CONTENT_POINTER);
+
+    
+    long pointer = lua.tables.get_long_prop(self,CONTENT_POINTER);
+    unsigned  char *converted = (unsigned  char *)pointer;
     free(converted);
     return NULL;
 }
