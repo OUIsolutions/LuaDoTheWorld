@@ -16,4 +16,4 @@ LuaCEmbedResponse * delete_resource(LuaCEmbedTable  *self,LuaCEmbed *args);
 
 LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource);
 
-LuaCEmbedResponse * createResource(LuaCEmbed *args);
+LuaCEmbedResponse * create_resource(LuaCEmbed *args);

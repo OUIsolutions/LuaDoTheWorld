@@ -106,7 +106,7 @@ LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource){
     lua.tables.set_method(self,GET_VALUE_METHOD,resource_value);
     lua.tables.set_method(self,INDEX_METHD,resource_sub_resource);
     lua.tables.set_method(self,SET_VALUE_METHOD,resource_set_value);
-    
+
     bool is_root = !resource->child;
 
     if(is_root){
@@ -118,7 +118,7 @@ LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource){
 
 
 
-LuaCEmbedResponse * createResource(LuaCEmbed *args){
+LuaCEmbedResponse * create_resource(LuaCEmbed *args){
     char *folder = lua.args.get_str(args,0);
     if(lua.has_errors(args)){
         char *error_message = lua.get_error_message(args);
