@@ -1,8 +1,7 @@
 dtw = require("luaDoTheWorld/luaDoTheWorld")
 
+local hasher = dtw.new_hasher()
 
-local r = dtw.load_file("deer.jpg")
-dtw.write_file("saida.jpg",r)
-
-local sha  = dtw.generate_sha(r)
-
+hasher.digest("aaaa")
+hasher.digest(10)
+print(tostring(hasher))

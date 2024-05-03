@@ -17,12 +17,21 @@ LuaCEmbedResponse * hasher_digest(LuaCEmbedTable *self,LuaCEmbed *args){
     return NULL;
 }
 
+LuaCEmbedResponse * hasher_get_value(LuaCEmbedTable *self,LuaCEmbed *args){
+    DtwHash *hash = (DtwHash*)lua.tables.get_long_prop(self,HASH_POINTER);
+    return lua.response.send_str(hash->hash);
+}
+
+
 LuaCEmbedResponse * create_hasher(LuaCEmbed *args){
     LuaCEmbedTable * self = lua.tables.new_anonymous_table(args);
     DtwHash *hash = newDtwHash();
 
     lua.tables.set_long_prop(self,HASH_POINTER,(long)hash);
     lua.tables.set_method(self,DIGESST,hasher_digest);
-    lua.tables.set_method(self,LUA_DELETE,delete_hasher);
+    lua.tables.set_method(self, TO_STRING_METHOD, hasher_get_value);
+    lua.tables.set_method(self, GET_VALUE_METHOD, hasher_get_value);
+    lua.tables.set_method(self, DELETE_METHOD, delete_hasher);
     return lua.response.send_table(self);
+
 }
