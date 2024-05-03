@@ -18,7 +18,7 @@ Writeble  create_writeble(LuaCEmbed *args,int index){
 
     else if(type_to_write == lua.types.NUMBER){
         self.clear_content = true;
-        double content = lua.args.get_double(args,1);
+        double content = lua.args.get_double(args,index);
         double rest = content - (double)(long ) content;
         if(rest == 0){
             char formatted[20] = {0};
@@ -35,14 +35,14 @@ Writeble  create_writeble(LuaCEmbed *args,int index){
 
     }
     else if(type_to_write == lua.types.BOOL){
-        bool content  = lua.args.get_bool(args,1);
+        bool content  = lua.args.get_bool(args,index);
         const char *converted = content ? "true":"false";
         self.content = (unsigned char*)converted;
         self.size = (long)strlen(converted);
     }
 
     else if(type_to_write == lua.types.TABLE){
-        LuaCEmbedTable * bytes = lua.args.get_table(args,1);
+        LuaCEmbedTable * bytes = lua.args.get_table(args,index);
         LuaCEmbedResponse  *possible_error = ensure_table_type(bytes,BYTE_TYPE,BYTE_STRING);
         if(possible_error){
             self.error = possible_error;

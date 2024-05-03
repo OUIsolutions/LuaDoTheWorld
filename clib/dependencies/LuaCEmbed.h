@@ -22960,36 +22960,22 @@ void  privateLuaCEmbedTableArray_free(privateLuaCEmbedTableArray *self);
 #define PRIVATE_LUA_CEMBED_TABLE_PROTECT_VOID \
     if(!self){                          \
     return;                              \
-    }                                     \
-    if(LuaCEmbed_has_errors(self->main_object)){     \
-        return;                         \
     }
 
 #define PRIVATE_LUA_CEMBED_TABLE_PROTECT_NUM \
     if(!self){                          \
     return LUA_CEMBED_GENERIC_ERROR;      \
-    }                                     \
-    if(LuaCEmbed_has_errors(self->main_object)){     \
-        return LUA_CEMBED_GENERIC_ERROR; \
     }
 
 #define PRIVATE_LUA_CEMBED_TABLE_PROTECT_BOOL \
     if(!self){                          \
     return false;      \
-    }                                     \
-    if(LuaCEmbed_has_errors(self->main_object)){     \
-        return false; \
     }
-
 
 #define PRIVATE_LUA_CEMBED_TABLE_PROTECT_NULL \
     if(!self){                          \
     return NULL;      \
-    }                                     \
-    if(LuaCEmbed_has_errors(self->main_object)){     \
-        return NULL; \
     }
-
 
 
 
@@ -23137,37 +23123,23 @@ bool LuaCEmbed_get_evaluation_bool(LuaCEmbed *self,const char *code, ...);
 #define PRIVATE_LUA_CEMBED_PROTECT_VOID \
     if(!self){                          \
     return;                              \
-    }                                     \
-    if(LuaCEmbed_has_errors(self)){     \
-        return;                         \
     }
+
 
 #define PRIVATE_LUA_CEMBED_PROTECT_NUM \
     if(!self){                          \
     return LUA_CEMBED_GENERIC_ERROR;      \
-    }                                     \
-    if(LuaCEmbed_has_errors(self)){     \
-        return LUA_CEMBED_GENERIC_ERROR; \
     }
 
 #define PRIVATE_LUA_CEMBED_PROTECT_BOOL \
     if(!self){                          \
     return false;      \
-    }                                     \
-    if(LuaCEmbed_has_errors(self)){     \
-        return false; \
     }
-
 
 #define PRIVATE_LUA_CEMBED_PROTECT_NULL \
     if(!self){                          \
     return NULL;      \
-    }                                     \
-    if(LuaCEmbed_has_errors(self)){     \
-        return NULL; \
     }
-
-
 
 
 
@@ -23631,10 +23603,11 @@ void * privateLuaCEmbed_get_current_table_array(LuaCEmbed *self){
     return self->global_tables;
 }
 void privateLuaCEmbed_raise_error_not_jumping(LuaCEmbed *self, const char *error, ...){
-    if(!self){
+
+    if(LuaCEmbed_has_errors(self)){
         return;
     }
-    LuaCEmbed_clear_errors(self);
+
     va_list args;
     va_start(args,error);
     self->error_msg = private_LuaCembed_format_vaarg(error, args);
