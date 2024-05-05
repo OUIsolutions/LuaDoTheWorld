@@ -8,7 +8,6 @@
 ---@field digest_file fun(source:string)
 ---@field digest_folder fun(source:string)
 ---@field get_value fun()
----@
 
 ---@class DtwResource
 ---@field sub_resource fun(str:string) :DtwResource 
