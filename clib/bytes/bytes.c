@@ -11,6 +11,21 @@ LuaCEmbedResponse  *delete_bytes(LuaCEmbedTable *self,LuaCEmbed *args){
     free(converted);
     return NULL;
 }
+LuaCEmbedResponse  *get_byte_at(LuaCEmbedTable *self,LuaCEmbed *args){
+    long index = lua.args.get_long(args,0);
+
+    if(lua.has_errors(args)){
+        char *error_message = lua.get_error_message(args);
+        return  lua.response.send_error(error_message);
+    }
+    long converted_index = index -1;
+    long size = lua.tables.get_long_prop(self,SIZE);
+    if(index >=size){
+        return  lua.response.send_error(INVALID_INDEX);
+    }
+    unsigned char *value = (unsigned  char*)lua.tables.get_long_prop(self,CONTENT_POINTER);
+    return lua.response.send_long((long)value[converted_index]);
+}
 
 LuaCEmbedTable * create_bytes(LuaCEmbed  *args,unsigned  char *content,long size){
     LuaCEmbedTable *self = lua.tables.new_anonymous_table(args);
@@ -18,6 +33,8 @@ LuaCEmbedTable * create_bytes(LuaCEmbed  *args,unsigned  char *content,long size
     lua.tables.set_bool_prop(self,IS_A_REF,false);
     lua.tables.set_long_prop(self,SIZE,size);
     lua.tables.set_long_prop(self,CONTENT_POINTER,(long)content);
+    lua.tables.set_method(self,INDEX_METHOD,get_byte_at);
+    lua.tables.set_method(self,GET_BYTE_AT_METHOD,get_byte_at);
     lua.tables.set_method(self, DELETE_METHOD, delete_bytes);
     return self;
 }

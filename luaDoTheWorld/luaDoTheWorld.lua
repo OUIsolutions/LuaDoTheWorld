@@ -1,5 +1,7 @@
 
 ---@class Bytes 
+---@field size number
+---@field get_byte_at fun(index:number) number
 
 
 ---@class DtwResource
@@ -13,6 +15,10 @@
 ---@field move_any_overwriting fun(src:string,dest:string):boolean returns true if the operation were ok otherwise false
 ---@field move_any_merging fun(src:string,dest:string):boolean returns true if the operation were ok otherwise false
 ---@field remove_any fun(src:string):boolean returns true if the operation were ok otherwise false
+---@field base64_encode_file fun(src:string):string transform file into base64 
+---@field base64_encode fun(value:string | number | boolean | Bytes):string transform content into base64
+---@field base64_decode fun(value:string): string | Bytes retransform base64 into normal value 
+---@field 
 ---@field list_files fun(src:string):string[] 
 ---@field list_dirs fun(src:string):string[] 
 ---@field list_all fun(src:string):string[] 

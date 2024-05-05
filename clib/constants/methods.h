@@ -3,6 +3,8 @@
 #define TO_NUMBER_METHOD "__tonumber"
 #define TO_BOOLEAN_METHOD "__tobolean"
 #define INDEX_METHOD "__index"
+#define SUB_RESOURCE_METHOD "sub_resource"
+#define GET_BYTE_AT_METHOD "get_byte_at"
 #define SUB_RESOURCE_NEXT_METHOD "sub_resource_next"
 #define SUB_RESOURCE_NOW_METHOD "sub_resource_now"
 #define SUB_RESOURCE_NOW_IN_UNIX "sub_resource_now_in_unix"

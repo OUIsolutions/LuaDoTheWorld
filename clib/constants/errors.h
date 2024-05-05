@@ -5,3 +5,4 @@
 #define ARGUMENT_NOT_PROVIDED "argument not provided"
 
 #define NOT_WRITEBLE_ELEMENT "element of type %s its not in (string,bool,bytes,number)"
+#define INVALID_INDEX "invalid index"
