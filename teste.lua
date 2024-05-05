@@ -1,19 +1,18 @@
 
+
+
+---@class DoTheWorld 
+---@field list_files fun(src:string ):string[] 
+
+
+---@type DoTheWorld
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
 
----@class Test
----@field name string A test name
----@field description string? A test description
----@field version number A test version
 
 
----@return Test
-function Example6()
+
+local clib  = dtw.list_files("clib")
+for i,v in ipairs(clib) do 
+    print(v)
 end 
-
-
-
-v = Example6()
-
-v.name
