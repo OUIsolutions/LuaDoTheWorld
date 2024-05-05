@@ -16,7 +16,7 @@ void start_lua_props(LuaCEmbed *l){
 
     lua.add_callback(l,LIST_FILES,list_files);
     lua.add_callback(l,LIST_FILES_RECURSIVELY,list_files_recursively);
-    lua.add_callback(l,LIST_DIRS,list_dirs_recursively);
+    lua.add_callback(l,LIST_DIRS,list_dirs);
     lua.add_callback(l,LIST_DIRS_RECURSIVELY,list_dirs_recursively);
     lua.add_callback(l,LIST_ALL,list_all);
     lua.add_callback(l,LIST_ALL_RECURSIVELY,list_all_recursively);

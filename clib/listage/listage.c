@@ -16,7 +16,6 @@ LuaCEmbedResponse  * aply_listage(LuaCEmbed *args,DtwStringArray* (*callback)(co
         lua.tables.append_string(table,current_value);
     }
     dtw.string_array.free(listage);
-    
     return lua.response.send_table(table);
 }
 
