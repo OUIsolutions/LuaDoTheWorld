@@ -1,6 +1,6 @@
 
---@class DtwModule
---@field list_files string
+---@class DtwModule
+---@field list_files fun(src:string):string[]
 
 
 
@@ -20,7 +20,7 @@ end
 
 local load_lua = package.loadlib(lib_path, "load_lua")
 
---@type DtwModule
+---@type DtwModule
 local lib = load_lua()
 
 return lib
