@@ -9,74 +9,7 @@ LuaCEmbedResponse * free_resource(LuaCEmbedTable  *self, LuaCEmbed *args){
 
 }
 
-LuaCEmbedResponse * resource_to_string(LuaCEmbedTable  *self,LuaCEmbed *args){
-    DtwResource  *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
-    char *value = dtw.resource.get_string(resource);
-    if(dtw.resource.error(resource)){
-        char *error_message = dtw.resource.get_error_message(resource);
-        LuaCEmbedResponse *response = lua.response.send_error(error_message);
-        dtw.resource.clear_errors(resource);
-        return response;
-    }
-    return lua.response.send_str(value);
-}
 
-
-LuaCEmbedResponse * resource_to_number(LuaCEmbedTable  *self,LuaCEmbed *args){
-    DtwResource  *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
-    double value = dtw.resource.get_double(resource);
-    if(dtw.resource.error(resource)){
-        char *error_message = dtw.resource.get_error_message(resource);
-        LuaCEmbedResponse *response = lua.response.send_error(error_message);
-        dtw.resource.clear_errors(resource);
-        return response;
-    }
-    return lua.response.send_double(value);
-}
-
-LuaCEmbedResponse * resource_value(LuaCEmbedTable  *self,LuaCEmbed *args){
-    DtwResource  *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
-    int type = dtw.resource.type(resource);
-
-    if(type == DTW_FOLDER_TYPE || type == DTW_NOT_FOUND){
-        return NULL;
-    }
-    if(type == DTW_COMPLEX_DOUBLE_TYPE || type == DTW_COMPLEX_LONG_TYPE){
-        double value = dtw.resource.get_double(resource);
-        return lua.response.send_double(value);
-    }
-    if(type == DTW_COMPLEX_STRING_TYPE){
-        char *value = dtw.resource.get_string(resource);
-        return lua.response.send_str(value);
-    }
-
-    if(type == DTW_COMPLEX_BOOL_TYPE){
-        bool value= dtw.resource.get_bool(resource);
-        return lua.response.send_bool(value);
-    }
-
-    if(type == DTW_COMPLEX_BINARY){
-        long size;
-        bool is_binary;
-        unsigned  char *content =  dtw.resource.get_any(resource,&size,&is_binary);
-        LuaCEmbedTable *bytes = create_bytes_ref(args,content,size);
-        return lua.response.send_table(bytes);
-    }
-    return NULL;
-}
-
-
-LuaCEmbedResponse * resource_to_boolean(LuaCEmbedTable  *self,LuaCEmbed *args){
-    DtwResource  *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
-   bool value = dtw.resource.get_bool(resource);
-    if(dtw.resource.error(resource)){
-        char *error_message = dtw.resource.get_error_message(resource);
-        LuaCEmbedResponse *response = lua.response.send_error(error_message);
-        dtw.resource.clear_errors(resource);
-        return response;
-    }
-    return lua.response.send_bool(value);
-}
 
 LuaCEmbedResponse * resource_set_value(LuaCEmbedTable  *self,LuaCEmbed *args){
     Writeble  write_obj = create_writeble(args,0);
@@ -89,17 +22,6 @@ LuaCEmbedResponse * resource_set_value(LuaCEmbedTable  *self,LuaCEmbed *args){
 }
 
 
-LuaCEmbedResponse * resource_sub_resource(LuaCEmbedTable  *self,LuaCEmbed *args){
-    char *src = lua.args.get_str(args,1);
-    if(lua.has_errors(args)){
-        char *error_message = lua.get_error_message(args);
-        return  lua.response.send_error(error_message);
-    }
-    DtwResource  *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
-    DtwResource *sub_resource = dtw.resource.sub_resource(resource,"%s",src);
-    LuaCEmbedTable  *sub = raw_create_resource(args,sub_resource);
-    return lua.response.send_table(sub);
-}
 
 LuaCEmbedResponse * resource_commit(LuaCEmbedTable  *self,LuaCEmbed *args){
     DtwResource  *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
@@ -113,6 +35,23 @@ LuaCEmbedResponse * resource_destroy(LuaCEmbedTable  *self,LuaCEmbed *args){
     dtw.resource.destroy(resource);
     return  NULL;
 }
+LuaCEmbedResponse * unload_resurce(LuaCEmbedTable  *self, LuaCEmbed *args){
+    DtwResource  *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
+    dtw.resource.unload(resource);
+    return  NULL;
+}
+
+LuaCEmbedResponse * lock_resource(LuaCEmbedTable  *self, LuaCEmbed *args){
+    DtwResource  *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
+    dtw.resource.lock(resource);
+    return  NULL;
+}
+
+LuaCEmbedResponse * unlock_resource(LuaCEmbedTable  *self, LuaCEmbed *args){
+    DtwResource  *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
+    dtw.resource.unlock(resource);
+    return  NULL;
+}
 
 LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource){
 
@@ -122,7 +61,14 @@ LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource){
     lua.tables.set_method(self,TO_NUMBER_METHOD,resource_to_number);
     lua.tables.set_method(self,TO_BOOLEAN_METHOD,resource_to_boolean);
     lua.tables.set_method(self,GET_VALUE_METHOD,resource_value);
-    lua.tables.set_method(self,INDEX_METHD,resource_sub_resource);
+    lua.tables.set_method(self, INDEX_METHOD, resource_sub_resource);
+    lua.tables.set_method(self, SUB_RESOURCE_NEXT_METHOD, resource_sub_resource);
+    lua.tables.set_method(self, SUB_RESOURCE_NOW_METHOD, resource_sub_resource);
+    lua.tables.set_method(self, SUB_RESOURCE_NOW_IN_UNIX, resource_sub_resource);
+    lua.tables.set_method(self,LOCK_METHOD,lock_resource);
+    lua.tables.set_method(self,UNLOCK_METHOD,unlock_resource);
+    lua.tables.set_method(self,UNLOAD_METHOD,unload_resurce);
+
     lua.tables.set_method(self,SET_VALUE_METHOD,resource_set_value);
     lua.tables.set_method(self,COMMIT_METHOD,resource_commit);
     lua.tables.set_method(self,DESTROY_METHOD,resource_destroy);

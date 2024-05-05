@@ -2,7 +2,15 @@
 #define TO_STRING_METHOD "__tostring"
 #define TO_NUMBER_METHOD "__tonumber"
 #define TO_BOOLEAN_METHOD "__tobolean"
-#define INDEX_METHD "__index"
+#define INDEX_METHOD "__index"
+#define SUB_RESOURCE_NEXT_METHOD "sub_resource_next"
+#define SUB_RESOURCE_NOW_METHOD "sub_resource_now"
+#define SUB_RESOURCE_NOW_IN_UNIX "sub_resource_now_in_unix"
+
+#define UNLOAD_METHOD "unload"
+#define UNLOCK_METHOD "unlock"
+#define LOCK_METHOD "lock"
+
 #define SET_VALUE_METHOD "set_value"
 #define GET_VALUE_METHOD "get_value"
 #define DIGESST_METHOD "digest"

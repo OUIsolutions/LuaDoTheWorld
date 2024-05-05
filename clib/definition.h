@@ -7,3 +7,5 @@
 #include "sha/sha.c"
 #include "hasher/hasher.c"
 #include "resource/resource.c"
+#include "resource/sub_resource.c"
+#include "resource/getters.c"
