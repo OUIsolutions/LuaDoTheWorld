@@ -3,9 +3,6 @@
 local info = debug.getinfo(1, "S")
 local path = info.source:match("@(.*/)") or ""
 
--- @class DtwModule
--- @field list_files integer
--- @field list_dirs integer
 
 
 local lib_path = ''
