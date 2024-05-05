@@ -1,6 +1,14 @@
 
+
+
+
 ---@class DtwModule
 ---@field list_files fun(src:string):string[]
+---@field list_dirs fun(src:string):string[]
+---@field list_all fun(src:string):string[]
+---@field list_files_recursively fun(src:string):string[]
+---@field list_dirs_recursively fun(src:string):string[]
+---@field list_all_recursively fun(src:string):string[]
 
 
 
