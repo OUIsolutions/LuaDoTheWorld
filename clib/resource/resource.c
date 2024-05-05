@@ -61,12 +61,12 @@ LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource){
     lua.tables.set_method(self,TO_NUMBER_METHOD,resource_to_number);
     lua.tables.set_method(self,TO_BOOLEAN_METHOD,resource_to_boolean);
     lua.tables.set_method(self,GET_VALUE_METHOD,resource_value);
-    lua.tables.set_method(self, INDEX_METHOD, resource_sub_resource);
-    lua.tables.set_method(self, SUB_RESOURCE_METHOD, resource_sub_resource);
+    lua.tables.set_method(self, INDEX_METHOD, resource_sub_resource_index);
+    lua.tables.set_method(self, SUB_RESOURCE_METHOD, resource_sub_resource_method);
 
-    lua.tables.set_method(self, SUB_RESOURCE_NEXT_METHOD, resource_sub_resource);
-    lua.tables.set_method(self, SUB_RESOURCE_NOW_METHOD, resource_sub_resource);
-    lua.tables.set_method(self, SUB_RESOURCE_NOW_IN_UNIX, resource_sub_resource);
+    lua.tables.set_method(self, SUB_RESOURCE_NEXT_METHOD, resource_sub_resource_next);
+    lua.tables.set_method(self, SUB_RESOURCE_NOW_METHOD, resource_sub_resource_now);
+    lua.tables.set_method(self, SUB_RESOURCE_NOW_IN_UNIX, resource_sub_resource_now_in_unix);
     lua.tables.set_method(self,LOCK_METHOD,lock_resource);
     lua.tables.set_method(self,UNLOCK_METHOD,unlock_resource);
     lua.tables.set_method(self,UNLOAD_METHOD,unload_resurce);

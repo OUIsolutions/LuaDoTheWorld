@@ -1,13 +1,19 @@
 
 ---@class Bytes 
 ---@field size number
----@field get_byte_at fun(index:number):number
+---@field get_byte_at_index fun(index:number):number
 
 
 ---@class DtwResource
 ---@field sub_resource fun(str:string) :DtwResource 
+---@field __index fun(str:string) :DtwResource 
 ---@field get_value fun():string | number | boolean | nil | Bytes
 ---@field set_value fun(value:string | number | boolean | Bytes ) 
+---@field commit fun()  apply the modifications
+---@field lock fun() lock the resource from other process 
+---@field unlock fun()
+---@field unload fun() unload the content 
+
 
 ---@class DtwModule
 ---@field copy_any_overwriting fun(src:string,dest:string):boolean returns true if the operation were ok otherwise false
