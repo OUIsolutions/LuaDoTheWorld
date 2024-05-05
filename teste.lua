@@ -2,6 +2,6 @@
 
 
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
-local r =dtw.newResource("a")
-local v  = r.sub_resource("deer.jpg")
-
+local image = dtw.load_file("nada.jpg")
+local encoded = dtw.base64_encode(image)
+print(encoded)

@@ -1,7 +1,7 @@
 
 ---@class Bytes 
 ---@field size number
----@field get_byte_at fun(index:number) number
+---@field get_byte_at fun(index:number):number
 
 
 ---@class DtwResource
@@ -18,15 +18,15 @@
 ---@field base64_encode_file fun(src:string):string transform file into base64 
 ---@field base64_encode fun(value:string | number | boolean | Bytes):string transform content into base64
 ---@field base64_decode fun(value:string): string | Bytes retransform base64 into normal value 
----@field 
 ---@field list_files fun(src:string):string[] 
 ---@field list_dirs fun(src:string):string[] 
 ---@field list_all fun(src:string):string[] 
 ---@field list_files_recursively fun(src:string):string[] 
 ---@field list_dirs_recursively fun(src:string):string[] 
 ---@field list_all_recursively fun(src:string):string[] 
----@field load_file fun(src:string) string | Bytes
+---@field load_file fun(src:string):string | Bytes
 ---@field write_file fun(src:string,value:string | number | boolean | Bytes)
+---@field is_byte fun(value:any):boolean returns if a value is a byte
 ---@field newResource fun(src:string):DtwResource
 
 
