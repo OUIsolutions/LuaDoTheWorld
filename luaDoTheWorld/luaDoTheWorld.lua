@@ -34,7 +34,8 @@
 ---@field write_file fun(src:string,value:string | number | boolean | Bytes)
 ---@field is_byte fun(value:any):boolean returns if a value is a byte
 ---@field newResource fun(src:string):DtwResource
-
+---@field generate_sha fun(value:string | number | boolean | Bytes):string 
+---@field generate_sha_from_file fun(src:string):string 
 
 local info = debug.getinfo(1, "S")
 local path = info.source:match("@(.*/)") or ""
