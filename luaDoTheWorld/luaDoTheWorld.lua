@@ -1,7 +1,12 @@
 
+--@class DtwModule
+--@field list_files string
+
+
 
 local info = debug.getinfo(1, "S")
 local path = info.source:match("@(.*/)") or ""
+
 
 
 
@@ -14,6 +19,7 @@ else
 end 
 
 local load_lua = package.loadlib(lib_path, "load_lua")
+
 --@type DtwModule
 local lib = load_lua()
 
