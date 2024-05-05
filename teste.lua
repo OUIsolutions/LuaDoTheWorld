@@ -1,10 +1,8 @@
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
 
-local r = dtw.newResource("a")
+local listage = dtw.list_files_recursively("clib")
 
-local deer = r["deer.jpg"].get_value()
-
-dtw.write_file("nada.jpg",deer)
-
-
+for i,v in ipairs(listage) do 
+    print(v)
+end 
