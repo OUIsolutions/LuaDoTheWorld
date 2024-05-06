@@ -23,3 +23,7 @@
 #define NEW_HASHER "newHasher"
 #define NEW_RESOURCE "newResource"
 #define IS_BYTE_FUNC "is_byte"
+
+#define IS_DIR_FUNC "isdir"
+#define IS_FILE_FUNC "isfile"
+#define IS_FILE_BYTE "isfile_byte"

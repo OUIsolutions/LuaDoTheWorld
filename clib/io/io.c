@@ -44,6 +44,48 @@ LuaCEmbedResponse  * write_file(LuaCEmbed *args){
     Writeble_free(&write_obj);
     return  lua.response.send_bool(writed);
 }
+LuaCEmbedResponse  * is_dir(LuaCEmbed *args){
+    char *source = lua.args.get_str(args,0);
+    if(lua.has_errors(args)){
+        char *error_message = lua.get_error_message(args);
+        return  lua.response.send_error(error_message);
+    }
+    int type = dtw.entity_type(source);
+    return lua.response.send_bool(type == DTW_FOLDER_TYPE);
+}
+
+LuaCEmbedResponse  * exist(LuaCEmbed *args){
+    char *source = lua.args.get_str(args,0);
+    if(lua.has_errors(args)){
+        char *error_message = lua.get_error_message(args);
+        return  lua.response.send_error(error_message);
+    }
+    int type = dtw.entity_type(source);
+    return lua.response.send_bool(type != DTW_NOT_FOUND);
+}
+
+LuaCEmbedResponse  * is_file(LuaCEmbed *args){
+    char *source = lua.args.get_str(args,0);
+    if(lua.has_errors(args)){
+        char *error_message = lua.get_error_message(args);
+        return  lua.response.send_error(error_message);
+    }
+    int type = dtw.entity_type(source);
+    return lua.response.send_bool(type == DTW_FILE_TYPE);
+}
+
+LuaCEmbedResponse  * is_binary(LuaCEmbed *args){
+    char *source = lua.args.get_str(args,0);
+    if(lua.has_errors(args)){
+        char *error_message = lua.get_error_message(args);
+        return  lua.response.send_error(error_message);
+    }
+    int type = dtw.complex_entity_type(source);
+    return lua.response.send_bool(type == DTW_COMPLEX_BINARY);
+}
+
+
+
 
 LuaCEmbedResponse  * copy_any_overwriting(LuaCEmbed *args){
     char *source = lua.args.get_str(args,0);

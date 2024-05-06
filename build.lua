@@ -36,13 +36,13 @@ for i, t in ipairs(tests) do
     end 
     local file_path = t..name..".lua"
 
+
     local expected_file_path = t.."expected.txt"
     local target_copy  = SIDE_EFFECT.."copy"
     
     local hasher = dtw.newHasher()
-    hasher.digest_folder(SIDE_EFFECT)
+    hasher.digest_folder_by_content(SIDE_EFFECT)
     local start_assignature = tostring(hasher)
-    print(start_assignature)
 
     
     dtw.copy_any_overwriting(SIDE_EFFECT,target_copy)

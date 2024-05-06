@@ -6,8 +6,10 @@
 ---@class DtwHasher
 ---@field digest fun(value:string | number | boolean | DtwBytes )
 ---@field digest_file fun(source:string)
----@field digest_folder fun(source:string)
+---@field digest_folder_by_content fun(source:string)
+---@field digest_folder_by_last_modification fun(source:string
 ---@field get_value fun()
+
 
 ---@class DtwResource
 ---@field sub_resource fun(str:string) :DtwResource 
@@ -42,7 +44,11 @@
 ---@field generate_sha fun(value:string | number | boolean | DtwBytes):string 
 ---@field generate_sha_from_file fun(src:string):string 
 ---@field newHasher fun():DtwHasher
----@
+---@field isdir fun():boolean
+---@field isfile fun():boolean
+---@field isfile_byte fun():boolean
+
+
 local info = debug.getinfo(1, "S")
 local path = info.source:match("@(.*/)") or ""
 
