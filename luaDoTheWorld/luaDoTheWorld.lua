@@ -42,7 +42,9 @@
 ---@field is_byte fun(value:any):boolean returns if a value is a byte
 ---@field newResource fun(src:string):DtwResource
 ---@field generate_sha fun(value:string | number | boolean | DtwBytes):string 
----@field generate_sha_from_file fun(src:string):string 
+---@field generate_sha_from_file fun(src:string):string
+---@field generate_sha_from_folder_by_content fun(src:string):string
+---@field generate_sha_from_folder_by_last_modification fun(src:string):string
 ---@field newHasher fun():DtwHasher
 ---@field isdir fun():boolean
 ---@field isfile fun():boolean
