@@ -1,6 +1,6 @@
 
 
-
+local RECONSTRUCT = false
 os.execute("gcc -Wall -shared -fpic -o luaDoTheWorld/luaDoTheWorld_clib.so  clib/main.c")
 
 
@@ -13,9 +13,7 @@ local tests  = dtw.list_dirs("tests",concat_path)
 ---@param sep string
 ---@returns string[]
 local function slipt (inputstr, sep)
-    if sep == nil then
-            sep = "%s"
-    end
+
     local t={}
     for str in string.gmatch(inputstr, "([^"..sep.."]+)") do
             table.insert(t, str)
@@ -28,15 +26,35 @@ end
 
 
 for i, t in ipairs(tests) do 
+    
     local name = slipt(t,"/")[2]
     if name == nil then 
         print("name of test "..t.."not provide")
         os.exit(1)
     end 
-    local file = t..name
-    local comand = "valgrind lua "..file
-    local result = capture_output(comand)
-    print("xxxxxxxxxxxxxxxxxxxxxx")
-    print(result)
+    local file_path = t..name..".lua"
+
+    local expected_file_path = t.."expected.txt"
+    
+    local expected_code = dtw.load_file(expected_file_path)
+    if expected_code == nil or RECONSTRUCT then 
+        expected_code = io.popen("lua "..file_path,"r"):read()
+        dtw.write_file(expected_file_path,expected_code)
+    end 
+
+    local expected_code = dtw.load_file(expected_file_path)
+    
+
+    local comparation_result = io.popen("lua "..file_path,"r"):read()
+    if expected_code ~=comparation_result then
+        print(
+            "on file "..file_path
+            .." was expecting:'"..expected_code.."'\n"
+            .."but got:'"..comparation_result.."'")
+        os.exit(1)
+    end
+
+
+    
     --validate_commad_result(result)
 end 
