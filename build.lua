@@ -1,6 +1,8 @@
 
 
 local RECONSTRUCT = false
+local SIDE_EFFECT = "target"
+
 os.execute("gcc -Wall -shared -fpic -o luaDoTheWorld/luaDoTheWorld_clib.so  clib/main.c")
 
 
@@ -35,12 +37,23 @@ for i, t in ipairs(tests) do
     local file_path = t..name..".lua"
 
     local expected_file_path = t.."expected.txt"
+    local target_copy  = SIDE_EFFECT.."copy"
     
+    local hasher = dtw.newHasher()
+    hasher.digest_folder(SIDE_EFFECT)
+    local start_assignature = tostring(hasher)
+    print(start_assignature)
+
+    
+    dtw.copy_any_overwriting(SIDE_EFFECT,target_copy)
+
+
     local expected_code = dtw.load_file(expected_file_path)
     if expected_code == nil or RECONSTRUCT then 
         expected_code = io.popen("lua "..file_path,"r"):read()
         dtw.write_file(expected_file_path,expected_code)
     end 
+
 
     local expected_code = dtw.load_file(expected_file_path)
     
