@@ -52,6 +52,7 @@ LuaCEmbedResponse * resource_get_name_without_extension(LuaCEmbedTable  *self,Lu
 
 LuaCEmbedResponse * resource_get_extension(LuaCEmbedTable  *self,LuaCEmbed *args);
 
+LuaCEmbedResponse * resource_set_extension(LuaCEmbedTable  *self,LuaCEmbed *args);
 
 
 LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource);

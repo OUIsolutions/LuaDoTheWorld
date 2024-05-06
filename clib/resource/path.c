@@ -50,3 +50,18 @@ LuaCEmbedResponse * resource_get_extension(LuaCEmbedTable  *self,LuaCEmbed *args
     dtw.path.free(path);
     return response;
 }
+
+LuaCEmbedResponse * resource_set_extension(LuaCEmbedTable  *self,LuaCEmbed *args){
+    DtwResource  *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
+
+    char *extension = lua.args.get_str(args,0);
+    if(lua.has_errors(args)){
+        char *error_message = lua.get_error_message(args);
+        return  lua.response.send_error(error_message);
+    }
+    DtwPath *path = dtw.path.newPath(resource->path);
+    dtw.path.set_extension(path,extension);
+    DtwResource_rename(resource,dtw.path.get_full_name(path));
+    dtw.path.free(path);
+    return  NULL;
+}

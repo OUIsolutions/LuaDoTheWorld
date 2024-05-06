@@ -29,6 +29,7 @@
 ---@field get_extension fun() :string
 ---@field get_name_without_extension fun() :string
 ---@field get_dir fun() :string
+---@field set_extension fun(extension:string)
 ---@field destroy fun()
 
 

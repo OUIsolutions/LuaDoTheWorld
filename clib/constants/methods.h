@@ -28,3 +28,4 @@
 #define GET_NAME_METHOD "get_name"
 #define GET_NAME_WITHOUT_EXTENSION "get_name_without_extension"
 #define GET_EXTENSION  "get_extension"
+#define SET_EXTENSION_METHOD "set_extension"
