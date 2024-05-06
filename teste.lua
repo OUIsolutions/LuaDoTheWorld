@@ -2,4 +2,6 @@
 
 
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
-local image = dtw.newResource("aa").sub_resource("aa")
+local value = dtw.newResource("clib")["declaration.h"]
+
+dtw.write_file("teste.txt",value)

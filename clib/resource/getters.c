@@ -1,12 +1,12 @@
 LuaCEmbedResponse * resource_to_string(LuaCEmbedTable  *self,LuaCEmbed *args){
     DtwResource  *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
-    char *value = dtw.resource.get_string(resource);
-    if(dtw.resource.error(resource)){
-        char *error_message = dtw.resource.get_error_message(resource);
-        LuaCEmbedResponse *response = lua.response.send_error(error_message);
-        dtw.resource.clear_errors(resource);
-        return response;
+    int  type = DtwResource_type(resource);
+    if(type == DTW_NOT_FOUND ||type == DTW_COMPLEX_BINARY || type == DTW_FOLDER_TYPE ){
+        return  lua.response.send_str(resource->path);
     }
+
+    char *value = dtw.resource.get_string(resource);
+
     return lua.response.send_str(value);
 }
 

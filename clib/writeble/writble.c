@@ -1,5 +1,33 @@
 
+bool handle_table_writble(Writeble *self,LuaCEmbed *args,int index){
+    LuaCEmbedTable * bytes_or_resource = lua.args.get_table(args,index);
+    if(lua.tables.get_type_prop(bytes_or_resource,DTW_TYPE) != lua.types.NUMBER){
+        return false;
+    }
 
+    int type = lua.tables.get_long_prop(bytes_or_resource,DTW_TYPE);
+
+    if(type == BYTE_TYPE){
+        self->size = lua.tables.get_long_prop(bytes_or_resource,SIZE);
+        self->content =  (unsigned  char *)lua.tables.get_long_prop(bytes_or_resource,CONTENT_POINTER);
+        return true;
+    }
+
+    if(type == DTW_RESOURCE_TYPE) {
+        DtwResource *resource = (DtwResource *) lua.tables.get_long_prop(bytes_or_resource, RESOURCE_POINTER);
+        bool is_binary;
+        self->content = DtwResource_get_any(resource, &self->size, &is_binary);
+        if (DtwResource_error(resource)) {
+            char *message = DtwResource_get_error_message(resource);
+            self->error = LuaCEmbed_send_error(message);
+            DtwResource_clear_errors(resource);
+            return false;
+        }
+        return true;
+    }
+    return false;
+
+}
 Writeble  create_writeble(LuaCEmbed *args,int index){
     Writeble self = {0};
     long total_args = lua.args.size(args);
@@ -9,14 +37,15 @@ Writeble  create_writeble(LuaCEmbed *args,int index){
     }
 
     int type_to_write = lua.args.get_type(args,index);
-
+    bool writeble = false;
     if(type_to_write == lua.types.STRING){
 
         self.content = (unsigned char*)lua.args.get_str(args,index);
         self.size = (long)strlen((char*)self.content);
+        writeble = true;
     }
 
-    else if(type_to_write == lua.types.NUMBER){
+    if(type_to_write == lua.types.NUMBER){
         self.clear_content = true;
         double content = lua.args.get_double(args,index);
         double rest = content - (double)(long ) content;
@@ -32,33 +61,28 @@ Writeble  create_writeble(LuaCEmbed *args,int index){
             self.content = (unsigned char*)strdup(formatted);
             self.size = (long)strlen(formatted);
         }
-
+        writeble = true;
     }
-    else if(type_to_write == lua.types.BOOL){
+    if(type_to_write == lua.types.BOOL){
         bool content  = lua.args.get_bool(args,index);
         const char *converted = content ? "true":"false";
         self.content = (unsigned char*)converted;
         self.size = (long)strlen(converted);
+        writeble = true;
     }
 
-    else if(type_to_write == lua.types.TABLE){
-        LuaCEmbedTable * bytes = lua.args.get_table(args,index);
-        LuaCEmbedResponse  *possible_error = ensure_table_type(bytes,BYTE_TYPE,BYTE_STRING);
-        if(possible_error){
-            self.error = possible_error;
-            return self;
-        }
-
-        self.size = lua.tables.get_long_prop(bytes,SIZE);
-        self.content =  (unsigned  char *)lua.tables.get_long_prop(bytes,CONTENT_POINTER);
-
+    if(type_to_write == lua.types.TABLE){
+        writeble = handle_table_writble(&self,args,index);
     }
-    else{
+
+    bool its_not_writible_and_no_other_errors = !writeble && !self.error;
+    if(its_not_writible_and_no_other_errors){
         char *error = private_LuaCembed_format(NOT_WRITEBLE_ELEMENT,lua.convert_arg_code(type_to_write));
         self.error = lua.response.send_error(error);
         free(error);
         return self;
     }
+
     return self;
 }
 void Writeble_free(Writeble *self){

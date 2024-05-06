@@ -56,6 +56,8 @@ LuaCEmbedResponse * unlock_resource(LuaCEmbedTable  *self, LuaCEmbed *args){
 LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource){
 
     LuaCEmbedTable * self  = lua.tables.new_anonymous_table(args);
+    lua.tables.set_long_prop(self,DTW_TYPE,DTW_RESOURCE_TYPE);
+
     lua.tables.set_long_prop(self,RESOURCE_POINTER,(long)resource);
     lua.tables.set_method(self,TO_STRING_METHOD,resource_to_string);
     lua.tables.set_method(self,TO_NUMBER_METHOD,resource_to_number);
@@ -90,6 +92,7 @@ LuaCEmbedResponse * create_resource(LuaCEmbed *args){
         return  lua.response.send_error(error_message);
     }
     DtwResource *resource = new_DtwResource(folder);
+
     LuaCEmbedTable  *self = raw_create_resource(args,resource);
     return lua.response.send_table(self);
 
