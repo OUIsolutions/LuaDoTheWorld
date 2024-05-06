@@ -36,9 +36,6 @@ local function handle_side_effect(dir,current_assignature)
         local expected_assignature = dtw.generate_sha_from_folder_by_content(side_effect_expected_folder)
 
         if expected_assignature ~= current_assignature then
-            print("expected file ",side_effect_expected_folder)
-            print("expected",expected_assignature)
-            print("current",current_assignature)
 
             print("side effect diferent")
             return 1

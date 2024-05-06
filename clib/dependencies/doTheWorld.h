@@ -52,10 +52,10 @@ SOFTWARE.
 
 #ifdef __linux__
 #include <sys/wait.h>
-  #include <dirent.h>
-  #include <unistd.h>
+#include <dirent.h>
+#include <unistd.h>
 #elif _WIN32
-  #include <windows.h>
+#include <windows.h>
   #include <tchar.h>
   #include <wchar.h>
   #include <locale.h>
@@ -190,9 +190,9 @@ typedef struct cJSON
 
 typedef struct cJSON_Hooks
 {
-      /* malloc/free are CDECL on Windows regardless of the default calling convention of the compiler, so ensure the hooks allow passing those functions directly. */
-      void *(CJSON_CDECL *malloc_fn)(size_t sz);
-      void (CJSON_CDECL *free_fn)(void *ptr);
+    /* malloc/free are CDECL on Windows regardless of the default calling convention of the compiler, so ensure the hooks allow passing those functions directly. */
+    void *(CJSON_CDECL *malloc_fn)(size_t sz);
+    void (CJSON_CDECL *free_fn)(void *ptr);
 } cJSON_Hooks;
 
 typedef int cJSON_bool;
@@ -321,7 +321,7 @@ CJSON_PUBLIC(cJSON *) cJSON_Duplicate(const cJSON *item, cJSON_bool recurse);
 CJSON_PUBLIC(cJSON_bool) cJSON_Compare(const cJSON * const a, const cJSON * const b, const cJSON_bool case_sensitive);
 
 /* Minify a strings, remove blank characters(such as ' ', '\t', '\r', '\n') from strings.
- * The input pointer json cannot point to a read-only address area, such as a string constant, 
+ * The input pointer json cannot point to a read-only address area, such as a string constant,
  * but should point to a readable and writable address area. */
 CJSON_PUBLIC(void) cJSON_Minify(char *json);
 
@@ -400,12 +400,12 @@ extern "C" {
  * accessing the fields, as they may change in the future.
  */
 struct Sha_256 {
-	uint8_t *hash;
-	uint8_t chunk[SIZE_OF_SHA_256_CHUNK];
-	uint8_t *chunk_pos;
-	size_t space_left;
-	size_t total_len;
-	uint32_t h[8];
+    uint8_t *hash;
+    uint8_t chunk[SIZE_OF_SHA_256_CHUNK];
+    uint8_t *chunk_pos;
+    size_t space_left;
+    size_t total_len;
+    uint32_t h[8];
 };
 
 /*
@@ -511,9 +511,9 @@ uint8_t *sha_256_close(struct Sha_256 *sha_256);
 
 
 typedef struct DtwStringArray {
-  int size;
+    int size;
 
-  char **strings;
+    char **strings;
 
 
 
@@ -691,7 +691,7 @@ void dtw_write_double_file_content(const char *path,double value);
 #define DTW_NOT_CONCAT_PATH false
 
 
- DtwStringArray * dtw_list_files(const char *path, bool concat_path);
+DtwStringArray * dtw_list_files(const char *path, bool concat_path);
 DtwStringArray * dtw_list_dirs(const char *path, bool concat_path);
 
 DtwStringArray *  dtw_list_all(const char *path,  bool concat_path);
@@ -714,16 +714,16 @@ bool private_dtw_verify_if_skip(WIN32_FIND_DATAA *entry);
 
 
 struct DtwStringArray * dtw_list_basic(const char *path,int expected_type,bool concat_path);
- 
 
 
- DtwStringArray * dtw_list_dirs_recursively(const char *path,bool concat_path);
+
+DtwStringArray * dtw_list_dirs_recursively(const char *path,bool concat_path);
 
 
- DtwStringArray *  dtw_list_files_recursively(const char *path,bool concat_path);
+DtwStringArray *  dtw_list_files_recursively(const char *path,bool concat_path);
 
 
- DtwStringArray * dtw_list_all_recursively(const char *path,bool concat_path);
+DtwStringArray * dtw_list_all_recursively(const char *path,bool concat_path);
 
 
 
@@ -776,12 +776,12 @@ void DtwPath_free(struct DtwPath *self);
 #define DTW_INCLUDE 2
 
 typedef struct DtwTreeProps{
-   int minification;
-   int content;
-   int path_atributes;
-   int hadware_data;
-   int content_data;
-   int ignored_elements;
+    int minification;
+    int content;
+    int path_atributes;
+    int hadware_data;
+    int content_data;
+    int ignored_elements;
 
 }DtwTreeProps;
 
@@ -840,10 +840,10 @@ void  DtwTreeTransactionReport_free(struct DtwTreeTransactionReport *report);
 #define DTW_REMOVE 3
 
 typedef struct DtwTreePart{
-    
+
     struct DtwPath *path;
     bool content_exist_in_memory;
-    size_t  hardware_content_size; 
+    size_t  hardware_content_size;
     long last_modification_time;
     bool content_exist_in_hardware;
     bool ignore;
@@ -897,15 +897,15 @@ typedef struct  DtwTree{
 
 
 struct DtwTree *DtwTree_get_sub_tree(
-    struct DtwTree *self,
-    const char *path,
-    bool copy_content
+        struct DtwTree *self,
+        const char *path,
+        bool copy_content
 );
 
 struct DtwTreePart *DtwTree_find_tree_part_by_function(
         struct DtwTree *self,
         bool (*caller)(struct  DtwTreePart *part)
-        );
+);
 
 struct DtwTree *DtwTree_map(
         struct DtwTree *self,
@@ -942,15 +942,15 @@ void DtwTree_free(struct DtwTree *self);
 void DtwTree_represent(struct DtwTree *self);
 
 void DtwTree_add_tree_parts_from_string_array(
-    struct DtwTree *self,
-    struct DtwStringArray *paths,
-    DtwTreeProps *props
+        struct DtwTree *self,
+        struct DtwStringArray *paths,
+        DtwTreeProps *props
 );
 
 void DtwTree_add_tree_from_hardware(
-    struct DtwTree *self,
-    const char *path,
-    DtwTreeProps *props
+        struct DtwTree *self,
+        const char *path,
+        DtwTreeProps *props
 );
 
 struct DtwTreeTransactionReport * DtwTree_create_report(struct DtwTree *self);
@@ -970,13 +970,13 @@ void DtwTree_loads_json_tree_from_file(struct DtwTree *self, const char *path);
 char * DtwTree_dumps_tree_json(
         struct DtwTree *self,
         DtwTreeProps * props
-    );
+);
 
 void DtwTree_dumps_tree_json_to_file(
         struct DtwTree *self,
         const char *path,
         DtwTreeProps * props
-    );
+);
 
 struct  DtwTree * newDtwTree();
 
@@ -992,11 +992,11 @@ struct  DtwTree * newDtwTree();
 
 typedef struct {
 
-   int total_checks;
-   int process;
-   int max_wait;
-   int max_lock_time;
-   DtwStringArray *locked_elements;
+    int total_checks;
+    int process;
+    int max_wait;
+    int max_lock_time;
+    DtwStringArray *locked_elements;
 
 
 }DtwMultiFileLocker;
@@ -1056,8 +1056,8 @@ void privateDtwFlockArray_free(privateDtwFlockArray *self);
 
 
 typedef struct {
-   const char *temp_folder;
-   privateDtwFlockArray  *locked_files;
+    const char *temp_folder;
+    privateDtwFlockArray  *locked_files;
 }DtwFlockLocker;
 
 DtwFlockLocker * newFlockLocker();
@@ -1260,7 +1260,7 @@ typedef struct {
     int error_code;
     char *error_path;
     char *error_message;
-    
+
 }privateDtwResourceRootProps;
 
 privateDtwResourceRootProps *private_newDtwResourceRootProps();
@@ -1286,7 +1286,7 @@ typedef struct DtwResource{
     bool is_binary;
     unsigned char *value_any;
     long value_size;
-   
+
     //cache implementation
     bool cache_sub_resources;
     void *sub_resources;
@@ -1500,14 +1500,14 @@ typedef struct DtwPathModule{
     char *(*get_path) (struct DtwPath *self);
     char *(*get_dir) (struct DtwPath *self);
 
-    
+
     //Setters
     void (*set_extension) (struct DtwPath *self, const char *extension);
     void (*set_name) (struct DtwPath *self, const char *name);
     void (*set_dir) (struct DtwPath *self, const char *path);
     void (*set_full_name) (struct DtwPath *self, const char *full_name);
     void (*set_path) (struct DtwPath *self, const char *target_path);
-    
+
     void (*add_start_dir)(struct DtwPath *self, const char *start_dir);
     void (*add_end_dir)(struct DtwPath *self, const char *end_dir);
 
@@ -1936,7 +1936,7 @@ typedef struct DtwNamespace{
     char *(*load_string_file_content)(const char * path);
 
     unsigned char *(*load_binary_content)(const char * path,long *size);
-    
+
     bool (*write_any_content)(const char *path,unsigned  char *content,long size);
 
     bool (*write_string_file_content)(const char *path,const char *content);
@@ -2154,7 +2154,7 @@ CJSON_PUBLIC(double) cJSON_GetNumberValue(const cJSON * const item)
 
 /* This is a safeguard to prevent copy-pasters from using incompatible C and header files */
 #if (CJSON_VERSION_MAJOR != 1) || (CJSON_VERSION_MINOR != 7) || (CJSON_VERSION_PATCH != 15)
-    #error cJSON.h and cJSON.c have different versions. Make sure that both have the same.
+#error cJSON.h and cJSON.c have different versions. Make sure that both have the same.
 #endif
 
 CJSON_PUBLIC(const char*) cJSON_Version(void)
@@ -2383,7 +2383,7 @@ static cJSON_bool parse_number(cJSON * const item, parse_buffer * const input_bu
                 goto loop_end;
         }
     }
-loop_end:
+    loop_end:
     number_c_string[i] = '\0';
 
     number = strtod((const char*)number_c_string, (char**)&after_end);
@@ -2598,10 +2598,10 @@ static cJSON_bool print_number(const cJSON * const item, printbuffer * const out
     {
         length = sprintf((char*)number_buffer, "null");
     }
-	else if(d == (double)item->valueint)
-	{
-		length = sprintf((char*)number_buffer, "%d", item->valueint);
-	}
+    else if(d == (double)item->valueint)
+    {
+        length = sprintf((char*)number_buffer, "%d", item->valueint);
+    }
     else
     {
         /* Try 15 decimal places of precision to avoid nonsignificant nonzero digits */
@@ -2801,7 +2801,7 @@ static unsigned char utf16_literal_to_utf8(const unsigned char * const input_poi
 
     return sequence_length;
 
-fail:
+    fail:
     return 0;
 }
 
@@ -2860,7 +2860,7 @@ static cJSON_bool parse_string(cJSON * const item, parse_buffer * const input_bu
         {
             *output_pointer++ = *input_pointer++;
         }
-        /* escape sequence */
+            /* escape sequence */
         else
         {
             unsigned char sequence_length = 2;
@@ -2892,7 +2892,7 @@ static cJSON_bool parse_string(cJSON * const item, parse_buffer * const input_bu
                     *output_pointer++ = input_pointer[1];
                     break;
 
-                /* UTF-16 literal */
+                    /* UTF-16 literal */
                 case 'u':
                     sequence_length = utf16_literal_to_utf8(input_pointer, input_end, &output_pointer);
                     if (sequence_length == 0)
@@ -2920,7 +2920,7 @@ static cJSON_bool parse_string(cJSON * const item, parse_buffer * const input_bu
 
     return true;
 
-fail:
+    fail:
     if (output != NULL)
     {
         input_buffer->hooks.deallocate(output);
@@ -3085,7 +3085,7 @@ static parse_buffer *buffer_skip_whitespace(parse_buffer * const buffer)
 
     while (can_access_at_index(buffer, 0) && (buffer_at_offset(buffer)[0] <= 32))
     {
-       buffer->offset++;
+        buffer->offset++;
     }
 
     if (buffer->offset == buffer->length)
@@ -3175,7 +3175,7 @@ CJSON_PUBLIC(cJSON *) cJSON_ParseWithLengthOpts(const char *value, size_t buffer
 
     return item;
 
-fail:
+    fail:
     if (item != NULL)
     {
         cJSON_Delete(item);
@@ -3270,7 +3270,7 @@ static unsigned char *print(const cJSON * const item, cJSON_bool format, const i
 
     return printed;
 
-fail:
+    fail:
     if (buffer->buffer != NULL)
     {
         hooks->deallocate(buffer->buffer);
@@ -3548,7 +3548,7 @@ static cJSON_bool parse_array(cJSON * const item, parse_buffer * const input_buf
         goto fail; /* expected end of array */
     }
 
-success:
+    success:
     input_buffer->depth--;
 
     if (head != NULL) {
@@ -3562,7 +3562,7 @@ success:
 
     return true;
 
-fail:
+    fail:
     if (head != NULL)
     {
         cJSON_Delete(head);
@@ -3724,7 +3724,7 @@ static cJSON_bool parse_object(cJSON * const item, parse_buffer * const input_bu
         goto fail; /* expected end of object */
     }
 
-success:
+    success:
     input_buffer->depth--;
 
     if (head != NULL) {
@@ -3737,7 +3737,7 @@ success:
     input_buffer->offset++;
     return true;
 
-fail:
+    fail:
     if (head != NULL)
     {
         cJSON_Delete(head);
@@ -4029,7 +4029,7 @@ CJSON_PUBLIC(cJSON_bool) cJSON_AddItemToArray(cJSON *array, cJSON *item)
 }
 
 #if defined(__clang__) || (defined(__GNUC__)  && ((__GNUC__ > 4) || ((__GNUC__ == 4) && (__GNUC_MINOR__ > 5))))
-    #pragma GCC diagnostic push
+#pragma GCC diagnostic push
 #endif
 #ifdef __GNUC__
 #pragma GCC diagnostic ignored "-Wcast-qual"
@@ -4040,7 +4040,7 @@ static void* cast_away_const(const void* string)
     return (void*)string;
 }
 #if defined(__clang__) || (defined(__GNUC__)  && ((__GNUC__ > 4) || ((__GNUC__ == 4) && (__GNUC_MINOR__ > 5))))
-    #pragma GCC diagnostic pop
+#pragma GCC diagnostic pop
 #endif
 
 
@@ -4813,7 +4813,7 @@ CJSON_PUBLIC(cJSON *) cJSON_Duplicate(const cJSON *item, cJSON_bool recurse)
 
     return newitem;
 
-fail:
+    fail:
     if (newitem != NULL)
     {
         cJSON_Delete(newitem);
@@ -5182,10 +5182,10 @@ CJSON_PUBLIC(void) cJSON_free(void *object)
  */
 static inline uint32_t right_rot(uint32_t value, unsigned int count)
 {
-	/*
-	 * Defined behaviour in standard C for all count where 0 < count < 32, which is what we need here.
-	 */
-	return value >> count | value << (32 - count);
+    /*
+     * Defined behaviour in standard C for all count where 0 < count < 32, which is what we need here.
+     */
+    return value >> count | value << (32 - count);
 }
 
 /*
@@ -5197,82 +5197,82 @@ static inline uint32_t right_rot(uint32_t value, unsigned int count)
  */
 static inline void consume_chunk(uint32_t *h, const uint8_t *p)
 {
-	unsigned i, j;
-	uint32_t ah[8];
+    unsigned i, j;
+    uint32_t ah[8];
 
-	/* Initialize working variables to current hash value: */
-	for (i = 0; i < 8; i++)
-		ah[i] = h[i];
+    /* Initialize working variables to current hash value: */
+    for (i = 0; i < 8; i++)
+        ah[i] = h[i];
 
-	/*
-	 * The w-array is really w[64], but since we only need 16 of them at a time, we save stack by
-	 * calculating 16 at a time.
-	 *
-	 * This optimization was not there initially and the rest of the comments about w[64] are kept in their
-	 * initial state.
-	 */
+    /*
+     * The w-array is really w[64], but since we only need 16 of them at a time, we save stack by
+     * calculating 16 at a time.
+     *
+     * This optimization was not there initially and the rest of the comments about w[64] are kept in their
+     * initial state.
+     */
 
-	/*
-	 * create a 64-entry message schedule array w[0..63] of 32-bit words (The initial values in w[0..63]
-	 * don't matter, so many implementations zero them here) copy chunk into first 16 words w[0..15] of the
-	 * message schedule array
-	 */
-	uint32_t w[16];
+    /*
+     * create a 64-entry message schedule array w[0..63] of 32-bit words (The initial values in w[0..63]
+     * don't matter, so many implementations zero them here) copy chunk into first 16 words w[0..15] of the
+     * message schedule array
+     */
+    uint32_t w[16];
 
-	/* Compression function main loop: */
-	for (i = 0; i < 4; i++) {
-		for (j = 0; j < 16; j++) {
-			if (i == 0) {
-				w[j] =
-				    (uint32_t)p[0] << 24 | (uint32_t)p[1] << 16 | (uint32_t)p[2] << 8 | (uint32_t)p[3];
-				p += 4;
-			} else {
-				/* Extend the first 16 words into the remaining 48 words w[16..63] of the
-				 * message schedule array: */
-				const uint32_t s0 = right_rot(w[(j + 1) & 0xf], 7) ^ right_rot(w[(j + 1) & 0xf], 18) ^
-						    (w[(j + 1) & 0xf] >> 3);
-				const uint32_t s1 = right_rot(w[(j + 14) & 0xf], 17) ^
-						    right_rot(w[(j + 14) & 0xf], 19) ^ (w[(j + 14) & 0xf] >> 10);
-				w[j] = w[j] + s0 + w[(j + 9) & 0xf] + s1;
-			}
-			const uint32_t s1 = right_rot(ah[4], 6) ^ right_rot(ah[4], 11) ^ right_rot(ah[4], 25);
-			const uint32_t ch = (ah[4] & ah[5]) ^ (~ah[4] & ah[6]);
+    /* Compression function main loop: */
+    for (i = 0; i < 4; i++) {
+        for (j = 0; j < 16; j++) {
+            if (i == 0) {
+                w[j] =
+                        (uint32_t)p[0] << 24 | (uint32_t)p[1] << 16 | (uint32_t)p[2] << 8 | (uint32_t)p[3];
+                p += 4;
+            } else {
+                /* Extend the first 16 words into the remaining 48 words w[16..63] of the
+                 * message schedule array: */
+                const uint32_t s0 = right_rot(w[(j + 1) & 0xf], 7) ^ right_rot(w[(j + 1) & 0xf], 18) ^
+                                    (w[(j + 1) & 0xf] >> 3);
+                const uint32_t s1 = right_rot(w[(j + 14) & 0xf], 17) ^
+                                    right_rot(w[(j + 14) & 0xf], 19) ^ (w[(j + 14) & 0xf] >> 10);
+                w[j] = w[j] + s0 + w[(j + 9) & 0xf] + s1;
+            }
+            const uint32_t s1 = right_rot(ah[4], 6) ^ right_rot(ah[4], 11) ^ right_rot(ah[4], 25);
+            const uint32_t ch = (ah[4] & ah[5]) ^ (~ah[4] & ah[6]);
 
-			/*
-			 * Initialize array of round constants:
-			 * (first 32 bits of the fractional parts of the cube roots of the first 64 primes 2..311):
-			 */
-			static const uint32_t k[] = {
-			    0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4,
-			    0xab1c5ed5, 0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe,
-			    0x9bdc06a7, 0xc19bf174, 0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f,
-			    0x4a7484aa, 0x5cb0a9dc, 0x76f988da, 0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7,
-			    0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967, 0x27b70a85, 0x2e1b2138, 0x4d2c6dfc,
-			    0x53380d13, 0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85, 0xa2bfe8a1, 0xa81a664b,
-			    0xc24b8b70, 0xc76c51a3, 0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070, 0x19a4c116,
-			    0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
-			    0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7,
-			    0xc67178f2};
+            /*
+             * Initialize array of round constants:
+             * (first 32 bits of the fractional parts of the cube roots of the first 64 primes 2..311):
+             */
+            static const uint32_t k[] = {
+                    0x428a2f98, 0x71374491, 0xb5c0fbcf, 0xe9b5dba5, 0x3956c25b, 0x59f111f1, 0x923f82a4,
+                    0xab1c5ed5, 0xd807aa98, 0x12835b01, 0x243185be, 0x550c7dc3, 0x72be5d74, 0x80deb1fe,
+                    0x9bdc06a7, 0xc19bf174, 0xe49b69c1, 0xefbe4786, 0x0fc19dc6, 0x240ca1cc, 0x2de92c6f,
+                    0x4a7484aa, 0x5cb0a9dc, 0x76f988da, 0x983e5152, 0xa831c66d, 0xb00327c8, 0xbf597fc7,
+                    0xc6e00bf3, 0xd5a79147, 0x06ca6351, 0x14292967, 0x27b70a85, 0x2e1b2138, 0x4d2c6dfc,
+                    0x53380d13, 0x650a7354, 0x766a0abb, 0x81c2c92e, 0x92722c85, 0xa2bfe8a1, 0xa81a664b,
+                    0xc24b8b70, 0xc76c51a3, 0xd192e819, 0xd6990624, 0xf40e3585, 0x106aa070, 0x19a4c116,
+                    0x1e376c08, 0x2748774c, 0x34b0bcb5, 0x391c0cb3, 0x4ed8aa4a, 0x5b9cca4f, 0x682e6ff3,
+                    0x748f82ee, 0x78a5636f, 0x84c87814, 0x8cc70208, 0x90befffa, 0xa4506ceb, 0xbef9a3f7,
+                    0xc67178f2};
 
-			const uint32_t temp1 = ah[7] + s1 + ch + k[i << 4 | j] + w[j];
-			const uint32_t s0 = right_rot(ah[0], 2) ^ right_rot(ah[0], 13) ^ right_rot(ah[0], 22);
-			const uint32_t maj = (ah[0] & ah[1]) ^ (ah[0] & ah[2]) ^ (ah[1] & ah[2]);
-			const uint32_t temp2 = s0 + maj;
+            const uint32_t temp1 = ah[7] + s1 + ch + k[i << 4 | j] + w[j];
+            const uint32_t s0 = right_rot(ah[0], 2) ^ right_rot(ah[0], 13) ^ right_rot(ah[0], 22);
+            const uint32_t maj = (ah[0] & ah[1]) ^ (ah[0] & ah[2]) ^ (ah[1] & ah[2]);
+            const uint32_t temp2 = s0 + maj;
 
-			ah[7] = ah[6];
-			ah[6] = ah[5];
-			ah[5] = ah[4];
-			ah[4] = ah[3] + temp1;
-			ah[3] = ah[2];
-			ah[2] = ah[1];
-			ah[1] = ah[0];
-			ah[0] = temp1 + temp2;
-		}
-	}
+            ah[7] = ah[6];
+            ah[6] = ah[5];
+            ah[5] = ah[4];
+            ah[4] = ah[3] + temp1;
+            ah[3] = ah[2];
+            ah[2] = ah[1];
+            ah[1] = ah[0];
+            ah[0] = temp1 + temp2;
+        }
+    }
 
-	/* Add the compressed chunk to the current hash value: */
-	for (i = 0; i < 8; i++)
-		h[i] += ah[i];
+    /* Add the compressed chunk to the current hash value: */
+    for (i = 0; i < 8; i++)
+        h[i] += ah[i];
 }
 
 /*
@@ -5281,174 +5281,174 @@ static inline void consume_chunk(uint32_t *h, const uint8_t *p)
 
 void sha_256_init(struct Sha_256 *sha_256, uint8_t hash[SIZE_OF_SHA_256_HASH])
 {
-	sha_256->hash = hash;
-	sha_256->chunk_pos = sha_256->chunk;
-	sha_256->space_left = SIZE_OF_SHA_256_CHUNK;
-	sha_256->total_len = 0;
-	/*
-	 * Initialize hash values (first 32 bits of the fractional parts of the square roots of the first 8 primes
-	 * 2..19):
-	 */
-	sha_256->h[0] = 0x6a09e667;
-	sha_256->h[1] = 0xbb67ae85;
-	sha_256->h[2] = 0x3c6ef372;
-	sha_256->h[3] = 0xa54ff53a;
-	sha_256->h[4] = 0x510e527f;
-	sha_256->h[5] = 0x9b05688c;
-	sha_256->h[6] = 0x1f83d9ab;
-	sha_256->h[7] = 0x5be0cd19;
+    sha_256->hash = hash;
+    sha_256->chunk_pos = sha_256->chunk;
+    sha_256->space_left = SIZE_OF_SHA_256_CHUNK;
+    sha_256->total_len = 0;
+    /*
+     * Initialize hash values (first 32 bits of the fractional parts of the square roots of the first 8 primes
+     * 2..19):
+     */
+    sha_256->h[0] = 0x6a09e667;
+    sha_256->h[1] = 0xbb67ae85;
+    sha_256->h[2] = 0x3c6ef372;
+    sha_256->h[3] = 0xa54ff53a;
+    sha_256->h[4] = 0x510e527f;
+    sha_256->h[5] = 0x9b05688c;
+    sha_256->h[6] = 0x1f83d9ab;
+    sha_256->h[7] = 0x5be0cd19;
 }
 
 void sha_256_write(struct Sha_256 *sha_256, const void *data, size_t len)
 {
-	sha_256->total_len += len;
-
-	
-	const uint8_t *p = (const uint8_t *)data;
+    sha_256->total_len += len;
 
 
-	while (len > 0) {
-		/*
-		 * If the input chunks have sizes that are multiples of the calculation chunk size, no copies are
-		 * necessary. We operate directly on the input data instead.
-		 */
-		if (sha_256->space_left == SIZE_OF_SHA_256_CHUNK && len >= SIZE_OF_SHA_256_CHUNK) {
-			consume_chunk(sha_256->h, p);
-			len -= SIZE_OF_SHA_256_CHUNK;
-			p += SIZE_OF_SHA_256_CHUNK;
-			continue;
-		}
-		/* General case, no particular optimization. */
-		const size_t consumed_len = len < sha_256->space_left ? len : sha_256->space_left;
-		memcpy(sha_256->chunk_pos, p, consumed_len);
-		sha_256->space_left -= consumed_len;
-		len -= consumed_len;
-		p += consumed_len;
-		if (sha_256->space_left == 0) {
-			consume_chunk(sha_256->h, sha_256->chunk);
-			sha_256->chunk_pos = sha_256->chunk;
-			sha_256->space_left = SIZE_OF_SHA_256_CHUNK;
-		} else {
-			sha_256->chunk_pos += consumed_len;
-		}
-	}
+    const uint8_t *p = (const uint8_t *)data;
+
+
+    while (len > 0) {
+        /*
+         * If the input chunks have sizes that are multiples of the calculation chunk size, no copies are
+         * necessary. We operate directly on the input data instead.
+         */
+        if (sha_256->space_left == SIZE_OF_SHA_256_CHUNK && len >= SIZE_OF_SHA_256_CHUNK) {
+            consume_chunk(sha_256->h, p);
+            len -= SIZE_OF_SHA_256_CHUNK;
+            p += SIZE_OF_SHA_256_CHUNK;
+            continue;
+        }
+        /* General case, no particular optimization. */
+        const size_t consumed_len = len < sha_256->space_left ? len : sha_256->space_left;
+        memcpy(sha_256->chunk_pos, p, consumed_len);
+        sha_256->space_left -= consumed_len;
+        len -= consumed_len;
+        p += consumed_len;
+        if (sha_256->space_left == 0) {
+            consume_chunk(sha_256->h, sha_256->chunk);
+            sha_256->chunk_pos = sha_256->chunk;
+            sha_256->space_left = SIZE_OF_SHA_256_CHUNK;
+        } else {
+            sha_256->chunk_pos += consumed_len;
+        }
+    }
 }
 
 uint8_t *sha_256_close(struct Sha_256 *sha_256)
 {
-	uint8_t *pos = sha_256->chunk_pos;
-	size_t space_left = sha_256->space_left;
-	uint32_t *const h = sha_256->h;
+    uint8_t *pos = sha_256->chunk_pos;
+    size_t space_left = sha_256->space_left;
+    uint32_t *const h = sha_256->h;
 
-	/*
-	 * The current chunk cannot be full. Otherwise, it would already have be consumed. I.e. there is space left for
-	 * at least one byte. The next step in the calculation is to add a single one-bit to the data.
-	 */
-	*pos++ = 0x80;
-	--space_left;
+    /*
+     * The current chunk cannot be full. Otherwise, it would already have be consumed. I.e. there is space left for
+     * at least one byte. The next step in the calculation is to add a single one-bit to the data.
+     */
+    *pos++ = 0x80;
+    --space_left;
 
-	/*
-	 * Now, the last step is to add the total data length at the end of the last chunk, and zero padding before
-	 * that. But we do not necessarily have enough space left. If not, we pad the current chunk with zeroes, and add
-	 * an extra chunk at the end.
-	 */
-	if (space_left < TOTAL_LEN_LEN) {
-		memset(pos, 0x00, space_left);
-		consume_chunk(h, sha_256->chunk);
-		pos = sha_256->chunk;
-		space_left = SIZE_OF_SHA_256_CHUNK;
-	}
-	const size_t left = space_left - TOTAL_LEN_LEN;
-	memset(pos, 0x00, left);
-	pos += left;
-	size_t len = sha_256->total_len;
-	pos[7] = (uint8_t)(len << 3);
-	len >>= 5;
-	int i;
-	for (i = 6; i >= 0; --i) {
-		pos[i] = (uint8_t)len;
-		len >>= 8;
-	}
-	consume_chunk(h, sha_256->chunk);
-	/* Produce the final hash value (big-endian): */
-	int j;
-	uint8_t *const hash = sha_256->hash;
-	for (i = 0, j = 0; i < 8; i++) {
-		hash[j++] = (uint8_t)(h[i] >> 24);
-		hash[j++] = (uint8_t)(h[i] >> 16);
-		hash[j++] = (uint8_t)(h[i] >> 8);
-		hash[j++] = (uint8_t)h[i];
-	}
-	return sha_256->hash;
+    /*
+     * Now, the last step is to add the total data length at the end of the last chunk, and zero padding before
+     * that. But we do not necessarily have enough space left. If not, we pad the current chunk with zeroes, and add
+     * an extra chunk at the end.
+     */
+    if (space_left < TOTAL_LEN_LEN) {
+        memset(pos, 0x00, space_left);
+        consume_chunk(h, sha_256->chunk);
+        pos = sha_256->chunk;
+        space_left = SIZE_OF_SHA_256_CHUNK;
+    }
+    const size_t left = space_left - TOTAL_LEN_LEN;
+    memset(pos, 0x00, left);
+    pos += left;
+    size_t len = sha_256->total_len;
+    pos[7] = (uint8_t)(len << 3);
+    len >>= 5;
+    int i;
+    for (i = 6; i >= 0; --i) {
+        pos[i] = (uint8_t)len;
+        len >>= 8;
+    }
+    consume_chunk(h, sha_256->chunk);
+    /* Produce the final hash value (big-endian): */
+    int j;
+    uint8_t *const hash = sha_256->hash;
+    for (i = 0, j = 0; i < 8; i++) {
+        hash[j++] = (uint8_t)(h[i] >> 24);
+        hash[j++] = (uint8_t)(h[i] >> 16);
+        hash[j++] = (uint8_t)(h[i] >> 8);
+        hash[j++] = (uint8_t)h[i];
+    }
+    return sha_256->hash;
 }
 
 char * sha256_open_file(const char *filename, int *size){
-	FILE *file = fopen(filename, "rb");
-	if (file == NULL) {
-		return NULL;
-	}
-	fseek(file,0,SEEK_END);
+    FILE *file = fopen(filename, "rb");
+    if (file == NULL) {
+        return NULL;
+    }
+    fseek(file,0,SEEK_END);
     *size = ftell(file);
     fseek(file,0,SEEK_SET);
     char *content = (char*)malloc(*size +1);
     fread(content,1,*size,file);
-	fclose(file);
-	return content;
+    fclose(file);
+    return content;
 }
 
 //Wrapper functions
 void calc_sha_256(uint8_t hash[SIZE_OF_SHA_256_HASH], const void *input, size_t len)
 {
-	struct Sha_256 sha_256;
-	sha_256_init(&sha_256, hash);
-	sha_256_write(&sha_256, input, len);
-	(void)sha_256_close(&sha_256);
+    struct Sha_256 sha_256;
+    sha_256_init(&sha_256, hash);
+    sha_256_write(&sha_256, input, len);
+    (void)sha_256_close(&sha_256);
 }
 
 char * calc_sha_256_returning_string(const void *input, size_t len)
 {
-	uint8_t hash[SIZE_OF_SHA_256_HASH];
-	calc_sha_256(hash, input, len);
-	char *hash_string = (char*)malloc(SIZE_OF_SHA_256_HASH * 2 + 1);
-	for (unsigned int i = 0; i < SIZE_OF_SHA_256_HASH; i++) {
-		sprintf(hash_string + i * 2, "%02x", hash[i]);
-	}
-	return hash_string;
+    uint8_t hash[SIZE_OF_SHA_256_HASH];
+    calc_sha_256(hash, input, len);
+    char *hash_string = (char*)malloc(SIZE_OF_SHA_256_HASH * 2 + 1);
+    for (unsigned int i = 0; i < SIZE_OF_SHA_256_HASH; i++) {
+        sprintf(hash_string + i * 2, "%02x", hash[i]);
+    }
+    return hash_string;
 }
 
 void  calc_sha_256_from_string(uint8_t hash[SIZE_OF_SHA_256_HASH], const char *input)
 {
-	calc_sha_256(hash, input, strlen(input));
-	
+    calc_sha_256(hash, input, strlen(input));
+
 }
 
 char * calc_sha_256_from_string_returning_string(const char *input)
 {
-	return calc_sha_256_returning_string(input, strlen(input));
+    return calc_sha_256_returning_string(input, strlen(input));
 }
 
 int calc_sha_256_from_file(uint8_t hash[SIZE_OF_SHA_256_HASH], const char *filename)
 {
-	int size;
-	char *content = sha256_open_file(filename, &size);
-	if(content == NULL){
-		return -1;
-	}
-	calc_sha_256(hash, content, size);
-	free(content);
-	return 0;
+    int size;
+    char *content = sha256_open_file(filename, &size);
+    if(content == NULL){
+        return -1;
+    }
+    calc_sha_256(hash, content, size);
+    free(content);
+    return 0;
 }
 
 char * calc_sha_256_from_file_returning_string(const char *filename)
 {
-	int size;
-	char *content = sha256_open_file(filename, &size);
-	if(content == NULL){
-		return NULL;
-	}
-	char *hash_string = calc_sha_256_returning_string(content, size);
-	free(content);
-	return hash_string;
+    int size;
+    char *content = sha256_open_file(filename, &size);
+    if(content == NULL){
+        return NULL;
+    }
+    char *hash_string = calc_sha_256_returning_string(content, size);
+    free(content);
+    return hash_string;
 
 }
 #endif  //SHA_256_H
@@ -5527,8 +5527,8 @@ unsigned char *dtw_base64_decode(const char *data, long *output_length){
 }
 
 char *dtw_convert_binary_file_to_base64(const char *path){
-     long size;
-     unsigned char *data  = dtw_load_binary_content(path, &size);
+    long size;
+    unsigned char *data  = dtw_load_binary_content(path, &size);
     char *b64   = dtw_base64_encode(data, size);
     free(data);
     return b64;
@@ -5580,7 +5580,7 @@ char * dtw_generate_sha_from_file(const char *path){
 
 char * dtw_generate_sha_from_any(void *anything , long size){
     return calc_sha_256_returning_string(anything,size);
-}   
+}
 
 char * dtw_generate_sha_from_string(const char *string){
     return calc_sha_256_from_string_returning_string(string);
@@ -5600,13 +5600,13 @@ long int dtw_get_entity_last_motification_in_unix(const char *path){
 
 char * dtw_convert_unix_time_to_string(long int unix_time){
     struct tm * timeinfo;
-    #ifdef _WIN32
-        //get timeinfo from windows
+#ifdef _WIN32
+    //get timeinfo from windows
         time_t rawtime = unix_time;
         timeinfo = localtime(&rawtime);
-    #else
-        timeinfo = localtime(&unix_time);
-    #endif
+#else
+    timeinfo = localtime(&unix_time);
+#endif
     char *time_string = (char *)malloc(100);
     strftime(time_string, 100, "%Y-%m-%d %H:%M:%S", timeinfo);
     return time_string;
@@ -5645,15 +5645,15 @@ short private_dtw_convert_string_to_action(const char *action){
 
 void private_dtw_add_end_bar_to_dirs_string_array(struct DtwStringArray * dirs){
     for(int i = 0; i < dirs->size; i++){
-  
+
         if(!dtw_ends_with(dirs->strings[i], "/") || !dtw_ends_with(dirs->strings[i],"\\")){
             char *formated_dir =  (char*)malloc(strlen(dirs->strings[i]) + 3);
             sprintf(formated_dir,"%s/",dirs->strings[i]);
             DtwStringArray_set_value(dirs, i, formated_dir);
             free(formated_dir);
-        }    
-            
-         
+        }
+
+
     }
 }
 
@@ -5669,19 +5669,20 @@ char *dtw_concat_path(const char *path1, const char *path2){
 
     char *path = (char *)malloc(strlen(path1) + strlen(path2) + 3);
 
-        if(dtw_ends_with(path1, "/") || dtw_ends_with(path1, "\\")){
-            sprintf(path,"%s%s",path1,path2);
+    if(dtw_ends_with(path1, "/") || dtw_ends_with(path1, "\\")){
+        sprintf(path,"%s%s",path1,path2);
 
-        }
-        else{
-            sprintf(path,"%s/%s",path1,path2);
-      
-        }
+    }
+    else{
+        sprintf(path,"%s/%s",path1,path2);
+
+    }
     return path;
 }
 
-struct DtwStringArray* private_dtw_remove_start_path(struct DtwStringArray *paths,const char *path_to_remove){
+struct DtwStringArray* private_dtw_remove_start_path(struct DtwStringArray *paths,const char *rm_path){
 
+    char *path_to_remove = dtw_replace_string(rm_path,"//","/");
 
     int size_to_remove = strlen(path_to_remove) +1;
 
@@ -5715,6 +5716,7 @@ struct DtwStringArray* private_dtw_remove_start_path(struct DtwStringArray *path
         free(new_string);
 
     }
+    free(path_to_remove);
     return new_array;
 }
 
@@ -5786,7 +5788,7 @@ char *private_dtw_replace_string_once(const char *target, const char *old_elemen
 
     return result;
 
-    
+
 
 }
 
@@ -5845,7 +5847,7 @@ void dtw_create_dir_recursively(const char *path){
     long size_path = strlen(path);
     for(int i=0;i <  size_path;i++){
         if((path[i] == '\\'  || path[i] == '/' )  &&( i != size_path - 1)){
-            
+
             char * current_path = (char*)malloc(i + 1);
             current_path[i] = '\0';
             strncpy(current_path,path,i);
@@ -5879,7 +5881,7 @@ bool dtw_remove_any(const char* path) {
     if(remove(path) == 0){
         return true;
     }
-    
+
     struct DtwStringArray *files = dtw_list_files_recursively(path,DTW_CONCAT_PATH);
     int files_size = files->size;
     for(int i = 0; i < files_size; i++){
@@ -5894,13 +5896,13 @@ bool dtw_remove_any(const char* path) {
         rmdir(dirs->strings[i]);
     }
     DtwStringArray_free(dirs);
-    //remove / to the path 
+    //remove / to the path
     if(files_size ||dirs_size){
         return true;
-    }    
+    }
     return false;
-    
- 
+
+
 }
 
 
@@ -6023,12 +6025,12 @@ bool dtw_write_any_content(const char *path,unsigned  char *content,long size){
 
     FILE *file = fopen(path,"wb");
     if(file == NULL){
-   
+
         return false;
     }
-    
+
     fwrite(content, sizeof(char),size, file);
-    
+
     fclose(file);
     return true;
 }
@@ -6048,7 +6050,7 @@ bool dtw_write_string_file_content(const char *path,const char *content){
 
 int dtw_entity_type(const char *path){
     //returns 1 for file, 2 for directory, -1 for not found
-    struct stat path_stat; 
+    struct stat path_stat;
 
     if(stat(path,&path_stat) == 0){
         if(S_ISREG(path_stat.st_mode)){
@@ -6076,16 +6078,16 @@ int dtw_complex_entity_type(const char *path){
     }
 
     if(
-       strcmp(data,"t") == 0 ||
-       strcmp(data,"f") == 0 ||
-       strcmp(data,"true") == 0 ||
-       strcmp(data,"false") == 0
-       ){
+            strcmp(data,"t") == 0 ||
+            strcmp(data,"f") == 0 ||
+            strcmp(data,"true") == 0 ||
+            strcmp(data,"false") == 0
+            ){
         free(data);
         return DTW_COMPLEX_BOOL_TYPE;
     }
 
-    
+
     double value;
     int result = sscanf(data,"%lf",&value);
     if(result == 0){
@@ -6105,20 +6107,20 @@ int dtw_complex_entity_type(const char *path){
 
 long dtw_get_total_itens_of_dir(const char *path){
 
-    #ifdef __linux__
+#ifdef __linux__
 
-        DIR *dir = opendir(path);
-        if (dir == NULL) {
+    DIR *dir = opendir(path);
+    if (dir == NULL) {
         return -1;
-        }
-        int i = 0;
-        while ((readdir(dir)) != NULL){
-            i++;
-        }
-        closedir(dir);
-        return i -2;
-    #else 
-        WIN32_FIND_DATA findFileData;
+    }
+    int i = 0;
+    while ((readdir(dir)) != NULL){
+        i++;
+    }
+    closedir(dir);
+    return i -2;
+#else
+    WIN32_FIND_DATA findFileData;
             HANDLE hFind = FindFirstFile(path, &findFileData);
 
             if (hFind == INVALID_HANDLE_VALUE) {
@@ -6134,8 +6136,8 @@ long dtw_get_total_itens_of_dir(const char *path){
 
             FindClose(hFind);
             return i;
-    
-    #endif 
+
+#endif
 }
 
 const char *dtw_convert_entity(int entity_type){
@@ -6164,7 +6166,7 @@ const char *dtw_convert_entity(int entity_type){
         return "double";
     }
     return "invalid";
-}   
+}
 
 bool dtw_copy_any(const char* src_path,const  char* dest_path,bool merge) {
 
@@ -6175,7 +6177,7 @@ bool dtw_copy_any(const char* src_path,const  char* dest_path,bool merge) {
     }
 
     if(type == DTW_FILE_TYPE){
-    
+
         long size;
         bool is_binary;
         unsigned char *content = dtw_load_any_content(src_path,&size,&is_binary);
@@ -6191,11 +6193,11 @@ bool dtw_copy_any(const char* src_path,const  char* dest_path,bool merge) {
     }
     //creating dirs
     struct DtwStringArray *dirs = dtw_list_dirs_recursively(src_path,DTW_CONCAT_PATH);
-    
+
     int size = dirs->size;
     int src_path_size = strlen(src_path);
 
-    for(int i = 0; i < size; i++){        
+    for(int i = 0; i < size; i++){
         char *new_path_dir = private_dtw_change_beginning_of_string(dirs->strings[i],src_path_size,dest_path);
         dtw_create_dir_recursively(new_path_dir);
         free(new_path_dir);
@@ -6204,7 +6206,7 @@ bool dtw_copy_any(const char* src_path,const  char* dest_path,bool merge) {
 
 
     struct DtwStringArray *files = dtw_list_files_recursively(src_path,DTW_CONCAT_PATH);
-   
+
     for(int i = 0; i < files->size; i++){
         long file_size;
         bool is_binary;
@@ -6215,13 +6217,13 @@ bool dtw_copy_any(const char* src_path,const  char* dest_path,bool merge) {
         free(content);
         free(new_path);
 
-       
+
     }
 
     DtwStringArray_free(files);
-    
+
     return true;
-    
+
 }
 
 bool dtw_move_any(const char* src_path, const char* dest_path,bool merge) {
@@ -6250,8 +6252,8 @@ long dtw_load_long_file_content_setting_error(const char *path,int *error){
 
 
 long dtw_load_long_file_content(const char * path){
-   int error;
-   return dtw_load_long_file_content_setting_error(path,&error);
+    int error;
+    return dtw_load_long_file_content_setting_error(path,&error);
 }
 
 
@@ -6265,7 +6267,7 @@ double dtw_load_double_file_content_setting_error(const char * path, int *error)
     int result = sscanf(data,"%lf",&value);
     free(data);
     if(result){
-    
+
         return value;
     }
     *error = DTW_NOT_NUMERICAL;
@@ -6305,7 +6307,7 @@ bool dtw_load_bool_file_content_setting_error(const char * path, int *error){
 bool dtw_load_bool_file_content(const char * path){
     int error;
     return dtw_load_bool_file_content_setting_error(path,&error);
-    
+
 }
 
 
@@ -6338,15 +6340,15 @@ void dtw_write_bool_file_content(const char *path, bool value){
 
 
 
- DtwStringArray * dtw_list_files(const char *path, bool concat_path){
+DtwStringArray * dtw_list_files(const char *path, bool concat_path){
     return dtw_list_basic(path,  DTW_FILE_TYPE, concat_path);
 }
 
- DtwStringArray * dtw_list_dirs(const char *path, bool concat_path){
+DtwStringArray * dtw_list_dirs(const char *path, bool concat_path){
     return dtw_list_basic(path,DTW_FOLDER_TYPE, concat_path);
 }
 
- DtwStringArray *  dtw_list_all(const char *path,  bool concat_path){
+DtwStringArray *  dtw_list_all(const char *path,  bool concat_path){
     return dtw_list_basic(path, DTW_ALL_TYPE, concat_path);
 }
 
@@ -6365,16 +6367,16 @@ bool private_dtw_verify_if_add(const int expected_type, int d_type){
     }
 
     if (expected_type == DTW_ALL_TYPE) {
-      
+
         return true;
     }
     return false;
 }
 bool private_dtw_verify_if_skip(struct dirent *entry){
-        if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0) {
-            return true;
-        }
-        return false;
+    if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0) {
+        return true;
+    }
+    return false;
 }
 
 struct DtwStringArray * dtw_list_basic(const char *path,int expected_type,bool concat_path){
@@ -6397,10 +6399,10 @@ struct DtwStringArray * dtw_list_basic(const char *path,int expected_type,bool c
         if (private_dtw_verify_if_skip(entry)){
             continue;
         }
-    
+
         if (private_dtw_verify_if_add(expected_type,entry->d_type)) {
-            
-            
+
+
             if(concat_path){
                 //allocates memory for the directory
                 char *generated_dir = (char*)malloc(strlen(path) + strlen(entry->d_name) + 2);
@@ -6416,7 +6418,7 @@ struct DtwStringArray * dtw_list_basic(const char *path,int expected_type,bool c
             }
             else{
                 DtwStringArray_append(dirs, entry->d_name);
-                
+
             }
 
             i++;
@@ -6424,7 +6426,7 @@ struct DtwStringArray * dtw_list_basic(const char *path,int expected_type,bool c
     }
 
     if(expected_type == DTW_FOLDER_TYPE){
-        private_dtw_add_end_bar_to_dirs_string_array(dirs);   
+        private_dtw_add_end_bar_to_dirs_string_array(dirs);
     }
     closedir(dir);
 
@@ -6451,7 +6453,7 @@ bool private_dtw_verify_if_add(const int expected_type, WIN32_FIND_DATAA entry){
     if (expected_type == DTW_ALL_TYPE) {
         return true;
     }
-    
+
     return false;
 }
 
@@ -6488,7 +6490,7 @@ struct DtwStringArray *  dtw_list_basic(const char *path,int expected_type,bool 
 
         // verify if it's a file or directory
         if (private_dtw_verify_if_add(expected_type, file_data)) {
-            
+
             if(concat_path){
                 // allocate memory for the directory
                 if(path[strlen(path) - 1] == '\\' || path[strlen(path) - 1] == '/'){
@@ -6499,19 +6501,19 @@ struct DtwStringArray *  dtw_list_basic(const char *path,int expected_type,bool 
                 }
                 else{
                     char *generated_dir = (char*)malloc(strlen(path) + strlen(file_data.cFileName) + 2);
-                    
+
 
                     sprintf(generated_dir, "%s/%s", path, file_data.cFileName);
-                   
+
                     DtwStringArray_append(dirs, generated_dir);
                     free(generated_dir);
                 }
-                
-    
+
+
             }
             else{
                 DtwStringArray_append(dirs, file_data.cFileName);
-            
+
             }
 
             i++;
@@ -6519,9 +6521,9 @@ struct DtwStringArray *  dtw_list_basic(const char *path,int expected_type,bool 
     } while (FindNextFileA(file_handle, &file_data) != 0);
 
         if(expected_type == DTW_FOLDER_TYPE){
-            private_dtw_add_end_bar_to_dirs_string_array(dirs);   
+            private_dtw_add_end_bar_to_dirs_string_array(dirs);
         }
-    
+
     FindClose(file_handle);
 
     return dirs;
@@ -6529,52 +6531,52 @@ struct DtwStringArray *  dtw_list_basic(const char *path,int expected_type,bool 
 #endif
 
 
- DtwStringArray * dtw_list_dirs_recursively(const char *path,bool concat_path){
+DtwStringArray * dtw_list_dirs_recursively(const char *path,bool concat_path){
 
-        struct  DtwStringArray *dirs  = newDtwStringArray();
-        //verify if the path is a directory
-    
-        int entity_type = dtw_entity_type(path);
-        if(entity_type != DTW_FOLDER_TYPE){
-                return dirs;
-        }
-      
-        
-        DtwStringArray_append(dirs, (char*)path);
+    struct  DtwStringArray *dirs  = newDtwStringArray();
+    //verify if the path is a directory
 
-        private_dtw_add_end_bar_to_dirs_string_array(dirs);
-        int i = 0;
-        //The size of dirs will increase til it reaches the end of the array
-        while(i < dirs->size){                
-                struct DtwStringArray *sub_dirs = dtw_list_basic(
-                    dirs->strings[i],
-                    DTW_FOLDER_TYPE,
-                    true
-                    );
-                //merge the two dirs
-            DtwStringArray_merge(dirs, sub_dirs);
-                DtwStringArray_free(sub_dirs);
-                i++;
-               
-        }
-        //unsifth path in dirs 
-        private_dtw_remove_double_bars(dirs);
-
-        if(!concat_path){
-
-            struct DtwStringArray *removed =  private_dtw_remove_start_path(dirs,path);
-            DtwStringArray_free(dirs);
-            return removed;
-        }
+    int entity_type = dtw_entity_type(path);
+    if(entity_type != DTW_FOLDER_TYPE){
         return dirs;
+    }
+
+
+    DtwStringArray_append(dirs, (char*)path);
+
+    private_dtw_add_end_bar_to_dirs_string_array(dirs);
+    int i = 0;
+    //The size of dirs will increase til it reaches the end of the array
+    while(i < dirs->size){
+        struct DtwStringArray *sub_dirs = dtw_list_basic(
+                dirs->strings[i],
+                DTW_FOLDER_TYPE,
+                true
+        );
+        //merge the two dirs
+        DtwStringArray_merge(dirs, sub_dirs);
+        DtwStringArray_free(sub_dirs);
+        i++;
+
+    }
+    //unsifth path in dirs
+    private_dtw_remove_double_bars(dirs);
+
+    if(!concat_path){
+
+        struct DtwStringArray *removed =  private_dtw_remove_start_path(dirs,path);
+        DtwStringArray_free(dirs);
+        return removed;
+    }
+    return dirs;
 }
 
 
 
- DtwStringArray *  dtw_list_files_recursively(const char *path,bool concat_path){
-    
+DtwStringArray *  dtw_list_files_recursively(const char *path,bool concat_path){
+
     struct DtwStringArray *dirs = dtw_list_dirs_recursively(path,DTW_CONCAT_PATH);
-    
+
     struct  DtwStringArray *files = newDtwStringArray();
     for(int i = 0; i < dirs->size; i++){
         struct DtwStringArray *sub_files = dtw_list_basic(dirs->strings[i],DTW_FILE_TYPE,DTW_CONCAT_PATH);
@@ -6595,12 +6597,12 @@ struct DtwStringArray *  dtw_list_basic(const char *path,int expected_type,bool 
 }
 
 
- DtwStringArray * dtw_list_all_recursively(const char *path,bool concat_path){
+DtwStringArray * dtw_list_all_recursively(const char *path,bool concat_path){
 
     struct DtwStringArray *dirs = dtw_list_dirs_recursively(path,DTW_CONCAT_PATH);
-    
+
     struct DtwStringArray *all = newDtwStringArray();
-    
+
     for(int i = 0; i < dirs->size; i++){
 
         if(!dtw_ends_with(dirs->strings[i], "/") || !dtw_ends_with(dirs->strings[i], "\\") ){
@@ -6650,7 +6652,7 @@ struct DtwPath * newDtwPath(const char *path) {
     }
 
     self->original_path = DtwPath_get_path(self);
-    
+
     return self;
 }
 bool DtwPath_changed(struct DtwPath *self){
@@ -6690,12 +6692,12 @@ char * DtwPath_get_extension(struct DtwPath *self){
     }
     char *extension = strdup(self->extension);
     DtwStringArray_append_getting_ownership(self->garbage,extension);
-    return extension;   
+    return extension;
 }
 
 char * DtwPath_get_full_name(struct DtwPath *self){
     char *full_name = NULL;
-    
+
     if(self->name_exists == true &&  self->extension_exists == true){
         full_name = (char *)malloc(strlen(self->name) + strlen(self->extension) + 2);
         sprintf(full_name, "%s.%s",self->name, self->extension);
@@ -6704,15 +6706,15 @@ char * DtwPath_get_full_name(struct DtwPath *self){
     else if(self->name_exists == true &&  self->extension_exists == false){
         full_name = strdup(self->name);
     }
-    
+
     else if(self->name_exists == false &&  self->extension_exists == true){
         full_name = strdup(self->extension);
-        
-    }   
-    
+
+    }
+
     if(full_name){
         DtwStringArray_append_getting_ownership(self->garbage,full_name);
-    } 
+    }
 
     return full_name;
 }
@@ -6727,14 +6729,14 @@ char * DtwPath_get_dir(struct DtwPath *self){
 }
 
 char * DtwPath_get_path(struct DtwPath *self){
-    //concat the path, name and extension with / 
+    //concat the path, name and extension with /
     char *full_name = DtwPath_get_full_name(self);
     char *dir = DtwPath_get_dir(self);
 
-    #define FULL_NAME_EXIST full_name != NULL
-    #define FULL_NAME_NOT_EXIST full_name == NULL
-    #define DIR_EXIST dir != NULL
-    #define DIR_NOT_EXIST dir == NULL
+#define FULL_NAME_EXIST full_name != NULL
+#define FULL_NAME_NOT_EXIST full_name == NULL
+#define DIR_EXIST dir != NULL
+#define DIR_NOT_EXIST dir == NULL
     char *path = NULL;
     if(FULL_NAME_EXIST && DIR_EXIST){
         path = dtw_concat_path(dir, full_name);
@@ -6749,7 +6751,7 @@ char * DtwPath_get_path(struct DtwPath *self){
         path = dtw_concat_path(dir, "");
         DtwStringArray_append_getting_ownership(self->garbage,path);
     }
-    
+
     return path;
 }
 
@@ -6774,7 +6776,7 @@ void DtwPath_set_name(struct DtwPath * self, const char * name){
     self->name_exists = true;
     int name_size = strlen(name);
     self->name = (char *)realloc(self->name, name_size +1);
-   
+
     strcpy(self->name, name);
     self->name[name_size] = '\0';
 }
@@ -6824,12 +6826,12 @@ void DtwPath_set_path(struct DtwPath *self, const char *target_path) {
     self->dir_exists = false;
     self->name_exists = false;
     self->extension_exists = false;
-    
+
     int path_size = strlen(target_path);
-  
+
     for(int i = path_size - 1; i >= 0; i--){
         if(target_path[i] == '/' || target_path[i] == '\\'){
-            
+
             char *path = (char *)malloc(i + 1);
             strncpy(path, target_path, i);
             path[i] = '\0';
@@ -6875,7 +6877,7 @@ void DtwPath_add_end_dir(struct DtwPath *self, const char *end_dir){
     }
 }
 
-  
+
 
 void DtwPath_represent(struct DtwPath *self){
     char  *path = DtwPath_get_path(self);
@@ -6893,7 +6895,7 @@ void DtwPath_represent(struct DtwPath *self){
     printf("Name: %s\n", name ? name : "NULL");
     printf("Extension: %s\n", extension ? extension : "NULL");
 
-    
+
 }
 
 
@@ -6991,7 +6993,7 @@ struct DtwStringArray * DtwStringArray_clone(DtwStringArray *self){
 
 void DtwStringArray_free(struct DtwStringArray *self){
     for(int i = 0; i < self->size; i++){
-            free(self->strings[i]);
+        free(self->strings[i]);
     }
 
     free(self->strings);
@@ -7042,7 +7044,7 @@ struct DtwJsonTreeError * newDtwJsonError(){
 
 
 struct DtwJsonTreeError * DtwJsonTreeError_validate_json_tree(char *content){
- 
+
     struct DtwJsonTreeError *json_error = newDtwJsonError();
     cJSON *json_tree = cJSON_Parse(content);
     //verifiy if json_tre is not null
@@ -7060,7 +7062,7 @@ struct DtwJsonTreeError * DtwJsonTreeError_validate_json_tree(char *content){
         json_error->menssage = "json_tree is not an array";
         return json_error;
     }
-    
+
     int size = cJSON_GetArraySize(json_tree);
     for(int i = 0; i < size; i++){
         json_error->position = i;
@@ -7101,7 +7103,7 @@ struct DtwJsonTreeError * DtwJsonTreeError_validate_json_tree(char *content){
             json_error->code = DTW_JSON_REQUIRED_VALUE_ERROR;
             json_error->menssage = "hardware_content_size is not a number";
             return json_error;
-        }  
+        }
         if(last_modification_in_unix_time != NULL && !cJSON_IsNumber(last_modification_in_unix_time)){
             cJSON_Delete(json_tree);
             json_error->code = DTW_JSON_REQUIRED_VALUE_ERROR;
@@ -7135,11 +7137,11 @@ struct DtwJsonTreeError * DtwJsonTreeError_validate_json_tree(char *content){
         }
 
         if(pending_action != NULL && cJSON_IsNull(pending_action) == false){
-            
+
             if(cJSON_IsString(pending_action)){
-          
+
                 int action = private_dtw_convert_string_to_action(
-                    cJSON_GetStringValue(pending_action)
+                        cJSON_GetStringValue(pending_action)
                 );
                 if(action == DTW_ACTION_ERROR){
                     cJSON_Delete(json_tree);
@@ -7154,10 +7156,10 @@ struct DtwJsonTreeError * DtwJsonTreeError_validate_json_tree(char *content){
                 json_error->menssage = "pending_action is not a valid action";
                 return json_error;
             }
-                                
-       
+
+
         }
-        
+
     }
     cJSON_Delete(json_tree);
     return json_error;
@@ -7223,7 +7225,7 @@ struct DtwTreePart * newDtwTreePart(const char *path, DtwTreeProps *props){
 
 
     if(formated_props.content == DTW_INCLUDE || formated_props.hadware_data == DTW_INCLUDE){
-        
+
         DtwTreePart_load_content_from_hardware(self);
         if(formated_props.hadware_data == DTW_INCLUDE && self->content_exist_in_memory){
 
@@ -7279,14 +7281,14 @@ struct  DtwTreePart * DtwTreePart_self_copy(struct DtwTreePart *self){
 
     free(new_tree_part->content);
     new_tree_part->content = (unsigned char *)malloc(self->content_size + 2);
-    
+
     if(new_tree_part->is_binary == false){
-            new_tree_part->content[self->content_size] = '\0';    
+        new_tree_part->content[self->content_size] = '\0';
     }
-    
+
     memcpy(new_tree_part->content,self->content,self->content_size);
 
-    
+
     return new_tree_part;
 }
 
@@ -7304,12 +7306,12 @@ void DtwTreePart_set_any_content(struct DtwTreePart *self, unsigned char *conten
 
 void DtwTreePart_set_string_content(struct DtwTreePart *self, const char *content){
     DtwTreePart_set_any_content(
-        self,
-        (unsigned char*)content,
-        strlen(content),
-        false
+            self,
+            (unsigned char*)content,
+            strlen(content),
+            false
     );
-    
+
     self->content[self->content_size] = '\0';
 }
 
@@ -7361,7 +7363,7 @@ void DtwTreePart_represent(struct DtwTreePart *self){
     if(self->is_binary == true){
         printf("Content: Binary\n");
     }
-    
+
     const char *action = private_dtw_convert_action_to_string(self->pending_action);
     if(action){
         printf("Pending Action: %s\n",action);
@@ -7389,7 +7391,7 @@ struct DtwTreePart * newDtwTreePartEmpty(const char *path){
     DtwTreeProps  props = {.content =DTW_NOT_LOAD,.hadware_data = DTW_NOT_LOAD};
     return newDtwTreePart(
             path,
-         &props
+            &props
     );
 
 }
@@ -7424,13 +7426,13 @@ void DtwTreePart_load_content_from_hardware(struct DtwTreePart *self){
 
     DtwTreePart_free_content(self);
     self->content = dtw_load_any_content(path,&size,&is_binary);
-    
+
     if(!self->content){
         self->content = (unsigned char *)strdup("");
-    }    
+    }
 
     self->content_exist_in_memory = true;
-    
+
     self->is_binary = is_binary;
     self->content_size = size;
     self->hardware_content_size = size;
@@ -7442,18 +7444,18 @@ void DtwTreePart_load_content_from_hardware(struct DtwTreePart *self){
 
 
 bool DtwTreePart_hardware_remove(struct DtwTreePart *self, int transaction){
-     if(self->ignore == true){
+    if(self->ignore == true){
         return false;
-     }
-     if(transaction == DTW_SET_AS_ACTION){
+    }
+    if(transaction == DTW_SET_AS_ACTION){
         self->pending_action = DTW_REMOVE;
         return false;
-     }
+    }
 
     char *path =DtwPath_get_path(self->path);
 
     dtw_remove_any(path);
-    
+
     self->content_exist_in_hardware = false;
     return true;
 }
@@ -7465,18 +7467,18 @@ bool DtwTreePart_hardware_write(struct DtwTreePart *self, int transaction){
     if(transaction == DTW_SET_AS_ACTION){
         self->pending_action = DTW_WRITE;
         return false;
-    }   
+    }
     //means that the content not exist in memory
     if(self->content_exist_in_memory == false){
         char *path = DtwPath_get_path(self->path);
         char *dir = DtwPath_get_dir(self->path);
         int entity_type = dtw_entity_type(path);
-       
+
         if(entity_type== DTW_NOT_FOUND && dir!= NULL){
             dtw_create_dir_recursively(dir);
-        
+
         }
- 
+
 
         return true;
     }
@@ -7490,7 +7492,7 @@ bool DtwTreePart_hardware_write(struct DtwTreePart *self, int transaction){
     self->last_modification_time = now;
 
     return true;
-  
+
 }
 
 bool DtwTreePart_hardware_modify(struct DtwTreePart *self, int transaction){
@@ -7503,7 +7505,7 @@ bool DtwTreePart_hardware_modify(struct DtwTreePart *self, int transaction){
     }
     bool changed_path =DtwPath_changed(self->path);
 
-    
+
     if(changed_path == true && self->content_exist_in_memory == false){
         char *old_path = self->path->original_path;
         char *new_path = DtwPath_get_path(self->path);
@@ -7519,7 +7521,7 @@ bool DtwTreePart_hardware_modify(struct DtwTreePart *self, int transaction){
     }
 
     if(changed_path== false && self->content_exist_in_memory == true ){
-    
+
         if(self->metadata_loaded == true){
             char *hardware_sha = self->hawdware_content_sha;
             char *memory_sha = DtwTreePart_get_content_sha(self);
@@ -7535,9 +7537,9 @@ bool DtwTreePart_hardware_modify(struct DtwTreePart *self, int transaction){
     if(write){
         char *path = DtwPath_get_path(self->path);
         dtw_write_any_content(
-            path,
-            self->content,
-            self->content_size
+                path,
+                self->content,
+                self->content_size
         );
         free(self->hawdware_content_sha);
         self->hawdware_content_sha = dtw_generate_sha_from_string((const char *)self->content);
@@ -7587,10 +7589,10 @@ void DtwTree_loads_json_tree(struct DtwTree *self, const char *content){
         cJSON *content = cJSON_GetObjectItemCaseSensitive(json_tree_part, "content");
         cJSON *pending_action = cJSON_GetObjectItemCaseSensitive(json_tree_part, "pending_action");
         cJSON *ignore = cJSON_GetObjectItemCaseSensitive(json_tree_part, "ignore");
-   
+
         struct DtwTreePart *part = newDtwTreePartEmpty(
                 path->valuestring
-                );
+        );
 
         if(original_path != NULL){
             part->path->original_path = strdup(original_path->valuestring);
@@ -7602,46 +7604,46 @@ void DtwTree_loads_json_tree(struct DtwTree *self, const char *content){
             part->content_exist_in_hardware = true;
             part->hawdware_content_sha = (char *)realloc(part->hawdware_content_sha,strlen(hardware_sha->valuestring)+1);
             strcpy(part->hawdware_content_sha,hardware_sha->valuestring);
-            
+
         }
 
         if(hardware_content_size != NULL){
             part->content_exist_in_hardware = true;
             part->hardware_content_size = hardware_content_size->valueint;
         }
-        
+
         if(last_modification_in_unix_time != NULL){
             part->last_modification_time = last_modification_in_unix_time->valueint;
         }
-    
+
         if(is_binary != NULL){
             part->is_binary = is_binary->valueint;
         }
-        
+
         if(content_size != NULL){
             part->content_size = content_size->valueint;
         }
 
         if(content != NULL){
             part->content_exist_in_memory = true;
-        
+
             if(part->is_binary){
                 long out_size;
                 unsigned char *decoded =dtw_base64_decode(
-                    content->valuestring,
-                    &out_size
+                        content->valuestring,
+                        &out_size
                 );
                 DtwTreePart_set_binary_content(part,decoded,(int)out_size);
                 free(decoded);
             }
-           else{
+            else{
                 DtwTreePart_set_string_content(part,content->valuestring);
-           } 
+            }
         }
         if(pending_action != NULL &&  pending_action->valuestring){
-    
+
             part->pending_action = private_dtw_convert_string_to_action(
-                pending_action->valuestring
+                    pending_action->valuestring
             );
         }
         if(ignore != NULL){
@@ -7649,7 +7651,7 @@ void DtwTree_loads_json_tree(struct DtwTree *self, const char *content){
         }
 
         DtwTree_add_tree_part_by_reference(self, part);
-        
+
     }
     cJSON_Delete(json_tree);
 }
@@ -7668,7 +7670,7 @@ char * DtwTree_dumps_tree_json(struct DtwTree *self, DtwTreeProps * props){
 
     cJSON *json_array = cJSON_CreateArray();
     for(int i = 0; i < self->size; i++){
-       
+
         cJSON *json_tree_part = cJSON_CreateObject();
         struct DtwTreePart *tree_part = self->tree_parts[i];
         char *path_string = DtwPath_get_path(tree_part->path);
@@ -7679,58 +7681,58 @@ char * DtwTree_dumps_tree_json(struct DtwTree *self, DtwTreeProps * props){
         if(formated_props.ignored_elements == DTW_INCLUDE && tree_part->ignore){
             continue;
         }
-        
+
         if(tree_part->ignore){
             cJSON_AddItemToObject(
-                json_tree_part, 
-                "ignore", 
-                cJSON_CreateBool(true)
+                    json_tree_part,
+                    "ignore",
+                    cJSON_CreateBool(true)
             );
         }
 
         cJSON_AddItemToObject(
-            json_tree_part, 
-            "path", 
-            cJSON_CreateString(path_string)
+                json_tree_part,
+                "path",
+                cJSON_CreateString(path_string)
         );
-        
-        
-        
+
+
+
         if(formated_props.path_atributes == DTW_INCLUDE ){
-                char *dir_string = DtwPath_get_dir(tree_part->path);
-                char *full_name_string = DtwPath_get_full_name(tree_part->path);
-                char *name_string = DtwPath_get_name(tree_part->path);
-                char *extension_string = DtwPath_get_extension(tree_part->path);
-                if(tree_part->path->original_path != path_string){
-                    cJSON_AddItemToObject(
-                        json_tree_part, 
-                        "original_path", 
+            char *dir_string = DtwPath_get_dir(tree_part->path);
+            char *full_name_string = DtwPath_get_full_name(tree_part->path);
+            char *name_string = DtwPath_get_name(tree_part->path);
+            char *extension_string = DtwPath_get_extension(tree_part->path);
+            if(tree_part->path->original_path != path_string){
+                cJSON_AddItemToObject(
+                        json_tree_part,
+                        "original_path",
                         cJSON_CreateString(tree_part->path->original_path)
-                    );
-                }
-                cJSON_AddItemToObject(
-                    json_tree_part, 
-                    "dir", 
+                );
+            }
+            cJSON_AddItemToObject(
+                    json_tree_part,
+                    "dir",
                     cJSON_CreateString(dir_string)
-                );
-                
-                cJSON_AddItemToObject(
-                    json_tree_part, 
-                    "full_name", 
+            );
+
+            cJSON_AddItemToObject(
+                    json_tree_part,
+                    "full_name",
                     cJSON_CreateString(full_name_string)
-                );
-                
-                cJSON_AddItemToObject(
-                    json_tree_part, 
-                    "name", 
+            );
+
+            cJSON_AddItemToObject(
+                    json_tree_part,
+                    "name",
                     cJSON_CreateString(name_string)
-                );
-                
-                cJSON_AddItemToObject(
-                    json_tree_part, 
-                    "extension", 
+            );
+
+            cJSON_AddItemToObject(
+                    json_tree_part,
+                    "extension",
                     cJSON_CreateString(extension_string)
-                );
+            );
 
 
         }
@@ -7738,45 +7740,45 @@ char * DtwTree_dumps_tree_json(struct DtwTree *self, DtwTreeProps * props){
 
         if(formated_props.hadware_data == DTW_INCLUDE && tree_part->metadata_loaded){
             cJSON_AddItemToObject(
-                json_tree_part, 
-                "hardware_sha256", 
-                cJSON_CreateString(tree_part->hawdware_content_sha)
+                    json_tree_part,
+                    "hardware_sha256",
+                    cJSON_CreateString(tree_part->hawdware_content_sha)
             );
             cJSON_AddItemToObject(
-                json_tree_part, 
-                "last_modification_in_unix", 
-                cJSON_CreateNumber(tree_part->last_modification_time)
+                    json_tree_part,
+                    "last_modification_in_unix",
+                    cJSON_CreateNumber(tree_part->last_modification_time)
             );
 
             cJSON_AddItemToObject(
-                json_tree_part, 
-                "hardware_content_size", 
-                cJSON_CreateNumber(tree_part->hardware_content_size)
+                    json_tree_part,
+                    "hardware_content_size",
+                    cJSON_CreateNumber(tree_part->hardware_content_size)
             );
             char *last_modification_string =DtwTreePart_last_modification_time_in_string(tree_part);
             cJSON_AddItemToObject(
-                json_tree_part, 
-                "last_modification", 
-                cJSON_CreateString(last_modification_string)
+                    json_tree_part,
+                    "last_modification",
+                    cJSON_CreateString(last_modification_string)
             );
-            
+
             free(last_modification_string);
 
-            
+
         }
 
         if(formated_props.content_data == DTW_INCLUDE && tree_part->content_exist_in_memory){
             char *content_sha = DtwTreePart_get_content_sha(tree_part);
             cJSON_AddItemToObject(
-                json_tree_part, 
-                "content_size", 
-                cJSON_CreateNumber(tree_part->content_size)
+                    json_tree_part,
+                    "content_size",
+                    cJSON_CreateNumber(tree_part->content_size)
             );
 
             cJSON_AddItemToObject(
-                json_tree_part, 
-                "content_sha256", 
-                cJSON_CreateString(content_sha)
+                    json_tree_part,
+                    "content_sha256",
+                    cJSON_CreateString(content_sha)
             );
 
             free(content_sha);
@@ -7785,44 +7787,44 @@ char * DtwTree_dumps_tree_json(struct DtwTree *self, DtwTreeProps * props){
         if(formated_props.content == DTW_INCLUDE && tree_part->content_exist_in_memory){
 
             cJSON_AddItemToObject(
-                json_tree_part, 
-                "is_binary", 
-                cJSON_CreateBool(tree_part->is_binary)
-            );  
+                    json_tree_part,
+                    "is_binary",
+                    cJSON_CreateBool(tree_part->is_binary)
+            );
             if(tree_part->is_binary == false){
                 cJSON_AddItemToObject(
-                    json_tree_part, 
-                    "content", 
-                    cJSON_CreateString(DtwTreePart_get_content_string_by_reference(tree_part))
+                        json_tree_part,
+                        "content",
+                        cJSON_CreateString(DtwTreePart_get_content_string_by_reference(tree_part))
                 );
             }
             else{
                 char *content_base64 = dtw_base64_encode(tree_part->content, tree_part->content_size);
-         
-     
+
+
                 cJSON_AddItemToObject(
-                    json_tree_part, 
-                    "content", 
-                    cJSON_CreateString(content_base64)
-                );  
+                        json_tree_part,
+                        "content",
+                        cJSON_CreateString(content_base64)
+                );
                 free(content_base64);
             }
         }
-       
-        //adding action 
+
+        //adding action
         const char *action_string = private_dtw_convert_action_to_string(tree_part->pending_action);
         if(action_string != NULL){
             cJSON_AddItemToObject(
-                json_tree_part, 
-                "pending_action", 
-                cJSON_CreateString(action_string)
+                    json_tree_part,
+                    "pending_action",
+                    cJSON_CreateString(action_string)
             );
-        } 
-        //Add json_tree_part  
+        }
+        //Add json_tree_part
         cJSON_AddItemToArray(json_array,json_tree_part);
 
     }
-    
+
     char *json_string = cJSON_Print(json_array);
     //set ident to 4 spaces
     if(formated_props.minification == DTW_MIMIFY){
@@ -8192,7 +8194,7 @@ void DtwTree_add_tree_part_copy(struct DtwTree *self, struct DtwTreePart *tree_p
     self->size++;
     self->tree_parts =  (struct DtwTreePart**)realloc(self->tree_parts, self->size * sizeof(struct DtwTreePart *));
     self->tree_parts[self->size - 1] = DtwTreePart_self_copy(tree_part);
-       
+
 }
 
 void DtwTree_remove_tree_part(struct DtwTree *self, int position){
@@ -8290,7 +8292,7 @@ void DtwTree_add_tree_from_hardware(struct DtwTree *self,const char *path, DtwTr
                 current_path_string,
                 current_path_string+size_to_remove,
                 strlen(current_path_string) - size_to_remove +1
-                );
+        );
         DtwPath_set_path(current_path,current_path_string);
         strcpy(current_path->original_path,current_path_string);
         free(current_path_string);
@@ -8302,7 +8304,7 @@ void DtwTree_free(struct DtwTree *self){
     for(int i = 0; i < self->size; i++){
         DtwTreePart_free(self->tree_parts[i]);
     }
-    
+
     free(self->tree_parts);
     free(self);
 }
@@ -8313,7 +8315,7 @@ void DtwTree_insecure_hardware_remove_tree(struct DtwTree *self){
 }
 
 void DtwTree_insecure_hardware_write_tree(struct DtwTree *self){
-    
+
     for(int i = 0; i < self->size; i++){
         struct DtwTreePart *tree_part = self->tree_parts[i];
         DtwTreePart_hardware_write(tree_part,DTW_EXECUTE_NOW);
@@ -8372,31 +8374,31 @@ int  DtwMultiFIleLocker_lock(DtwMultiFileLocker *self, const char *element) {
 
         tota_execution+=1;
 
-         bool write = false;
-         int entity_type = dtw_entity_type(file);
-         if(entity_type== DTW_NOT_FOUND){
+        bool write = false;
+        int entity_type = dtw_entity_type(file);
+        if(entity_type== DTW_NOT_FOUND){
             write = true;
-         }
+        }
 
-         if(entity_type== DTW_FILE_TYPE){
-             long last_modification  = dtw_get_entity_last_motification_in_unix(file);
-             if ((now - self->max_lock_time) > last_modification ) {
-                 write = true;
-             }
-         }
+        if(entity_type== DTW_FILE_TYPE){
+            long last_modification  = dtw_get_entity_last_motification_in_unix(file);
+            if ((now - self->max_lock_time) > last_modification ) {
+                write = true;
+            }
+        }
 
-         if(entity_type == DTW_FOLDER_TYPE){
-             dtw_remove_any(file);
-             continue;
-         }
+        if(entity_type == DTW_FOLDER_TYPE){
+            dtw_remove_any(file);
+            continue;
+        }
 
 
-         if(!write) {
-             continue;
-         }
+        if(!write) {
+            continue;
+        }
         dtw_write_long_file_content(file,self->process);
         bool break_loop = true;
-         for(int i = 0;i < self->total_checks;i++){
+        for(int i = 0;i < self->total_checks;i++){
             long result = dtw_load_long_file_content(file);
             if(result != self->process && result != -1){
                 break_loop = false;
@@ -8507,7 +8509,7 @@ void privateDtwFlockArray_append(privateDtwFlockArray *self, const char *filenam
     self->elements = (privateDtwFlockLockedElement**) realloc(
             self->elements,
             sizeof(privateDtwFlockLockedElement**) * (self->size + 1)
-            );
+    );
     privateDtwFlockLockedElement  *created = private_new_privateDtwFlockLockedElement(filename, file_descriptor);
     self->elements[self->size] = created;
     self->size+=1;
@@ -8640,9 +8642,9 @@ void DtwLocker_unlock(DtwLocker *self, const  char *element){
 #ifdef __linux__
     DtwFlockLocker_unlock(self->locker,element);
 #endif
-    #ifdef _WIN32
-         DtwMultifileLocker_unlock(self->locker,element);
-    #endif
+#ifdef _WIN32
+    DtwMultifileLocker_unlock(self->locker,element);
+#endif
 }
 
 void DtwLocker_represemt(DtwLocker *self){
@@ -8651,7 +8653,7 @@ void DtwLocker_represemt(DtwLocker *self){
     DtwFlockLocker_represent(self->locker);
 #endif
 #ifdef _WIN32
-     DtwMultiFileLocker_represemt(self->locker);
+    DtwMultiFileLocker_represemt(self->locker);
 #endif
 }
 
@@ -8662,7 +8664,7 @@ void DtwLocker_free(DtwLocker *self){
 #endif
 
 #ifdef _WIN32
-     DtwMultiFileLocker_free(self->locker);
+    DtwMultiFileLocker_free(self->locker);
 #endif
     free(self);
 }
@@ -8779,7 +8781,7 @@ void DtwResource_unlock(DtwResource *self){
         return ;
     }
     DtwLocker_unlock(self->root_props->locker, self->path);
-    
+
 }
 
 
@@ -8840,9 +8842,9 @@ int DtwResource_type(DtwResource *self){
 
     if(
             strcmp(data_in_string,"t") == 0 || strcmp(data_in_string,"true") == 0  ||
-                    strcmp(data_in_string,"f") == 0 || strcmp(data_in_string,"false") == 0
+            strcmp(data_in_string,"f") == 0 || strcmp(data_in_string,"false") == 0
 
-    ){
+            ){
         return DTW_COMPLEX_BOOL_TYPE;
     }
 
@@ -8869,7 +8871,7 @@ const char * DtwResource_type_in_str(DtwResource *self){
     if(DtwResource_error(self)){
         return NULL;
     }
-     return dtw_convert_entity(DtwResource_type(self));
+    return dtw_convert_entity(DtwResource_type(self));
 }
 
 void DtwResource_represent(DtwResource *self){
@@ -8963,7 +8965,7 @@ unsigned char *DtwResource_get_any(DtwResource *self, long *size, bool *is_binar
                 self,
                 DTW_RESOURCE_ELEMENT_NOT_EXIST,
                 "element at #path# not exist"
-                );
+        );
         return NULL;
     }
 
@@ -9374,7 +9376,7 @@ DtwResource *new_DtwResource(const char *path){
     self->root_props = private_newDtwResourceRootProps();
 
     return self;
-}   
+}
 
 DtwResource * DtwResource_sub_resource(DtwResource *self,const  char *format, ...){
     if(DtwResource_error(self)){
@@ -9449,11 +9451,11 @@ DtwResource * DtwResource_sub_resource_ensuring_not_exist(DtwResource *self,cons
     if(type == DTW_NOT_FOUND){
 
 
-            if(self->cache_sub_resources){
-                DtwResourceArray_append((DtwResourceArray*)self->sub_resources,possible_emptiy);
-            }
+        if(self->cache_sub_resources){
+            DtwResourceArray_append((DtwResourceArray*)self->sub_resources,possible_emptiy);
+        }
 
-            return possible_emptiy;
+        return possible_emptiy;
     }
     DtwResource_unlock(possible_emptiy);
     DtwResource_free(possible_emptiy);
@@ -9638,7 +9640,7 @@ DtwResourceArray * DtwResource_sub_resources(DtwResource *self){
         if(self->cache_sub_resources){
             DtwResource_sub_resource(self,"%s", current_name);
         }
-        
+
         else{
             DtwResource *current_resource = DtwResource_sub_resource(self,"%s",current_name);
             DtwResourceArray_append(target_array,current_resource);
@@ -10158,8 +10160,8 @@ void DtwTransaction_copy_any(struct DtwTransaction *self,const char *source,cons
 }
 
 void DtwTransaction_delete_any(struct DtwTransaction *self,const char *source){
-     DtwActionTransaction  *action = DtwActionTransaction_delete_any(source);
-     DtwTransaction_append_action(self,action);
+    DtwActionTransaction  *action = DtwActionTransaction_delete_any(source);
+    DtwTransaction_append_action(self,action);
 }
 
 
@@ -10189,7 +10191,7 @@ DtwJsonTransactionError * dtw_validate_json_transaction(cJSON *json_entry){
                 JSON_TRANSACTION_WRONG_TYPE,
                 "the initial value its not an array",
                 NULL
-                );
+        );
     }
     long  element_size = cJSON_GetArraySize(json_entry);
     for(long  i = 0; i <element_size; i++){
@@ -10219,7 +10221,7 @@ DtwJsonTransactionError * dtw_validate_json_transaction_file(const char *filenam
                 DTW_ACTION_FILE_NOT_FOUND,
                 formated_mensage,
                 NULL
-                );
+        );
         free(formated_mensage);
         return error;
     }
@@ -10859,7 +10861,7 @@ DtwNamespace newDtwNamespace(){
     self.string_array = newDtwStringArrayModule();
     self.path = newDtwPathModule();
     self.locker = newDtwLockerModule();
-    
+
 
     self.tree = newDtwTreeModule();
     self.hash = newDtwHashModule();
