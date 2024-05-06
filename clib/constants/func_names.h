@@ -32,3 +32,4 @@
 #define GENERATE_SHA_FROM_FOLDER_BY_LAST_MODIFICATION "generate_sha_from_folder_by_last_modification"
 
 
+

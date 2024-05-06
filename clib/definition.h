@@ -9,3 +9,4 @@
 #include "resource/resource.c"
 #include "resource/sub_resource.c"
 #include "resource/getters.c"
+#include "resource/path.c"

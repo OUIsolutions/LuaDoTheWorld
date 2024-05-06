@@ -12,7 +12,11 @@
 
 
 ---@class DtwResource
----@field sub_resource fun(str:string) :DtwResource 
+---@field sub_resource fun(str:string) :DtwResource
+---@field sub_resource_next fun(str:string) :DtwResource
+---@field sub_resource_now fun(str:string) :DtwResource
+---@field sub_resource_now_in_unix fun(str:string) :DtwResource
+---@field sub_resource fun(str:string) :DtwResource
 ---@field __index fun(str:string) :DtwResource 
 ---@field get_value fun():string | number | boolean | nil | DtwBytes
 ---@field set_value fun(value:string | number | boolean | DtwBytes ) 
@@ -20,6 +24,12 @@
 ---@field lock fun() lock the resource from other process 
 ---@field unlock fun()
 ---@field unload fun() unload the content 
+---@field get_path fun() :string
+---@field get_name fun() :string
+---@field get_extension fun() :string
+---@field get_name_without_extension fun() :string
+---@field get_dir fun() :string
+---@field destroy fun()
 
 
 ---@class DtwModule

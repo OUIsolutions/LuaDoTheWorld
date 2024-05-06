@@ -42,6 +42,17 @@ LuaCEmbedResponse * lock_resource(LuaCEmbedTable  *self, LuaCEmbed *args);
 
 LuaCEmbedResponse * unlock_resource(LuaCEmbedTable  *self, LuaCEmbed *args);
 
+LuaCEmbedResponse * resource_get_path(LuaCEmbedTable  *self,LuaCEmbed *args);
+
+LuaCEmbedResponse * resource_get_dir(LuaCEmbedTable  *self,LuaCEmbed *args);
+
+LuaCEmbedResponse * resource_get_name(LuaCEmbedTable  *self,LuaCEmbed *args);
+
+LuaCEmbedResponse * resource_get_name_without_extension(LuaCEmbedTable  *self,LuaCEmbed *args);
+
+LuaCEmbedResponse * resource_get_extension(LuaCEmbedTable  *self,LuaCEmbed *args);
+
+
 
 LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource);
 

@@ -22,3 +22,9 @@
 #define COMMIT_METHOD "commit"
 
 #define DESTROY_METHOD "destroy"
+
+#define GET_PATH_METHOD "get_path"
+#define GET_DIR_METHOD "get_dir"
+#define GET_NAME_METHOD "get_name"
+#define GET_NAME_WITHOUT_EXTENSION "get_name_without_extension"
+#define GET_EXTENSION  "get_extension"

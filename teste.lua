@@ -2,6 +2,5 @@
 
 
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
-local value = dtw.newResource("clib")["declaration.h"]
-
-dtw.write_file("teste.txt",value)
+local value = dtw.newResource("clib").sub_resource("aaaaaaaa.sss")
+print(value.get_extension())
