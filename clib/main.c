@@ -30,7 +30,7 @@ void start_lua_props(LuaCEmbed *l){
 
     lua.add_callback(l,IS_DIR_FUNC,is_dir);
     lua.add_callback(l,IS_FILE_FUNC,is_file);
-    lua.add_callback(l, IS_FILE_BYTE, is_binary)
+    lua.add_callback(l, IS_FILE_BYTE, is_binary);
     lua.add_callback(l,NEW_HASHER,create_hasher);
 }
 
