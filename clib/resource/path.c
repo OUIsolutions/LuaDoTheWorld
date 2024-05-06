@@ -63,5 +63,5 @@ LuaCEmbedResponse * resource_set_extension(LuaCEmbedTable  *self,LuaCEmbed *args
     dtw.path.set_extension(path,extension);
     DtwResource_rename(resource,dtw.path.get_full_name(path));
     dtw.path.free(path);
-    return  NULL;
+    return  lua.response.send_table(self);
 }

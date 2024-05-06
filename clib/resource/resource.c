@@ -18,7 +18,7 @@ LuaCEmbedResponse * resource_set_value(LuaCEmbedTable  *self,LuaCEmbed *args){
     }
     DtwResource  *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
     dtw.resource.set_binary(resource,write_obj.content, write_obj.size);
-    return NULL;
+    return  lua.response.send_table(self);
 }
 
 
@@ -26,25 +26,25 @@ LuaCEmbedResponse * resource_set_value(LuaCEmbedTable  *self,LuaCEmbed *args){
 LuaCEmbedResponse * resource_commit(LuaCEmbedTable  *self,LuaCEmbed *args){
     DtwResource  *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
     dtw.resource.commit(resource);
-    return  NULL;
+    return  lua.response.send_table(self);
 
 }
 
 LuaCEmbedResponse * resource_destroy(LuaCEmbedTable  *self,LuaCEmbed *args){
     DtwResource  *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
     dtw.resource.destroy(resource);
-    return  NULL;
+    return  lua.response.send_table(self);
 }
 LuaCEmbedResponse * unload_resurce(LuaCEmbedTable  *self, LuaCEmbed *args){
     DtwResource  *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
     dtw.resource.unload(resource);
-    return  NULL;
+    return  lua.response.send_table(self);
 }
 
 LuaCEmbedResponse * lock_resource(LuaCEmbedTable  *self, LuaCEmbed *args){
     DtwResource  *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
     dtw.resource.lock(resource);
-    return  NULL;
+    return  lua.response.send_table(self);
 }
 
 LuaCEmbedResponse * unlock_resource(LuaCEmbedTable  *self, LuaCEmbed *args){
