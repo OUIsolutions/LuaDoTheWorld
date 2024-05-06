@@ -27,7 +27,7 @@ local function handle_side_effect(dir,current_assignature)
 
     local test_were_predictible = dtw.isdir(side_effect_expected_folder) 
     
-    if not test_were_predictible then
+    if not test_were_predictible or RECONSTRUCT then
         print("created"..side_effect_expected_folder)
         dtw.copy_any_overwriting(SIDE_EFFECT,side_effect_expected_folder)
     
