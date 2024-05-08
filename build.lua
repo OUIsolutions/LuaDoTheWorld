@@ -135,6 +135,7 @@ local function main()
 
     dtw.copy_any_overwriting(side_effect_copy_path,SIDE_EFFECT);
     dtw.remove_any(side_effect_copy_path)
+    os.execute("zip -r luaDoTheWorld.zip luaDoTheWorld/")
 end
 
 
