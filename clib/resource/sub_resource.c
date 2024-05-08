@@ -33,7 +33,7 @@ LuaCEmbedResponse * resource_sub_resource_normal(LuaCEmbedTable  *self, LuaCEmbe
 
     int type = lua.args.get_type(args,0);
     if(type == lua.types.NUMBER){
-        long  i = lua.args.get_long(args,0)-1;
+        long  i = lua.args.get_long(args,0);
         char src[20] = {0};
         sprintf(src,"%ld",i);
         return private_resource_sub_resource_raw(self,args,src);
