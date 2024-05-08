@@ -7,6 +7,21 @@ LuaCEmbedResponse * private_resource_sub_resource_raw(LuaCEmbedTable  *self, Lua
 }
 
 LuaCEmbedResponse * resource_sub_resource_index(LuaCEmbedTable  *self, LuaCEmbed *args){
+    DtwResource  *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
+
+    int type = lua.args.get_type(args,1);
+    if(type == lua.types.NUMBER){
+        long  i = lua.args.get_long(args,1)-1;
+        DtwResourceArray  *elements = dtw.resource.sub_resources(resource);
+        
+        if(i >=elements->size || i  < 0){
+            return NULL;
+        }
+        DtwResource *current = elements->resources[i];
+        LuaCEmbedTable  *sub = raw_create_resource(args,current);
+        return lua.response.send_table(sub);
+    }
+
     char *src = lua.args.get_str(args,1);
     if(lua.has_errors(args)){
         char *error_message = lua.get_error_message(args);
