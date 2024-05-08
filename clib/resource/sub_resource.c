@@ -29,23 +29,7 @@ LuaCEmbedResponse * resource_sub_resource_index(LuaCEmbedTable  *self, LuaCEmbed
     }
     return private_resource_sub_resource_raw(self,args,src);
 }
-LuaCEmbedResponse * resource_sub_resource_normal(LuaCEmbedTable  *self, LuaCEmbed *args){
 
-    int type = lua.args.get_type(args,0);
-    if(type == lua.types.NUMBER){
-        long  i = lua.args.get_long(args,0);
-        char src[20] = {0};
-        sprintf(src,"%ld",i);
-        return private_resource_sub_resource_raw(self,args,src);
-    }
-
-    char *src = lua.args.get_str(args,0);
-    if(lua.has_errors(args)){
-        char *error_message = lua.get_error_message(args);
-        return  lua.response.send_error(error_message);
-    }
-    return private_resource_sub_resource_raw(self,args,src);
-}
 
 
 LuaCEmbedResponse * resource_sub_resource_method(LuaCEmbedTable  *self, LuaCEmbed *args){
