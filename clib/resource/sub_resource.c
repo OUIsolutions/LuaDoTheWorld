@@ -13,7 +13,7 @@ LuaCEmbedResponse * resource_sub_resource_index(LuaCEmbedTable  *self, LuaCEmbed
     if(type == lua.types.NUMBER){
         long  i = lua.args.get_long(args,1)-1;
         DtwResourceArray  *elements = dtw.resource.sub_resources(resource);
-        
+
         if(i >=elements->size || i  < 0){
             return NULL;
         }
@@ -29,6 +29,24 @@ LuaCEmbedResponse * resource_sub_resource_index(LuaCEmbedTable  *self, LuaCEmbed
     }
     return private_resource_sub_resource_raw(self,args,src);
 }
+LuaCEmbedResponse * resource_sub_resource_normal(LuaCEmbedTable  *self, LuaCEmbed *args){
+
+    int type = lua.args.get_type(args,1);
+    if(type == lua.types.NUMBER){
+        long  i = lua.args.get_long(args,1)-1;
+        char src[20] = {0};
+        sprintf(src,"%ld",i);
+        return private_resource_sub_resource_raw(self,args,src);
+    }
+
+    char *src = lua.args.get_str(args,1);
+    if(lua.has_errors(args)){
+        char *error_message = lua.get_error_message(args);
+        return  lua.response.send_error(error_message);
+    }
+    return private_resource_sub_resource_raw(self,args,src);
+}
+
 
 LuaCEmbedResponse * resource_sub_resource_method(LuaCEmbedTable  *self, LuaCEmbed *args){
     char *src = lua.args.get_str(args,0);
