@@ -7,6 +7,8 @@ LuaCEmbedResponse  *get_byte_at_index(LuaCEmbedTable *self, LuaCEmbed *args);
 
 LuaCEmbedResponse  *get_byte_at_method(LuaCEmbedTable *self, LuaCEmbed *args);
 
+LuaCEmbedResponse  *bytes_representation(LuaCEmbedTable *self, LuaCEmbed *args);
+
 LuaCEmbedTable * create_bytes(LuaCEmbed  *args,unsigned  char *content,long size);
 
 

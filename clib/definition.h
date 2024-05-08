@@ -10,3 +10,4 @@
 #include "resource/sub_resource.c"
 #include "resource/getters.c"
 #include "resource/path.c"
+#include "transaction/definition.h"

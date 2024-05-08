@@ -29,3 +29,10 @@
 #define GET_NAME_WITHOUT_EXTENSION "get_name_without_extension"
 #define GET_EXTENSION  "get_extension"
 #define SET_EXTENSION_METHOD "set_extension"
+
+#define WRITE_METHOD "write"
+#define REMOVE_ANY_METHOD "remove_any"
+#define MOVE_ANY_METHOD "move_any"
+#define COPY_ANY_METHOD "copy_any"
+#define DUMPS_TO_JSON_FILE_METHOD "dumps_to_json_file"
+#define DUMPS_TO_JSON_STRING "dumps_to_json_string"

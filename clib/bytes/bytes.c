@@ -42,7 +42,9 @@ LuaCEmbedResponse  *get_byte_at_method(LuaCEmbedTable *self, LuaCEmbed *args){
     }
     return private_get_bytes_at(self,index);
 }
-
+LuaCEmbedResponse  *bytes_representation(LuaCEmbedTable *self, LuaCEmbed *args){
+    return lua.response.send_str(BYTE_STRING);
+}
 LuaCEmbedTable * create_bytes(LuaCEmbed  *args,unsigned  char *content,long size){
     LuaCEmbedTable *self = lua.tables.new_anonymous_table(args);
     lua.tables.set_long_prop(self,DTW_TYPE,BYTE_TYPE);
@@ -50,6 +52,7 @@ LuaCEmbedTable * create_bytes(LuaCEmbed  *args,unsigned  char *content,long size
     lua.tables.set_long_prop(self,SIZE,size);
     lua.tables.set_long_prop(self,CONTENT_POINTER,(long)content);
     lua.tables.set_method(self, INDEX_METHOD, get_byte_at_index);
+    lua.tables.set_method(self, TO_STRING_METHOD, bytes_representation);
     lua.tables.set_method(self, GET_BYTE_AT_METHOD, get_byte_at_method);
     lua.tables.set_method(self, DELETE_METHOD, delete_bytes);
     return self;
