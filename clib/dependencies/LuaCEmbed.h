@@ -22653,6 +22653,8 @@ LUALIB_API void luaL_checkversion_ (lua_State *L, lua_Number ver, size_t sz) {
 
 #define PRIVATE_LUA_CEMBE_SUB_ARG_TABLE "private_lua_c_embed_table_arg_%s_%d"
 #define PRIVATE_LUA_CEMBED_ANONYMOUS_TABLE "private_lua_c_embed_anononymous_table_%ld"
+#define PRIVATE_LUA_CEMBED_ANONYMOUS_FUNC_TABLE "private_lua_c_embed_anononymous_func_table_%ld"
+
 #define PRIVATE_LUA_CEMBED_SELFNAME "private_lua_c_embed_self"
 #define  PRIVATE_LUA_CEMBED_MULTIRETURN "private_lua_c_embed_multi_return%d"
 #define PRIVATE_LUA_CEMBED_STAGE_AREA_TABLE "private_lua_c_embed_stage_area_table"
@@ -25261,9 +25263,14 @@ LuaCEmbedTable  *privateLuaCEmbedTableArray_find_by_internal_index(privateLuaCEm
 
 void  privateLuaCEmbedTableArray_free(privateLuaCEmbedTableArray *self){
 
+    for(int i = 0; i < self->size;i++){
+        LuaCEmbedTable  *current_table = self->tables[i];
+        privateLuaCEmbedTable_free(current_table);
 
+    }
 
-
+    free(self->tables);
+    free(self);
 }
 
 
@@ -25353,10 +25360,14 @@ LuaCEmbedTable * LuaCembed_new_anonymous_table(LuaCEmbed *self){
     PRIVATE_LUA_CEMBED_PROTECT_NULL
     private_lua_cembed_memory_limit = self->memory_limit;
 
+    const char *format_raw = PRIVATE_LUA_CEMBED_ANONYMOUS_TABLE;
+    if(self->current_function){
+       format_raw  =PRIVATE_LUA_CEMBED_ANONYMOUS_FUNC_TABLE;
+    }
     privateLuaCEmbedTableArray *target = (privateLuaCEmbedTableArray*)privateLuaCEmbed_get_current_table_array(self);
-
-    char *buffer= private_LuaCembed_format(PRIVATE_LUA_CEMBED_ANONYMOUS_TABLE, target->size);
+    char *buffer= private_LuaCembed_format(format_raw, target->size);
     LuaCEmbedTable  *created_table =LuaCembed_new_global_table(self,buffer);
+
     free(buffer);
     return created_table;
 }
