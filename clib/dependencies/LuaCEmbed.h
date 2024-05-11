@@ -25519,7 +25519,13 @@ int privateLuaCEmbed_main_callback_handler(lua_State  *L){
 
     const char *func_name =  lua_tostring(L,lua_upvalueindex(3));
     self->current_function = func_name;
-    self->func_tables = (void*)newprivateLuaCEmbedTableArray();
+    bool func_tables_created_in_these_scope = false;
+
+    if(self->func_tables == NULL) {
+        self->func_tables = (void*)newprivateLuaCEmbedTableArray();
+        func_tables_created_in_these_scope = true;
+    }
+
 
     if(is_a_method){
         LuaCEmbedResponse *(*method_callback)(LuaCEmbedTable *tb, LuaCEmbed *self);
@@ -25539,8 +25545,12 @@ int privateLuaCEmbed_main_callback_handler(lua_State  *L){
         function_callback = (LuaCEmbedResponse *(*)(LuaCEmbed *self))lua_touserdata(L, lua_upvalueindex(4));
         possible_return = function_callback(self);
     }
+    if(func_tables_created_in_these_scope) {
+        privateLuaCEmbedTableArray_free((privateLuaCEmbedTableArray*)self->func_tables);
+        self->func_tables = NULL;
 
-    privateLuaCEmbedTableArray_free((privateLuaCEmbedTableArray*)self->func_tables);
+    }
+
     lua_settop(self->state, 0);
 
     self->current_function = NULL;
