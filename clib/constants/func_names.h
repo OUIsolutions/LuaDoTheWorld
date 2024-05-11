@@ -31,5 +31,6 @@
 #define GENERATE_SHA_FROM_FOLDER_BY_CONTENT "generate_sha_from_folder_by_content"
 #define GENERATE_SHA_FROM_FOLDER_BY_LAST_MODIFICATION "generate_sha_from_folder_by_last_modification"
 
-
-
+#define NEW_TRANSACTION_FROM_JSON_STRING "new_transaction_from_json_string"
+#define NEW_TRANSACTION_FROM_JSON_FILE "new_transaction_from_file"
+#define NEW_TRANSACTION "new_transaction"

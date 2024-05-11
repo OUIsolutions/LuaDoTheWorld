@@ -7,7 +7,4 @@
 
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
-local resources = dtw.newResource("clib")
-resources.foreach(function (element)
-    print(element.get_path())
-end)
+local t = dtw.new_transaction_from_file("teste.json")

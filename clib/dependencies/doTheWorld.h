@@ -10247,7 +10247,13 @@ DtwJsonTransactionError * dtw_validate_json_transaction_file(const char *filenam
 
 
 DtwTransaction * newDtwTransaction_from_json(cJSON *json_entry){
+    DtwJsonTransactionError *generated_error = dtw_validate_json_transaction(json_entry);
+    if(generated_error) {
+        DtwJsonTransactionError_free(generated_error);
+        return NULL;
+    }
     DtwTransaction *self = newDtwTransaction();
+
     long size = cJSON_GetArraySize(json_entry);
     for(int i  = 0; i < size; i ++){
         cJSON  *object_action = cJSON_GetArrayItem(json_entry,i);

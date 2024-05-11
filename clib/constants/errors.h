@@ -6,3 +6,5 @@
 
 #define NOT_WRITEBLE_ELEMENT "element of type %s its not in (string,bool,bytes,number)"
 #define INVALID_INDEX "invalid index"
+#define INVALID_JSON_FILE "file %s its not a valid json"
+#define INVALID_JSON_STRING "content its not a valid json"

@@ -10,6 +10,15 @@
 ---@field digest_folder_by_last_modification fun(source:string
 ---@field get_value fun()
 
+---@class DtwTransaction
+---@field write fun(src :string , value:string | number | boolean | DtwBytes | DtwResource ):DtwTransaction
+---@field remove_any fun(src:string):DtwTransaction
+---@field copy_any fun(src:string,dest:string):DtwTransaction
+---@field move_any fun(src:string,dest:string):DtwTransaction
+---@field dump_to_json_string fun():string
+---@field dump_to_json_file fun(src:string):DtwTransaction
+---@field commit fun():DtwTransaction
+
 
 ---@class DtwResource
 ---@field sub_resource fun(str:string) :DtwResource
@@ -18,7 +27,7 @@
 ---@field sub_resource_now_in_unix fun(str:string) :DtwResource
 ---@field __index fun(str:string) : number ,DtwResource
 ---@field get_value fun():string | number | boolean | nil | DtwBytes
----@field set_value fun(value:string | number | boolean | DtwBytes ) 
+---@field set_value fun(value:string | number | boolean | DtwBytes | DtwResource )
 ---@field commit fun()  apply the modifications
 ---@field lock fun() lock the resource from other process 
 ---@field unlock fun()
@@ -61,8 +70,11 @@
 ---@field isdir fun():boolean
 ---@field isfile fun():boolean
 ---@field isfile_byte fun():boolean
-
-
+---@field new_transaction fun():DtwTransaction
+---@field new_transaction_from_file fun():DtwTransaction
+---@field new_transaction_from_json_string fun():DtwTransaction
+---
+---
 local info = debug.getinfo(1, "S")
 local path = info.source:match("@(.*/)") or ""
 

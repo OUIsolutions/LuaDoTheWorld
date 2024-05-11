@@ -1,0 +1,12 @@
+[{
+		"action":	"write",
+		"source":	"aaaa",
+		"content":	"aaaaa"
+	}, {
+		"action":	"delete",
+		"source":	"teste"
+	}, {
+		"":	"copy",
+		"source":	"aaa",
+		"dest":	"a"
+	}]
