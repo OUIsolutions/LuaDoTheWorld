@@ -11,7 +11,8 @@ LuaCEmbedResponse * resource_sub_resource_index(LuaCEmbedTable  *self, LuaCEmbed
 
     int type = lua.args.get_type(args,1);
     if(type == lua.types.NUMBER){
-        long  i = lua.args.get_long(args,1)-1;
+        long raw_index =  lua.args.get_long(args,1);
+        long  i = raw_index-1;
         DtwResourceArray  *elements = dtw.resource.sub_resources(resource);
 
         if(i >=elements->size || i  < 0){
@@ -19,7 +20,10 @@ LuaCEmbedResponse * resource_sub_resource_index(LuaCEmbedTable  *self, LuaCEmbed
         }
         DtwResource *current = elements->resources[i];
         LuaCEmbedTable  *sub = raw_create_resource(args,current);
-        return lua.response.send_table(sub);
+        LuaCEmbedTable *response = lua.tables.new_anonymous_table(args);
+        lua.tables.append_long(response,raw_index);
+        lua.tables.append_table(response,sub);
+        return lua.response.send_multi_return(response);
     }
 
     char *src = lua.args.get_str(args,1);

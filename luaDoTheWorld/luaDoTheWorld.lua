@@ -16,8 +16,7 @@
 ---@field sub_resource_next fun(str:string) :DtwResource
 ---@field sub_resource_now fun(str:string) :DtwResource
 ---@field sub_resource_now_in_unix fun(str:string) :DtwResource
----@field sub_resource fun(str:string) :DtwResource
----@field __index fun(str:string) :DtwResource 
+---@field __index fun(str:string) : number ,DtwResource
 ---@field get_value fun():string | number | boolean | nil | DtwBytes
 ---@field set_value fun(value:string | number | boolean | DtwBytes ) 
 ---@field commit fun()  apply the modifications
@@ -29,6 +28,7 @@
 ---@field get_extension fun() :string
 ---@field get_name_without_extension fun() :string
 ---@field get_dir fun() :string
+---@field foreach fun(callback :fun(element:DtwResource))
 ---@field set_extension fun(extension:string)
 ---@field destroy fun()
 

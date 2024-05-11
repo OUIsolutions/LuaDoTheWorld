@@ -36,3 +36,4 @@
 #define COPY_ANY_METHOD "copy_any"
 #define DUMPS_TO_JSON_FILE_METHOD "dumps_to_json_file"
 #define DUMPS_TO_JSON_STRING "dumps_to_json_string"
+#define FOREACH_METHOD "foreach"

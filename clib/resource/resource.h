@@ -33,6 +33,8 @@ LuaCEmbedResponse * resource_commit(LuaCEmbedTable  *self,LuaCEmbed *args);
 
 LuaCEmbedResponse * resource_destroy(LuaCEmbedTable  *self,LuaCEmbed *args);
 
+LuaCEmbedResponse * resource_foreach(LuaCEmbedTable  *self,LuaCEmbed *args);
+
 
 LuaCEmbedResponse * free_resource(LuaCEmbedTable  *self, LuaCEmbed *args);
 
