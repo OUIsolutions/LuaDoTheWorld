@@ -98,7 +98,7 @@ LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource){
     lua.tables.set_method(self, GET_DIR_METHOD, resource_get_dir);
     lua.tables.set_method(self, GET_NAME_WITHOUT_EXTENSION, resource_get_name_without_extension);
     lua.tables.set_method(self, SET_EXTENSION_METHOD,resource_set_extension);
-
+    lua.tables.set_method(self,LIST_METHOD,resource_list);
     lua.tables.set_method(self,FOREACH_METHOD,resource_foreach);
     if(!resource->child){
         lua.tables.set_method(self, DELETE_METHOD, free_resource);

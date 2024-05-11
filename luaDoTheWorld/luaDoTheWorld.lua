@@ -30,6 +30,7 @@
 ---@field get_dir fun() :string
 ---@field foreach fun(callback :fun(element:DtwResource))
 ---@field set_extension fun(extension:string)
+---@field list fun(): DtwResource[]
 ---@field destroy fun()
 
 

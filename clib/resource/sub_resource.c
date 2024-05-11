@@ -34,7 +34,17 @@ LuaCEmbedResponse * resource_sub_resource_index(LuaCEmbedTable  *self, LuaCEmbed
     return private_resource_sub_resource_raw(self,args,src);
 }
 
-
+LuaCEmbedResponse * resource_list(LuaCEmbedTable  *self,LuaCEmbed *args) {
+    DtwResource  *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
+    DtwResourceArray  *elements = dtw.resource.sub_resources(resource);
+    LuaCEmbedTable *response = lua.tables.new_anonymous_table(args);
+    for(int i = 0; i < elements->size; i++) {
+        DtwResource*current = elements->resources[i];
+        LuaCEmbedTable  *sub = raw_create_resource(args,current);
+        lua.tables.append_table(response,sub);
+    }
+    return lua.response.send_table(response);
+}
 
 LuaCEmbedResponse * resource_sub_resource_method(LuaCEmbedTable  *self, LuaCEmbed *args){
     char *src = lua.args.get_str(args,0);

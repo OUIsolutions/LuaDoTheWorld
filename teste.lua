@@ -9,4 +9,6 @@ local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
 local elements = dtw.newResource("clib")
 
-print(elements[1])
+for i,v in ipairs(elements.list() ) do
+    print(v.get_path())
+end
