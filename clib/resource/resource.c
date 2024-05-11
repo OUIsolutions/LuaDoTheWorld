@@ -21,6 +21,7 @@ LuaCEmbedResponse * resource_foreach(LuaCEmbedTable  *self,LuaCEmbed *args) {
         LuaCEmbedTable *args_to_callback = lua.tables.new_anonymous_table(args);
         lua.tables.append_table(args_to_callback,sub);
         lua.args.run_lambda(args,0,args_to_callback,0);
+
     }
     return lua.response.send_table(self);
 
