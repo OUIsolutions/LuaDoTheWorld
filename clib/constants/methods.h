@@ -49,3 +49,4 @@
 #define SUB_SCHEMA_METHOD "sub_schema"
 #define SCHEMA_NEW_INSERTION "new_insertion"
 #define SET_VALUE_IN_SUB_RESOURCE_METHOD "set_value_in_sub_resource"
+#define GET_VALUE_FROM_SUB_RESOURCE_METHOD "get_value_from_sub_resource"

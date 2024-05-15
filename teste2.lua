@@ -8,18 +8,8 @@ usuarios.add_primary_keys("nome")
 usuarios.add_primary_keys("email")
 
 
-local possivel_usuario = usuarios.get_resource_matching_primary_key("nome","mateus")
+local possivel_usuario = usuarios.find(function(r)
+    return  tostring(r.sub_resource("nome")) == 'mateus'
+end)
 
-
-print(possivel_usuario.sub_resource("nome"))
-
---local mateus = usuarios.new_insertion()
---mateus.set_value_in_sub_resource("nome","mateus")
---mateus.set_value_in_sub_resource("idade",27)
---mateus.set_value_in_sub_resource("email","mateusmoutinho01@gmail.com")
-
-
-banco.commit()
-
-
-
+print(possivel_usuario.sub_resource("email"))

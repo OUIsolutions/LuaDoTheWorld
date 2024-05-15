@@ -137,6 +137,7 @@ LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource){
     lua.tables.set_method(self,EACH_METHOD,resource_foreach);
     lua.tables.set_method(self, SUB_SCHEMA_METHOD, resource_sub_schema);
     lua.tables.set_method(self, SET_VALUE_IN_SUB_RESOURCE_METHOD, resource_set_value_in_sub_resource);
+    lua.tables.set_method(self,GET_VALUE_FROM_SUB_RESOURCE_METHOD,resource_value_from_sub_resource);
 
     if(!resource->mother){
         lua.tables.set_method(self, DELETE_METHOD, free_resource);

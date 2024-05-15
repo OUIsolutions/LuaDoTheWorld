@@ -8,7 +8,7 @@
 ---@field digest_file fun(source:string)
 ---@field digest_folder_by_content fun(source:string)
 ---@field digest_folder_by_last_modification fun(source:string
----@field get_value fun()
+---@field get_value fun():string
 
 
 ---@class DtwTransaction
@@ -29,7 +29,7 @@
 ---@field add_primary_keys fun(values:string | string[])
 ---@field dangerous_remove_prop fun(primary_key:string)
 ---@field dangerous_rename_prop fun(primary_key:string ,new_name:string)
----@field get_resource_matching_primary_key fun(primary_key: string,  value:string | number | boolean | DtwBytes | DtwResource ):DtwTransaction
+---@field get_resource_matching_primary_key fun(primary_key: string,  value:string | number | boolean | DtwBytes | DtwResource ):DtwResource
 ---@field get_resource_by_name_id fun(id_name:string)
 ---@field new_insertion fun():DtwResource
 
@@ -56,6 +56,8 @@
 ---@field destroy fun()
 ---@field sub_schema fun(path:string):DtwSchema
 ---@field set_value_in_sub_resource fun(key:string ,value:string | number | boolean | DtwBytes | DtwResource )
+---@field get_value_from_sub_resource fun(key:string):string | number | boolean | nil | DtwBytes
+
 
 ---@class DtwModule
 ---@field copy_any_overwriting fun(src:string,dest:string):boolean returns true if the operation were ok otherwise false
