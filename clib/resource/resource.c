@@ -78,7 +78,30 @@ LuaCEmbedResponse * resource_sub_schema(LuaCEmbedTable  *self,LuaCEmbed *args){
     DtwSchema *schema = dtw.resource.sub_schema(resource,src);
     LuaCEmbedTable  *created = raw_create_schema(args,schema);
     return lua.response.send_table(created);
+
 }
+
+LuaCEmbedResponse * resource_set_value_in_sub_resource(LuaCEmbedTable  *self,LuaCEmbed *args){
+
+    char *folder = lua.args.get_str(args,0);
+    DtwResource  *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
+    if(lua.has_errors(args)){
+        char *error_message = lua.get_error_message(args);
+        return  lua.response.send_error(error_message);
+    }
+
+    Writeble  write_obj = create_writeble(args,1);
+    if(write_obj.error){
+        return write_obj.error;
+    }
+
+    DtwResource *values = dtw.resource.sub_resource(resource,folder);
+    dtw.resource.set_binary(values,write_obj.content,write_obj.size);
+    return lua.response.send_table(self);
+
+}
+
+
 
 LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource){
 
@@ -113,6 +136,8 @@ LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource){
     lua.tables.set_method(self,LIST_METHOD,resource_list);
     lua.tables.set_method(self,EACH_METHOD,resource_foreach);
     lua.tables.set_method(self, SUB_SCHEMA_METHOD, resource_sub_schema);
+    lua.tables.set_method(self, SET_VALUE_IN_SUB_RESOURCE_METHOD, resource_set_value_in_sub_resource);
+
     if(!resource->mother){
         lua.tables.set_method(self, DELETE_METHOD, free_resource);
     }

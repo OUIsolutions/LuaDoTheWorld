@@ -33,7 +33,6 @@
 ---@field get_resource_by_name_id fun(id_name:string)
 ---@field new_insertion fun():DtwResource
 
-
 ---@class DtwResource
 ---@field sub_resource fun(str:string) :DtwResource
 ---@field sub_resource_next fun(str:string) :DtwResource
@@ -56,7 +55,7 @@
 ---@field list fun(): DtwResource[]
 ---@field destroy fun()
 ---@field sub_schema fun(path:string):DtwSchema
-
+---@field set_value_in_sub_resource fun(key:string ,value:string | number | boolean | DtwBytes | DtwResource )
 
 ---@class DtwModule
 ---@field copy_any_overwriting fun(src:string,dest:string):boolean returns true if the operation were ok otherwise false
