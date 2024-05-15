@@ -40,9 +40,7 @@
 #define MAP_METHOD "map"
 #define COUNT_METHOD "count"
 #define FIND_METHOD "find"
-
 #define LIST_METHOD "list"
-
 #define ADD_PRIMARY_KEYS "add_primary_keys"
 #define  DANGEROUS_REMOVE_PROP_METHOD "dangerous_remove_prop"
 #define  DANGEROUS_RENAME_PROP_METHOD "dangerous_rename_prop"

@@ -10,6 +10,7 @@
 ---@field digest_folder_by_last_modification fun(source:string
 ---@field get_value fun()
 
+
 ---@class DtwTransaction
 ---@field write fun(src :string , value:string | number | boolean | DtwBytes | DtwResource ):DtwTransaction
 ---@field remove_any fun(src:string):DtwTransaction
@@ -18,6 +19,19 @@
 ---@field dump_to_json_string fun():string
 ---@field dump_to_json_file fun(src:string):DtwTransaction
 ---@field commit fun():DtwTransaction
+
+---@class DtwSchema
+---@field each fun(callback:fun(value:DtwResource))
+---@field find fun(callback:fun(value:DtwResource):boolean):DtwResource
+---@field map fun(callback:fun(value:DtwResource):boolean)
+---@field count fun(callback:fun(value:DtwResource):boolean):number
+---@field list fun(): DtwResource[]
+---@field add_primary_keys fun(values:string | string[])
+---@field dangerous_remove_prop fun(primary_key:string)
+---@field dangerous_rename_prop fun(primary_key:string ,new_name:string)
+---@field get_resource_matching_primary_key fun(primary_key: string,  value:string | number | boolean | DtwBytes | DtwResource ):DtwTransaction
+---@field get_resource_by_name_id fun(id_name:string)
+---@field new_insertion fun():DtwResource
 
 
 ---@class DtwResource
@@ -41,6 +55,7 @@
 ---@field set_extension fun(extension:string)
 ---@field list fun(): DtwResource[]
 ---@field destroy fun()
+---@field sub_schema fun(path:string):DtwSchema
 
 
 ---@class DtwModule
