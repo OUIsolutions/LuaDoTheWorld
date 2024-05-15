@@ -48,4 +48,4 @@
 #define GET_RESOURCE_BY_NAME_ID "get_resource_by_name_id"
 #define SUB_SCHEMA_METHOD "sub_schema"
 #define SCHEMA_NEW_INSERTION "new_insertion"
-#define SET_VALUE_IN_SUB_RESOURCE_METHOD "resource_set_value_in_sub_resource"
+#define SET_VALUE_IN_SUB_RESOURCE_METHOD "set_value_in_sub_resource"

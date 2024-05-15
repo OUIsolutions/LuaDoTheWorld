@@ -20,6 +20,8 @@ LuaCEmbedResponse * resource_sub_resource_now_in_unix(LuaCEmbedTable  *self,LuaC
 
 LuaCEmbedResponse * resource_value(LuaCEmbedTable  *self,LuaCEmbed *args);
 
+LuaCEmbedResponse * resource_value_from_sub_resource(LuaCEmbedTable  *self,LuaCEmbed *args);
+
 LuaCEmbedResponse * resource_set_value(LuaCEmbedTable  *self,LuaCEmbed *args);
 
 LuaCEmbedResponse * resource_commit(LuaCEmbedTable  *self,LuaCEmbed *args);
