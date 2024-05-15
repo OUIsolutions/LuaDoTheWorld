@@ -10,11 +10,13 @@ LuaCEmbedResponse  * aply_listage(LuaCEmbed *args,DtwStringArray* (*callback)(co
         concat_path = lua.args.get_bool(args,1);
     }
     DtwStringArray * listage = callback(source,concat_path);
+    dtw.string_array.sort(listage);
     LuaCEmbedTable * table = lua.tables.new_anonymous_table(args);
     for(int i = 0; i < listage->size; i++){
         char * current_value = listage->strings[i];
         lua.tables.append_string(table,current_value);
     }
+
     dtw.string_array.free(listage);
     return lua.response.send_table(table);
 }

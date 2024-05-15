@@ -39,6 +39,7 @@ void start_lua_props(LuaCEmbed *l){
     lua.add_callback(l,NEW_TRANSACTION_FROM_JSON_STRING,create_empty_transaction_from_json_string);
     lua.add_callback(l,NEW_TRANSACTION_FROM_JSON_FILE,create_empty_transaction_from_json_file);
 
+    lua.add_callback(l,NEW_SCHEMA,create_schema);
 
 }
 

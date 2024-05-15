@@ -22651,7 +22651,6 @@ LUALIB_API void luaL_checkversion_ (lua_State *L, lua_Number ver, size_t sz) {
 #define PRIVATE_LUA_CEMBED_MAIN_META_TABLE "private_lua_c_embed_main_meta_table"
 
 
-#define PRIVATE_LUA_CEMBE_SUB_ARG_TABLE "private_lua_c_embed_table_arg_%s_%d"
 #define PRIVATE_LUA_CEMBED_ANONYMOUS_TABLE "private_lua_c_embed_anononymous_table_%ld"
 #define PRIVATE_LUA_CEMBED_ANONYMOUS_FUNC_TABLE "private_lua_c_embed_anononymous_func_table_%ld"
 
@@ -22659,6 +22658,7 @@ LUALIB_API void luaL_checkversion_ (lua_State *L, lua_Number ver, size_t sz) {
 #define  PRIVATE_LUA_CEMBED_MULTIRETURN "private_lua_c_embed_multi_return%d"
 #define PRIVATE_LUA_CEMBED_STAGE_AREA_TABLE "private_lua_c_embed_stage_area_table"
 #define PRIVATE_LUA_CEMBED_ARGS "private_lua_c_embed_args%d"
+#define PRIVATE_LUA_CEMBED_TABLE_RETURN "private_lua_embed_table_return"
 
 
 
@@ -22814,6 +22814,8 @@ LuaCEmbedTable * private_newLuaCembedTable(LuaCEmbed *main_embed, const char *fo
 int  private_lua_cEmbed_unpack(LuaCEmbedTable *self,const char * previews_function);
 
 void privateLuaCEmbedTable_free(LuaCEmbedTable *self);
+
+void privateLuaCEmbedTable_free_setting_nill(LuaCEmbedTable *self);
 
 
 
@@ -23483,14 +23485,16 @@ LuaCEmbedResponse * LuaCEmbed_send_error(const char *text){
 LuaCEmbedResponse * LuaCEmbed_send_multi_return(LuaCEmbedTable *table){
     LuaCEmbedResponse * self= private_LuaCEmbedReturn_raw();
     self->type = PRIVATE_LUA_CEMBED_MULTI_RESPONSE;
-    self->string_val = strdup(table->global_name);
+    lua_getglobal(table->main_object->state,table->global_name);
+    lua_setglobal(table->main_object->state,PRIVATE_LUA_CEMBED_TABLE_RETURN);
     return self;
 }
 
 LuaCEmbedResponse * LuaCEmbed_send_table(LuaCEmbedTable *table){
     LuaCEmbedResponse * self= private_LuaCEmbedReturn_raw();
     self->type = PRIVATE_LUA_CEMBED_TABLE_RESPONSE;
-    self->string_val = strdup(table->global_name);
+    lua_getglobal(table->main_object->state,table->global_name);
+    lua_setglobal(table->main_object->state,PRIVATE_LUA_CEMBED_TABLE_RETURN);
     return self;
 }
 
@@ -24071,9 +24075,7 @@ LuaCEmbedTable * private_newLuaCembedTable(LuaCEmbed *main_embed, const char *fo
 
     return (int)size;
 }
-
 void privateLuaCEmbedTable_free(LuaCEmbedTable *self){
-
 
     free(self->global_name);
 
@@ -24083,6 +24085,13 @@ void privateLuaCEmbedTable_free(LuaCEmbedTable *self){
 
     privateLuaCEmbedTableArray_free((privateLuaCEmbedTableArray*)self->sub_tables);
     free(self);
+}
+
+void privateLuaCEmbedTable_free_setting_nill(LuaCEmbedTable *self){
+
+    lua_getglobal(self->main_object->state,self->global_name);
+    lua_pushnil(self->main_object->state);
+    privateLuaCEmbedTable_free(self);
 }
 
 
@@ -25265,7 +25274,7 @@ void  privateLuaCEmbedTableArray_free(privateLuaCEmbedTableArray *self){
 
     for(int i = 0; i < self->size;i++){
         LuaCEmbedTable  *current_table = self->tables[i];
-        privateLuaCEmbedTable_free(current_table);
+        privateLuaCEmbedTable_free_setting_nill(current_table);
 
     }
 
@@ -25520,7 +25529,7 @@ int privateLuaCEmbed_main_callback_handler(lua_State  *L){
     const char *func_name =  lua_tostring(L,lua_upvalueindex(3));
     self->current_function = func_name;
     bool func_tables_created_in_these_scope = false;
-
+    //these its nescessary for function clojures like map, filter, where the stack will be increased
     if(self->func_tables == NULL) {
         self->func_tables = (void*)newprivateLuaCEmbedTableArray();
         func_tables_created_in_these_scope = true;
@@ -25537,7 +25546,7 @@ int privateLuaCEmbed_main_callback_handler(lua_State  *L){
         LuaCEmbedTable  *table = private_newLuaCembedTable(self, PRIVATE_LUA_CEMBED_SELFNAME);
         method_callback = (LuaCEmbedResponse *(*)(LuaCEmbedTable *tb, LuaCEmbed *self))lua_touserdata(L, lua_upvalueindex(5));
         possible_return = method_callback(table,self);
-        privateLuaCEmbedTable_free(table);
+        privateLuaCEmbedTable_free_setting_nill(table);
     }
 
     if(is_a_function){
@@ -25545,6 +25554,7 @@ int privateLuaCEmbed_main_callback_handler(lua_State  *L){
         function_callback = (LuaCEmbedResponse *(*)(LuaCEmbed *self))lua_touserdata(L, lua_upvalueindex(4));
         possible_return = function_callback(self);
     }
+
     if(func_tables_created_in_these_scope) {
         privateLuaCEmbedTableArray_free((privateLuaCEmbedTableArray*)self->func_tables);
         self->func_tables = NULL;
@@ -25598,14 +25608,14 @@ int privateLuaCEmbed_main_callback_handler(lua_State  *L){
     }
 
     if(possible_return->type == PRIVATE_LUA_CEMBED_TABLE_RESPONSE){
-        lua_getglobal(self->state, possible_return->string_val);
+        lua_getglobal(self->state, PRIVATE_LUA_CEMBED_TABLE_RETURN);
         lua_pushvalue(self->state,-1);
         private_LuaCEmbedResponse_free(possible_return);
         return PRIVATE_LUACEMBED_ONE_RETURN;
     }
 
     if(possible_return->type == PRIVATE_LUA_CEMBED_MULTI_RESPONSE){
-        LuaCEmbedTable  *table = private_newLuaCembedTable(self,  possible_return->string_val);
+        LuaCEmbedTable  *table = private_newLuaCembedTable(self,  PRIVATE_LUA_CEMBED_TABLE_RETURN);
         int size =private_lua_cEmbed_unpack(table,NULL);
         private_LuaCEmbedResponse_free(possible_return);
         privateLuaCEmbedTable_free(table);

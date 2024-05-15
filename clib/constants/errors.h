@@ -8,3 +8,4 @@
 #define INVALID_INDEX "invalid index"
 #define INVALID_JSON_FILE "file %s its not a valid json"
 #define INVALID_JSON_STRING "content its not a valid json"
+#define ARGUMENT_NOT_IN_STRING_OR_STRING_ARRAY "arg type in string, string[]"

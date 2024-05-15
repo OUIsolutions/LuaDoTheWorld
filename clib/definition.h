@@ -11,3 +11,4 @@
 #include "resource/getters.c"
 #include "resource/path.c"
 #include "transaction/definition.h"
+#include "schemas/schemas.c"

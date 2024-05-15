@@ -34,3 +34,4 @@
 #define NEW_TRANSACTION_FROM_JSON_STRING "new_transaction_from_json_string"
 #define NEW_TRANSACTION_FROM_JSON_FILE "new_transaction_from_file"
 #define NEW_TRANSACTION "new_transaction"
+#define NEW_SCHEMA "new_schema"

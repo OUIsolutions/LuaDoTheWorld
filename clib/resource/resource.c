@@ -68,6 +68,17 @@ LuaCEmbedResponse * unlock_resource(LuaCEmbedTable  *self, LuaCEmbed *args){
     dtw.resource.unlock(resource);
     return  NULL;
 }
+LuaCEmbedResponse * resource_sub_schema(LuaCEmbedTable  *self,LuaCEmbed *args){
+    char *src = lua.args.get_str(args,0);
+    if(lua.has_errors(args)){
+        char *error_message = lua.get_error_message(args);
+        return  lua.response.send_error(error_message);
+    }
+    DtwResource  *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
+    DtwSchema *schema = dtw.resource.sub_schema(resource,src);
+    LuaCEmbedTable  *created = raw_create_schema(args,schema);
+    return lua.response.send_table(created);
+}
 
 LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource){
 
@@ -100,7 +111,7 @@ LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource){
     lua.tables.set_method(self, GET_NAME_WITHOUT_EXTENSION, resource_get_name_without_extension);
     lua.tables.set_method(self, SET_EXTENSION_METHOD,resource_set_extension);
     lua.tables.set_method(self,LIST_METHOD,resource_list);
-    lua.tables.set_method(self,FOREACH_METHOD,resource_foreach);
+    lua.tables.set_method(self,EACH_METHOD,resource_foreach);
     if(!resource->child){
         lua.tables.set_method(self, DELETE_METHOD, free_resource);
     }

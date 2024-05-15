@@ -36,5 +36,16 @@
 #define COPY_ANY_METHOD "copy_any"
 #define DUMP_TO_JSON_FILE_METHOD "dump_to_json_file"
 #define DUMP_TO_JSON_STRING "dump_to_json_string"
-#define FOREACH_METHOD "foreach"
+#define EACH_METHOD "each"
+#define MAP_METHOD "map"
+#define COUNT_METHOD "count"
+#define FIND_METHOD "find"
+
 #define LIST_METHOD "list"
+
+#define ADD_PRIMARY_KEYS "add_primary_keys"
+#define  DANGEROUS_REMOVE_PROP_METHOD "dangerous_remove_prop"
+#define  DANGEROUS_RENAME_PROP_METHOD "dangerous_rename_prop"
+#define  GET_RESOURCE_MATCHING_PRIMARY_KEY_METHOD "get_resource_matching_primary_key"
+#define GET_RESOURCE_BY_NAME_ID "get_resource_by_name_id"
+#define NEW_SCHEMA_METHOD "new_schema_method"
