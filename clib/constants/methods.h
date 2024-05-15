@@ -48,4 +48,5 @@
 #define  DANGEROUS_RENAME_PROP_METHOD "dangerous_rename_prop"
 #define  GET_RESOURCE_MATCHING_PRIMARY_KEY_METHOD "get_resource_matching_primary_key"
 #define GET_RESOURCE_BY_NAME_ID "get_resource_by_name_id"
-#define NEW_SCHEMA_METHOD "new_schema_method"
+#define SUB_SCHEMA_METHOD "sub_schema"
+#define SCHEMA_NEW_INSERTION "new_insertion"

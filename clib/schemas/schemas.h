@@ -14,7 +14,6 @@ LuaCEmbedResponse  * dangerous_remove_schema_prop(LuaCEmbedTable *self,LuaCEmbed
 
 LuaCEmbedResponse  * commit_schema(LuaCEmbedTable *self,LuaCEmbed *args);
 
-LuaCEmbedResponse  * delete_schema(LuaCEmbedTable *self,LuaCEmbed *args);
 
 LuaCEmbedResponse * schema_list_resources(LuaCEmbedTable *self,LuaCEmbed *args);
 

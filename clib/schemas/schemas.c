@@ -110,12 +110,7 @@ LuaCEmbedResponse  * commit_schema(LuaCEmbedTable *self,LuaCEmbed *args){
     return lua.response.send_table(self);
 }
 
-LuaCEmbedResponse  * delete_schema(LuaCEmbedTable *self,LuaCEmbed *args){
-    DtwSchema *schema = (DtwSchema*)lua.tables.get_long_prop(self,SCHEMA_POINTER);
-    dtw.schema.free(schema);
-    return lua.response.send_table(self);
 
-}
 
 LuaCEmbedResponse * schema_list_resources(LuaCEmbedTable *self,LuaCEmbed *args){
     DtwSchema *schema = (DtwSchema*)lua.tables.get_long_prop(self,SCHEMA_POINTER);
@@ -232,7 +227,6 @@ LuaCEmbedTable  * raw_create_schema(LuaCEmbed *args,DtwSchema *schema){
     lua.tables.set_long_prop(created,SCHEMA_POINTER,(long)schema);
     lua.tables.set_method(created,ADD_PRIMARY_KEYS,add_schema_primary_keys);
     lua.tables.set_method(created,COMMIT_METHOD,commit_schema);
-    lua.tables.set_method(created,DELETE_METHOD,delete_schema);
     lua.tables.set_method(created,DANGEROUS_REMOVE_PROP_METHOD,dangerous_remove_schema_prop);
     lua.tables.set_method(created,DANGEROUS_RENAME_PROP_METHOD,dangerous_rename_schema_prop);
     lua.tables.set_method(created, GET_RESOURCE_MATCHING_PRIMARY_KEY_METHOD, get_resource_match_schema_by_primary_key);
@@ -242,7 +236,7 @@ LuaCEmbedTable  * raw_create_schema(LuaCEmbed *args,DtwSchema *schema){
     lua.tables.set_method(created,MAP_METHOD,schema_map_resource);
     lua.tables.set_method(created,EACH_METHOD,schema_each);
     lua.tables.set_method(created,COUNT_METHOD,schema_count_resource);
-    lua.tables.set_method(created,NEW_SCHEMA_METHOD,schema_new_insertion);
+    lua.tables.set_method(created,SCHEMA_NEW_INSERTION,schema_new_insertion);
 
     return created;
 }
