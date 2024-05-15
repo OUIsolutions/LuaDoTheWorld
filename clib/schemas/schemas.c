@@ -207,15 +207,15 @@ LuaCEmbedResponse * schema_map_resource(LuaCEmbedTable *self,LuaCEmbed *args){
             char *error = lua.get_error_message(args);
             return lua.response.send_error(error);
         }
-        int size = lua.tables.get_size(user_response);
+        long size = lua.tables.get_size(user_response);
         if(size ==1){
-            lua.tables.append_evaluation(response,"%s[0]",user_response->global_name);
+            lua.tables.append_evaluation(response,"%s[1]",user_response->global_name);
         }
 
 
     }
 
-    return NULL;
+    return lua.response.send_table(response);
 }
 
 

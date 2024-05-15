@@ -23,7 +23,7 @@
 ---@class DtwSchema
 ---@field each fun(callback:fun(value:DtwResource))
 ---@field find fun(callback:fun(value:DtwResource):boolean):DtwResource
----@field map fun(callback:fun(value:DtwResource):boolean)
+---@field map fun(callback:fun(value:DtwResource):any)
 ---@field count fun(callback:fun(value:DtwResource):boolean):number
 ---@field list fun(): DtwResource[]
 ---@field add_primary_keys fun(values:string | string[])
