@@ -19,7 +19,7 @@ LuaCEmbedResponse  *private_get_bytes_at(LuaCEmbedTable *self, long index){
     long converted_index = index -1;
     long size = lua.tables.get_long_prop(self,SIZE);
     if(index >=size){
-        return  lua.response.send_error(INVALID_INDEX);
+        return   NULL;
     }
     unsigned char *value = (unsigned  char*)lua.tables.get_long_prop(self,CONTENT_POINTER);
     return lua.response.send_long((long)value[converted_index]);
