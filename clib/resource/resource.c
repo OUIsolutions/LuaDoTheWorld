@@ -108,7 +108,7 @@ LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource){
     LuaCEmbedTable * self  = lua.tables.new_anonymous_table(args);
     lua.tables.set_long_prop(self,DTW_TYPE,DTW_RESOURCE_TYPE);
 
-    lua.tables.set_long_prop(self,RESOURCE_POINTER,(long)resource);
+    lua.tables.set_long_prop(self,RESOURCE_POINTER,(long long )resource);
     lua.tables.set_method(self,TO_STRING_METHOD,resource_to_string);
     lua.tables.set_method(self,TO_NUMBER_METHOD,resource_to_number);
     lua.tables.set_method(self,TO_BOOLEAN_METHOD,resource_to_boolean);

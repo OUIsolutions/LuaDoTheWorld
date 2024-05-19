@@ -6,7 +6,7 @@ LuaCEmbedResponse  *delete_bytes(LuaCEmbedTable *self,LuaCEmbed *args){
         return NULL;
     }
 
-    long pointer = lua.tables.get_long_prop(self,CONTENT_POINTER);
+    long long pointer = lua.tables.get_long_prop(self,CONTENT_POINTER);
     unsigned  char *converted = (unsigned  char *)pointer;
     if(converted){
         free(converted);
@@ -53,7 +53,7 @@ LuaCEmbedTable * create_bytes(LuaCEmbed  *args,unsigned  char *content,long size
     lua.tables.set_long_prop(self,DTW_TYPE,BYTE_TYPE);
     lua.tables.set_bool_prop(self,IS_A_REF,false);
     lua.tables.set_long_prop(self,SIZE,size);
-    lua.tables.set_long_prop(self,CONTENT_POINTER,(long)content);
+    lua.tables.set_long_prop(self,CONTENT_POINTER,(long long)content);
     lua.tables.set_method(self, INDEX_METHOD, get_byte_at_index);
     lua.tables.set_method(self, TO_STRING_METHOD, bytes_representation);
     lua.tables.set_method(self, GET_BYTE_AT_METHOD, get_byte_at_method);

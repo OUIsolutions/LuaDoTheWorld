@@ -79,7 +79,7 @@ LuaCEmbedResponse * hasher_get_value(LuaCEmbedTable *self,LuaCEmbed *args){
 LuaCEmbedResponse * create_hasher(LuaCEmbed *args){
     LuaCEmbedTable * self = lua.tables.new_anonymous_table(args);
     DtwHash *hash = newDtwHash();
-    lua.tables.set_long_prop(self,HASH_POINTER,(long)hash);
+    lua.tables.set_long_prop(self,HASH_POINTER,(long long)hash);
     lua.tables.set_method(self, DIGESST_METHOD, hasher_digest);
     lua.tables.set_method(self, TO_STRING_METHOD, hasher_get_value);
     lua.tables.set_method(self, GET_VALUE_METHOD, hasher_get_value);

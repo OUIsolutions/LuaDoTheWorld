@@ -224,7 +224,7 @@ LuaCEmbedTable  * raw_create_schema(LuaCEmbed *args,DtwSchema *schema){
 
 
     LuaCEmbedTable *created= lua.tables.new_anonymous_table(args);
-    lua.tables.set_long_prop(created,SCHEMA_POINTER,(long)schema);
+    lua.tables.set_long_prop(created,SCHEMA_POINTER,(long long )schema);
     lua.tables.set_method(created,ADD_PRIMARY_KEYS,add_schema_primary_keys);
     lua.tables.set_method(created,COMMIT_METHOD,commit_schema);
     lua.tables.set_method(created,DANGEROUS_REMOVE_PROP_METHOD,dangerous_remove_schema_prop);

@@ -116,7 +116,7 @@ LuaCEmbedResponse * transaction_delete(LuaCEmbedTable *self,LuaCEmbed *args) {
 }
 
 void  private_transaction_add_base_methods(LuaCEmbedTable *self,DtwTransaction *transaction){
-    lua.tables.set_long_prop(self,TRANSACTION_POINTER,(long)transaction);
+    lua.tables.set_long_prop(self,TRANSACTION_POINTER,(long long)transaction);
     lua.tables.set_method(self,WRITE_METHOD,transaction_write);
     lua.tables.set_method(self,COPY_ANY_METHOD,transaction_copy_any);
     lua.tables.set_method(self,REMOVE_ANY_METHOD,transaction_remove_any);
