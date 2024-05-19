@@ -102,7 +102,7 @@ local lib_path = ''
 if os.getenv("HOME") then
     lib_path = path.."luaDoTheWorld_clib.so"
 else
-    perror("undefined os")
+    lib_path = path.."luaDoTheWorld_clib.dll"
 end 
 
 local load_lua = package.loadlib(lib_path, "load_lua")
