@@ -125,12 +125,6 @@ local function main()
         return
     end
 
-    local r,e,code = os.execute("x86_64-w64-mingw32-gcc -Wall -shared -fpic -o luaDoTheWorld/luaDoTheWorld_clib.dll  clib/main.c")
-    
-    if code == 1 then
-        return
-    end
-
 
 
     dtw = require("luaDoTheWorld/luaDoTheWorld")
