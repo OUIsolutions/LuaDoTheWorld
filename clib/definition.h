@@ -12,3 +12,4 @@
 #include "resource/path.c"
 #include "transaction/definition.h"
 #include "schemas/schemas.c"
+#include "tree/definition.h"

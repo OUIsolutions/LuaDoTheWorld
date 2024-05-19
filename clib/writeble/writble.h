@@ -4,6 +4,7 @@ typedef struct{
     unsigned  char *content;
     bool clear_content;
     long size;
+    bool is_binary;
     LuaCEmbedResponse  *error;
 }Writeble;
 

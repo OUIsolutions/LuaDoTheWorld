@@ -1,5 +1,4 @@
 
-local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
 
 local RECONSTRUCT = false
@@ -126,7 +125,16 @@ local function main()
         return
     end
 
+    local r,e,code = os.execute("x86_64-w64-mingw32-gcc -Wall -shared -fpic -o luaDoTheWorld/luaDoTheWorld_clib.dll  clib/main.c")
     
+    if code == 1 then
+        return
+    end
+
+
+
+    dtw = require("luaDoTheWorld/luaDoTheWorld")
+
     local start_assignature = dtw.generate_sha_from_folder_by_content(SIDE_EFFECT)
     
     dtw.copy_any_overwriting(SIDE_EFFECT,side_effect_copy_path)
@@ -136,7 +144,7 @@ local function main()
     dtw.copy_any_overwriting(side_effect_copy_path,SIDE_EFFECT);
     dtw.remove_any(side_effect_copy_path)
     dtw.remove_any("luaDoTheWorld.zip")
-    os.execute("zip -r luaDoTheWorld.zip luaDoTheWorld/")
+   -- os.execute("zip -r luaDoTheWorld.zip luaDoTheWorld/")
 end
 
 

@@ -10,3 +10,4 @@
 #include "resource/resource.h"
 #include "transaction/declaration.h"
 #include "schemas/schemas.h"
+#include "tree/declaration.h"
