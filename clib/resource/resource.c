@@ -139,6 +139,17 @@ LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource){
     lua.tables.set_method(self, SET_VALUE_IN_SUB_RESOURCE_METHOD, resource_set_value_in_sub_resource);
     lua.tables.set_method(self,GET_VALUE_FROM_SUB_RESOURCE_METHOD,resource_value_from_sub_resource);
 
+    lua.tables.set_method(self,DANGEROUS_REMOVE_PROP_METHOD,dangerous_remove_schema_prop);
+    lua.tables.set_method(self,DANGEROUS_RENAME_PROP_METHOD,dangerous_rename_schema_prop);
+    lua.tables.set_method(self, GET_RESOURCE_MATCHING_PRIMARY_KEY_METHOD, get_resource_match_schema_by_primary_key);
+    lua.tables.set_method(self,GET_RESOURCE_BY_NAME_ID,get_resource_by_name_id);
+    lua.tables.set_method(self,LIST_METHOD,schema_list_resources);
+    lua.tables.set_method(self,FIND_METHOD,schema_find_resource);
+    lua.tables.set_method(self,MAP_METHOD,schema_map_resource);
+    lua.tables.set_method(self,EACH_METHOD,schema_each);
+    lua.tables.set_method(self,COUNT_METHOD,schema_count_resource);
+    lua.tables.set_method(self, SCHEMA_NEW_INSERTION, Resource_new_insertion);
+
     if(!resource->mother){
         lua.tables.set_method(self, DELETE_METHOD, free_resource);
     }
