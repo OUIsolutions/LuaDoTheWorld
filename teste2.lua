@@ -2,5 +2,5 @@
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
 
-local e = dtw.load_file("teste.txt")
-print(e)
+
+--local e = dtw.load_file("teste.txt")
