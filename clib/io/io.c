@@ -14,7 +14,11 @@ LuaCEmbedResponse  * load_file(LuaCEmbed *args){
     long  size;
     bool is_binary;
     unsigned  char *content = dtw.load_any_content(filename,&size,&is_binary);
+    if(!content){
+        return NULL;
+    }
     if(!is_binary){
+
         LuaCEmbedResponse  * response = lua.response.send_str((const char*)content);
         free(content);
         return response;
