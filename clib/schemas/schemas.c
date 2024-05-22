@@ -32,8 +32,8 @@ LuaCEmbedResponse  * add_schema_primary_keys(LuaCEmbedTable *self,LuaCEmbed *arg
 
 LuaCEmbedResponse  * Resource_new_insertion(LuaCEmbedTable *self, LuaCEmbed *args){
 
-    DtwSchema *schema = (DtwSchema*)lua.tables.get_long_prop(self,SCHEMA_POINTER);
-    DtwResource  *created = dtw.schema.new_insertion(schema);
+    DtwResource *resource = (DtwSchema*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
+    DtwResource  *created = dtw.resource.new_schema_insertion(resource);
     LuaCEmbedTable  *sub = raw_create_resource(args,created);
     return lua.response.send_table(sub);
 }
