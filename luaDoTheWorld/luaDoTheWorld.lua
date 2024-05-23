@@ -57,7 +57,7 @@
 ---@field destroy fun()
 ---@field set_value_in_sub_resource fun(key:string ,value:string | number | boolean | DtwBytes | DtwResource )
 ---@field get_value_from_sub_resource fun(key:string):string | number | boolean | nil | DtwBytes
----@field new_schema fun():DtwSchema
+---@field newSchema fun():DtwSchema
 
 
 ---@class DtwModule

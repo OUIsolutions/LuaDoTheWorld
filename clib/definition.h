@@ -6,9 +6,7 @@
 #include "b64/b64.c"
 #include "sha/sha.c"
 #include "hasher/hasher.c"
-#include "resource/resource/resource/resource.c"
-#include "resource/resource/sub_resource/sub_resource.c"
-#include "resource/getters/getters.c"
+
 #include "resource/definition.h"
 #include "transaction/definition.h"
 

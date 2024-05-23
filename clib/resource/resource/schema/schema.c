@@ -5,13 +5,21 @@ LuaCEmbedResponse  * Resource_new_insertion(LuaCEmbedTable *self, LuaCEmbed *arg
     DtwResource *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
     DtwResource  *created = dtw.resource.new_schema_insertion(resource);
     LuaCEmbedTable  *sub = raw_create_resource(args,created);
+    if(dtw.resource.error(resource)){
+        char *message = dtw.resource.get_error_message(resource);
+        return lua.response.send_error(message);
+    }
+
     return lua.response.send_table(sub);
 }
 
 LuaCEmbedResponse * resource_schema_each(LuaCEmbedTable *self, LuaCEmbed *args){
     DtwResource *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
     DtwResourceArray  *elements = dtw.resource.get_schema_values(resource);
-
+    if(dtw.resource.error(resource)){
+        char *message = dtw.resource.get_error_message(resource);
+        return lua.response.send_error(message);
+    }
     for(int i = 0; i < elements->size; i++) {
         DtwResource*current = elements->resources[i];
         LuaCEmbedTable  *sub = raw_create_resource(args,current);
@@ -37,6 +45,10 @@ LuaCEmbedResponse  * get_resource_match_schema_by_primary_key(LuaCEmbedTable *se
     DtwResource *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
 
     DtwResource *founded = dtw.resource.find_by_primary_key_with_binary(resource,key,write_obj.content,write_obj.size);
+    if(dtw.resource.error(resource)){
+        char *message = dtw.resource.get_error_message(resource);
+        return lua.response.send_error(message);
+    }
     if(!founded){
         return NULL;
     }
@@ -55,12 +67,16 @@ LuaCEmbedResponse  * get_resource_by_name_id(LuaCEmbedTable *self, LuaCEmbed *ar
 
     DtwResource *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
     DtwResource *founded = dtw.resource.find_by_name_id(resource,name_id);
-
+    if(dtw.resource.error(resource)){
+        char *message = dtw.resource.get_error_message(resource);
+        return lua.response.send_error(message);
+    }
     if(!founded){
         return NULL;
     }
     
     LuaCEmbedTable  *sub = raw_create_resource(args,founded);
+
     return lua.response.send_table(sub);
 }
 
@@ -75,6 +91,10 @@ LuaCEmbedResponse  * dangerous_rename_schema_prop(LuaCEmbedTable *self,LuaCEmbed
 
     DtwResource *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
     dtw.resource.dangerous_rename_schema_prop(resource,key,new_name);
+    if(dtw.resource.error(resource)){
+        char *message = dtw.resource.get_error_message(resource);
+        return lua.response.send_error(message);
+    }
     return lua.response.send_table(self);
 }
 
@@ -87,6 +107,10 @@ LuaCEmbedResponse  * dangerous_remove_schema_prop(LuaCEmbedTable *self,LuaCEmbed
 
     DtwResource *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
     dtw.resource.dangerous_remove_schema_prop(resource,key_to_remove);
+    if(dtw.resource.error(resource)){
+        char *message = dtw.resource.get_error_message(resource);
+        return lua.response.send_error(message);
+    }
     return lua.response.send_table(self);
 }
 
@@ -94,6 +118,10 @@ LuaCEmbedResponse  * Resource_new_schema(LuaCEmbedTable *self, LuaCEmbed *args){
     DtwResource *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
     DtwSchema  *schema = dtw.resource.newSchema(resource);
     LuaCEmbedTable *created_table = raw_create_schema(args,schema);
+    if(dtw.resource.error(resource)){
+        char *message = dtw.resource.get_error_message(resource);
+        return lua.response.send_error(message);
+    }
     return lua.response.send_table(created_table);
 }
 
