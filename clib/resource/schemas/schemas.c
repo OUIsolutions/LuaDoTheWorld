@@ -30,16 +30,24 @@ LuaCEmbedResponse  * add_schema_primary_keys(LuaCEmbedTable *self,LuaCEmbed *arg
     return lua.response.send_table(self);
 }
 
+LuaCEmbedResponse  * add_sub_schema(LuaCEmbedTable *self,LuaCEmbed *args){
+    char *name = lua.args.get_str(args,0);
+    if(lua.has_errors(args)){
+        char *message = lua.get_error_message(args);
+        return lua.response.send_error(message);
+    }
 
+    DtwSchema *schema = (DtwSchema*)lua.tables.get_long_prop(self,SCHEMA_POINTER);
+    DtwSchema *sub_schmea = dtw.schema.sub_schema(schema,name);
+    LuaCEmbedTable *created_table = raw_create_schema(args,sub_schmea);
+    return lua.response.send_table(created_table);
+}
 
 LuaCEmbedTable  * raw_create_schema(LuaCEmbed *args,DtwSchema *schema){
-
-
     LuaCEmbedTable *created= lua.tables.new_anonymous_table(args);
     lua.tables.set_long_prop(created,SCHEMA_POINTER,(long long )schema);
     lua.tables.set_method(created,ADD_PRIMARY_KEYS,add_schema_primary_keys);
-
-
+    lua.tables.set_method(created,ADD_SUB_SCHEMA_METHOD,add_sub_schema);
     return created;
 }
 

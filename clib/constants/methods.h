@@ -56,3 +56,4 @@
 #define SCHEMA_FIND_RESOURCE_METHOD "schema_find"
 #define SCHEMA_MAP_RESOURCE_METHOD "schema_map"
 #define SCHEMA_EACH_METHOD "schema_each"
+#define ADD_SUB_SCHEMA_METHOD "add_sub_schema"
