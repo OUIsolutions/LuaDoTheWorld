@@ -7,7 +7,6 @@
 #include "b64/b64.h"
 #include "sha/sha.h"
 #include "hasher/hasher.h"
-#include "resource/resource.h"
+#include "resource/declaration.h"
 #include "transaction/declaration.h"
-#include "schemas/schemas.h"
 #include "tree/declaration.h"

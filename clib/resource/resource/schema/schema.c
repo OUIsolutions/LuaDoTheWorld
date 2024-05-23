@@ -3,7 +3,7 @@
 //
 LuaCEmbedResponse  * Resource_new_insertion(LuaCEmbedTable *self, LuaCEmbed *args){
 
-    DtwResource *resource = (DtwSchema*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
+    DtwResource *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
     DtwResource  *created = dtw.resource.new_schema_insertion(resource);
     LuaCEmbedTable  *sub = raw_create_resource(args,created);
     return lua.response.send_table(sub);
@@ -17,8 +17,8 @@ LuaCEmbedResponse  * Resource_new_insertion(LuaCEmbedTable *self, LuaCEmbed *arg
 
 
 
-LuaCEmbedResponse * schema_each(LuaCEmbedTable *self,LuaCEmbed *args){
-    DtwResource *resource = (DtwResource*)lua.tables.get_long_prop(self,SCHEMA_POINTER);
+LuaCEmbedResponse * resource_schema_each(LuaCEmbedTable *self, LuaCEmbed *args){
+    DtwResource *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
     DtwResourceArray  *elements = dtw.resource.get_schema_values(resource);
 
     for(int i = 0; i < elements->size; i++) {
@@ -82,8 +82,8 @@ LuaCEmbedResponse  * dangerous_rename_schema_prop(LuaCEmbedTable *self,LuaCEmbed
     }
 
 
-    DtwSchema *schema = (DtwSchema*)lua.tables.get_long_prop(self,SCHEMA_POINTER);
-    dtw.schema.dangerous_rename_prop(schema,key,new_name);
+    DtwResource *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
+    dtw.resource.dangerous_rename_schema_prop(resource,key,new_name);
     return lua.response.send_table(self);
 }
 
@@ -94,15 +94,14 @@ LuaCEmbedResponse  * dangerous_remove_schema_prop(LuaCEmbedTable *self,LuaCEmbed
         return  lua.response.send_error(error_message);
     }
 
-
-    DtwSchema *schema = (DtwSchema*)lua.tables.get_long_prop(self,SCHEMA_POINTER);
-    dtw.schema.dangerous_remove_prop(schema,key_to_remove);
+    DtwResource *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
+    dtw.resource.dangerous_remove_schema_prop(resource,key_to_remove);
     return lua.response.send_table(self);
 }
 
 LuaCEmbedResponse * schema_list_resources(LuaCEmbedTable *self,LuaCEmbed *args){
-    DtwSchema *schema = (DtwSchema*)lua.tables.get_long_prop(self,SCHEMA_POINTER);
-    DtwResourceArray  *elements = dtw.resource.sub_resources(schema->values_resource);
+    DtwResource *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
+    DtwResourceArray  *elements = dtw.resource.sub_resources(resource->values_resource);
     LuaCEmbedTable *response = lua.tables.new_anonymous_table(args);
     for(int i = 0; i < elements->size; i++) {
         DtwResource*current = elements->resources[i];
@@ -113,8 +112,8 @@ LuaCEmbedResponse * schema_list_resources(LuaCEmbedTable *self,LuaCEmbed *args){
 }
 LuaCEmbedResponse * schema_find_resource(LuaCEmbedTable *self,LuaCEmbed *args){
 
-    DtwSchema *schema = (DtwSchema*)lua.tables.get_long_prop(self,SCHEMA_POINTER);
-    DtwResourceArray  *elements = dtw.resource.sub_resources(schema->values_resource);
+    DtwResource *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
+    DtwResourceArray  *elements = dtw.resource.sub_resources(resource->values_resource);
     for(int i = 0; i < elements->size; i++) {
         DtwResource*current = elements->resources[i];
         LuaCEmbedTable  *sub = raw_create_resource(args,current);
@@ -140,8 +139,8 @@ LuaCEmbedResponse * schema_find_resource(LuaCEmbedTable *self,LuaCEmbed *args){
 
 
 LuaCEmbedResponse * schema_count_resource(LuaCEmbedTable *self,LuaCEmbed *args){
-    DtwSchema *schema = (DtwSchema*)lua.tables.get_long_prop(self,SCHEMA_POINTER);
-    DtwResourceArray  *elements = dtw.resource.sub_resources(schema->values_resource);
+    DtwResource *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
+    DtwResourceArray  *elements = dtw.resource.sub_resources(resource->values_resource);
     long size = 0;
     for(int i = 0; i < elements->size; i++) {
         DtwResource*current = elements->resources[i];
@@ -166,8 +165,8 @@ LuaCEmbedResponse * schema_count_resource(LuaCEmbedTable *self,LuaCEmbed *args){
 }
 
 LuaCEmbedResponse * schema_map_resource(LuaCEmbedTable *self,LuaCEmbed *args){
-    DtwSchema *schema = (DtwSchema*)lua.tables.get_long_prop(self,SCHEMA_POINTER);
-    DtwResourceArray  *elements = dtw.resource.sub_resources(schema->values_resource);
+    DtwResource *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
+    DtwResourceArray  *elements = dtw.resource.sub_resources(resource->values_resource);
     LuaCEmbedTable *response = lua.tables.new_anonymous_table(args);
 
     for(int i = 0; i < elements->size; i++) {

@@ -142,7 +142,7 @@ LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource){
     lua.tables.set_method(self,LIST_METHOD,schema_list_resources);
     lua.tables.set_method(self,FIND_METHOD,schema_find_resource);
     lua.tables.set_method(self,MAP_METHOD,schema_map_resource);
-    lua.tables.set_method(self,EACH_METHOD,schema_each);
+    lua.tables.set_method(self, EACH_METHOD, resource_schema_each);
     lua.tables.set_method(self,COUNT_METHOD,schema_count_resource);
     lua.tables.set_method(self, SCHEMA_NEW_INSERTION, Resource_new_insertion);
 
