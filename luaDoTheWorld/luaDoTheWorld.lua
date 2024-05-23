@@ -30,11 +30,11 @@
 ---@field dangerous_rename_prop fun(primary_key:string ,new_name:string)
 ---@field get_resource_matching_primary_key fun(primary_key: string,  value:string | number | boolean | DtwBytes | DtwResource ):DtwResource
 ---@field get_resource_by_name_id fun(id_name:string)
----@field list_schemas fun(): DtwResource[]
----@field each_schema fun(callback:fun(value:DtwResource))
----@field find_schema fun(callback:fun(value:DtwResource):boolean):DtwResource
----@field map_schema fun(callback:fun(value:DtwResource):any)
----@field count_schema fun(callback:fun(value:DtwResource):boolean):number
+---@field schema_list fun(): DtwResource[]
+---@field schema_each fun(callback:fun(value:DtwResource))
+---@field schema_find fun(callback:fun(value:DtwResource):boolean):DtwResource
+---@field schema_map fun(callback:fun(value:DtwResource):any)
+---@field schema_count fun(callback:fun(value:DtwResource):boolean):number
 ---@field sub_resource fun(str:string) :DtwResource
 ---@field sub_resource_next fun(str:string) :DtwResource
 ---@field sub_resource_now fun(str:string) :DtwResource

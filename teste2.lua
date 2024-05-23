@@ -9,6 +9,6 @@ users_schema.add_primary_keys({"name","email"})
 
 
 local users = banco.sub_resource("users")
-users.each_schema(function (value)
+users.schema_each(function (value)
     print(value)
 end)
