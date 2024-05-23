@@ -25,7 +25,7 @@
 ---@field sub_schema fun(values:string | string[])
 
 ---@class DtwResource
----@field new_insertion fun():DtwResource
+---@field schema_new_insertion fun():DtwResource
 ---@field dangerous_remove_prop fun(primary_key:string)
 ---@field dangerous_rename_prop fun(primary_key:string ,new_name:string)
 ---@field get_resource_matching_primary_key fun(primary_key: string,  value:string | number | boolean | DtwBytes | DtwResource ):DtwResource

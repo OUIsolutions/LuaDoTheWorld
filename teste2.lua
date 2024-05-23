@@ -2,15 +2,13 @@
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
 
-local resource = dtw.newResource("banco")
-local schema = resource.newSchema()
+local banco = dtw.newResource("banco")
+local schema = banco.newSchema()
 local users_schema =schema.sub_schema("users")
 users_schema.add_primary_keys({"name","email"})
 
+local users = banco.sub_resource("users")
 
-local users = resource.sub_resource("users")
-local mateus  =users.new_insertion()
+local mateus = users.get_resource_matching_primary_key("name","mateus")
 
-mateus.set_value_in_sub_resource("name","mateus")
-resource.commit()
-
+print(mateus["name"])
