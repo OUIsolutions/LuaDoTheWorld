@@ -10,6 +10,8 @@
 #include "resource/sub_resource.c"
 #include "resource/getters.c"
 #include "resource/path.c"
+#include "resource/schema.c"
 #include "transaction/definition.h"
 #include "schemas/schemas.c"
+
 #include "tree/definition.h"

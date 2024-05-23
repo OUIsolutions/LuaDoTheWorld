@@ -24,6 +24,7 @@ LuaCEmbedResponse * schema_map_resource(LuaCEmbedTable *self,LuaCEmbed *args);
 LuaCEmbedResponse * schema_each(LuaCEmbedTable *self,LuaCEmbed *args);
 
 
+
 LuaCEmbedResponse * resource_to_string(LuaCEmbedTable  *self,LuaCEmbed *args);
 
 LuaCEmbedResponse * resource_to_number(LuaCEmbedTable  *self,LuaCEmbed *args);

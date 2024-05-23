@@ -1,6 +1,37 @@
 //
 // Created by mateusmoutinho on 22/05/24.
 //
+LuaCEmbedResponse  * Resource_new_insertion(LuaCEmbedTable *self, LuaCEmbed *args){
+
+    DtwResource *resource = (DtwSchema*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
+    DtwResource  *created = dtw.resource.new_schema_insertion(resource);
+    LuaCEmbedTable  *sub = raw_create_resource(args,created);
+    return lua.response.send_table(sub);
+}
+
+
+
+
+
+
+
+
+
+LuaCEmbedResponse * schema_each(LuaCEmbedTable *self,LuaCEmbed *args){
+    DtwResource *resource = (DtwResource*)lua.tables.get_long_prop(self,SCHEMA_POINTER);
+    DtwResourceArray  *elements = dtw.resource.get_schema_values(resource);
+
+    for(int i = 0; i < elements->size; i++) {
+        DtwResource*current = elements->resources[i];
+        LuaCEmbedTable  *sub = raw_create_resource(args,current);
+
+        LuaCEmbedTable *args_to_callback = lua.tables.new_anonymous_table(args);
+        lua.tables.append_table(args_to_callback,sub);
+        lua.args.run_lambda(args,0,args_to_callback,0);
+    }
+
+    return NULL;
+}
 
 LuaCEmbedResponse  * get_resource_match_schema_by_primary_key(LuaCEmbedTable *self, LuaCEmbed *args){
     char *key = lua.args.get_str(args,0);
@@ -12,9 +43,9 @@ LuaCEmbedResponse  * get_resource_match_schema_by_primary_key(LuaCEmbedTable *se
     if(write_obj.error){
         return write_obj.error;
     }
-    DtwSchema *schema = (DtwSchema*)lua.tables.get_long_prop(self,SCHEMA_POINTER);
+    DtwResource *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
 
-    DtwResource *founded = dtw.schema.find_by_primary_key_with_binary(schema,key,write_obj.content,write_obj.size);
+    DtwResource *founded = dtw.resource.find_by_primary_key_with_binary(resource,key,write_obj.content,write_obj.size);
     if(!founded){
         return NULL;
     }
@@ -31,13 +62,13 @@ LuaCEmbedResponse  * get_resource_by_name_id(LuaCEmbedTable *self, LuaCEmbed *ar
     }
 
 
-    DtwSchema *schema = (DtwSchema*)lua.tables.get_long_prop(self,SCHEMA_POINTER);
-    DtwResource *founded = dtw.schema.find_by_nameID(schema,name_id);
+    DtwResource *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
+    DtwResource *founded = dtw.resource.find_by_name_id(resource,name_id);
 
     if(!founded){
         return NULL;
     }
-
+    
     LuaCEmbedTable  *sub = raw_create_resource(args,founded);
     return lua.response.send_table(sub);
 }

@@ -4,4 +4,3 @@ LuaCEmbedResponse  * add_schema_primary_keys(LuaCEmbedTable *self,LuaCEmbed *arg
 
 LuaCEmbedTable  * raw_create_schema(LuaCEmbed *args,DtwSchema *schema);
 
-LuaCEmbedResponse * create_schema(LuaCEmbed *args);

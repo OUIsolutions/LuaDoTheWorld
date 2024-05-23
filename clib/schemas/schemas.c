@@ -30,36 +30,6 @@ LuaCEmbedResponse  * add_schema_primary_keys(LuaCEmbedTable *self,LuaCEmbed *arg
     return lua.response.send_table(self);
 }
 
-LuaCEmbedResponse  * Resource_new_insertion(LuaCEmbedTable *self, LuaCEmbed *args){
-
-    DtwResource *resource = (DtwSchema*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
-    DtwResource  *created = dtw.resource.new_schema_insertion(resource);
-    LuaCEmbedTable  *sub = raw_create_resource(args,created);
-    return lua.response.send_table(sub);
-}
-
-
-
-
-
-
-
-
-
-LuaCEmbedResponse * schema_each(LuaCEmbedTable *self,LuaCEmbed *args){
-    DtwSchema *schema = (DtwSchema*)lua.tables.get_long_prop(self,SCHEMA_POINTER);
-    DtwResourceArray  *elements = dtw.resource.sub_resources(schema->values_resource);
-    for(int i = 0; i < elements->size; i++) {
-        DtwResource*current = elements->resources[i];
-        LuaCEmbedTable  *sub = raw_create_resource(args,current);
-
-        LuaCEmbedTable *args_to_callback = lua.tables.new_anonymous_table(args);
-        lua.tables.append_table(args_to_callback,sub);
-        lua.args.run_lambda(args,0,args_to_callback,0);
-    }
-
-    return NULL;
-}
 
 
 LuaCEmbedTable  * raw_create_schema(LuaCEmbed *args,DtwSchema *schema){
@@ -73,13 +43,3 @@ LuaCEmbedTable  * raw_create_schema(LuaCEmbed *args,DtwSchema *schema){
     return created;
 }
 
-LuaCEmbedResponse * create_schema(LuaCEmbed *args){
-    char *path = lua.args.get_str(args,0);
-    if(lua.has_errors(args)){
-        char *error_message = lua.get_error_message(args);
-        return  lua.response.send_error(error_message);
-    }
-    DtwSchema  *schma = dtw.schema.newSchema(path);
-    LuaCEmbedTable *created =raw_create_schema(args,schma);
-    return lua.response.send_table(created);
-}
