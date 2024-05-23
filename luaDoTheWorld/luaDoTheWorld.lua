@@ -21,19 +21,20 @@
 ---@field commit fun():DtwTransaction
 
 ---@class DtwSchema
----@field each fun(callback:fun(value:DtwResource))
----@field find fun(callback:fun(value:DtwResource):boolean):DtwResource
----@field map fun(callback:fun(value:DtwResource):any)
----@field count fun(callback:fun(value:DtwResource):boolean):number
----@field list fun(): DtwResource[]
 ---@field add_primary_keys fun(values:string | string[])
+---@field sub_schema fun(values:string | string[])
+
+---@class DtwResource
+---@field new_insertion fun():DtwResource
 ---@field dangerous_remove_prop fun(primary_key:string)
 ---@field dangerous_rename_prop fun(primary_key:string ,new_name:string)
 ---@field get_resource_matching_primary_key fun(primary_key: string,  value:string | number | boolean | DtwBytes | DtwResource ):DtwResource
 ---@field get_resource_by_name_id fun(id_name:string)
----@field new_insertion fun():DtwResource
-
----@class DtwResource
+---@field list_schemas fun(): DtwResource[]
+---@field each_schema fun(callback:fun(value:DtwResource))
+---@field find_schema fun(callback:fun(value:DtwResource):boolean):DtwResource
+---@field map_schema fun(callback:fun(value:DtwResource):any)
+---@field count_schema fun(callback:fun(value:DtwResource):boolean):number
 ---@field sub_resource fun(str:string) :DtwResource
 ---@field sub_resource_next fun(str:string) :DtwResource
 ---@field sub_resource_now fun(str:string) :DtwResource
@@ -54,9 +55,9 @@
 ---@field set_extension fun(extension:string)
 ---@field list fun(): DtwResource[]
 ---@field destroy fun()
----@field sub_schema fun(path:string):DtwSchema
 ---@field set_value_in_sub_resource fun(key:string ,value:string | number | boolean | DtwBytes | DtwResource )
 ---@field get_value_from_sub_resource fun(key:string):string | number | boolean | nil | DtwBytes
+---@field new_schema fun():DtwSchema
 
 
 ---@class DtwModule

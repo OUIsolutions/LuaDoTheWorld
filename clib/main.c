@@ -43,7 +43,6 @@ void start_lua_props(LuaCEmbed *l){
 
 
 
-    lua.add_callback(l,NEW_SCHEMA,create_schema);
 
 }
 

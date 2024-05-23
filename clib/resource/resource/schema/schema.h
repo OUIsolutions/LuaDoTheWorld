@@ -3,6 +3,8 @@
 //
 LuaCEmbedResponse  * Resource_new_insertion(LuaCEmbedTable *self, LuaCEmbed *args);
 
+LuaCEmbedResponse  * Resource_new_schema(LuaCEmbedTable *self, LuaCEmbed *args);
+
 LuaCEmbedResponse * resource_schema_each(LuaCEmbedTable *self, LuaCEmbed *args);
 
 LuaCEmbedResponse  * get_resource_match_schema_by_primary_key(LuaCEmbedTable *self, LuaCEmbed *args);

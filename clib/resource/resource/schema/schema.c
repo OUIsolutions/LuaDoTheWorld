@@ -90,5 +90,10 @@ LuaCEmbedResponse  * dangerous_remove_schema_prop(LuaCEmbedTable *self,LuaCEmbed
     return lua.response.send_table(self);
 }
 
-
+LuaCEmbedResponse  * Resource_new_schema(LuaCEmbedTable *self, LuaCEmbed *args){
+    DtwResource *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
+    DtwSchema  *schema = dtw.resource.newSchema(resource);
+    LuaCEmbedTable *created_table = raw_create_schema(args,schema);
+    return lua.response.send_table(created_table);
+}
 
