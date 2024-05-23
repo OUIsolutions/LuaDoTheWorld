@@ -1,7 +1,6 @@
 
 LuaCEmbedResponse * free_resource(LuaCEmbedTable  *self, LuaCEmbed *args);
 
-LuaCEmbedResponse * resource_foreach(LuaCEmbedTable  *self,LuaCEmbed *args);
 
 LuaCEmbedResponse * resource_set_value(LuaCEmbedTable  *self,LuaCEmbed *args);
 

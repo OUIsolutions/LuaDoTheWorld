@@ -9,23 +9,6 @@ LuaCEmbedResponse * free_resource(LuaCEmbedTable  *self, LuaCEmbed *args){
 
 }
 
-LuaCEmbedResponse * resource_foreach(LuaCEmbedTable  *self,LuaCEmbed *args) {
-
-
-    DtwResource  *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
-    DtwResourceArray  *elements = dtw.resource.sub_resources(resource);
-
-    for(int i =0; i < elements->size; i++) {
-        DtwResource *current = elements->resources[i];
-        LuaCEmbedTable  *sub = raw_create_resource(args,current);
-        LuaCEmbedTable *args_to_callback = lua.tables.new_anonymous_table(args);
-        lua.tables.append_table(args_to_callback,sub);
-        lua.args.run_lambda(args,0,args_to_callback,0);
-
-    }
-    return lua.response.send_table(self);
-
-}
 
 LuaCEmbedResponse * resource_set_value(LuaCEmbedTable  *self,LuaCEmbed *args){
     Writeble  write_obj = create_writeble(args,0);
@@ -129,21 +112,25 @@ LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource){
     lua.tables.set_method(self, GET_DIR_METHOD, resource_get_dir);
     lua.tables.set_method(self, GET_NAME_WITHOUT_EXTENSION, resource_get_name_without_extension);
     lua.tables.set_method(self, SET_EXTENSION_METHOD,resource_set_extension);
-    lua.tables.set_method(self,LIST_METHOD,resource_list);
-    lua.tables.set_method(self,EACH_METHOD,resource_foreach);
-    lua.tables.set_method(self, SUB_SCHEMA_METHOD, resource_new_schema);
+
     lua.tables.set_method(self, SET_VALUE_IN_SUB_RESOURCE_METHOD, resource_set_value_in_sub_resource);
     lua.tables.set_method(self,GET_VALUE_FROM_SUB_RESOURCE_METHOD,resource_value_from_sub_resource);
 
+    lua.tables.set_method(self, SUB_SCHEMA_METHOD, resource_new_schema);
     lua.tables.set_method(self,DANGEROUS_REMOVE_PROP_METHOD,dangerous_remove_schema_prop);
     lua.tables.set_method(self,DANGEROUS_RENAME_PROP_METHOD,dangerous_rename_schema_prop);
     lua.tables.set_method(self, GET_RESOURCE_MATCHING_PRIMARY_KEY_METHOD, get_resource_match_schema_by_primary_key);
     lua.tables.set_method(self,GET_RESOURCE_BY_NAME_ID,get_resource_by_name_id);
-    lua.tables.set_method(self,LIST_METHOD,schema_list_resources);
-    lua.tables.set_method(self,FIND_METHOD,schema_find_resource);
-    lua.tables.set_method(self,MAP_METHOD,schema_map_resource);
-    lua.tables.set_method(self, EACH_METHOD, resource_schema_each);
-    lua.tables.set_method(self,COUNT_METHOD,schema_count_resource);
+
+    lua.tables.set_method(self,SCHEMA_LIST_RESOURCE_METHOD,schema_list_resources);
+    lua.tables.set_method(self, SCHEMA_FIND_RESOURCE_METHOD, schema_find_resource);
+    lua.tables.set_method(self,SCHEMA_MAP_RESOURCE_METHOD,schema_map_resource);
+    lua.tables.set_method(self,SCHEMA_COUNT_RESOURCE_METHOD,schema_count_resource);
+    lua.tables.set_method(self, SCHEMA_EACH_METHOD, resource_schema_each);
+
+
+    lua.tables.set_method(self,LIST_METHOD,resource_list);
+    lua.tables.set_method(self,EACH_METHOD,resource_foreach);
     lua.tables.set_method(self, SCHEMA_NEW_INSERTION, Resource_new_insertion);
 
     if(!resource->mother){

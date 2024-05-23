@@ -14,14 +14,4 @@ LuaCEmbedResponse  * dangerous_rename_schema_prop(LuaCEmbedTable *self,LuaCEmbed
 LuaCEmbedResponse  * dangerous_remove_schema_prop(LuaCEmbedTable *self,LuaCEmbed *args);
 
 
-LuaCEmbedResponse * schema_list_resources(LuaCEmbedTable *self,LuaCEmbed *args);
-
-LuaCEmbedResponse * schema_find_resource(LuaCEmbedTable *self,LuaCEmbed *args);
-
-
-LuaCEmbedResponse * schema_count_resource(LuaCEmbedTable *self,LuaCEmbed *args);
-
-
-LuaCEmbedResponse * schema_map_resource(LuaCEmbedTable *self,LuaCEmbed *args);
-
 

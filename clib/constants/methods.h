@@ -50,3 +50,9 @@
 #define SCHEMA_NEW_INSERTION "new_insertion"
 #define SET_VALUE_IN_SUB_RESOURCE_METHOD "set_value_in_sub_resource"
 #define GET_VALUE_FROM_SUB_RESOURCE_METHOD "get_value_from_sub_resource"
+
+#define SCHEMA_COUNT_RESOURCE_METHOD "schema_count"
+#define SCHEMA_LIST_RESOURCE_METHOD "schema_list"
+#define SCHEMA_FIND_RESOURCE_METHOD "schema_find"
+#define SCHEMA_MAP_RESOURCE_METHOD "schema_map"
+#define SCHEMA_EACH_METHOD "schema_each"
