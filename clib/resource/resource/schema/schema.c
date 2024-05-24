@@ -13,26 +13,6 @@ LuaCEmbedResponse  * Resource_new_insertion(LuaCEmbedTable *self, LuaCEmbed *arg
     return lua.response.send_table(sub);
 }
 
-LuaCEmbedResponse * resource_schema_each(LuaCEmbedTable *self, LuaCEmbed *args){
-    DtwResource *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
-    DtwResourceArray  *elements = dtw.resource.get_schema_values(resource);
-
-    if(dtw.resource.error(resource)){
-        char *message = dtw.resource.get_error_message(resource);
-        return lua.response.send_error(message);
-    }
-
-    for(int i = 0; i < elements->size; i++) {
-        DtwResource*current = elements->resources[i];
-        LuaCEmbedTable  *sub = raw_create_resource(args,current);
-
-        LuaCEmbedTable *args_to_callback = lua.tables.new_anonymous_table(args);
-        lua.tables.append_table(args_to_callback,sub);
-        lua.args.run_lambda(args,0,args_to_callback,0);
-    }
-
-    return NULL;
-}
 
 LuaCEmbedResponse  * get_resource_match_schema_by_primary_key(LuaCEmbedTable *self, LuaCEmbed *args){
     char *key = lua.args.get_str(args,0);

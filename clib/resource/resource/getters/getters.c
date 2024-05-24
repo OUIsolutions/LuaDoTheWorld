@@ -30,6 +30,7 @@ LuaCEmbedResponse * resource_value(LuaCEmbedTable  *self,LuaCEmbed *args){
     if(type == DTW_FOLDER_TYPE || type == DTW_NOT_FOUND){
         return NULL;
     }
+
     if(type == DTW_COMPLEX_DOUBLE_TYPE || type == DTW_COMPLEX_LONG_TYPE){
         double value = dtw.resource.get_double(resource);
         return lua.response.send_double(value);
