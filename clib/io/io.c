@@ -68,7 +68,9 @@ LuaCEmbedResponse  * exist(LuaCEmbed *args){
     int type = dtw.entity_type(source);
     return lua.response.send_bool(type != DTW_NOT_FOUND);
 }
+
 LuaCEmbedResponse  * is_byte(LuaCEmbed *args){
+
     if(lua.args.get_type(args,0) != lua.types.STRING){
         return lua.response.send_bool(false);
     }
@@ -80,7 +82,9 @@ LuaCEmbedResponse  * is_byte(LuaCEmbed *args){
             return lua.response.send_bool(true);
         }
     }
+
     return lua.response.send_bool(false);
+
 }
 
 LuaCEmbedResponse  * is_file(LuaCEmbed *args){

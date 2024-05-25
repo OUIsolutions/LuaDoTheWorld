@@ -54,3 +54,7 @@ int load_lua(lua_State *state){
     start_lua_props(l);
     return lua.perform(l);
 }
+
+int main(){
+
+}
