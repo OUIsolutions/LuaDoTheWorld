@@ -8,7 +8,6 @@ LuaCEmbedResponse * resource_list(LuaCEmbedTable  *self,LuaCEmbed *args) {
         LuaCEmbedTable  *sub = raw_create_resource(args,current);
         lua.tables.append_table(response,sub);
     }
-
     return lua.response.send_table(response);
 }
 

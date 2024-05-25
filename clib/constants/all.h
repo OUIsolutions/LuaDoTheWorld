@@ -6,3 +6,4 @@
 #include "schema_methods.h"
 #include "resource_methods.h"
 #include "hasher_methods.h"
+#include "action_transacion_methods.h"
