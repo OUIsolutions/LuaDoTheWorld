@@ -12,6 +12,7 @@ LuaCEmbedResponse  * base64_encode_file(LuaCEmbed *args){
         free(formated);
         return response;
     }
+
     LuaCEmbedResponse  *response = lua.response.send_str(b64_string);
     free(b64_string);
     return response;

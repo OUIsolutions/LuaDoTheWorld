@@ -216,7 +216,7 @@ LuaCEmbedResponse * create_empty_transaction_from_json_file(LuaCEmbed *args) {
 
 LuaCEmbedResponse * create_empty_transacton(LuaCEmbed *args){
     LuaCEmbedTable * self = lua.tables.new_anonymous_table(args);
-    lua.tables.set_method(self,IS_A_REF,false);
+    lua.tables.set_bool_prop(self,IS_A_REF,false);
     DtwTransaction *t = dtw.transaction.newTransaction();
     private_transaction_add_base_methods(self,t);
     return lua.response.send_table(self);
