@@ -7,9 +7,9 @@ LuaCEmbedResponse  * base64_encode_file(LuaCEmbed *args){
     }
     char * b64_string =  dtw.convert_binary_file_to_base64(source);
     if(!b64_string){
-        char *formmated  = private_LuaCembed_format(FILE_NOT_FOUND,source);
-        LuaCEmbedResponse  *response = lua.response.send_error(formmated);
-        free(formmated);
+        char *formated  = private_LuaCembed_format(FILE_NOT_FOUND, source);
+        LuaCEmbedResponse  *response = lua.response.send_error(formated);
+        free(formated);
         return response;
     }
     LuaCEmbedResponse  *response = lua.response.send_str(b64_string);
