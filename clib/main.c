@@ -35,7 +35,7 @@ void start_lua_props(LuaCEmbed *l){
     lua.add_callback(l,NEW_HASHER,create_hasher);
     lua.add_callback(l,GENERATE_SHA_FROM_FOLDER_BY_CONTENT,generate_sha_from_folder_by_content);
     lua.add_callback(l,GENERATE_SHA_FROM_FOLDER_BY_LAST_MODIFICATION,generate_sha_from_folder_by_last_modification);
-    lua.add_callback(l,NEW_TRANSACTION,create_empty_transacton);
+    lua.add_callback(l, NEW_TRANSACTION, transaction_new_transaction);
     lua.add_callback(l,NEW_TRANSACTION_FROM_JSON_STRING,create_empty_transaction_from_json_string);
     lua.add_callback(l,NEW_TRANSACTION_FROM_JSON_FILE,create_empty_transaction_from_json_file);
 

@@ -43,11 +43,15 @@ LuaCEmbedResponse  * transaction_map(LuaCEmbedTable *self,LuaCEmbed *args){
         LuaCEmbedTable  *table = raw_create_action_transaction(args,action);
         LuaCEmbedTable  * args_of_callbac = lua.tables.new_anonymous_table(args);
         lua.tables.append_table(args_of_callbac,table);
+
         LuaCEmbedTable * response_values = lua.args.run_lambda(args,0,args_of_callbac,1);
         if(lua.has_errors(args)){
+            printf("pegou aqui\n");
+
             char *error = lua.get_error_message(args);
             return lua.response.send_error(error);
         }
+
         int response_type =lua.tables.get_type_by_index(response_values,0);
         if(response_type!= LUA_CEMBED_NIL && response_type != LUA_CEMBED_NOT_FOUND){
             lua.tables.append_evaluation(final_map,"%s[1]",response_values->global_name);
@@ -81,4 +85,32 @@ LuaCEmbedResponse  * transaction_find(LuaCEmbedTable *self,LuaCEmbed *args){
     return  NULL;
 }
 
+
+LuaCEmbedResponse  * transaction_count(LuaCEmbedTable *self,LuaCEmbed *args){
+
+    DtwTransaction *transaction = (DtwTransaction*)lua.tables.get_long_prop(self,TRANSACTION_POINTER);
+    long total  = 0;
+    for(long i = 0 ; i < transaction->size; i++){
+        DtwActionTransaction *action = transaction->actions[i];
+        LuaCEmbedTable  *table = raw_create_action_transaction(args,action);
+        LuaCEmbedTable  * args_of_callbac = lua.tables.new_anonymous_table(args);
+        lua.tables.append_table(args_of_callbac,table);
+        LuaCEmbedTable * response_values = lua.args.run_lambda(args,0,args_of_callbac,1);
+        if(lua.has_errors(args)){
+            char *error = lua.get_error_message(args);
+            return lua.response.send_error(error);
+        }
+        int response_type =lua.tables.get_type_by_index(response_values,0);
+        if(response_type !=  lua.types.BOOL){
+            continue;
+        }
+        bool value = lua.tables.get_bool_by_index(response_values,0);
+        if(value){
+            total+=1;
+        }
+
+    }
+
+    return  lua.response.send_long(total);
+}
 

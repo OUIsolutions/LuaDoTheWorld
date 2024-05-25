@@ -7,3 +7,5 @@ LuaCEmbedResponse  * transaction_foreach(LuaCEmbedTable *self,LuaCEmbed *args);
 LuaCEmbedResponse  * transaction_map(LuaCEmbedTable *self,LuaCEmbed *args);
 
 LuaCEmbedResponse  * transaction_find(LuaCEmbedTable *self,LuaCEmbed *args);
+
+LuaCEmbedResponse  * transaction_count(LuaCEmbedTable *self,LuaCEmbed *args);

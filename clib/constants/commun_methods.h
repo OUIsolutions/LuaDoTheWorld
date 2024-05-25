@@ -3,7 +3,6 @@
 #define TO_NUMBER_METHOD "__tonumber"
 #define TO_BOOLEAN_METHOD "__tobolean"
 #define INDEX_METHOD "__index"
-#define GET_BYTE_AT_METHOD "get_byte_at_index"
 #define SET_VALUE_METHOD "set_value"
 #define GET_VALUE_METHOD "get_value"
 #define COMMIT_METHOD "commit"
@@ -28,3 +27,4 @@
 #define COUNT_METHOD "count"
 #define FIND_METHOD "find"
 #define LIST_METHOD "list"
+#define GET_SIZE_METHOD "get_size"

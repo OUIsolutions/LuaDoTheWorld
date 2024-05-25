@@ -32,14 +32,6 @@ LuaCEmbedResponse * transaction_delete(LuaCEmbedTable *self,LuaCEmbed *args) {
     return lua.response.send_table(self);
 }
 
-LuaCEmbedResponse * create_empty_transacton(LuaCEmbed *args){
-    LuaCEmbedTable * self = lua.tables.new_anonymous_table(args);
-    lua.tables.set_bool_prop(self,IS_A_REF,false);
-    DtwTransaction *t = dtw.transaction.newTransaction();
-    private_transaction_add_base_methods(self,t);
-    return lua.response.send_table(self);
-}
-
 
 void  private_transaction_add_base_methods(LuaCEmbedTable *self,DtwTransaction *transaction){
     lua.tables.set_long_prop(self,TRANSACTION_POINTER,(long long)transaction);
@@ -53,8 +45,19 @@ void  private_transaction_add_base_methods(LuaCEmbedTable *self,DtwTransaction *
     lua.tables.set_method(self,DUMP_TO_JSON_STRING,transaction_dumps_to_json_string);
     lua.tables.set_method(self,EACH_METHOD,transaction_foreach);
     lua.tables.set_method(self,MAP_METHOD,transaction_map);
+    lua.tables.set_method(self,COUNT_METHOD,transaction_count);
     lua.tables.set_method(self,INDEX_METHOD,transaction_index);
+    lua.tables.set_method(self,LUA_DO_THE_WORLD_GET_ACTION,transaction_index);
     lua.tables.set_method(self,FIND_METHOD,transaction_find);
     lua.tables.set_method(self,DELETE_METHOD,transaction_delete);
 }
 
+
+LuaCEmbedResponse * transaction_new_transaction(LuaCEmbed *args){
+    LuaCEmbedTable * self = lua.tables.new_anonymous_table(args);
+    lua.tables.set_bool_prop(self,IS_A_REF,false);
+    DtwTransaction *transaction = dtw.transaction.newTransaction();
+    lua.tables.set_long_prop(self,TRANSACTION_POINTER,(long)transaction);
+    private_transaction_add_base_methods(self,transaction);
+    return lua.response.send_table(self);
+}

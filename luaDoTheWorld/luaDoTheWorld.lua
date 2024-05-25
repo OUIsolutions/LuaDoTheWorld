@@ -10,6 +10,17 @@
 ---@field digest_folder_by_last_modification fun(source:string
 ---@field get_value fun():string
 
+---@class DtwActionTransaction
+---@field get_type_code fun():number
+---@field get_type fun():string
+---@field get_content fun():string
+---@field set_content fun()
+---@field get_source fun():string
+---@field get_dest fun():string
+---@field set_dest fun():string
+
+
+
 
 ---@class DtwTransaction
 ---@field write fun(src :string , value:string | number | boolean | DtwBytes | DtwResource ):DtwTransaction
@@ -18,7 +29,14 @@
 ---@field move_any fun(src:string,dest:string):DtwTransaction
 ---@field dump_to_json_string fun():string
 ---@field dump_to_json_file fun(src:string):DtwTransaction
+---@field each fun(callbac: fun(value:DtwActionTransaction))
+---@field map fun(callbac: fun(value:DtwActionTransaction):any):any[]
+---@field find fun(callbac: fun(value:DtwActionTransaction):boolean):DtwActionTransaction
+---@field count fun(callbac: fun(value:DtwActionTransaction):boolean):number
+---@field __index fun(index:number):DtwActionTransaction
+---@field get_action fun(index:number):DtwActionTransaction
 ---@field commit fun():DtwTransaction
+
 
 ---@class DtwSchema
 ---@field add_primary_keys fun(values:string | string[])
@@ -51,7 +69,7 @@
 ---@field get_extension fun() :string
 ---@field get_name_without_extension fun() :string
 ---@field get_dir fun() :string
----@field foreach fun(callback :fun(element:DtwResource))
+---@field each fun(callback :fun(element:DtwResource))
 ---@field set_extension fun(extension:string)
 ---@field list fun(): DtwResource[]
 ---@field destroy fun()
