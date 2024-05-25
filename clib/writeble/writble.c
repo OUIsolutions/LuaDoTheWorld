@@ -7,12 +7,6 @@ bool handle_table_writble(Writeble *self,LuaCEmbed *args,int index){
 
     int type = lua.tables.get_long_prop(bytes_or_resource,DTW_TYPE);
 
-    if(type == BYTE_TYPE){
-        self->size = lua.tables.get_long_prop(bytes_or_resource,SIZE);
-        self->content =  (unsigned  char *)lua.tables.get_long_prop(bytes_or_resource,CONTENT_POINTER);
-        self->is_binary = true;
-        return true;
-    }
 
     if(type == DTW_RESOURCE_TYPE) {
         DtwResource *resource = (DtwResource *) lua.tables.get_long_prop(bytes_or_resource, RESOURCE_POINTER);
@@ -39,8 +33,7 @@ Writeble  create_writeble(LuaCEmbed *args,int index){
     int type_to_write = lua.args.get_type(args,index);
     bool writeble = false;
     if(type_to_write == lua.types.STRING){
-        self.content = (unsigned char*)lua.args.get_str(args,index);
-        self.size = (long)strlen((char*)self.content);
+        self.content = (unsigned  char*)lua.args.get_raw_str(args,&self.size,index);
         writeble = true;
     }
 

@@ -17,5 +17,4 @@ local users = banco.sub_resource("users")
 
 
 users.schema_each(function (value)
-    print(value)
 end)
