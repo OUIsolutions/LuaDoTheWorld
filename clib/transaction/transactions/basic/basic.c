@@ -22,14 +22,12 @@ LuaCEmbedResponse * transaction_commit(LuaCEmbedTable *self,LuaCEmbed *args) {
 
 
 LuaCEmbedResponse * transaction_delete(LuaCEmbedTable *self,LuaCEmbed *args) {
-
     DtwTransaction *t = (DtwTransaction*)lua.tables.get_long_prop(self,TRANSACTION_POINTER);
-    bool ref = lua.tables.get_long_prop(self,TRANSACTION_POINTER);
+    bool ref = lua.tables.get_bool_prop(self,IS_A_REF);
     if(!ref){
         dtw.transaction.free(t);
     }
-
-    return lua.response.send_table(self);
+    return  NULL;
 }
 
 
@@ -47,9 +45,12 @@ void  private_transaction_add_base_methods(LuaCEmbedTable *self,DtwTransaction *
     lua.tables.set_method(self,MAP_METHOD,transaction_map);
     lua.tables.set_method(self,COUNT_METHOD,transaction_count);
     lua.tables.set_method(self,INDEX_METHOD,transaction_index);
-    lua.tables.set_method(self,LUA_DO_THE_WORLD_GET_ACTION,transaction_index);
+   //lua.tables.set_method(self,LUA_DO_THE_WORLD_GET_ACTION,transaction_index);
     lua.tables.set_method(self,FIND_METHOD,transaction_find);
     lua.tables.set_method(self,DELETE_METHOD,transaction_delete);
+    int type = LuaCEmbedTable_get_type_prop(self,"aaaaa");
+    printf("type ; %s\n", LuaCembed_convert_arg_code(type));
+
 }
 
 
@@ -58,6 +59,10 @@ LuaCEmbedResponse * transaction_new_transaction(LuaCEmbed *args){
     lua.tables.set_bool_prop(self,IS_A_REF,false);
     DtwTransaction *transaction = dtw.transaction.newTransaction();
     lua.tables.set_long_prop(self,TRANSACTION_POINTER,(long)transaction);
+    if(LuaCEmbed_has_errors(self->main_object)){
+        printf("error %s\n", LuaCEmbed_get_error_message(self->main_object));
+    }
+
     private_transaction_add_base_methods(self,transaction);
     return lua.response.send_table(self);
 }

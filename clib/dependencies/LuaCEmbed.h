@@ -24276,10 +24276,10 @@ LuaCEmbedTable* LuaCEmbed_run_args_lambda(LuaCEmbed *self, int index, LuaCEmbedT
 
     int total_args = private_lua_cEmbed_unpack(args_to_call,formatted_arg);
     if(lua_pcall(self->state,total_args,total_returns,0)){
-        privata_LuaCEmbed_decrement_stack(self);
 
         privateLuaCEmbed_raise_error_not_jumping(self, lua_tostring(self->state,-1));
         free(formatted_arg);
+        privata_LuaCEmbed_decrement_stack(self);
 
         lua_settop(self->state,0);
 
@@ -24835,10 +24835,7 @@ bool LuaCEmbedTable_get_bool_by_index(LuaCEmbedTable *self, int index){
 
 int  LuaCEmbedTable_get_type_prop(LuaCEmbedTable *self, const char *name){
     PRIVATE_LUA_CEMBED_TABLE_PROTECT_NUM
-    lua_settop(self->main_object->state,0);
-
     private_lua_cembed_memory_limit = self->main_object->memory_limit;
-
     lua_getglobal(self->main_object->state,self->global_name);
     lua_getfield(self->main_object->state,-1,name);
     return lua_type(self->main_object->state,-1);

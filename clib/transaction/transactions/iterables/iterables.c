@@ -5,6 +5,7 @@ LuaCEmbedResponse  * transaction_index(LuaCEmbedTable *self,LuaCEmbed *args){
 
     long index = lua.args.get_long(args,1);
     if(lua.has_errors(args)){
+        printf("pegou aqui passando %s\n",lua.args.get_str(args,1));
         char *error = lua.get_error_message(args);
         return lua.response.send_error(error);
     }
@@ -43,8 +44,7 @@ LuaCEmbedResponse  * transaction_map(LuaCEmbedTable *self,LuaCEmbed *args){
         LuaCEmbedTable  *table = raw_create_action_transaction(args,action);
         LuaCEmbedTable  * args_of_callbac = lua.tables.new_anonymous_table(args);
         lua.tables.append_table(args_of_callbac,table);
-
-        LuaCEmbedTable * response_values = lua.args.run_lambda(args,0,args_of_callbac,1);
+        LuaCEmbedTable * response_values = lua.args.run_lambda(args,0,args_of_callbac,0);
         if(lua.has_errors(args)){
             printf("pegou aqui\n");
 
