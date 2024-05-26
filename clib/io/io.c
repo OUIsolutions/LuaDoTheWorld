@@ -7,9 +7,6 @@ LuaCEmbedResponse  * load_file(LuaCEmbed *args){
         return  lua.response.send_error(error_message);
     }
     int type = dtw.entity_type(filename);
-    if(type != DTW_FILE_TYPE ){
-        return NULL;
-    }
 
     long  size;
     bool is_binary;

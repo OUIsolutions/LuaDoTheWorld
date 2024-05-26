@@ -45,11 +45,8 @@ void  private_transaction_add_base_methods(LuaCEmbedTable *self,DtwTransaction *
     lua.tables.set_method(self,MAP_METHOD,transaction_map);
     lua.tables.set_method(self,COUNT_METHOD,transaction_count);
     lua.tables.set_method(self,INDEX_METHOD,transaction_index);
-   //lua.tables.set_method(self,LUA_DO_THE_WORLD_GET_ACTION,transaction_index);
     lua.tables.set_method(self,FIND_METHOD,transaction_find);
     lua.tables.set_method(self,DELETE_METHOD,transaction_delete);
-    int type = LuaCEmbedTable_get_type_prop(self,"aaaaa");
-    printf("type ; %s\n", LuaCembed_convert_arg_code(type));
 
 }
 

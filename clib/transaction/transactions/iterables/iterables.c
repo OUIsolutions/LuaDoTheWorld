@@ -46,7 +46,6 @@ LuaCEmbedResponse  * transaction_map(LuaCEmbedTable *self,LuaCEmbed *args){
         lua.tables.append_table(args_of_callbac,table);
         LuaCEmbedTable * response_values = lua.args.run_lambda(args,0,args_of_callbac,0);
         if(lua.has_errors(args)){
-            printf("pegou aqui\n");
 
             char *error = lua.get_error_message(args);
             return lua.response.send_error(error);
