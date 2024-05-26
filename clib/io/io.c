@@ -15,6 +15,9 @@ LuaCEmbedResponse  * load_file(LuaCEmbed *args){
     bool is_binary;
     unsigned  char *content = dtw.load_any_content(filename,&size,&is_binary);
     if(!content){
+        if(dtw.entity_type(filename) == DTW_FILE_TYPE){
+             return lua.response.send_str("");
+        }
         return NULL;
     }
     if(!is_binary){
