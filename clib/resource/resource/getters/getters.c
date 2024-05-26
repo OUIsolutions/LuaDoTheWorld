@@ -30,13 +30,10 @@ LuaCEmbedResponse * resource_value(LuaCEmbedTable  *self,LuaCEmbed *args){
     if(type == DTW_FOLDER_TYPE || type == DTW_NOT_FOUND){
         return NULL;
     }
+
     if(type == DTW_COMPLEX_DOUBLE_TYPE || type == DTW_COMPLEX_LONG_TYPE){
         double value = dtw.resource.get_double(resource);
         return lua.response.send_double(value);
-    }
-    if(type == DTW_COMPLEX_STRING_TYPE){
-        char *value = dtw.resource.get_string(resource);
-        return lua.response.send_str(value);
     }
 
     if(type == DTW_COMPLEX_BOOL_TYPE){
@@ -44,13 +41,13 @@ LuaCEmbedResponse * resource_value(LuaCEmbedTable  *self,LuaCEmbed *args){
         return lua.response.send_bool(value);
     }
 
-    if(type == DTW_COMPLEX_BINARY){
+    if(type == DTW_COMPLEX_BINARY || type == DTW_COMPLEX_STRING_TYPE){
         long size;
         bool is_binary;
         unsigned  char *content =  dtw.resource.get_any(resource,&size,&is_binary);
-        LuaCEmbedTable *bytes = create_bytes_ref(args,content,size);
-        return lua.response.send_table(bytes);
+        return lua.response.send_raw_string_reference((char*)content,size);
     }
+
     return NULL;
 }
 
@@ -87,8 +84,7 @@ LuaCEmbedResponse * resource_value_from_sub_resource(LuaCEmbedTable  *self,LuaCE
         long size;
         bool is_binary;
         unsigned  char *content =  dtw.resource.get_any(sub,&size,&is_binary);
-        LuaCEmbedTable *bytes = create_bytes_ref(args,content,size);
-        return lua.response.send_table(bytes);
+        return lua.response.send_raw_string((char*)content,size);
     }
     return NULL;
 }

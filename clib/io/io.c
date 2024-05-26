@@ -7,9 +7,6 @@ LuaCEmbedResponse  * load_file(LuaCEmbed *args){
         return  lua.response.send_error(error_message);
     }
     int type = dtw.entity_type(filename);
-    if(type != DTW_FILE_TYPE ){
-        return NULL;
-    }
 
     long  size;
     bool is_binary;
@@ -26,8 +23,10 @@ LuaCEmbedResponse  * load_file(LuaCEmbed *args){
         free(content);
         return response;
     }
-    LuaCEmbedTable * bytes = create_bytes(args,content,size);
-    return lua.response.send_table(bytes);
+
+    LuaCEmbedResponse  *response  = lua.response.send_raw_string((char*)content,size);
+    free(content);
+    return  response;
 }
 
 LuaCEmbedResponse  * write_file(LuaCEmbed *args){
@@ -50,6 +49,8 @@ LuaCEmbedResponse  * write_file(LuaCEmbed *args){
     writed = dtw.write_any_content(filename,write_obj.content,write_obj.size);
     Writeble_free(&write_obj);
     return  lua.response.send_bool(writed);
+
+
 }
 LuaCEmbedResponse  * is_dir(LuaCEmbed *args){
     char *source = lua.args.get_str(args,0);
@@ -69,6 +70,24 @@ LuaCEmbedResponse  * exist(LuaCEmbed *args){
     }
     int type = dtw.entity_type(source);
     return lua.response.send_bool(type != DTW_NOT_FOUND);
+}
+
+LuaCEmbedResponse  * is_byte(LuaCEmbed *args){
+
+    if(lua.args.get_type(args,0) != lua.types.STRING){
+        return lua.response.send_bool(false);
+    }
+    long size;
+    unsigned  char *value =(unsigned  char *)lua.args.get_raw_str(args,&size,0);
+    for(int i = 0; i < size; i++){
+        unsigned  char current = value[i];
+        if(current == 0){
+            return lua.response.send_bool(true);
+        }
+    }
+
+    return lua.response.send_bool(false);
+
 }
 
 LuaCEmbedResponse  * is_file(LuaCEmbed *args){

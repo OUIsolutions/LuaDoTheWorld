@@ -10,6 +10,17 @@
 ---@field digest_folder_by_last_modification fun(source:string
 ---@field get_value fun():string
 
+---@class DtwActionTransaction
+---@field get_type_code fun():number
+---@field get_type fun():string
+---@field get_content fun():string
+---@field set_content fun()
+---@field get_source fun():string
+---@field get_dest fun():string
+---@field set_dest fun():string
+
+
+
 
 ---@class DtwTransaction
 ---@field write fun(src :string , value:string | number | boolean | DtwBytes | DtwResource ):DtwTransaction
@@ -18,22 +29,30 @@
 ---@field move_any fun(src:string,dest:string):DtwTransaction
 ---@field dump_to_json_string fun():string
 ---@field dump_to_json_file fun(src:string):DtwTransaction
+---@field each fun(callbac: fun(value:DtwActionTransaction))
+---@field map fun(callbac: fun(value:DtwActionTransaction):any):any[]
+---@field find fun(callbac: fun(value:DtwActionTransaction):boolean):DtwActionTransaction
+---@field count fun(callbac: fun(value:DtwActionTransaction):boolean):number
+---@field __index fun(index:number):DtwActionTransaction
+---@field get_action fun(index:number):DtwActionTransaction
 ---@field commit fun():DtwTransaction
 
+
 ---@class DtwSchema
----@field each fun(callback:fun(value:DtwResource))
----@field find fun(callback:fun(value:DtwResource):boolean):DtwResource
----@field map fun(callback:fun(value:DtwResource):any)
----@field count fun(callback:fun(value:DtwResource):boolean):number
----@field list fun(): DtwResource[]
 ---@field add_primary_keys fun(values:string | string[])
+---@field sub_schema fun(values:string | string[])
+
+---@class DtwResource
+---@field schema_new_insertion fun():DtwResource
 ---@field dangerous_remove_prop fun(primary_key:string)
 ---@field dangerous_rename_prop fun(primary_key:string ,new_name:string)
 ---@field get_resource_matching_primary_key fun(primary_key: string,  value:string | number | boolean | DtwBytes | DtwResource ):DtwResource
 ---@field get_resource_by_name_id fun(id_name:string)
----@field new_insertion fun():DtwResource
-
----@class DtwResource
+---@field schema_list fun(): DtwResource[]
+---@field schema_each fun(callback:fun(value:DtwResource))
+---@field schema_find fun(callback:fun(value:DtwResource):boolean):DtwResource
+---@field schema_map fun(callback:fun(value:DtwResource):any)
+---@field schema_count fun(callback:fun(value:DtwResource):boolean):number
 ---@field sub_resource fun(str:string) :DtwResource
 ---@field sub_resource_next fun(str:string) :DtwResource
 ---@field sub_resource_now fun(str:string) :DtwResource
@@ -50,13 +69,13 @@
 ---@field get_extension fun() :string
 ---@field get_name_without_extension fun() :string
 ---@field get_dir fun() :string
----@field foreach fun(callback :fun(element:DtwResource))
+---@field each fun(callback :fun(element:DtwResource))
 ---@field set_extension fun(extension:string)
 ---@field list fun(): DtwResource[]
 ---@field destroy fun()
----@field sub_schema fun(path:string):DtwSchema
 ---@field set_value_in_sub_resource fun(key:string ,value:string | number | boolean | DtwBytes | DtwResource )
 ---@field get_value_from_sub_resource fun(key:string):string | number | boolean | nil | DtwBytes
+---@field newSchema fun():DtwSchema
 
 
 ---@class DtwModule

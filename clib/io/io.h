@@ -8,6 +8,8 @@ LuaCEmbedResponse  * copy_any_overwriting(LuaCEmbed *args);
 
 LuaCEmbedResponse  * is_dir(LuaCEmbed *args);
 
+LuaCEmbedResponse  * is_byte(LuaCEmbed *args);
+
 LuaCEmbedResponse  * exist(LuaCEmbed *args);
 
 LuaCEmbedResponse  * is_file(LuaCEmbed *args);
