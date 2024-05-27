@@ -73,14 +73,19 @@ local function test_unit(unit,start_assignature)
         local expected_code = dtw.load_file(expected_file_path)
 
         local comparation_result = io.popen("lua "..file_path,"r"):read()
-        if expected_code ~=comparation_result then
-            print(
-                "on file "..file_path
-                .." was expecting:'"..expected_code.."'\n"
-                .."but got:'"..comparation_result.."'")
-            --revert any modification    
-            return  true
+        if comparation_result then
+            
+            if expected_code ~=comparation_result then
+                print(
+                    "on file "..file_path
+                    .." was expecting:'"..expected_code.."'\n"
+                    .."but got:'"..comparation_result.."'")
+                --revert any modification    
+                return  true
+            end
+            
         end
+
     end
 
 

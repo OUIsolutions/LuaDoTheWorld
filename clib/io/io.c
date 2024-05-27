@@ -6,7 +6,6 @@ LuaCEmbedResponse  * load_file(LuaCEmbed *args){
         char *error_message = lua.get_error_message(args);
         return  lua.response.send_error(error_message);
     }
-    int type = dtw.entity_type(filename);
 
     long  size;
     bool is_binary;
