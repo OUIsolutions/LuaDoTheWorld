@@ -48,6 +48,8 @@ void  private_transaction_add_base_methods(LuaCEmbedTable *self,DtwTransaction *
     lua.tables.set_method(self,FIND_METHOD,transaction_find);
     lua.tables.set_method(self,DELETE_METHOD,transaction_delete);
 
+    int  test = lua.tables.get_type_prop(self,DELETE_METHOD);
+    printf("type %s\n",lua.convert_arg_code(test));
 }
 
 
