@@ -5,9 +5,7 @@
 #include "b64/b64.c"
 #include "sha/sha.c"
 #include "hasher/hasher.c"
-
 #include "resource/definition.h"
 #include "transaction/definition.h"
-
-
 #include "tree/definition.h"
+#include "path/path.c"

@@ -9,3 +9,4 @@
 #include "resource/declaration.h"
 #include "transaction/declaration.h"
 #include "tree/declaration.h"
+#include "path/path.h"

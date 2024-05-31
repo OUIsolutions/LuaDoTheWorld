@@ -8,3 +8,4 @@
 #define TRANSACTION_POINTER "dtw_transaction"
 #define SCHEMA_POINTER "dtw_schema"
 #define TREE_PART_POINTER "dtw_tree_part"
+#define PATH_POINTER "dtw_path_pointer"
