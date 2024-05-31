@@ -6,7 +6,7 @@ LuaCEmbedResponse *path_changed(LuaCEmbedTable *self,LuaCEmbed *args){
 
 
 LuaCEmbedResponse *add_start_dir_to_path(LuaCEmbedTable *self,LuaCEmbed *args){
-
+        
 }
 
 LuaCEmbedResponse *add_end_dir_to_path(LuaCEmbedTable *self,LuaCEmbed *args){
