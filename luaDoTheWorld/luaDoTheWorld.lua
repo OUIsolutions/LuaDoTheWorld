@@ -1,13 +1,37 @@
 
----@class DtwBytes 
----@field size number
----@field get_byte_at_index fun(index:number):number
+
+
+---@class DtwPath
+---@field path_changed fun():boolean
+---@field add_start_dir fun(start_dir:string):DtwPath
+---@field add_end_dir_method fun (end_dir:string):DtwPath
+---@field changed fun():boolean
+---@field get_dir fun():string
+---@field get_extension fun():string
+---@field get_name fun():string
+---@field get_only_name fun():string
+---@field get_full_path fun():string
+---@field set_name fun(new_name:string) DtwPath
+---@field set_only_name fun(new_name:string) DtwPath
+---@field set_extension fun(extension:string):DtwPath
+---@field set_dir fun(dir:string):DtwPath
+---@field set_path fun(path:string):DtwPath
+---@field replace_dirs fun(old_dir:string,new_dir:string):DtwPath
+---@field get_total_dirs fun():number
+---@field get_sub_dirs_from_index fun(start:number,end:number):string
+---@field insert_dir_at_index fun(dir:string,index:number):DtwPath
+---@field remove_sub_dir_at_index fun(start:number,end:number):DtwPath
+---@field insert_dir_after fun(point:string, dir:string):DtwPath
+---@field insert_dir_before fun(point:string, dir:string):DtwPath
+---@field remove_dir_at fun(point:string):DtwPath
+
+
 
 ---@class DtwHasher
----@field digest fun(value:string | number | boolean | DtwBytes )
----@field digest_file fun(source:string)
----@field digest_folder_by_content fun(source:string)
----@field digest_folder_by_last_modification fun(source:string
+---@field digest fun(value:string | number | boolean | string ):DtwHasher
+---@field digest_file fun(source:string):DtwHasher
+---@field digest_folder_by_content fun(source:string):DtwHasher
+---@field digest_folder_by_last_modification fun(source:string):DtwHasher
 ---@field get_value fun():string
 
 ---@class DtwActionTransaction
@@ -23,7 +47,7 @@
 
 
 ---@class DtwTransaction
----@field write fun(src :string , value:string | number | boolean | DtwBytes | DtwResource ):DtwTransaction
+---@field write fun(src :string , value:string | number | boolean | string | DtwResource ):DtwTransaction
 ---@field remove_any fun(src:string):DtwTransaction
 ---@field copy_any fun(src:string,dest:string):DtwTransaction
 ---@field move_any fun(src:string,dest:string):DtwTransaction
@@ -58,8 +82,8 @@
 ---@field sub_resource_now fun(str:string) :DtwResource
 ---@field sub_resource_now_in_unix fun(str:string) :DtwResource
 ---@field __index fun(str:string) : number ,DtwResource
----@field get_value fun():string | number | boolean | nil | DtwBytes
----@field set_value fun(value:string | number | boolean | DtwBytes | DtwResource )
+---@field get_value fun():string | number | boolean | nil | string
+---@field set_value fun(value:string | number | boolean | string | DtwResource )
 ---@field commit fun()  apply the modifications
 ---@field lock fun() lock the resource from other process 
 ---@field unlock fun()
@@ -73,8 +97,8 @@
 ---@field set_extension fun(extension:string)
 ---@field list fun(): DtwResource[]
 ---@field destroy fun()
----@field set_value_in_sub_resource fun(key:string ,value:string | number | boolean | DtwBytes | DtwResource )
----@field get_value_from_sub_resource fun(key:string):string | number | boolean | nil | DtwBytes
+---@field set_value_in_sub_resource fun(key:string ,value:string | number | boolean | string | DtwResource )
+---@field get_value_from_sub_resource fun(key:string):string | number | boolean | nil | string
 ---@field newSchema fun():DtwSchema
 
 
@@ -85,19 +109,19 @@
 ---@field move_any_merging fun(src:string,dest:string):boolean returns true if the operation were ok otherwise false
 ---@field remove_any fun(src:string):boolean returns true if the operation were ok otherwise false
 ---@field base64_encode_file fun(src:string):string transform file into base64 
----@field base64_encode fun(value:string | number | boolean | DtwBytes):string transform content into base64
----@field base64_decode fun(value:string): string | DtwBytes retransform base64 into normal value 
+---@field base64_encode fun(value:string | number | boolean | string):string transform content into base64
+---@field base64_decode fun(value:string): string | string retransform base64 into normal value
 ---@field list_files fun(src:string):string[] 
 ---@field list_dirs fun(src:string):string[] 
 ---@field list_all fun(src:string):string[] 
 ---@field list_files_recursively fun(src:string):string[] 
 ---@field list_dirs_recursively fun(src:string):string[] 
 ---@field list_all_recursively fun(src:string):string[] 
----@field load_file fun(src:string):string | DtwBytes
----@field write_file fun(src:string,value:string | number | boolean | DtwBytes)
+---@field load_file fun(src:string):string | string
+---@field write_file fun(src:string,value:string | number | boolean | string)
 ---@field is_byte fun(value:any):boolean returns if a value is a byte
 ---@field newResource fun(src:string):DtwResource
----@field generate_sha fun(value:string | number | boolean | DtwBytes):string 
+---@field generate_sha fun(value:string | number | boolean | string):string
 ---@field generate_sha_from_file fun(src:string):string
 ---@field generate_sha_from_folder_by_content fun(src:string):string
 ---@field generate_sha_from_folder_by_last_modification fun(src:string):string
@@ -105,11 +129,12 @@
 ---@field isdir fun():boolean
 ---@field isfile fun():boolean
 ---@field isfile_byte fun():boolean
----@field new_transaction fun():DtwTransaction
----@field new_transaction_from_file fun():DtwTransaction
----@field new_transaction_from_json_string fun():DtwTransaction
----
----
+---@field newTransaction fun():DtwTransaction
+---@field newTransaction_from_file fun():DtwTransaction
+---@field newTransaction_from_json_string fun():DtwTransaction
+---@field newPath fun():DtwPath
+
+
 local info = debug.getinfo(1, "S")
 local path = info.source:match("@(.*/)") or ""
 

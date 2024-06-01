@@ -33,6 +33,6 @@
 
 #define NEW_TRANSACTION_FROM_JSON_STRING "new_transaction_from_json_string"
 #define NEW_TRANSACTION_FROM_JSON_FILE "new_transaction_from_file"
-#define NEW_TRANSACTION "new_transaction"
-#define NEW_SCHEMA "new_schema"
-#define NEW_PATH "new_path"
+#define NEW_TRANSACTION "newTransaction"
+#define NEW_SCHEMA "newSchema"
+#define NEW_PATH "newPath"
