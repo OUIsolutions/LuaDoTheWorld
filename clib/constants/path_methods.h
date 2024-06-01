@@ -1,7 +1,8 @@
 
-#define PATH_CHANGED_METHOD "path_changed"
-#define PATH_ADD_START_DIR "add_start_dir"
-#define PATH_ADD_END_DIR "path_add_end_dir"
+LuaCEmbedResponse *path_changed(LuaCEmbedTable *self,LuaCEmbed *args);
+
+
+LuaCEmbedResponse *path_add_start_dir(LuaCEmbedTable *self,LuaCEmbed *args);
 
 LuaCEmbedResponse *path_add_end_dir(LuaCEmbedTable *self,LuaCEmbed *args);
 

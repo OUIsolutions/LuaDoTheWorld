@@ -7,3 +7,4 @@
 #include "resource_methods.h"
 #include "hasher_methods.h"
 #include "transactions_methods.h"
+#include "path_methods.h"
