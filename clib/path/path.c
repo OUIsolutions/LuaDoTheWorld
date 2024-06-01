@@ -28,13 +28,23 @@ LuaCEmbedResponse *path_add_end_dir(LuaCEmbedTable *self,LuaCEmbed *args){
     return lua.response.send_table(self);
 }
 
-LuaCEmbedResponse *path_get_dir(LuaCEmbedTable *self,LuaCEmbed *args);
+LuaCEmbedResponse *path_get_dir(LuaCEmbedTable *self,LuaCEmbed *args){
+    DtwPath *self_path = (DtwPath*)lua.tables.get_long_prop(self,PATH_POINTER);
+    return  lua.response.send_str_reference(dtw.path.get_dir(self_path));
+}
+LuaCEmbedResponse *path_get_extension(LuaCEmbedTable *self,LuaCEmbed *args){
+    DtwPath *self_path = (DtwPath*)lua.tables.get_long_prop(self,PATH_POINTER);
+    return  lua.response.send_str_reference(dtw.path.get_extension(self_path));
+}
 
-LuaCEmbedResponse *path_get_extension(LuaCEmbedTable *self,LuaCEmbed *args);
+LuaCEmbedResponse *path_get_name(LuaCEmbedTable *self,LuaCEmbed *args){
+    DtwPath *self_path = (DtwPath*)lua.tables.get_long_prop(self,PATH_POINTER);
+    return  lua.response.send_str_reference(dtw.path.get_name(self_path));
+}
 
-LuaCEmbedResponse *path_get_name(LuaCEmbedTable *self,LuaCEmbed *args);
+LuaCEmbedResponse *path_get_only_name(LuaCEmbedTable *self,LuaCEmbed *args){
 
-LuaCEmbedResponse *path_get_only_name(LuaCEmbedTable *self,LuaCEmbed *args);
+}
 
 LuaCEmbedResponse *path_get_full_path(LuaCEmbedTable *self,LuaCEmbed *args);
 
