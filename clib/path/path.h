@@ -1,64 +1,27 @@
 
 #define PATH_CHANGED_METHOD "path_changed"
-#define PATH_ADD_START_DIR "add_start_dir"
-#define PATH_ADD_END_DIR "path_add_end_dir"
-
-LuaCEmbedResponse *path_add_end_dir(LuaCEmbedTable *self,LuaCEmbed *args);
-
-
-LuaCEmbedResponse *path_get_dir(LuaCEmbedTable *self,LuaCEmbed *args);
-
-LuaCEmbedResponse *path_get_extension(LuaCEmbedTable *self,LuaCEmbed *args);
-
-
-LuaCEmbedResponse *path_get_name(LuaCEmbedTable *self,LuaCEmbed *args);
-
-LuaCEmbedResponse *path_get_only_name(LuaCEmbedTable *self,LuaCEmbed *args);
-
-
-LuaCEmbedResponse *path_get_full_path(LuaCEmbedTable *self,LuaCEmbed *args);
-
-
-LuaCEmbedResponse *path_to_string(LuaCEmbedTable *self,LuaCEmbed *args);
-
-LuaCEmbedResponse *path_set_name(LuaCEmbedTable *self,LuaCEmbed *args);
-
-LuaCEmbedResponse *path_set_only_name(LuaCEmbedTable *self,LuaCEmbed *args);
-
-
-LuaCEmbedResponse *path_set_extension(LuaCEmbedTable *self,LuaCEmbed *args);
-
-
-LuaCEmbedResponse *path_set_dir(LuaCEmbedTable *self,LuaCEmbed *args);
-
-LuaCEmbedResponse *path_set_path(LuaCEmbedTable *self,LuaCEmbed *args);
-
-LuaCEmbedResponse *path_replace_dirs(LuaCEmbedTable *self,LuaCEmbed *args);
-
-LuaCEmbedResponse *path_get_total_dirs(LuaCEmbedTable *self,LuaCEmbed *args);
-
-LuaCEmbedResponse *path_get_sub_dirs_from_index(LuaCEmbedTable *self,LuaCEmbed *args);
-
-LuaCEmbedResponse *path_insert_dir_at_index(LuaCEmbedTable *self,LuaCEmbed *args);
-
-LuaCEmbedResponse *path_remove_sub_dir_at_index(LuaCEmbedTable *self,LuaCEmbed *args);
-
-
-LuaCEmbedResponse *path_insert_dir_after(LuaCEmbedTable *self,LuaCEmbed *args);
-
-
-LuaCEmbedResponse *path_insert_dir_before(LuaCEmbedTable *self,LuaCEmbed *args);
-
-LuaCEmbedResponse *path_remove_sub_dirs_at(LuaCEmbedTable *self,LuaCEmbed *args);
-
-
-LuaCEmbedResponse *path_delete(LuaCEmbedTable *self,LuaCEmbed *args);
-
-LuaCEmbedTable *raw_create_path(LuaCEmbed *args,DtwPath *path);
-
-
-LuaCEmbedTable *create_path_reference(LuaCEmbed *args,DtwPath *path);
-
-
-LuaCEmbedResponse *create_path(LuaCEmbed *args);
+#define PATH_ADD_START_DIR_METHOD "add_start_dir"
+#define PATH_ADD_END_DIR_METHOD "path_add_end_dir"
+#define PATH_CHANGED_METHOD "path_changed"
+#define PATH_ADD_START_DIR_METHOD "add_start_dir"
+#define PATH_ADD_END_DIR_METHOD "add_end_dir"
+#define PATH_GET_DIR_METHOD "get_dir"
+#define PATH_GET_EXTENSION_METHOD "get_extension"
+#define PATH_GET_NAME_METHOD "get_name"
+#define PATH_GET_ONLY_NAME_METHOD "get_only_name"
+#define PATH_GET_FULL_PATH_METHOD "get_full_path"
+#define PATH_TO_STRING_METHOD "to_string"
+#define PATH_SET_NAME_METHOD "set_name"
+#define PATH_SET_ONLY_NAME_METHOD "set_only_name"
+#define PATH_SET_EXTENSION_METHOD "set_extension"
+#define PATH_SET_DIR_METHOD "set_dir"
+#define PATH_SET_PATH_METHOD "set_path"
+#define PATH_REPLACE_DIRS_METHOD "replace_dirs"
+#define PATH_GET_TOTAL_DIRS_METHOD "get_total_dirs"
+#define PATH_GET_SUB_DIRS_FROM_INDEX_METHOD "get_sub_dirs_from_index"
+#define PATH_INSERT_DIR_AT_INDEX_METHOD "insert_dir_at_index"
+#define PATH_REMOVE_SUB_DIR_AT_INDEX_METHOD "remove_sub_dir_at_index"
+#define PATH_INSERT_DIR_AFTER_METHOD "insert_dir_after"
+#define PATH_INSERT_DIR_BEFORE_METHOD "insert_dir_before"
+#define PATH_REMOVE_SUB_DIRS_AT_METHOD "remove_sub_dirs_at"
 
