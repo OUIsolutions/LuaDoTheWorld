@@ -4,3 +4,6 @@
 #define TREE_PROPS_IGNORED_ELEMENTS "ignored_elemenets"
 #define TREE_PROPS_MIMIFICATION "mimification"
 #define TREE_PROPS_PATH_ATTRIBUTES "path_attributes"
+#define TREE_NEW_TREE_PART_EMPTY "newTreePart_empty"
+#define TREE_NEW_TREE_PART_LOADING "newTreePart_loading"
+#define TREE_NEW_TREE_PART "newTreePart"

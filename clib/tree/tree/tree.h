@@ -1,5 +1,9 @@
 
+LuaCEmbedResponse *new_tree_part(LuaCEmbedTable *self, LuaCEmbed *args);
 
+LuaCEmbedResponse *new_tree_part_loading(LuaCEmbedTable *self, LuaCEmbed *args);
+
+LuaCEmbedResponse *new_tree_part_empty(LuaCEmbedTable *self, LuaCEmbed *args);
 
 LuaCEmbedResponse *get_tree_part_by_index(LuaCEmbedTable *self, LuaCEmbed *args);
 
@@ -44,3 +48,7 @@ LuaCEmbedResponse * create_empty_tree(LuaCEmbed *args);
 DtwTreeProps create_tree_props(LuaCEmbedTable *user_props);
 
 LuaCEmbedResponse * create_tree_from_hardware(LuaCEmbed *args);
+
+LuaCEmbedResponse * create_tree_from_json_tree_string(LuaCEmbed *args);
+
+LuaCEmbedResponse * create_tree_from_json_tree(LuaCEmbed *args);

@@ -1,4 +1,55 @@
 
+LuaCEmbedResponse *new_tree_part(LuaCEmbedTable *self, LuaCEmbed *args){
+    char *path = lua.args.get_str(args,0);
+
+    LuaCEmbedTable *props_table = NULL;
+    if(lua.args.get_type(args,1) != lua.types.NILL){
+        props_table = lua.args.get_table(args,1);
+    }
+    if(lua.has_errors(args)){
+        char *error_msg = lua.get_error_message(args);
+        return lua.response.send_error(error_msg);
+    }
+
+    DtwTreeProps props = create_tree_props(props_table);
+    if(lua.has_errors(args)){
+        char *error_msg = lua.get_error_message(args);
+        return lua.response.send_error(error_msg);
+    }
+
+    DtwTree *self_tree = (DtwTree*)lua.tables.get_long_prop(self,TREE_POINTER);
+    DtwTreePart *tree_part = dtw.tree.part.newPartLoading(path);
+    dtw.tree.add_tree_part_getting_owenership(self_tree,tree_part);
+    LuaCEmbedTable *tree_part_table = create_tree_part_reference(args,tree_part);
+    return lua.response.send_table(tree_part_table);
+}
+
+LuaCEmbedResponse *new_tree_part_loading(LuaCEmbedTable *self, LuaCEmbed *args){
+    char *path = lua.args.get_str(args,0);
+    if(lua.has_errors(args)){
+        char *error_msg = lua.get_error_message(args);
+        return lua.response.send_error(error_msg);
+    }
+    DtwTree *self_tree = (DtwTree*)lua.tables.get_long_prop(self,TREE_POINTER);
+    DtwTreePart *tree_part = dtw.tree.part.newPartLoading(path);
+    dtw.tree.add_tree_part_getting_owenership(self_tree,tree_part);
+    LuaCEmbedTable *tree_part_table = create_tree_part_reference(args,tree_part);
+    return lua.response.send_table(tree_part_table);
+}
+
+LuaCEmbedResponse *new_tree_part_empty(LuaCEmbedTable *self, LuaCEmbed *args){
+
+    char *path = lua.args.get_str(args,0);
+    if(lua.has_errors(args)){
+        char *error_msg = lua.get_error_message(args);
+        return lua.response.send_error(error_msg);
+    }
+    DtwTree *self_tree = (DtwTree*)lua.tables.get_long_prop(self,TREE_POINTER);
+    DtwTreePart *tree_part = dtw.tree.part.newPartEmpty(path);
+    dtw.tree.add_tree_part_getting_owenership(self_tree,tree_part);
+    LuaCEmbedTable *tree_part_table = create_tree_part_reference(args,tree_part);
+    return lua.response.send_table(tree_part_table);
+}
 
 LuaCEmbedResponse *get_tree_part_by_index(LuaCEmbedTable *self, LuaCEmbed *args){
 
@@ -195,7 +246,10 @@ LuaCEmbedResponse *tree_dump_to_json_string(LuaCEmbedTable *self, LuaCEmbed *arg
     }
 
     DtwTreeProps props = create_tree_props(props_table);
-
+    if(lua.has_errors(args)){
+        char *error_msg = lua.get_error_message(args);
+        return lua.response.send_error(error_msg);
+    }
     DtwTree *self_tree = (DtwTree*)lua.tables.get_long_prop(self,TREE_POINTER);
     char *result = dtw.tree.dumps_json_tree(self_tree,props);
     LuaCEmbedResponse *response = lua.response.send_str(result);
@@ -215,7 +269,10 @@ LuaCEmbedResponse *tree_dump_to_json_file(LuaCEmbedTable *self, LuaCEmbed *args)
     }
 
     DtwTreeProps props = create_tree_props(props_table);
-
+    if(lua.has_errors(args)){
+        char *error_msg = lua.get_error_message(args);
+        return lua.response.send_error(error_msg);
+    }
     DtwTree *self_tree = (DtwTree*)lua.tables.get_long_prop(self,TREE_POINTER);
     dtw.tree.dumps_json_tree_to_file(self_tree,path,props);
     return  lua.response.send_table(self);
@@ -224,6 +281,8 @@ LuaCEmbedResponse *tree_dump_to_json_file(LuaCEmbedTable *self, LuaCEmbed *args)
 LuaCEmbedTable * raw_create_tree(LuaCEmbed *args,DtwTree *tree){
     LuaCEmbedTable *self = lua.tables.new_anonymous_table(args);
     lua.tables.set_long_prop(self,TREE_POINTER,(long long)tree);
+    lua.tables.set_method(self,TREE_NEW_TREE_PART_EMPTY,new_tree_part_empty);
+    lua.tables.set_method(self,TREE_NEW_TREE_PART_LOADING,new_tree_part_loading);
     lua.tables.set_method(self,GET_TREE_PART_BY_INDEX_METHOD,get_tree_part_by_index);
     lua.tables.set_method(self,INSECURE_HARDWARE_WRITE_TREE,insecure_hardware_write_tree);
     lua.tables.set_method(self,INSECURE_HARDWARE_REMOVE_TREE,insecure_hardware_remove_tree);
@@ -237,6 +296,7 @@ LuaCEmbedTable * raw_create_tree(LuaCEmbed *args,DtwTree *tree){
     lua.tables.set_method(self,EACH_METHOD,tree_foreach);
     lua.tables.set_method(self,DUMP_TO_JSON_STRING,tree_dump_to_json_string);
     lua.tables.set_method(self,DUMP_TO_JSON_FILE_METHOD,tree_dump_to_json_file);
+
     return self;
 }
 
@@ -270,10 +330,30 @@ LuaCEmbedResponse * create_tree_from_hardware(LuaCEmbed *args){
     }
 
     DtwTreeProps props = create_tree_props(props_table);
-
+    if(lua.has_errors(args)){
+        char *error_msg = lua.get_error_message(args);
+        return lua.response.send_error(error_msg);
+    }
     DtwTree * tree = dtw.tree.newTree();
     LuaCEmbedTable *self = raw_create_tree(args,tree);
     dtw.tree.add_tree_from_hardware(tree,path,props);
     return lua.response.send_table(self);
 }
+
+LuaCEmbedResponse * create_tree_from_json_tree_string(LuaCEmbed *args){
+    char *content = lua.args.get_str(args,0);
+    if(lua.has_errors(args)){
+        char *error_msg = lua.get_error_message(args);
+        return lua.response.send_error(error_msg);
+    }
+    DtwJsonTreeError *json_error =DtwJsonTreeError_validate_json_tree(content);
+    if(json_error){
+        LuaCEmbedResponse *response =
+    }
+    DtwTree *tree = dtw.tree.newTree();
+    dtw.tree.loads_json_tree(tree,content);
+}
+
+LuaCEmbedResponse * create_tree_from_json_tree(LuaCEmbed *args);
+
 
