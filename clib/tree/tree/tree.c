@@ -346,14 +346,67 @@ LuaCEmbedResponse * create_tree_from_json_tree_string(LuaCEmbed *args){
         char *error_msg = lua.get_error_message(args);
         return lua.response.send_error(error_msg);
     }
-    DtwJsonTreeError *json_error =DtwJsonTreeError_validate_json_tree(content);
-    if(json_error){
-        LuaCEmbedResponse *response =
-    }
+    UniversalGarbage *garbage =  newUniversalGarbage();
     DtwTree *tree = dtw.tree.newTree();
-    dtw.tree.loads_json_tree(tree,content);
+    UniversalGarbage_add_return(garbage,dtw.tree.free,tree);
+
+   bool result = dtw.tree.loads_json_tree(tree,content);
+
+    if(result ==false){
+        dtw.tree.free(tree);
+        DtwJsonTreeError *error_tree = dtw.tree.json_error.validate_json_tree_by_content(content);
+        UniversalGarbage_add(garbage,dtw.tree.json_error.free,error_tree);
+
+        LuaCEmbedResponse *response = lua.response.send_error(
+            "%s at index %d",
+                error_tree->menssage,
+                error_tree->position
+            );
+        UniversalGarbage_free_including_return(garbage);
+        return response;
+    }
+    LuaCEmbedTable * self = raw_create_tree(args,tree);
+    UniversalGarbage_free(garbage);
+    return lua.response.send_table(self);
 }
 
-LuaCEmbedResponse * create_tree_from_json_tree(LuaCEmbed *args);
+LuaCEmbedResponse * create_tree_from_json_tree_file(LuaCEmbed *args){
+
+    char *path = lua.args.get_str(args,0);
+    if(lua.has_errors(args)){
+        char *error_msg = lua.get_error_message(args);
+        return lua.response.send_error(error_msg);
+    }
+    UniversalGarbage *garbage = newUniversalGarbage();
+
+    char *content = dtw.load_string_file_content(path);
+    UniversalGarbage_add_simple(garbage,content);
+    if(content == NULL){
+        UniversalGarbage_free(garbage);
+        return lua.response.send_error(FILE_NOT_FOUND,path);
+    }
+
+    DtwTree *tree = dtw.tree.newTree();
+    UniversalGarbage_add_return(garbage,dtw.tree.free,tree);
+
+    bool result = dtw.tree.loads_json_tree(tree,content);
+
+    if(result ==false){
+        dtw.tree.free(tree);
+        DtwJsonTreeError *error_tree = dtw.tree.json_error.validate_json_tree_by_content(content);
+        UniversalGarbage_add(garbage,dtw.tree.json_error.free,error_tree);
+        LuaCEmbedResponse *response = lua.response.send_error(
+            "%s at index %d",
+                error_tree->menssage,
+                error_tree->position
+            );
+
+        UniversalGarbage_free_including_return(garbage);
+        return response;
+    }
+    LuaCEmbedTable * self = raw_create_tree(args,tree);
+    UniversalGarbage_free(garbage);
+    return lua.response.send_table(self);
+}
 
 
