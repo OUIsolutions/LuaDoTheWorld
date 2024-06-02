@@ -132,7 +132,7 @@
 ---@field newTransaction fun():DtwTransaction
 ---@field newTransaction_from_file fun():DtwTransaction
 ---@field newTransaction_from_json_string fun():DtwTransaction
----@field newPath fun():DtwPath
+---@field newPath fun(path:string):DtwPath
 
 
 local info = debug.getinfo(1, "S")

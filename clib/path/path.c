@@ -30,8 +30,13 @@ LuaCEmbedResponse *path_add_end_dir(LuaCEmbedTable *self,LuaCEmbed *args){
 
 LuaCEmbedResponse *path_get_dir(LuaCEmbedTable *self,LuaCEmbed *args){
     DtwPath *self_path = (DtwPath*)lua.tables.get_long_prop(self,PATH_POINTER);
-    return  lua.response.send_str_reference(dtw.path.get_dir(self_path));
+    char *dir = dtw.path.get_dir(self_path);
+    if(dir != NULL){
+        return  lua.response.send_str_reference(dir);
+    }
+    return NULL;
 }
+
 LuaCEmbedResponse *path_get_extension(LuaCEmbedTable *self,LuaCEmbed *args){
     DtwPath *self_path = (DtwPath*)lua.tables.get_long_prop(self,PATH_POINTER);
     return  lua.response.send_str_reference(dtw.path.get_extension(self_path));
