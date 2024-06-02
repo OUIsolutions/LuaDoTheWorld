@@ -18,4 +18,3 @@
 #define PATH_SET_DIR_METHOD "set_dir"
 #define PATH_SET_PATH_METHOD "set_path"
 #define PATH_SET_ONLY_NAME_METHOD "set_only_name"
-#define PATH_SET_EXTENSION_METHOD "set_extension"

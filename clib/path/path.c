@@ -253,7 +253,7 @@ LuaCEmbedTable *raw_create_path(LuaCEmbed *args,DtwPath *path){
     lua.tables.set_method(self,GET_ONLY_NAME_METHOD,path_get_only_name);
     lua.tables.set_method(self,TO_STRING_METHOD,path_to_string);
 
-    lua.tables.set_method(self,PATH_SET_EXTENSION_METHOD,path_set_extension);
+    lua.tables.set_method(self,SET_EXTENSION_METHOD,path_set_extension);
     lua.tables.set_method(self,PATH_SET_ONLY_NAME_METHOD,path_set_only_name);
     lua.tables.set_method(self,PATH_SET_NAME_METHOD,path_set_name);
     lua.tables.set_method(self,PATH_SET_DIR_METHOD,path_set_dir);
