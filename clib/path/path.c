@@ -31,10 +31,11 @@ LuaCEmbedResponse *path_add_end_dir(LuaCEmbedTable *self,LuaCEmbed *args){
 LuaCEmbedResponse *path_get_dir(LuaCEmbedTable *self,LuaCEmbed *args){
     DtwPath *self_path = (DtwPath*)lua.tables.get_long_prop(self,PATH_POINTER);
     char *dir = dtw.path.get_dir(self_path);
-    if(dir != NULL){
-        return  lua.response.send_str_reference(dir);
+    if(dir == NULL){
+        return NULL;
     }
-    return NULL;
+    return  lua.response.send_str_reference(dir);
+
 }
 
 LuaCEmbedResponse *path_get_extension(LuaCEmbedTable *self,LuaCEmbed *args){
@@ -246,10 +247,10 @@ LuaCEmbedTable *raw_create_path(LuaCEmbed *args,DtwPath *path){
     lua.tables.set_method(self,PATH_ADD_END_DIR_METHOD,path_add_end_dir);
     lua.tables.set_method(self,PATH_CHANGED_METHOD,path_changed);
     lua.tables.set_method(self,PATH_ADD_START_DIR_METHOD,path_add_start_dir);
-    lua.tables.set_method(self,PATH_GET_DIR_METHOD,path_get_dir);
-    lua.tables.set_method(self,PATH_GET_EXTENSION_METHOD,path_get_extension);
-    lua.tables.set_method(self,PATH_GET_NAME_METHOD,path_get_name);
-    lua.tables.set_method(self,PATH_GET_ONLY_NAME_METHOD,path_get_only_name);
+    lua.tables.set_method(self,GET_DIR_METHOD,path_get_dir);
+    lua.tables.set_method(self,GET_EXTENSION_METHOD,path_get_extension);
+    lua.tables.set_method(self,GET_NAME_METHOD,path_get_name);
+    lua.tables.set_method(self,GET_ONLY_NAME_METHOD,path_get_only_name);
     lua.tables.set_method(self,TO_STRING_METHOD,path_to_string);
 
     lua.tables.set_method(self,PATH_SET_EXTENSION_METHOD,path_set_extension);
@@ -257,6 +258,7 @@ LuaCEmbedTable *raw_create_path(LuaCEmbed *args,DtwPath *path){
     lua.tables.set_method(self,PATH_SET_NAME_METHOD,path_set_name);
     lua.tables.set_method(self,PATH_SET_DIR_METHOD,path_set_dir);
     lua.tables.set_method(self,PATH_SET_PATH_METHOD,path_set_path);
+
     lua.tables.set_method(self,PATH_REPLACE_DIRS_METHOD,path_replace_dirs);
     lua.tables.set_method(self,PATH_GET_TOTAL_DIRS_METHOD,path_get_total_dirs);
     lua.tables.set_method(self,PATH_GET_SUB_DIRS_FROM_INDEX_METHOD,path_get_total_dirs);

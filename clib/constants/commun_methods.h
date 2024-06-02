@@ -6,15 +6,15 @@
 #define SET_VALUE_METHOD "set_value"
 #define GET_VALUE_METHOD "get_value"
 #define COMMIT_METHOD "commit"
-
 #define DESTROY_METHOD "destroy"
 
+#define SIZE_METHOD "size"
 #define GET_PATH_METHOD "get_path"
 #define GET_DIR_METHOD "get_dir"
 #define GET_NAME_METHOD "get_name"
 #define GET_NAME_WITHOUT_EXTENSION "get_name_without_extension"
-#define GET_EXTENSION  "get_extension"
-#define SET_EXTENSION_METHOD "set_extension"
+#define GET_EXTENSION_METHOD  "get_extension"
+#define GET_ONLY_NAME_METHOD "get_only_name"
 
 #define WRITE_METHOD "write"
 #define REMOVE_ANY_METHOD "remove_any"

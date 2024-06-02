@@ -8,3 +8,4 @@
 #include "hasher_methods.h"
 #include "transactions_methods.h"
 #include "path_methods.h"
+#include "tree_methods.h"
