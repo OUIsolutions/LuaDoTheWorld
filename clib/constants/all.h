@@ -9,3 +9,4 @@
 #include "transactions_methods.h"
 #include "path_methods.h"
 #include "tree_methods.h"
+#include "tree_props.h"

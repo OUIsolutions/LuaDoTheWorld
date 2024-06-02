@@ -1,0 +1,6 @@
+#define TREE_PROPS_CONTENT "content"
+#define TREE_PROPS_CONTENT_DATA "content_data"
+#define TREE_PROPS_HARDWARE_DATA "hardware_data"
+#define TREE_PROPS_IGNORED_ELEMENTS "ignored_elemenets"
+#define TREE_PROPS_MIMIFICATION "mimification"
+#define TREE_PROPS_PATH_ATTRIBUTES "path_attributes"
