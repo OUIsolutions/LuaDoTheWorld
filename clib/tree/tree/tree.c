@@ -62,7 +62,13 @@ LuaCEmbedTable *insecure_hardware_remove_tree(LuaCEmbedTable *self, LuaCEmbed *a
     return  NULL;
 }
 
+LuaCEmbedTable *tree_dump_to_json_string(LuaCEmbedTable *self, LuaCEmbed *args){
+    return  NULL;
+}
 
+LuaCEmbedTable *tree_dump_to_json_file(LuaCEmbedTable *self, LuaCEmbed *args){
+    return  NULL;
+}
 
 LuaCEmbedTable * raw_create_tree(LuaCEmbed *args,DtwTree *tree){
     LuaCEmbedTable *self = lua.tables.new_anonymous_table(args);
@@ -79,6 +85,8 @@ LuaCEmbedTable * raw_create_tree(LuaCEmbed *args,DtwTree *tree){
     lua.tables.set_method(self,COUNT_METHOD,tree_count);
     lua.tables.set_method(self,MAP_METHOD,tree_map);
     lua.tables.set_method(self,EACH_METHOD,tree_foreach);
+    lua.tables.set_method(self,DUMP_TO_JSON_STRING,tree_dump_to_json_string);
+    lua.tables.set_method(self,DUMP_TO_JSON_FILE_METHOD,tree_dump_to_json_file);
     return self;
 }
 
@@ -98,6 +106,7 @@ DtwTreeProps create_tree_props(LuaCEmbedTable *user_props){
     tree_props.path_atributes = get_table_props_or_default_bool(user_props,TREE_PROPS_PATH_ATTRIBUTES,DTW_INCLUDE)+1;
     return tree_props;
 }
+
 LuaCEmbedResponse * create_tree_from_hardware(LuaCEmbed *args){
 
     char *path = lua.args.get_str(args,9);

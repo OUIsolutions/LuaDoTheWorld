@@ -46,7 +46,7 @@ LuaCEmbedTable * create_tree_part_reference(LuaCEmbed *args,DtwTreePart *part){
     lua.tables.set_method(self,HARDWARE_MODIFY_METHOD,tree_part_hardware_modify);
     lua.tables.set_method(self,GET_SHA_METHOD,tree_part_get_content_sha);
     lua.tables.set_method(self,UNLOAD_METHOD,tree_part_unload_content);
-    lua.tables.set_method(self,LOAD_METHOD,tree_part_load_content;
+    lua.tables.set_method(self,LOAD_METHOD,tree_part_load_content);
     return self;
 }
 
