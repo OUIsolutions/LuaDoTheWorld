@@ -34,6 +34,13 @@ Writeble  create_writeble(LuaCEmbed *args,int index){
     bool writeble = false;
     if(type_to_write == lua.types.STRING){
         self.content = (unsigned  char*)lua.args.get_raw_str(args,&self.size,index);
+        for(long i = 0; i < self.size;i++){
+            if(self.content[i] == 0){
+                self.is_binary = true;
+                break;
+            }
+        }
+
         writeble = true;
     }
 
@@ -67,7 +74,7 @@ Writeble  create_writeble(LuaCEmbed *args,int index){
         writeble = handle_table_writble(&self,args,index);
     }
 
-    bool its_not_writible_and_no_other_errors = !writeble && !self.error;
+    bool its_not_writible_and_no_other_errors = !writeble && self.error == NULL;
     if(its_not_writible_and_no_other_errors){
         char *error = private_LuaCembed_format(NOT_WRITEBLE_ELEMENT,lua.convert_arg_code(type_to_write));
         self.error = lua.response.send_error(error);

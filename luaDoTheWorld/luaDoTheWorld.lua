@@ -17,8 +17,8 @@
 ---@field count fun(callback: fun(part:DtwTreePart):boolean):number
 ---@field map fun(callback: fun(part:DtwTreePart):any):any[]
 ---@field each fun(callback: fun(part:DtwTreePart))
----@field each fun(callback: fun(part:DtwTreePart))
-
+---@field dump_to_json_string fun():string
+---@field dump_to_json_file fun():DtwTree
 
 ---@class DtwPath
 ---@field path_changed fun():boolean

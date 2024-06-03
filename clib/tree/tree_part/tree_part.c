@@ -2,37 +2,64 @@
 
 LuaCEmbedResponse * tree_part_get_value(LuaCEmbedTable *self,LuaCEmbed *args){
     DtwTreePart *self_part  = (DtwTreePart*)lua.tables.get_long_prop(self,TREE_PART_POINTER);
-    
+
+    if(self_part->content){
+        return lua.response.send_raw_string((char*)self_part->content,self_part->content_size);
+    }
+    return NULL;
 }
 
 
 LuaCEmbedResponse * tree_part_set_value(LuaCEmbedTable *self,LuaCEmbed *args){
-    return NULL;
+    Writeble  write_obj = create_writeble(args,0);
+    if(write_obj.error){
+        return write_obj.error;
+    }
+    DtwTreePart *self_part  = (DtwTreePart*)lua.tables.get_long_prop(self,TREE_PART_POINTER);
+    dtw.tree.part.set_any_content(self_part,write_obj.content,write_obj.size,write_obj.is_binary);
+    return lua.response.send_table(self);
 }
 
+
 LuaCEmbedResponse * tree_part_hardware_remove(LuaCEmbedTable *self,LuaCEmbed *args){
-    return NULL;
+    DtwTreePart *self_part  = (DtwTreePart*)lua.tables.get_long_prop(self,TREE_PART_POINTER);
+    dtw.tree.part.hardware_remove(self_part,DTW_SET_AS_ACTION);
+    return lua.response.send_table(self);
 }
 
 LuaCEmbedResponse * tree_part_hardware_write(LuaCEmbedTable *self,LuaCEmbed *args){
-    return NULL;
+    DtwTreePart *self_part  = (DtwTreePart*)lua.tables.get_long_prop(self,TREE_PART_POINTER);
+    dtw.tree.part.hardware_write(self_part,DTW_SET_AS_ACTION);
+    return lua.response.send_table(self);
 }
 
 LuaCEmbedResponse * tree_part_hardware_modify(LuaCEmbedTable *self,LuaCEmbed *args){
-    return NULL;
+    DtwTreePart *self_part  = (DtwTreePart*)lua.tables.get_long_prop(self,TREE_PART_POINTER);
+    dtw.tree.part.hardware_modify(self_part,DTW_SET_AS_ACTION);
+    return lua.response.send_table(self);
 }
 
 LuaCEmbedResponse * tree_part_get_content_sha(LuaCEmbedTable *self,LuaCEmbed *args){
+    DtwTreePart *self_part  = (DtwTreePart*)lua.tables.get_long_prop(self,TREE_PART_POINTER);
+    if(self_part->current_sha){
+        return lua.response.send_str(self_part->current_sha);
+    }
     return NULL;
 }
 
+
 LuaCEmbedResponse * tree_part_unload_content(LuaCEmbedTable *self,LuaCEmbed *args){
-    return NULL;
+    DtwTreePart *self_part  = (DtwTreePart*)lua.tables.get_long_prop(self,TREE_PART_POINTER);
+    dtw.tree.part.free_content(self_part);
+    return lua.response.send_table(self);
 }
 
 LuaCEmbedResponse * tree_part_load_content(LuaCEmbedTable *self,LuaCEmbed *args){
-    return NULL;
+    DtwTreePart *self_part  = (DtwTreePart*)lua.tables.get_long_prop(self,TREE_PART_POINTER);
+    dtw.tree.part.load_content_from_hardware(self_part);
+    return lua.response.send_table(self);
 }
+
 
 
 
