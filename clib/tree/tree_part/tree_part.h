@@ -4,6 +4,8 @@ LuaCEmbedResponse * tree_part_get_value(LuaCEmbedTable *self,LuaCEmbed *args);
 
 LuaCEmbedResponse * tree_part_to_string(LuaCEmbedTable *self,LuaCEmbed *args);
 
+LuaCEmbedResponse *tree_part_is_blob(LuaCEmbedTable *self, LuaCEmbed *args);
+
 
 LuaCEmbedResponse * tree_part_set_value(LuaCEmbedTable *self,LuaCEmbed *args);
 

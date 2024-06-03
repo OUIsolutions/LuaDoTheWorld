@@ -28,10 +28,10 @@ void start_lua_props(LuaCEmbed *l){
     lua.add_callback(l,GENERATE_SHA,generate_sha);
     lua.add_callback(l,GENERATE_SHA_FROM_FILE,generate_sha_from_file);
     lua.add_callback(l, NEW_RESOURCE, create_resource);
-    lua.add_callback(l,IS_BYTE_FUNC,is_byte);
+    lua.add_callback(l,IS_BLOB_FUNC,is_blob);
     lua.add_callback(l,IS_DIR_FUNC,is_dir);
     lua.add_callback(l,IS_FILE_FUNC,is_file);
-    lua.add_callback(l, IS_FILE_BYTE, is_binary);
+    lua.add_callback(l, IS_FILE_BLOB, is_blob_file);
     lua.add_callback(l,NEW_HASHER,create_hasher);
     lua.add_callback(l,GENERATE_SHA_FROM_FOLDER_BY_CONTENT,generate_sha_from_folder_by_content);
     lua.add_callback(l,GENERATE_SHA_FROM_FOLDER_BY_LAST_MODIFICATION,generate_sha_from_folder_by_last_modification);

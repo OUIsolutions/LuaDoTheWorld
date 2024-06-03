@@ -3,7 +3,7 @@
 
 ---@class DtwTreePart
 ---@field path DtwPath
----@field get_value fun():string | number | boolean | DtwTreePart | DtwResource | DtwActionTransaction
+---@field get_value fun():string
 ---@field set_value fun(value:string | number | boolean | DtwTreePart | DtwResource | DtwActionTransaction)
 ---@field hardware_remove fun():DtwTreePart
 ---@field hardware_modify fun():DtwTreePart
@@ -98,7 +98,7 @@
 ---@field schema_new_insertion fun():DtwResource
 ---@field dangerous_remove_prop fun(primary_key:string)
 ---@field dangerous_rename_prop fun(primary_key:string ,new_name:string)
----@field get_resource_matching_primary_key fun(primary_key: string,  value:string | number | boolean | DtwBytes | DtwResource ):DtwResource
+---@field get_resource_matching_primary_key fun(primary_key: string,  value:string | number | boolean | Dtwblobs | DtwResource ):DtwResource
 ---@field get_resource_by_name_id fun(id_name:string)
 ---@field schema_list fun(): DtwResource[]
 ---@field schema_each fun(callback:fun(value:DtwResource))
@@ -143,7 +143,7 @@
 ---@field list_all_recursively fun(src:string):string[] 
 ---@field load_file fun(src:string):string | string
 ---@field write_file fun(src:string,value:string | number | boolean | DtwTreePart | DtwResource | DtwActionTransaction)
----@field is_byte fun(value:any):boolean returns if a value is a byte
+---@field is_blob fun(value:any):boolean returns if a value is a blob
 ---@field newResource fun(src:string):DtwResource
 ---@field generate_sha fun(value:string | number | boolean | string):string
 ---@field generate_sha_from_file fun(src:string):string
@@ -152,7 +152,7 @@
 ---@field newHasher fun():DtwHasher
 ---@field isdir fun():boolean
 ---@field isfile fun():boolean
----@field isfile_byte fun():boolean
+---@field isfile_blob fun():boolean
 ---@field newTransaction fun():DtwTransaction
 ---@field newTransaction_from_file fun():DtwTransaction
 ---@field newTransaction_from_json_string fun():DtwTransaction

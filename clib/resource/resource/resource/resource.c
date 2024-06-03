@@ -120,6 +120,11 @@ LuaCEmbedResponse * resource_set_value_in_sub_resource(LuaCEmbedTable  *self,Lua
     return lua.response.send_table(self);
 
 }
+LuaCEmbedResponse * resource_is_blob(LuaCEmbedTable  *self,LuaCEmbed *args){
+    DtwResource  *resource = (DtwResource*)lua.tables.get_long_prop(self,RESOURCE_POINTER);
+    dtw.resource.load(resource);
+    return lua.response.send_bool(resource->is_binary);
+}
 
 
 
@@ -144,6 +149,7 @@ LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource){
     lua.tables.set_method(self,LOCK_METHOD,lock_resource);
     lua.tables.set_method(self,UNLOCK_METHOD,unlock_resource);
     lua.tables.set_method(self,UNLOAD_METHOD,unload_resurce);
+    lua.tables.set_method(self,IS_BLOB_FUNC,resource_is_blob);
 
     lua.tables.set_method(self,SET_VALUE_METHOD,resource_set_value);
     lua.tables.set_method(self,COMMIT_METHOD,resource_commit);

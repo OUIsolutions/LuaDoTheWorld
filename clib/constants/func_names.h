@@ -22,11 +22,11 @@
 #define GENERATE_SHA_FROM_FILE "generate_sha_from_file"
 #define NEW_HASHER "newHasher"
 #define NEW_RESOURCE "newResource"
-#define IS_BYTE_FUNC "is_byte"
+#define IS_BLOB_FUNC "is_blob"
 
 #define IS_DIR_FUNC "isdir"
 #define IS_FILE_FUNC "isfile"
-#define IS_FILE_BYTE "isfile_byte"
+#define IS_FILE_BLOB "isfile_blob"
 
 #define GENERATE_SHA_FROM_FOLDER_BY_CONTENT "generate_sha_from_folder_by_content"
 #define GENERATE_SHA_FROM_FOLDER_BY_LAST_MODIFICATION "generate_sha_from_folder_by_last_modification"

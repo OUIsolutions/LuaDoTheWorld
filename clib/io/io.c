@@ -71,21 +71,15 @@ LuaCEmbedResponse  * exist(LuaCEmbed *args){
     return lua.response.send_bool(type != DTW_NOT_FOUND);
 }
 
-LuaCEmbedResponse  * is_byte(LuaCEmbed *args){
+LuaCEmbedResponse  * is_blob(LuaCEmbed *args){
 
-    if(lua.args.get_type(args,0) != lua.types.STRING){
-        return lua.response.send_bool(false);
+    Writeble  write_obj = create_writeble(args,1);
+    if(write_obj.error){
+        return write_obj.error;
     }
-    long size;
-    unsigned  char *value =(unsigned  char *)lua.args.get_raw_str(args,&size,0);
-    for(int i = 0; i < size; i++){
-        unsigned  char current = value[i];
-        if(current == 0){
-            return lua.response.send_bool(true);
-        }
-    }
-
-    return lua.response.send_bool(false);
+    bool is_binary = write_obj.is_binary;
+    Writeble_free(&write_obj);
+    return lua.response.send_bool(is_binary);
 
 }
 
@@ -99,7 +93,7 @@ LuaCEmbedResponse  * is_file(LuaCEmbed *args){
     return lua.response.send_bool(type == DTW_FILE_TYPE);
 }
 
-LuaCEmbedResponse  * is_binary(LuaCEmbed *args){
+LuaCEmbedResponse  * is_blob_file(LuaCEmbed *args){
     char *source = lua.args.get_str(args,0);
     if(lua.has_errors(args)){
         char *error_message = lua.get_error_message(args);

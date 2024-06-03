@@ -6,6 +6,7 @@ LuaCEmbedResponse * resource_rename(LuaCEmbedTable  *self,LuaCEmbed *args);
 
 LuaCEmbedResponse * free_resource(LuaCEmbedTable  *self, LuaCEmbed *args);
 
+LuaCEmbedResponse * resource_is_blob(LuaCEmbedTable  *self,LuaCEmbed *args);
 
 LuaCEmbedResponse * resource_set_value(LuaCEmbedTable  *self,LuaCEmbed *args);
 

@@ -68,6 +68,10 @@ LuaCEmbedResponse * tree_part_load_content(LuaCEmbedTable *self,LuaCEmbed *args)
     return lua.response.send_table(self);
 }
 
+LuaCEmbedResponse *tree_part_is_blob(LuaCEmbedTable *self, LuaCEmbed *args){
+    DtwTreePart *self_part  = (DtwTreePart*)lua.tables.get_long_prop(self,TREE_PART_POINTER);
+    return  lua.response.send_bool(self_part->is_binary);
+}
 
 LuaCEmbedTable * create_tree_part_reference(LuaCEmbed *args,DtwTreePart *part){
     LuaCEmbedTable *self = lua.tables.new_anonymous_table(args);
@@ -82,6 +86,7 @@ LuaCEmbedTable * create_tree_part_reference(LuaCEmbed *args,DtwTreePart *part){
     lua.tables.set_method(self,GET_SHA_METHOD,tree_part_get_content_sha);
     lua.tables.set_method(self,UNLOAD_METHOD,tree_part_unload_content);
     lua.tables.set_method(self,TO_STRING_METHOD,tree_part_to_string);
+    lua.tables.set_method(self,IS_BLOB_FUNC,tree_part_is_blob);
     lua.tables.set_method(self,LOAD_METHOD,tree_part_load_content);
     return self;
 }

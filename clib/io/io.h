@@ -7,14 +7,14 @@ LuaCEmbedResponse  * write_file(LuaCEmbed *args);
 LuaCEmbedResponse  * copy_any_overwriting(LuaCEmbed *args);
 
 LuaCEmbedResponse  * is_dir(LuaCEmbed *args);
+LuaCEmbedResponse  * is_blob(LuaCEmbed *args);
 
-LuaCEmbedResponse  * is_byte(LuaCEmbed *args);
+LuaCEmbedResponse  * is_blob_file(LuaCEmbed *args);
 
 LuaCEmbedResponse  * exist(LuaCEmbed *args);
 
 LuaCEmbedResponse  * is_file(LuaCEmbed *args);
 
-LuaCEmbedResponse  * is_binary(LuaCEmbed *args);
 
 
 LuaCEmbedResponse  * copy_any_merging(LuaCEmbed *args);
