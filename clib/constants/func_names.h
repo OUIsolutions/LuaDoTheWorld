@@ -36,3 +36,6 @@
 #define NEW_TRANSACTION "newTransaction"
 #define NEW_SCHEMA "newSchema"
 #define NEW_PATH "newPath"
+#define NEW_TREE "newTree"
+#define NEW_TREE_FROM_HARWARE "newTree_from_hardware"
+

@@ -1,6 +1,25 @@
 
 
 
+---@class DtwTreePart
+
+---@class DtwTree
+---@field newTreePart_empty fun ():DtwTreePart
+---@field newTreePart_loading fun ():DtwTreePart
+---@field get_tree_part_by_index fun(index:number):DtwTreePart
+---@field insecure_hardware_write_tree fun():DtwTree
+---@field insecure_hardware_remove fun():DtwTree
+---@field commit fun():DtwTree
+---@field get_size fun():number
+---@field get_tree_part_by_name fun():DtwTreePart
+---@field get_tree_part_by_path fun():DtwTreePart
+---@field find fun(callback: fun(part:DtwTreePart):boolean):DtwTreePart
+---@field count fun(callback: fun(part:DtwTreePart):boolean):number
+---@field map fun(callback: fun(part:DtwTreePart):any):any[]
+---@field each fun(callback: fun(part:DtwTreePart))
+---@field each fun(callback: fun(part:DtwTreePart))
+
+
 ---@class DtwPath
 ---@field path_changed fun():boolean
 ---@field add_start_dir fun(start_dir:string):DtwPath
