@@ -9,6 +9,14 @@ LuaCEmbedResponse * tree_part_get_value(LuaCEmbedTable *self,LuaCEmbed *args){
     return NULL;
 }
 
+LuaCEmbedResponse * tree_part_to_string(LuaCEmbedTable *self,LuaCEmbed *args){
+    DtwTreePart *self_part  = (DtwTreePart*)lua.tables.get_long_prop(self,TREE_PART_POINTER);
+
+    if(self_part->content){
+        return lua.response.send_raw_string((char*)self_part->content,self_part->content_size);
+    }
+    return lua.response.send_str(dtw.path.get_path(self_part->path));
+}
 
 LuaCEmbedResponse * tree_part_set_value(LuaCEmbedTable *self,LuaCEmbed *args){
     Writeble  write_obj = create_writeble(args,0);
@@ -73,6 +81,7 @@ LuaCEmbedTable * create_tree_part_reference(LuaCEmbed *args,DtwTreePart *part){
     lua.tables.set_method(self,HARDWARE_MODIFY_METHOD,tree_part_hardware_modify);
     lua.tables.set_method(self,GET_SHA_METHOD,tree_part_get_content_sha);
     lua.tables.set_method(self,UNLOAD_METHOD,tree_part_unload_content);
+    lua.tables.set_method(self,TO_STRING_METHOD,tree_part_to_string);
     lua.tables.set_method(self,LOAD_METHOD,tree_part_load_content);
     return self;
 }

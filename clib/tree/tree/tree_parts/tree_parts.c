@@ -11,14 +11,15 @@ LuaCEmbedResponse *new_tree_part(LuaCEmbedTable *self, LuaCEmbed *args){
         return lua.response.send_error(error_msg);
     }
 
-    DtwTreeProps props = create_tree_props(props_table);
+
     if(lua.has_errors(args)){
         char *error_msg = lua.get_error_message(args);
         return lua.response.send_error(error_msg);
     }
 
     DtwTree *self_tree = (DtwTree*)lua.tables.get_long_prop(self,TREE_POINTER);
-    DtwTreePart *tree_part = dtw.tree.part.newPartLoading(path);
+    DtwTreeProps props = create_tree_props(props_table);
+    DtwTreePart *tree_part = dtw.tree.part.newPart(path,props);
     dtw.tree.add_tree_part_getting_owenership(self_tree,tree_part);
     LuaCEmbedTable *tree_part_table = create_tree_part_reference(args,tree_part);
     return lua.response.send_table(tree_part_table);

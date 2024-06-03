@@ -157,6 +157,8 @@
 ---@field newTransaction_from_file fun():DtwTransaction
 ---@field newTransaction_from_json_string fun():DtwTransaction
 ---@field newPath fun(path:string):DtwPath
+---@field newTree fun():DtwTree
+---@field newTree_from_hardware fun(path:string):DtwTree
 
 
 local info = debug.getinfo(1, "S")

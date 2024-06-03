@@ -70,7 +70,7 @@ DtwTreeProps create_tree_props(LuaCEmbedTable *user_props){
 
 LuaCEmbedResponse * create_tree_from_hardware(LuaCEmbed *args){
 
-    char *path = lua.args.get_str(args,9);
+    char *path = lua.args.get_str(args,0);
     LuaCEmbedTable *props_table = NULL;
     if(lua.args.get_type(args,1) != lua.types.NILL){
         props_table = lua.args.get_table(args,1);
