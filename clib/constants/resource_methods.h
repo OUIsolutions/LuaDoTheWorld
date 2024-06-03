@@ -6,7 +6,8 @@
 #define SCHEMA_NEW_INSERTION "schema_new_insertion"
 #define SET_VALUE_IN_SUB_RESOURCE_METHOD "set_value_in_sub_resource"
 #define GET_VALUE_FROM_SUB_RESOURCE_METHOD "get_value_from_sub_resource"
-
+#define GET_PATH_STRING_METHOD "get_path_string"
+#define RESOURCE_RENAME_METHOD  "rename"
 #define SCHEMA_COUNT_RESOURCE_METHOD "schema_count"
 #define SCHEMA_LIST_RESOURCE_METHOD "schema_list"
 #define SCHEMA_FIND_RESOURCE_METHOD "schema_find"

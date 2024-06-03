@@ -1,15 +1,15 @@
 
 bool handle_table_writble(Writeble *self,LuaCEmbed *args,int index){
-    LuaCEmbedTable * bytes_or_resource = lua.args.get_table(args,index);
-    if(lua.tables.get_type_prop(bytes_or_resource,DTW_TYPE) != lua.types.NUMBER){
+    LuaCEmbedTable * element = lua.args.get_table(args,index);
+    if(lua.tables.get_type_prop(element,DTW_TYPE) != lua.types.NUMBER){
         return false;
     }
 
-    int type = lua.tables.get_long_prop(bytes_or_resource,DTW_TYPE);
+    int type = lua.tables.get_long_prop(element,DTW_TYPE);
 
 
     if(type == DTW_RESOURCE_TYPE) {
-        DtwResource *resource = (DtwResource *) lua.tables.get_long_prop(bytes_or_resource, RESOURCE_POINTER);
+        DtwResource *resource = (DtwResource *) lua.tables.get_long_prop(element, RESOURCE_POINTER);
         self->content = DtwResource_get_any(resource, &self->size, &self->is_binary);
         if (DtwResource_error(resource)) {
             char *message = DtwResource_get_error_message(resource);
@@ -19,6 +19,29 @@ bool handle_table_writble(Writeble *self,LuaCEmbed *args,int index){
         }
         return true;
     }
+
+    if(type == DTW_TREE_PART_TYPE){
+        DtwTreePart *part = (DtwTreePart*)lua.tables.get_long_prop(element,TREE_PART_POINTER);
+        dtw.tree.part.load_content_from_hardware(part);
+        if(part->content==NULL){
+            return false;
+        }
+        self->content = part->content;
+        self->size =part->content_size;
+        self->is_binary = part->content_size;
+        return true;
+    }
+    if(type == DTW_ACTION_TRANSACTION_TYPE){
+        DtwActionTransaction *transaction= (DtwActionTransaction*)lua.tables.get_long_prop(element,TRANSACTION_POINTER);
+        if(transaction->content == NULL){
+            return false;
+        }
+        self->content = transaction->content;
+        self->size=  transaction->size;
+        self->is_binary =transaction->is_binary;
+        return true;
+    }
+
     return false;
 
 }

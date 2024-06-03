@@ -64,6 +64,7 @@ LuaCEmbedResponse * tree_part_load_content(LuaCEmbedTable *self,LuaCEmbed *args)
 LuaCEmbedTable * create_tree_part_reference(LuaCEmbed *args,DtwTreePart *part){
     LuaCEmbedTable *self = lua.tables.new_anonymous_table(args);
     lua.tables.set_long_prop(self,TREE_PART_POINTER,(long long)part);
+    lua.tables.set_long_prop(self,DTW_TYPE,DTW_TREE_PART_TYPE);
     LuaCEmbedTable *path = create_path_reference(args,part->path);
     lua.tables.set_sub_table_prop(self,PATH_PROPS,path);
     lua.tables.set_method(self,GET_VALUE_METHOD,tree_part_get_value);

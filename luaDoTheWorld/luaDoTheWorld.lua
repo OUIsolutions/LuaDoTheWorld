@@ -116,11 +116,7 @@
 ---@field lock fun() lock the resource from other process 
 ---@field unlock fun()
 ---@field unload fun() unload the content 
----@field get_path fun() :string
----@field get_name fun() :string
----@field get_extension fun() :string
----@field get_name_without_extension fun() :string
----@field get_dir fun() :string
+---@field get_path_string fun() :string
 ---@field each fun(callback :fun(element:DtwResource))
 ---@field set_extension fun(extension:string)
 ---@field list fun(): DtwResource[]

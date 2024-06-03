@@ -96,7 +96,7 @@ LuaCEmbedResponse  *action_transaction_get_dest(LuaCEmbedTable *self,LuaCEmbed *
 
 LuaCEmbedTable *raw_create_action_transaction(LuaCEmbed *args,DtwActionTransaction *transaction){
     LuaCEmbedTable * table = lua.tables.new_anonymous_table(args);
-    lua.tables.set_long_prop(table,DTW_TYPE,DTW_RESOURCE_TYPE_ACTION_TRANSACTION);
+    lua.tables.set_long_prop(table,DTW_TYPE,DTW_ACTION_TRANSACTION_TYPE);
     lua.tables.set_long_prop(table,ACTION_TRANSACTION_POINTER,(long)transaction);
     lua.tables.set_method(table,LUA_DO_THE_WORLD_GET_DEST,action_transaction_get_dest);
     lua.tables.set_method(table,LUA_DO_THE_WORLD_SET_DEST,action_transaction_set_dest);

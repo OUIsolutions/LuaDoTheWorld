@@ -1,4 +1,9 @@
 
+
+LuaCEmbedResponse * resource_get_path(LuaCEmbedTable  *self,LuaCEmbed *args);
+
+LuaCEmbedResponse * resource_rename(LuaCEmbedTable  *self,LuaCEmbed *args);
+
 LuaCEmbedResponse * free_resource(LuaCEmbedTable  *self, LuaCEmbed *args);
 
 
