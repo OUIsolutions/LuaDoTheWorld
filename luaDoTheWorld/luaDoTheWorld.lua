@@ -5,9 +5,11 @@
 ---@field path DtwPath
 ---@field get_value fun():string
 ---@field set_value fun(value:string | number | boolean | DtwTreePart | DtwResource | DtwActionTransaction)
----@field hardware_remove fun():DtwTreePart
----@field hardware_modify fun():DtwTreePart
+---@field hardware_remove fun(as_transaction:boolean|nil):DtwTreePart
+---@field hardware_write fun(as_transaction:boolean|nil):DtwTreePart
+---@field hardware_modify fun(as_transaction:boolean|nil):DtwTreePart
 ---@field get_sha fun():string
+---@field is_blob fun():boolean
 ---@field unload fun():DtwTreePart
 ---@field load fun():DtwTreePart
 
@@ -20,8 +22,8 @@
 ---@field insecure_hardware_remove fun():DtwTree
 ---@field commit fun():DtwTree
 ---@field get_size fun():number
----@field get_tree_part_by_name fun():DtwTreePart
----@field get_tree_part_by_path fun():DtwTreePart
+---@field get_tree_part_by_name fun(name:string):DtwTreePart
+---@field get_tree_part_by_path fun(name:string):DtwTreePart
 ---@field find fun(callback: fun(part:DtwTreePart):boolean):DtwTreePart
 ---@field count fun(callback: fun(part:DtwTreePart):boolean):number
 ---@field map fun(callback: fun(part:DtwTreePart):any):any[]
