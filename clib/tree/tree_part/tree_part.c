@@ -61,8 +61,6 @@ LuaCEmbedResponse * tree_part_load_content(LuaCEmbedTable *self,LuaCEmbed *args)
 }
 
 
-
-
 LuaCEmbedTable * create_tree_part_reference(LuaCEmbed *args,DtwTreePart *part){
     LuaCEmbedTable *self = lua.tables.new_anonymous_table(args);
     lua.tables.set_long_prop(self,TREE_PART_POINTER,(long long)part);

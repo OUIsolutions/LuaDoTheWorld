@@ -2,6 +2,15 @@
 
 
 ---@class DtwTreePart
+---@field path DtwPath
+---@field get_value fun():string | number | boolean | DtwTreePart | DtwResource | DtwActionTransaction
+---@field set_value fun(value:string | number | boolean | DtwTreePart | DtwResource | DtwActionTransaction)
+---@field hardware_remove fun():DtwTreePart
+---@field hardware_modify fun():DtwTreePart
+---@field get_sha fun():string
+---@field unload fun():DtwTreePart
+---@field load fun():DtwTreePart
+
 
 ---@class DtwTree
 ---@field newTreePart_empty fun ():DtwTreePart
@@ -137,7 +146,7 @@
 ---@field list_dirs_recursively fun(src:string):string[] 
 ---@field list_all_recursively fun(src:string):string[] 
 ---@field load_file fun(src:string):string | string
----@field write_file fun(src:string,value:string | number | boolean | string)
+---@field write_file fun(src:string,value:string | number | boolean | DtwTreePart | DtwResource | DtwActionTransaction)
 ---@field is_byte fun(value:any):boolean returns if a value is a byte
 ---@field newResource fun(src:string):DtwResource
 ---@field generate_sha fun(value:string | number | boolean | string):string
