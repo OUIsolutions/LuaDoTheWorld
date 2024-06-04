@@ -17,5 +17,6 @@ LuaCEmbedTable * raw_create_tree(LuaCEmbed *args,DtwTree *tree);
 LuaCEmbedResponse * create_empty_tree(LuaCEmbed *args);
 
 DtwTreeProps create_tree_props(LuaCEmbedTable *user_props);
+LuaCEmbedResponse * tree_delete(LuaCEmbedTable *self,LuaCEmbed *args);
 
-LuaCEmbedResponse * create_tree_from_hardware(LuaCEmbed *args);
+LuaCEmbedResponse * create_tree_fro_hardware(LuaCEmbed *args);

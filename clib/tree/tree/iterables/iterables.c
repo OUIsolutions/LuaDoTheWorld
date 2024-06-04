@@ -95,6 +95,7 @@ LuaCEmbedResponse *tree_foreach(LuaCEmbedTable *self, LuaCEmbed *args){
         lua.args.run_lambda(args,0,args_to_call,1);
         if(lua.has_errors(args)){
             char *error_msg = lua.get_error_message(args);
+            printf("pegou aqui\n");
             return lua.response.send_error(error_msg);
         }
 

@@ -8,7 +8,6 @@
 
 
 void start_lua_props(LuaCEmbed *l){
-
     lua.add_callback(l,LOAD_FILE,load_file);
     lua.add_callback(l,WRITE_FILE,write_file);
     lua.add_callback(l,COPY_ANY_OVERWRITING,copy_any_overwriting);
@@ -40,7 +39,7 @@ void start_lua_props(LuaCEmbed *l){
     lua.add_callback(l,NEW_TRANSACTION_FROM_JSON_FILE,create_empty_transaction_from_json_file);
     lua.add_callback(l,NEW_PATH,create_path);
     lua.add_callback(l,NEW_TREE,create_empty_tree);
-    lua.add_callback(l,NEW_TREE_FROM_HARWARE,create_tree_from_hardware);
+    lua.add_callback(l,NEW_TREE_FROM_HARWARE,create_tree_fro_hardware);
 
 }
 
@@ -50,6 +49,7 @@ int load_lua(lua_State *state){
     bool set_functions_as_public  = false;
     LuaCEmbed * l  = lua.newLuaLib(state,set_functions_as_public);
     start_lua_props(l);
+
     return lua.perform(l);
 }
 
