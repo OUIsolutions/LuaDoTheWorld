@@ -60,8 +60,36 @@ clib_tree.each(function (value)
 	content = string.gsub(content,"lua.tables.get_type_by_index","LuaCEmbedTable_get_type_by_index");
 	content = string.gsub(content,"lua.args.get_table","LuaCEmbed_get_arg_table");
 
+	content = string.gsub(content,"","");
+	content = string.gsub(content,"","");
+	content = string.gsub(content,"","");
+	content = string.gsub(content,"","");
+	content = string.gsub(content,"","");
+	content = string.gsub(content,"","");
+	content = string.gsub(content,"","");
+	content = string.gsub(content,"","");
 
 
+	content = string.gsub(content,"dtw.load_any_content","dtw_load_any_content");
+	content = string.gsub(content,"dtw.tree.find_tree_part_by_path","");
+	content = string.gsub(content,"dtw.tree.newTree","newDtwTree");
+	content = string.gsub(content,"dtw.load_string_file_content","dtw_load_string_file_content");
+	content = string.gsub(content,"dtw.tree.dumps_json_tree","DtwTree_dumps_tree_json");
+	content = string.gsub(content,"dtw.tree.dumps_json_tree_to_file","DtwTree_dumps_tree_json_to_file");
+	content = string.gsub(content,"dtw.tree.part.newPart","newDtwTreePart");
+	content = string.gsub(content,"dtw.tree.part.newPartLoading","newDtwTreePartLoading");
+	content = string.gsub(content,"dtw.tree.part.newPartEmpty","newDtwTreePartEmpty");
+	content = string.gsub(content,"dtw.tree.find_tree_part_by_name","DtwTree_find_tree_part_by_name");
+	content = string.gsub(content,"dtw.tree.find_tree_part_by_path","DtwTree_find_tree_part_by_path");
+	content = string.gsub(content,"dtw.path.changed","DtwPath_changed");
+	content = string.gsub(content,"dtw.path.add_start_dir","DtwPath_add_start_dir");
+	content = string.gsub(content,"dtw.path.add_end_dir","DtwPath_add_end_dir");
+	content = string.gsub(content,"dtw.path.get_dir","DtwPath_get_dir");
+	content = string.gsub(content,"dtw.path.get_extension","DtwPath_get_extension");
+	content = string.gsub(content,"dtw.path.get_full_name","DtwPath_get_full_name");
+
+	content = string.gsub(content,"dtw.path.get_name","DtwPath_get_name");
+	content = string.gsub(content,"dtw.path.get_path","DtwPath_get_path");
 	content = string.gsub(content,"dtw.path.set_full_name","DtwPath_set_full_name");
 	content = string.gsub(content,"dtw.path.set_name","DtwPath_set_name");
 	content = string.gsub(content,"dtw.path.set_extension","DtwPath_set_extension");
