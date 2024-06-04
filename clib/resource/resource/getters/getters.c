@@ -1,13 +1,14 @@
 LuaCEmbedResponse * resource_to_string(LuaCEmbedTable  *self,LuaCEmbed *args){
     DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     int  type = DtwResource_type(resource);
-    if(type == DTW_NOT_FOUND ||type == DTW_COMPLEX_BINARY || type == DTW_FOLDER_TYPE ){
+    if(type == DTW_NOT_FOUND || type == DTW_FOLDER_TYPE ){
         return  LuaCEmbed_send_str(resource->path);
     }
+    long size;
+    bool is_binary;
+    unsigned  char *content =  DtwResource_get_any(resource,&size,&is_binary);
+    return LuaCEmbed_send_raw_string_reference((char*)content,size);
 
-    char *value = DtwResource_get_string(resource);
-
-    return LuaCEmbed_send_str(value);
 }
 
 
@@ -53,13 +54,12 @@ LuaCEmbedResponse * resource_value(LuaCEmbedTable  *self,LuaCEmbed *args){
 LuaCEmbedResponse * resource_value_string(LuaCEmbedTable  *self,LuaCEmbed *args){
     DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     int type = DtwResource_type(resource);
-    if(type == DTW_COMPLEX_BINARY || type == DTW_COMPLEX_STRING_TYPE){
+    if(type != DTW_NOT_FOUND && type != DTW_FOLDER_TYPE){
         long size;
         bool is_binary;
         unsigned  char *content =  DtwResource_get_any(resource,&size,&is_binary);
         return LuaCEmbed_send_raw_string_reference((char*)content,size);
     }
-
     return NULL;
 }
 
