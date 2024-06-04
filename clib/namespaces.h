@@ -1,2 +1,0 @@
-LuaCEmbedNamespace  lua;
-DtwNamespace dtw;

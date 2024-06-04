@@ -177,7 +177,7 @@ else
     lib_path = path.."luaDoTheWorld_clib.dll"
 end 
 
-local load_lua = package.loadlib(lib_path, "load_lua")
+local load_lua = package.loadlib(lib_path, "load_luaDoTheWorld")
 
 ---@type DtwModule
 local lib = load_lua()

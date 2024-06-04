@@ -19,7 +19,7 @@ clib_tree.each(function (value)
 		return
 	end
 
-    if value.path.get_name() == "main.c" then
+    if value.path.get_name() == "one.c" then
 
 	    content = string.gsub(content,'#include "namespaces.h"',"");
 	    content = string.gsub(content,'lua.newLuaLib',"newLuaCEmbedLib");
@@ -213,4 +213,4 @@ end)
 
 clib_tree.commit()
 
-os.execute("gcc -Wall -shared -fpic -o teste.so clib2/main.c")
+os.execute("gcc -Wall -shared -fpic -o teste.so clib2/one.c")

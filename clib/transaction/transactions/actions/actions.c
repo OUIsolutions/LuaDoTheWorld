@@ -1,9 +1,9 @@
 LuaCEmbedResponse * transaction_write(LuaCEmbedTable *self,LuaCEmbed *args){
 
-    char *filename = lua.args.get_str(args,0);
-    if(lua.has_errors(args)){
-        char *error_message = lua.get_error_message(args);
-        return  lua.response.send_error(error_message);
+    char *filename = LuaCEmbed_get_str_arg(args,0);
+    if(LuaCEmbed_has_errors(args)){
+        char *error_message = LuaCEmbed_get_error_message(args);
+        return  LuaCEmbed_send_error(error_message);
     }
 
 
@@ -17,45 +17,45 @@ LuaCEmbedResponse * transaction_write(LuaCEmbedTable *self,LuaCEmbed *args){
             is_binary = true;
         }
     }
-    DtwTransaction *t = (DtwTransaction*)lua.tables.get_long_prop(self,TRANSACTION_POINTER);
-    dtw.transaction.write_any(t,filename,write_obj.content,write_obj.size,is_binary);
-    return  lua.response.send_table(self);
+    DtwTransaction *t = (DtwTransaction*)LuaCembedTable_get_long_prop(self,TRANSACTION_POINTER);
+    DtwTransaction_write_any(t,filename,write_obj.content,write_obj.size,is_binary);
+    return  LuaCEmbed_send_table(self);
 }
 
 
 LuaCEmbedResponse * transaction_remove_any(LuaCEmbedTable *self,LuaCEmbed *args) {
-    char *source = lua.args.get_str(args,0);
-    if(lua.has_errors(args)){
-        char *error_message = lua.get_error_message(args);
-        return  lua.response.send_error(error_message);
+    char *source = LuaCEmbed_get_str_arg(args,0);
+    if(LuaCEmbed_has_errors(args)){
+        char *error_message = LuaCEmbed_get_error_message(args);
+        return  LuaCEmbed_send_error(error_message);
     }
-    DtwTransaction *t = (DtwTransaction*)lua.tables.get_long_prop(self,TRANSACTION_POINTER);
-    dtw.transaction.delete_any(t,source);
-    return  lua.response.send_table(self);
+    DtwTransaction *t = (DtwTransaction*)LuaCembedTable_get_long_prop(self,TRANSACTION_POINTER);
+    DtwTransaction_delete_any(t,source);
+    return  LuaCEmbed_send_table(self);
 }
 
 LuaCEmbedResponse * transaction_copy_any(LuaCEmbedTable *self,LuaCEmbed *args) {
-    char *source = lua.args.get_str(args,0);
-    char *dest = lua.args.get_str(args,1);
+    char *source = LuaCEmbed_get_str_arg(args,0);
+    char *dest = LuaCEmbed_get_str_arg(args,1);
 
-    if(lua.has_errors(args)){
-        char *error_message = lua.get_error_message(args);
-        return  lua.response.send_error(error_message);
+    if(LuaCEmbed_has_errors(args)){
+        char *error_message = LuaCEmbed_get_error_message(args);
+        return  LuaCEmbed_send_error(error_message);
     }
-    DtwTransaction *t = (DtwTransaction*)lua.tables.get_long_prop(self,TRANSACTION_POINTER);
-    dtw.transaction.copy_any(t,source,dest);
-    return  lua.response.send_table(self);
+    DtwTransaction *t = (DtwTransaction*)LuaCembedTable_get_long_prop(self,TRANSACTION_POINTER);
+    DtwTransaction_copy_any(t,source,dest);
+    return  LuaCEmbed_send_table(self);
 }
 
 LuaCEmbedResponse * transaction_move_any(LuaCEmbedTable *self,LuaCEmbed *args) {
-    char *source = lua.args.get_str(args,0);
-    char *dest = lua.args.get_str(args,1);
+    char *source = LuaCEmbed_get_str_arg(args,0);
+    char *dest = LuaCEmbed_get_str_arg(args,1);
 
-    if(lua.has_errors(args)){
-        char *error_message = lua.get_error_message(args);
-        return  lua.response.send_error(error_message);
+    if(LuaCEmbed_has_errors(args)){
+        char *error_message = LuaCEmbed_get_error_message(args);
+        return  LuaCEmbed_send_error(error_message);
     }
-    DtwTransaction *t = (DtwTransaction*)lua.tables.get_long_prop(self,TRANSACTION_POINTER);
-    dtw.transaction.move_any(t,source,dest);
-    return  lua.response.send_table(self);
+    DtwTransaction *t = (DtwTransaction*)LuaCembedTable_get_long_prop(self,TRANSACTION_POINTER);
+    DtwTransaction_move_any(t,source,dest);
+    return  LuaCEmbed_send_table(self);
 }

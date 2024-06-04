@@ -1,19 +1,19 @@
 
 LuaCEmbedResponse  * base64_encode_file(LuaCEmbed *args){
-    char *source = lua.args.get_str(args,0);
-    if(lua.has_errors(args)){
-        char *error_message = lua.get_error_message(args);
-        return  lua.response.send_error(error_message);
+    char *source = LuaCEmbed_get_str_arg(args,0);
+    if(LuaCEmbed_has_errors(args)){
+        char *error_message = LuaCEmbed_get_error_message(args);
+        return  LuaCEmbed_send_error(error_message);
     }
-    char * b64_string =  dtw.convert_binary_file_to_base64(source);
+    char * b64_string =  dtw_convert_binary_file_to_base64(source);
     if(!b64_string){
         char *formated  = private_LuaCembed_format(FILE_NOT_FOUND, source);
-        LuaCEmbedResponse  *response = lua.response.send_error(formated);
+        LuaCEmbedResponse  *response = LuaCEmbed_send_error(formated);
         free(formated);
         return response;
     }
 
-    LuaCEmbedResponse  *response = lua.response.send_str(b64_string);
+    LuaCEmbedResponse  *response = LuaCEmbed_send_str(b64_string);
     free(b64_string);
     return response;
 }
@@ -21,15 +21,15 @@ LuaCEmbedResponse  * base64_encode_file(LuaCEmbed *args){
 
 LuaCEmbedResponse  * base64_decode(LuaCEmbed *args){
 
-    char *source = lua.args.get_str(args,0);
-    if(lua.has_errors(args)){
-        char *error_message = lua.get_error_message(args);
-        return  lua.response.send_error(error_message);
+    char *source = LuaCEmbed_get_str_arg(args,0);
+    if(LuaCEmbed_has_errors(args)){
+        char *error_message = LuaCEmbed_get_error_message(args);
+        return  LuaCEmbed_send_error(error_message);
     }
     long size;
-    unsigned char *content = dtw.base64_decode(source,&size);
+    unsigned char *content = dtw_base64_decode(source,&size);
     content[size] = '\0';
-    LuaCEmbedResponse* response =  lua.response.send_raw_string((char*)content,size);
+    LuaCEmbedResponse* response =  LuaCEmbed_send_raw_string((char*)content,size);
     free(content);
     return response;
 
@@ -41,9 +41,9 @@ LuaCEmbedResponse  * base64_encode(LuaCEmbed *args){
         return write_obj.error;
     }
 
-    char *created = dtw.base64_encode(write_obj.content,write_obj.size);
+    char *created = dtw_base64_encode(write_obj.content,write_obj.size);
     Writeble_free(&write_obj);
-    LuaCEmbedResponse *response = lua.response.send_str(created);
+    LuaCEmbedResponse *response = LuaCEmbed_send_str(created);
     free(created);
     return response;
 }
