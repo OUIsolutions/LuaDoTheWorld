@@ -25,8 +25,8 @@ clib_tree.each(function (value)
 	    content = string.gsub(content,'lua.newLuaLib',"newLuaCEmbedLib");
 	    content = string.gsub(content,"lua.add_callback","LuaCEmbed_add_callback");
 	    content = string.gsub(content,"lua.perform","LuaCembed_perform");
-	    content = string.gsub(content,"lua = ","//");
-	    content = string.gsub(content,"dtw =","//");
+	    content = string.gsub(content,"lua %= newLuaCEmbedNamespace%(%)%;","");
+        content = string.gsub(content,"dtw %= newDtwNamespace%(%)%;","");
     	value.set_value(content)
     	value.hardware_modify()
         return
