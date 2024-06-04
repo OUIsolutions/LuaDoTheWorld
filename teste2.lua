@@ -20,13 +20,13 @@ clib_tree.each(function (value)
 	end
 
     if value.path.get_name() == "main.c" then
-	    content = string.gsub(content,"lua = newLuaCEmbedNamespace();","");
-	    content = string.gsub(content,'dtw = newDtwNamespace();',"");
+
 	    content = string.gsub(content,'#include "namespaces.h"',"");
 	    content = string.gsub(content,'lua.newLuaLib',"newLuaCEmbedLib");
 	    content = string.gsub(content,"lua.add_callback","LuaCEmbed_add_callback");
 	    content = string.gsub(content,"lua.perform","LuaCembed_perform");
-
+	    content = string.gsub(content,"lua = ","//");
+	    content = string.gsub(content,"dtw =","//");
     	value.set_value(content)
     	value.hardware_modify()
         return
@@ -71,6 +71,7 @@ clib_tree.each(function (value)
 	content = string.gsub(content,"lua.response.send_double","LuaCEmbed_send_double");
 	content = string.gsub(content,"lua.tables.get_string_by_index","LuaCEmbedTable_get_string_by_index");
 	content = string.gsub(content,"lua.convert_arg_code","LuaCembed_convert_arg_code");
+	content = string.gsub(content,"lua.response.send_multi_return","LuaCEmbed_send_multi_return");
 
 
 	content = string.gsub(content,"dtw.resource.get_schema_values","DtwResource_get_schema_values");
@@ -201,8 +202,7 @@ clib_tree.each(function (value)
 	content = string.gsub(content,"dtw.hash.digest_any","DtwHash_digest_any");
 	content = string.gsub(content,"dtw.string_array.free","DtwStringArray_free");
 	content = string.gsub(content,"dtw.resource.get_double","DtwResource_get_double");
-	content = string.gsub(content,"","");
-	content = string.gsub(content,"","");
+	content = string.gsub(content,"dtw.resource.get_any","DtwResource_get_any");
 
 	--print(content)
 	value.set_value(content)
