@@ -113,6 +113,9 @@
 ---@field sub_resource_now_in_unix fun(str:string) :DtwResource
 ---@field __index fun(str:string) : number ,DtwResource
 ---@field get_value fun():string | number | boolean | nil | string
+---@field get_string fun():string | nil
+---@field get_number fun(): number | nil
+---@field get_bool fun(): boolean | nil
 ---@field set_value fun(value:string | number | boolean | string | DtwResource )
 ---@field commit fun()  apply the modifications
 ---@field lock fun() lock the resource from other process 
@@ -161,6 +164,7 @@
 ---@field newPath fun(path:string):DtwPath
 ---@field newTree fun():DtwTree
 ---@field newTree_from_hardware fun(path:string):DtwTree
+---@field concat_path fun(path1:string,path2:string):string
 
 
 local info = debug.getinfo(1, "S")
