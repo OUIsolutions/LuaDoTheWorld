@@ -54,6 +54,7 @@
 ---@field insert_dir_after fun(point:string, dir:string):DtwPath
 ---@field insert_dir_before fun(point:string, dir:string):DtwPath
 ---@field remove_dir_at fun(point:string):DtwPath
+---@field unpack fun():string[],number
 
 
 

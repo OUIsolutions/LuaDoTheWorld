@@ -3,4 +3,9 @@
 
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
-print(dtw.ends_with("teste","te"))
+local path = dtw.newPath("a/b/c/")
+local elements,size = path.unpack()
+
+for i=1,size do
+	print(elements[i])
+end
