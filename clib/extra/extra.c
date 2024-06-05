@@ -24,7 +24,7 @@ LuaCEmbedResponse * concat_path(LuaCEmbed *args){
 }
 LuaCEmbedResponse * starts_with(LuaCEmbed *args){
     char *content =  LuaCEmbed_get_str_arg(args,0);
-    char *comparation =  LuaCEmbed_get_str_arg(args,0);
+    char *comparation =  LuaCEmbed_get_str_arg(args,1);
 
     if(LuaCEmbed_has_errors(args)){
         char *error_msg = LuaCEmbed_get_error_message(args);
@@ -36,7 +36,7 @@ LuaCEmbedResponse * starts_with(LuaCEmbed *args){
 
 LuaCEmbedResponse * ends_with(LuaCEmbed *args){
     char *content =  LuaCEmbed_get_str_arg(args,0);
-    char *comparation =  LuaCEmbed_get_str_arg(args,0);
+    char *comparation =  LuaCEmbed_get_str_arg(args,1);
 
     if(LuaCEmbed_has_errors(args)){
         char *error_msg = LuaCEmbed_get_error_message(args);
