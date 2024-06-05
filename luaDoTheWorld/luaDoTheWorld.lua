@@ -140,12 +140,12 @@
 ---@field base64_encode_file fun(src:string):string transform file into base64 
 ---@field base64_encode fun(value:string | number | boolean | string):string transform content into base64
 ---@field base64_decode fun(value:string): string | string retransform base64 into normal value
----@field list_files fun(src:string):string[] 
----@field list_dirs fun(src:string):string[] 
----@field list_all fun(src:string):string[] 
----@field list_files_recursively fun(src:string):string[] 
----@field list_dirs_recursively fun(src:string):string[] 
----@field list_all_recursively fun(src:string):string[] 
+---@field list_files fun(src:string):string[],number
+---@field list_dirs fun(src:string):string[],number
+---@field list_all fun(src:string):string[],number
+---@field list_files_recursively fun(src:string):string[],number
+---@field list_dirs_recursively fun(src:string):string[],number
+---@field list_all_recursively fun(src:string):string[],number
 ---@field load_file fun(src:string):string | string
 ---@field write_file fun(src:string,value:string | number | boolean | DtwTreePart | DtwResource | DtwActionTransaction)
 ---@field is_blob fun(value:any):boolean returns if a value is a blob
@@ -165,6 +165,8 @@
 ---@field newTree fun():DtwTree
 ---@field newTree_from_hardware fun(path:string):DtwTree
 ---@field concat_path fun(path1:string,path2:string):string
+---@field starts_with fun(comparation:string,prefix:string):boolean
+---@field ends_with fun(comparation:string,sulfix:string):boolean
 
 
 local info = debug.getinfo(1, "S")
