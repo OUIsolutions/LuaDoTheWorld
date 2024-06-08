@@ -275,7 +275,7 @@ LuaCEmbedTable *raw_create_path(LuaCEmbed *args,DtwPath *path){
     LuaCEmbedTable_set_method(self,GET_NAME_METHOD,path_get_name);
     LuaCEmbedTable_set_method(self,GET_ONLY_NAME_METHOD,path_get_only_name);
     LuaCEmbedTable_set_method(self,TO_STRING_METHOD,path_to_string);
-
+    LuaCEmbedTable_set_method(self,PATH_GET_FULL_PATH_METHOD,path_get_full_path);
     LuaCEmbedTable_set_method(self,SET_EXTENSION_METHOD,path_set_extension);
     LuaCEmbedTable_set_method(self,PATH_SET_ONLY_NAME_METHOD,path_set_only_name);
     LuaCEmbedTable_set_method(self,PATH_SET_NAME_METHOD,path_set_name);
@@ -284,7 +284,7 @@ LuaCEmbedTable *raw_create_path(LuaCEmbed *args,DtwPath *path){
 
     LuaCEmbedTable_set_method(self,PATH_REPLACE_DIRS_METHOD,path_replace_dirs);
     LuaCEmbedTable_set_method(self,PATH_GET_TOTAL_DIRS_METHOD,path_get_total_dirs);
-    LuaCEmbedTable_set_method(self,PATH_GET_SUB_DIRS_FROM_INDEX_METHOD,path_get_total_dirs);
+    LuaCEmbedTable_set_method(self,PATH_GET_SUB_DIRS_FROM_INDEX_METHOD,path_get_sub_dirs_from_index);
     LuaCEmbedTable_set_method(self,PATH_INSERT_DIR_AT_INDEX_METHOD,path_insert_dir_at_index);
     LuaCEmbedTable_set_method(self,PATH_REMOVE_SUB_DIR_AT_INDEX_METHOD,path_remove_sub_dir_at_index);
     LuaCEmbedTable_set_method(self,PATH_INSERT_DIR_AFTER_METHOD,path_insert_dir_after);
