@@ -6,11 +6,9 @@ PREDICTIBLE = 2
 ---@field test_type number
 ---@field test_dir string | nil
 ---@field expected_file_path string | nil
----@field executable_path string |nil
----@field c_path string | nil
+---@field lua_path string | nil
 ---@field side_effect_folder_path string | nil
----@field c_sha string
----@field executable_sha string
+---@field lua_sha string
 ---@field side_effect_sha string | nil
 ---@param content string
 ---@return TestArtifact | nil
@@ -39,8 +37,7 @@ PREDICTIBLE = 2
 
      test.test_dir = path.get_dir()
      test.expected_file_path = dtw.concat_path(test.test_dir,EXPECTED_NAME)
-     test.executable_path = dtw.concat_path(test.test_dir,"exec."..clib.out_extension())
-     test.c_path = path.get_full_path()
+     test.lua_path = path.get_full_path()
      test.side_effect_folder_path = dtw.concat_path(test.test_dir,SIDE_EFFECT_COMPARATION)
      return test
 end

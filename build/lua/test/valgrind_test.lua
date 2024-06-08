@@ -7,7 +7,7 @@
     local memory_tested = false
     cache.new_element("valgrind",function ()
         memory_tested =true
-        local comand = "valgrind --log-file='"..OUTPUT_TEST.."' ./"..artifact.executable_path
+        local comand = "valgrind --log-file='"..OUTPUT_TEST.."'lua "..artifact.lua_path
         clib.system_with_string(comand);
         Rebase_side_effect()
 
@@ -33,7 +33,7 @@
         end
         clib.print(ANSI_GREEN.."\tmemory test:passed\n")
 end).
-    add_dependencie(artifact.executable_sha).
+    add_dependencie(artifact.lua_sha).
     add_dependencie(original_side_effect_sha).
     perform()
 
