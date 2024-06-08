@@ -14,7 +14,7 @@ local function main()
 
         local dll_sha = dtw.generate_sha_from_file("luaDoTheWorld/luaDoTheWorld_clib.so")
 
-        Execute_full_test(cache,dll_sha,dll_sha)
+        Execute_full_test(cache,dll_sha)
 
         Create_examples()
 

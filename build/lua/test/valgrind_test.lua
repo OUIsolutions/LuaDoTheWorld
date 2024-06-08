@@ -8,7 +8,7 @@
     local memory_tested = false
     cache.new_element("valgrind",function ()
         memory_tested =true
-        local comand = "valgrind --log-file='"..OUTPUT_TEST.."'lua "..artifact.lua_path
+        local comand = "valgrind --log-file='"..OUTPUT_TEST.."' lua "..artifact.lua_path
         clib.system_with_string(comand);
         Rebase_side_effect()
 

@@ -6,13 +6,12 @@
 ---@param artifact TestArtifact
 local function execute_test_artifact(cache,dll_sha,original_side_effect_sha,artifact)
 
-    clib.print(ANSI_BLUE.."testing: "..artifact.lua_sha.."\n")
-
+   -- clib.print(ANSI_BLUE.."testing: "..artifact.lua_path.."\n")
     artifact.lua_sha = dtw.generate_sha_from_file(artifact.lua_path)
 
     Exec_valgrind_test(cache,dll_sha,original_side_effect_sha,artifact)
 
-    Test_out_put(cache,original_side_effect_sha,artifact)
+    Test_out_put(cache,dll_sha,original_side_effect_sha,artifact)
 
 
 end
