@@ -75,9 +75,10 @@ local function handle_side_effect_folder(original_side_effect_sha,artifact)
 end
 
 ---@param cache Cache
+---@param dll_sha string
 ---@param original_side_effect_sha string
 ---@param artifact TestArtifact
-function Test_out_put(cache,original_side_effect_sha,artifact)
+function Test_out_put(cache,dll_sha,original_side_effect_sha,artifact)
 
     local output_tested = false
     local expected_content = dtw.load_file(artifact.expected_file_path)
@@ -85,13 +86,14 @@ function Test_out_put(cache,original_side_effect_sha,artifact)
     local out_cache = cache.new_element("output",function ()
 
           output_tested = true
-          local output_test = clib.system_with_string("./"..artifact.executable_path)
+          local output_test = clib.system_with_string("lua "..artifact.lua_path)
           handle_expected_file(expected_content,artifact,output_test)
           handle_side_effect_folder(original_side_effect_sha,artifact)
           Rebase_side_effect()
 
     end).
-    add_dependencie(artifact.executable_sha).
+    add_dependencie(dll_sha).
+    add_dependencie(artifact.lua_sha).
     add_dependencie(original_side_effect_sha)
 
 

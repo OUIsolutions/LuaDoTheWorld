@@ -4,7 +4,6 @@
 
 local function main()
 
-        local src_sha = Generate_sha_from_folder_not_considering_empty_folders(LIB_FOLDER)
         local cache = NewCache(CACHE_POINT)
 
         local status =clib.system_with_status("gcc -Wall -shared -fpic -o luaDoTheWorld/luaDoTheWorld_clib.so  src/one.c -DDTW_DEBUG_TIME")
@@ -12,7 +11,10 @@ local function main()
             clib.print(ANSI_RED.."impossible to compile")
         	clib.exit(1)
         end
-        Execute_full_test(cache,src_sha)
+
+        local dll_sha = dtw.generate_sha_from_file("luaDoTheWorld/luaDoTheWorld_clib.so")
+
+        Execute_full_test(cache,dll_sha,dll_sha)
 
         Create_examples()
 

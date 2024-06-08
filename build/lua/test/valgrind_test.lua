@@ -1,9 +1,10 @@
 
 
 ---@param cache Cache
+---@param dll_sha string
 ---@param original_side_effect_sha string
 ---@param artifact TestArtifact
- function Exec_valgrind_test(cache,original_side_effect_sha,artifact)
+ function Exec_valgrind_test(cache,dll_sha,original_side_effect_sha,artifact)
     local memory_tested = false
     cache.new_element("valgrind",function ()
         memory_tested =true
@@ -34,6 +35,7 @@
         clib.print(ANSI_GREEN.."\tmemory test:passed\n")
 end).
     add_dependencie(artifact.lua_sha).
+    add_dependencie(dll_sha).
     add_dependencie(original_side_effect_sha).
     perform()
 
