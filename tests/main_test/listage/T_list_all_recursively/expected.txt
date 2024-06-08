@@ -1,0 +1,5 @@
+a.txt
+b.txt
+dira/
+dira/content_of_dira
+dirb/
