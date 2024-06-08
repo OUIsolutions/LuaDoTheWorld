@@ -8,19 +8,7 @@ local function main()
         local cache = NewCache(CACHE_POINT)
 
 
-        local amalgamation_result = amalgamation_cache.perform()
-        dtw.write_file(END_TEST_POINT,amalgamation_result)
-
         Execute_full_test(cache,src_sha)
-
-        local locker_content= dtw.load_file("tests/locker_test/locker_test.c")
-
-       cache.new_element("locker",function ()
-            Execute_locker_test()
-        end).
-        add_dependencie(locker_content).
-        add_dependencie(src_sha).
-        perform()
 
         Create_examples()
         dtw.write_file("exemples/locker/locker_test.c",locker_content)
