@@ -8,11 +8,8 @@ LuaCEmbedResponse  * generate_sha_from_file(LuaCEmbed *args){
     }
 
     char *sha = dtw_generate_sha_from_file(source);
-    if(!sha){
-        char *formmated  = private_LuaCembed_format(FILE_NOT_FOUND,source);
-        LuaCEmbedResponse  *response = LuaCEmbed_send_error(formmated);
-        free(formmated);
-        return response;
+    if(sha == NULL){
+        return NULL;
     }
     LuaCEmbedResponse *response = LuaCEmbed_send_str(sha);
     free(sha);
@@ -28,12 +25,10 @@ LuaCEmbedResponse  * generate_sha_from_folder_by_content(LuaCEmbed *args){
     DtwHash *hash = newDtwHash();
     bool result = DtwHash_digest_folder_by_content(hash,source);
     if(!result){
-        char *content = private_LuaCembed_format(FILE_NOT_FOUND,source);
-        LuaCEmbedResponse*response = LuaCEmbed_send_error(content);
-        free(content);
         DtwHash_free(hash);
-        return response;
+        return NULL;
     }
+
     LuaCEmbedResponse *response = LuaCEmbed_send_str(hash->hash);
     DtwHash_free(hash);
     return response;

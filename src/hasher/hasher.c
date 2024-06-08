@@ -1,4 +1,23 @@
 
+LuaCEmbedResponse * hasher_digest_path(LuaCEmbedTable *self,LuaCEmbed *args){
+    char *path = LuaCEmbed_get_str_arg(args,0);
+    if(LuaCEmbed_has_errors(args)){
+        char *error_message = LuaCEmbed_get_error_message(args);
+        return  LuaCEmbed_send_error(error_message);
+    }
+    DtwHash *hash = (DtwHash*)LuaCembedTable_get_long_prop(self,HASH_POINTER);
+    int type =dtw_entity_type(path);
+
+    if(type== DTW_FILE_TYPE){
+        DtwHash_digest_file(hash,path);
+    }
+    if(type == DTW_FOLDER_TYPE){
+        DtwHash_digest_folder_by_content(hash,path);
+    }
+
+
+}
+
 LuaCEmbedResponse * hasher_digest_file(LuaCEmbedTable *self,LuaCEmbed *args){
     char *filename = LuaCEmbed_get_str_arg(args,0);
     if(LuaCEmbed_has_errors(args)){
@@ -7,12 +26,7 @@ LuaCEmbedResponse * hasher_digest_file(LuaCEmbedTable *self,LuaCEmbed *args){
     }
 
     DtwHash *hash = (DtwHash*)LuaCembedTable_get_long_prop(self,HASH_POINTER);
-    if(!DtwHash_digest_file(hash,filename)){
-        char *file_not_found = private_LuaCembed_format(FILE_NOT_FOUND,filename);
-        LuaCEmbedResponse *response = LuaCEmbed_send_error(file_not_found);
-        free(file_not_found);
-        return response;
-    }
+    DtwHash_digest_file(hash,filename);
     return NULL;
 }
 
@@ -24,12 +38,7 @@ LuaCEmbedResponse * hasher_digest_folder_by_content(LuaCEmbedTable *self, LuaCEm
     }
 
     DtwHash *hash = (DtwHash*)LuaCembedTable_get_long_prop(self,HASH_POINTER);
-    if(!DtwHash_digest_folder_by_content(hash,folder)){
-        char *folder_not_found = private_LuaCembed_format(FOLDER_NOT_FOUND,folder);
-        LuaCEmbedResponse *response = LuaCEmbed_send_error(folder_not_found);
-        free(folder_not_found);
-        return response;
-    }
+    DtwHash_digest_folder_by_content(hash,folder);
     return NULL;
 }
 
@@ -42,12 +51,7 @@ LuaCEmbedResponse * hasher_digest_folder_by_last_modification(LuaCEmbedTable *se
 
 
     DtwHash *hash = (DtwHash*)LuaCembedTable_get_long_prop(self,HASH_POINTER);
-    if(!DtwHash_digest_folder_by_last_modification(hash,folder)){
-        char *folder_not_found = private_LuaCembed_format(FOLDER_NOT_FOUND,folder);
-        LuaCEmbedResponse *response = LuaCEmbed_send_error(folder_not_found);
-        free(folder_not_found);
-        return response;
-    }
+    DtwHash_digest_folder_by_last_modification(hash,folder);
     return NULL;
 }
 
@@ -80,6 +84,7 @@ LuaCEmbedResponse * create_hasher(LuaCEmbed *args){
     LuaCEmbedTable * self = LuaCembed_new_anonymous_table(args);
     DtwHash *hash = newDtwHash();
     LuaCEmbedTable_set_long_prop(self,HASH_POINTER,(long long)hash);
+    LuaCEmbedTable_set_method(self,DIGEST_PATH,hasher_digest_path);
     LuaCEmbedTable_set_method(self, DIGESST_METHOD, hasher_digest);
     LuaCEmbedTable_set_method(self, TO_STRING_METHOD, hasher_get_value);
     LuaCEmbedTable_set_method(self, GET_VALUE_METHOD, hasher_get_value);
