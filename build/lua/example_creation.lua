@@ -6,7 +6,7 @@ function Create_examples()
 	   test_tree.each(function (tree_part)
 	        local path = tree_part.path
 
-	        if path.get_name() ~= "exec.c" then
+	        if path.get_name() ~= TEST_FILE then
 	        	return
 	        end
             local content = tree_part.get_value()
@@ -18,7 +18,7 @@ function Create_examples()
             local final_name =  path.get_sub_dirs_from_index(-1,-1)
             final_name = clib.replace(final_name,"T_","")
             final_name = clib.replace(final_name,"S_","")
-            final_name = clib.replace(final_name,"/",".c")
+            final_name = clib.replace(final_name,"/",".lua")
             path.remove_sub_dir_at_index(-1,-1)
             path.set_name(final_name)
 

@@ -15,7 +15,7 @@ LuaCEmbedResponse * hasher_digest_path(LuaCEmbedTable *self,LuaCEmbed *args){
         DtwHash_digest_folder_by_content(hash,path);
     }
 
-
+    return LuaCEmbed_send_str(hash->hash);
 }
 
 LuaCEmbedResponse * hasher_digest_file(LuaCEmbedTable *self,LuaCEmbed *args){
