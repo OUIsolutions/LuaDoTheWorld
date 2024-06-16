@@ -34,6 +34,17 @@ LuaCEmbedResponse *generate_randonizer_token(LuaCEmbedTable *self,LuaCEmbed *arg
     free(token);
     return response;
 }
+LuaCEmbedResponse *generate_randonizer_num(LuaCEmbedTable *self,LuaCEmbed *args) {
+    DtwRandonizer *random = (DtwRandonizer*)LuaCembedTable_get_long_prop(self,RANDONIZER_POINTER);
+    long max = LuaCEmbed_get_long_arg(args,0);
+    if(LuaCEmbed_has_errors(args)) {
+        char *msg = LuaCEmbed_get_error_message(args);
+        return  LuaCEmbed_send_error(msg);
+    }
+    long num  = DtwRandonizer_generate_num(random,max);
+    return LuaCEmbed_send_long(num);
+
+}
 LuaCEmbedResponse *delete_randonizer(LuaCEmbedTable *self,LuaCEmbed *args) {
     DtwRandonizer *random = (DtwRandonizer*)LuaCembedTable_get_long_prop(self,RANDONIZER_POINTER);
     DtwRandonizer_free(random);
@@ -47,5 +58,6 @@ LuaCEmbedResponse *create_randonizer(LuaCEmbed *args) {
     LuaCEmbedTable_set_method(self,SET_RANDONIZER_TIME_SEED_METHOD,set_randonizer_time_seed);
     LuaCEmbedTable_set_method(self,GENERATE_RANDONIZER_TOKEN,generate_randonizer_token);
     LuaCEmbedTable_set_method(self,DELETE_METHOD,delete_randonizer);
+    LuaCEmbedTable_set_method(self,GENERATE_RANDONIZER_NUM_METHOD,generate_randonizer_num);
     return LuaCEmbed_send_table(self);
 }

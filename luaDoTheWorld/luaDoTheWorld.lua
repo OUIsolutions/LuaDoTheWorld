@@ -2,6 +2,7 @@
 ---@field set_seed fun(seed:number):DtwRandonizer
 ---@field set_time_seed fun(seed:number):DtwRandonizer
 ---@field generate_token fun(size:number):DtwRandonizer
+---@field generate_num fun(size:number):number
 
 
 ---@class DtwTreePart
