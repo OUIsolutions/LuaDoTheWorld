@@ -11,3 +11,4 @@
 #include "tree_methods.h"
 #include "tree_props.h"
 #include "tree_part_methods.h"
+#include "randonizer_methods.h"

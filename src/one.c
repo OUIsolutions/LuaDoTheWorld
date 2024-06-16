@@ -43,6 +43,7 @@ void start_lua_props(LuaCEmbed *l){
     LuaCEmbed_add_callback(l,NEW_TREE_FROM_HARWARE,create_tree_fro_hardware);
     LuaCEmbed_add_callback(l,STARTS_WITH,starts_with);
     LuaCEmbed_add_callback(l,ENDS_WITH,ends_with);
+    LuaCEmbed_add_callback(l,NEW_RANDONIZER,create_randonizer);
 }
 
 int load_luaDoTheWorld(lua_State *state){

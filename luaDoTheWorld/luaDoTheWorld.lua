@@ -1,4 +1,7 @@
-
+---@class DtwRandonizer
+---@field set_seed fun(seed:number):DtwRandonizer
+---@field set_time_seed fun(seed:number):DtwRandonizer
+---@field generate_token fun(size:number):DtwRandonizer
 
 
 ---@class DtwTreePart
@@ -168,6 +171,7 @@
 ---@field concat_path fun(path1:string,path2:string):string
 ---@field starts_with fun(comparation:string,prefix:string):boolean
 ---@field ends_with fun(comparation:string,sulfix:string):boolean
+---@field newRandonizer fun():DtwRandonizer
 
 
 local info = debug.getinfo(1, "S")

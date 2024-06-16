@@ -11,3 +11,4 @@
 #include "tree/declaration.h"
 #include "path/path.h"
 #include "extra/extra.h"
+#include "randonizer/randonizer.h"

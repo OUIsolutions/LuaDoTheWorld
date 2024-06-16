@@ -10,3 +10,4 @@
 #include "tree/definition.h"
 #include "path/path.c"
 #include "extra/extra.c"
+#include "randonizer/randonizer.c"

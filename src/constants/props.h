@@ -12,3 +12,4 @@
 #define TREE_POINTER "dtw_tree"
 #define TREE_PART_POINTER "dtw_tree_part"
 #define PATH_PROPS "path"
+#define RANDONIZER_POINTER "randonizer"
