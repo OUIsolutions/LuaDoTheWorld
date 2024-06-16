@@ -2,8 +2,8 @@
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
 
-
-local files,size = dtw.list_files("tests/target/test_dir")
+local concat_path  = false
+local files,size = dtw.list_files("tests/target/test_dir",concat_path)
 
 
 for i=1,size do
