@@ -76,3 +76,30 @@ Will list anything given dir recursively
 
 codeof:exemples/listage/list_all_recursively.lua
 
+### Hashing 
+You can generate assignature of anything you want  with all the hash functions
+
+#### Generating Sha from string
+Will generate a sha256 assignature of a string 
+codeof:exemples/Hashing/generate_sha_from_string.lua
+
+#### Generating Sha from file
+Will generate a sha256 assignature of a file
+codeof:exemples/Hashing/generate_sha_from_file.lua
+
+#### Generating Sha from folder by content
+Will generate a sha256 assignature of a folder based on content
+codeof:exemples/Hashing/generate_sha_from_folder_by_content.lua
+
+
+#### Generating Sha from folder by last modification
+Will generate a sha256 assignature of a folder based on last modification
+codeof:exemples/Hashing/generate_sha_from_folder_by_last_modification.lua
+
+### Hasher
+if you need to combine a lot of different entries, you can use the DtwHasher object
+
+codeof:exemples/Hashing/Hasher.lua
+
+
+
