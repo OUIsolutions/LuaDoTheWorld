@@ -126,7 +126,6 @@ LuaCEmbedResponse  * copy_any_merging(LuaCEmbed *args){
         char *error_message = LuaCEmbed_get_error_message(args);
         return  LuaCEmbed_send_error(error_message);
     }
-
     bool writed = dtw_copy_any(source,dest,DTW_MERGE);
     return LuaCEmbed_send_bool(writed);
 }
