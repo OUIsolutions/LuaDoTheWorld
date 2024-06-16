@@ -3,5 +3,10 @@
 
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
-local result = dtw.copy_any_overwriting("tests/target/test_dir","a")
-print(result)
+local random = dtw.newRandonizer()
+
+local token = random.generate_token(30)
+local token2 = random.generate_token(30)
+
+print(token)
+print(token2)
