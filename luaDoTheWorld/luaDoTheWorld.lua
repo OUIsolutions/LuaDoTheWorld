@@ -1,3 +1,7 @@
+
+---@class DtwFork
+
+
 ---@class DtwRandonizer
 ---@field set_seed fun(seed:number):DtwRandonizer
 ---@field set_time_seed fun(seed:number):DtwRandonizer
@@ -173,7 +177,7 @@
 ---@field starts_with fun(comparation:string,prefix:string):boolean
 ---@field ends_with fun(comparation:string,sulfix:string):boolean
 ---@field newRandonizer fun():DtwRandonizer
-
+---@field newFork fun(callback:fun()):DtwFork
 
 local info = debug.getinfo(1, "S")
 local path = info.source:match("@(.*/)") or ""

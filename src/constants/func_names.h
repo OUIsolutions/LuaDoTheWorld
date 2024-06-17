@@ -41,3 +41,4 @@
 #define STARTS_WITH "starts_with"
 #define ENDS_WITH "ends_with"
 #define NEW_RANDONIZER "newRandonizer"
+#define NEW_FORK "newFork"

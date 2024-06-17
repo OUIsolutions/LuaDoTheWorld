@@ -24585,6 +24585,10 @@ LuaCEmbedTable * private_newLuaCembedTable(LuaCEmbed *main_embed, const char *fo
 
  int  private_lua_cEmbed_unpack(LuaCEmbedTable *self,const char * previews_function){
 
+
+    if(self == NULL) {
+        return 0;
+    }
     long size = LuaCEmbedTable_get_listable_size(self);
      lua_settop(self->main_object->state, 0);
 
