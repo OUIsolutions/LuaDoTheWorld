@@ -13,3 +13,4 @@
 #include "tree_part_methods.h"
 #include "randonizer_methods.h"
 #include "fork_process.h"
+#include "locker.h"

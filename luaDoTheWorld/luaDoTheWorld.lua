@@ -5,6 +5,10 @@
 ---@field is_alive fun():boolean
 ---@field wait fun(milliseconds:number)
 
+---@class DtwLocker
+---@field lock fun(element:string):boolean
+---@field unlock fun(element:string):DtwLocker
+
 
 ---@class DtwRandonizer
 ---@field set_seed fun(seed:number):DtwRandonizer
@@ -182,6 +186,7 @@
 ---@field ends_with fun(comparation:string,sulfix:string):boolean
 ---@field newRandonizer fun():DtwRandonizer
 ---@field newFork fun(callback:fun()):DtwFork
+---@field newLocker fun():DtwLocker
 
 local info = debug.getinfo(1, "S")
 local path = info.source:match("@(.*/)") or ""

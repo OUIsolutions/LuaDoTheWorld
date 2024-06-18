@@ -12,3 +12,4 @@
 #include "extra/extra.c"
 #include "randonizer/randonizer.c"
 #include "fork_process/fork_process.c"
+#include "locker/locker.c"
