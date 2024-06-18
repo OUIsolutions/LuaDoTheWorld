@@ -18,11 +18,23 @@ LuaCEmbedResponse * fork_wait(LuaCEmbedTable *self,LuaCEmbed *args) {
      }
      int wait_time = LuaCembedTable_get_long_prop(self,FORK_SLEEP_PROP);
      int waited= 0;
-
+     int pid = LuaCembedTable_get_long_prop(self,PID_PROP);
      while (true) {
+          int status;
+          pid = waitpid(pid, &status, WNOHANG);
+          LuaCEmbedTable_set_long_prop(self,FORK_STATUS_METHOD,status);
+          LuaCEmbedTable_set_long_prop(self,PID_PROP,pid);
 
+          if(pid != 0) {
+               return LuaCEmbed_send_bool(true);
+          }
+          lua_do_the_world_sleep_mili_seconds(wait_time);
+          waited+=wait_time;
+          if(waited > timeout && timeout != -1) {
+               break;
+          }
      }
-
+     return LuaCEmbed_send_bool(false);
 }
 
 
@@ -30,7 +42,8 @@ LuaCEmbedResponse * is_fork_alive(LuaCEmbedTable *self,LuaCEmbed *args) {
      int pid = LuaCembedTable_get_long_prop(self,PID_PROP);
      int status;
      pid_t new_pid = waitpid(pid, &status, WNOHANG);
-     LuaCEmbedTable_set_long_prop(self,FORK_STATUS,status);
+     LuaCEmbedTable_set_long_prop(self,FORK_STATUS_METHOD,status);
+     LuaCEmbedTable_set_long_prop(self,PID_PROP,new_pid);
 
      if(new_pid == 0) {
           return LuaCEmbed_send_bool(true);
@@ -74,7 +87,8 @@ LuaCEmbedResponse * create_fork_process(LuaCEmbed *args) {
      LuaCEmbedTable_set_long_prop(self,FORK_SLEEP_PROP,FORK_SLEEP_DEFAULT_TIME);
      LuaCEmbedTable_set_method(self,DELETE_METHOD,fork_delete);
      LuaCEmbedTable_set_method(self,KILL_FORK_METHOD,kill_process);
-     LuaCEmbedTable_set_method(self,IS_FORK_ALIVE,is_fork_alive);
+     LuaCEmbedTable_set_method(self,IS_FORK_ALIVE_METHOD,is_fork_alive);
+     LuaCEmbedTable_set_method(self,FORK_WAIT_METHOD,fork_wait);
      return LuaCEmbed_send_table(self);
 
 

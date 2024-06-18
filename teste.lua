@@ -5,10 +5,11 @@ local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
 
 local fork = dtw.newFork(function ()
-	for i=1,10 do
-		print("aaaa")
+	while true do
+		
 	end
 end)
 
+fork.wait(30000)
 
 print("fora")
