@@ -4,6 +4,7 @@ LuaCEmbedResponse * is_fork_alive(LuaCEmbedTable *self,LuaCEmbed *args) {
      int status;
      pid_t new_pid = waitpid(pid, &status, WNOHANG);
      LuaCEmbedTable_set_long_prop(self,PID_PROP,new_pid);
+     LuaCEmbedTable_set_long_prop(self,FORK_STATUS,status);
 
      if(new_pid == 0) {
           return LuaCEmbed_send_bool(true);
