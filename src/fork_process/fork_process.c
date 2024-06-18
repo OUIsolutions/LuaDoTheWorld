@@ -73,8 +73,7 @@ LuaCEmbedResponse * create_fork_process(LuaCEmbed *args) {
                printf("error %s\n",LuaCEmbed_get_error_message(args));
                LuaCEmbed_clear_errors(args);
           }
-
-          return LuaCEmbed_send_error("");
+          exit(0);
      }
      if(pid == -1) {
           return LuaCEmbed_send_error(IMPOSSIBLE_TO_FORK);

@@ -5,9 +5,16 @@ local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
 
 local fork = dtw.newFork(function ()
-	print("aaaa")
+    while true do
+	    print("executed inside")
+    end
 end)
 
-fork.wait(100)
+local half_second = 500
 
-print("fora")
+fork.wait(half_second)
+if fork.is_alive() then
+	fork.kill()
+end
+
+print(" executed in main prrocess")
