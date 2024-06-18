@@ -23,7 +23,6 @@ LuaCEmbedResponse * fork_wait(LuaCEmbedTable *self,LuaCEmbed *args) {
           int status;
           pid = waitpid(pid, &status, WNOHANG);
           LuaCEmbedTable_set_long_prop(self,FORK_STATUS_METHOD,status);
-          LuaCEmbedTable_set_long_prop(self,PID_PROP,pid);
 
           if(pid != 0) {
                return LuaCEmbed_send_bool(true);
@@ -43,7 +42,6 @@ LuaCEmbedResponse * is_fork_alive(LuaCEmbedTable *self,LuaCEmbed *args) {
      int status;
      pid_t new_pid = waitpid(pid, &status, WNOHANG);
      LuaCEmbedTable_set_long_prop(self,FORK_STATUS_METHOD,status);
-     LuaCEmbedTable_set_long_prop(self,PID_PROP,new_pid);
 
      if(new_pid == 0) {
           return LuaCEmbed_send_bool(true);
@@ -76,7 +74,7 @@ LuaCEmbedResponse * create_fork_process(LuaCEmbed *args) {
                LuaCEmbed_clear_errors(args);
           }
 
-          exit(0);
+          return LuaCEmbed_send_error("");
      }
      if(pid == -1) {
           return LuaCEmbed_send_error(IMPOSSIBLE_TO_FORK);
