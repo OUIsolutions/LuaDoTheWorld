@@ -101,6 +101,44 @@ if you need to combine a lot of different entries, you can use the DtwHasher obj
 
 codeof:exemples/Hashing/Hasher.lua
 
+### Path  
+Path its a algo class to handle path logics
+
+#### Basic path extraction 
+codeof:exemples/Path/basic_path.lua
+
+#### Extracting Sub dirs 
+You also can extract sub dirs, by passing start and end keyworks (-1 its the last, -2 the second last)
+
+codeof:exemples/Path/path_get_dir_at.lua
+
+
+#### Basic Path Insertions 
+
+#### Set Dir 
+codeof:exemples/Path/path_set_dir.lua
+
+#### Set Name
+codeof:exemples/Path/path_set_name.lua
+
+#### Set Extension
+codeof:exemples/Path/path_set_extension.lua
+
+
+#### Inserting dirs at after point
+codeof:exemples/Path/path_insert_dir_after.lua
+
+#### Inserting dirs at before point
+codeof:exemples/Path/path_insert_dir_before.lua
+
+#### Inserting dirs at index
+codeof:exemples/Path/path_insert_dir_at_index.lua
+
+#### Replacing Dirs
+codeof:exemples/Path/path_replace_dirs.lua
+
+
+
 ### Transaction
 Transactions its a way to write actions in a atomic way, preventing crashing operations 
 
