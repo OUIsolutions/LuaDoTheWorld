@@ -1,15 +1,15 @@
-==36084== Memcheck, a memory error detector
-==36084== Copyright (C) 2002-2024, and GNU GPL'd, by Julian Seward et al.
-==36084== Using Valgrind-3.23.0 and LibVEX; rerun with -h for copyright info
-==36084== Command: lua tests/main_test/Transaction/T_load_bad_transaction/exec.lua
-==36084== Parent PID: 36057
-==36084== 
-==36084== 
-==36084== HEAP SUMMARY:
-==36084==     in use at exit: 0 bytes in 0 blocks
-==36084==   total heap usage: 569 allocs, 569 frees, 66,910 bytes allocated
-==36084== 
-==36084== All heap blocks were freed -- no leaks are possible
-==36084== 
-==36084== For lists of detected and suppressed errors, rerun with: -s
-==36084== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==37272== Memcheck, a memory error detector
+==37272== Copyright (C) 2002-2024, and GNU GPL'd, by Julian Seward et al.
+==37272== Using Valgrind-3.23.0 and LibVEX; rerun with -h for copyright info
+==37272== Command: lua tests/main_test/Base64/T_transform_file_in_base64/exec.lua
+==37272== Parent PID: 37244
+==37272== 
+==37272== 
+==37272== HEAP SUMMARY:
+==37272==     in use at exit: 0 bytes in 0 blocks
+==37272==   total heap usage: 583 allocs, 583 frees, 364,767 bytes allocated
+==37272== 
+==37272== All heap blocks were freed -- no leaks are possible
+==37272== 
+==37272== For lists of detected and suppressed errors, rerun with: -s
+==37272== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

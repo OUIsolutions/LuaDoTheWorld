@@ -75,6 +75,19 @@ codeof:exemples/listage/list_dirs_recursively.lua
 Will list anything given dir recursively
 
 codeof:exemples/listage/list_all_recursively.lua
+### Base64
+you can encode and decode files to base64 easly with luaDoTheWorld
+
+#### Enconding a binary 
+codeof:exemples/Base64/transaform_b64_string_in_binary.lua
+
+#### Encoding a File 
+
+codeof:exemples/Base64/transform_file_in_base64.lua
+
+#### Retransform b64 to binary 
+codeof:exemples/Base64/transform_binary_in_base64.lua
+
 
 ### Hashing 
 You can generate assignature of anything you want  with all the hash functions
