@@ -25,3 +25,6 @@
 #define UNLOCK_METHOD "unlock"
 #define LOCK_METHOD "lock"
 #define RESOURCE_NEW_SCHEMA "newSchema"
+
+#define RESOURCE_TRY_RENAME_METHOD "try_rename"
+#define RESOURCE_TRY_SET_VALUE_METHOD "try_set_value"

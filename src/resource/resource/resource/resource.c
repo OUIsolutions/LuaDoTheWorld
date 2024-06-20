@@ -30,7 +30,16 @@ LuaCEmbedResponse * resource_rename(LuaCEmbedTable  *self,LuaCEmbed *args){
     return  LuaCEmbed_send_table(self);
 
 }
-
+LuaCEmbedResponse * resource_try_rename(LuaCEmbedTable  *self,LuaCEmbed *args) {
+    DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
+    char *new_name = LuaCEmbed_get_str_arg(args,0);
+    DtwResource_rename(resource,new_name);
+    if(DtwResource_error(resource)){
+        DtwResource_clear_errors(resource);
+        return  LuaCEmbed_send_bool(false);
+    }
+    return LuaCEmbed_send_bool(true);
+}
 LuaCEmbedResponse * resource_set_value(LuaCEmbedTable  *self,LuaCEmbed *args){
     Writeble  write_obj = create_writeble(args,0);
     if(write_obj.error){
@@ -48,7 +57,20 @@ LuaCEmbedResponse * resource_set_value(LuaCEmbedTable  *self,LuaCEmbed *args){
     return  LuaCEmbed_send_table(self);
 }
 
+LuaCEmbedResponse * resource_try_set_value(LuaCEmbedTable  *self,LuaCEmbed *args) {
+    Writeble  write_obj = create_writeble(args,0);
+    if(write_obj.error){
+        return write_obj.error;
+    }
+    DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
+    DtwResource_set_binary(resource,write_obj.content, write_obj.size);
+    if(DtwResource_error(resource)){
+        DtwResource_clear_errors(resource);
+        return  LuaCEmbed_send_bool(false);
+    }
+    return LuaCEmbed_send_bool(true);
 
+}
 
 LuaCEmbedResponse * resource_commit(LuaCEmbedTable  *self,LuaCEmbed *args){
     DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
@@ -179,10 +201,13 @@ LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource){
     LuaCEmbedTable_set_method(self,SCHEMA_COUNT_RESOURCE_METHOD,schema_count_resource);
     LuaCEmbedTable_set_method(self, SCHEMA_EACH_METHOD, resource_schema_each);
 
-
     LuaCEmbedTable_set_method(self,LIST_METHOD,resource_list);
     LuaCEmbedTable_set_method(self,EACH_METHOD,resource_foreach);
     LuaCEmbedTable_set_method(self, SCHEMA_NEW_INSERTION, Resource_new_insertion);
+
+    LuaCEmbedTable_set_method(self, RESOURCE_TRY_SET_VALUE_METHOD, resource_try_set_value);
+
+    LuaCEmbedTable_set_method(self,RESOURCE_TRY_RENAME_METHOD,resource_try_rename);
 
     if(resource->mother ==NULL){
         LuaCEmbedTable_set_method(self, DELETE_METHOD, free_resource);

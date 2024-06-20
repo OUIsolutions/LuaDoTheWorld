@@ -134,10 +134,10 @@
 ---@field get_string fun():string | nil
 ---@field get_number fun(): number | nil
 ---@field get_bool fun(): boolean | nil
----@field set_value fun(value:string | number | boolean | string | DtwResource )
+---@field set_value fun(value:string | number | boolean | string | DtwResource ):boolean
 ---@field commit fun()  apply the modifications
 ---@field lock fun() boolean
----@field unlock fun()
+---@field unlock fun():DtwResource
 ---@field unload fun() unload the content 
 ---@field get_path_string fun() :string
 ---@field each fun(callback :fun(element:DtwResource))
@@ -147,6 +147,8 @@
 ---@field set_value_in_sub_resource fun(key:string ,value:string | number | boolean | string | DtwResource )
 ---@field get_value_from_sub_resource fun(key:string):string | number | boolean | nil | string
 ---@field newSchema fun():DtwSchema
+---@field try_rename fun(new_name:string):boolean
+---@field try_set_value fun(value:string | number | boolean | string | DtwResource ):boolean
 
 
 ---@class DtwModule
