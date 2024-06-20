@@ -35,10 +35,13 @@ LuaCEmbedResponse * resource_try_rename(LuaCEmbedTable  *self,LuaCEmbed *args) {
     char *new_name = LuaCEmbed_get_str_arg(args,0);
     DtwResource_rename(resource,new_name);
     if(DtwResource_error(resource)){
+        char *error_mensage = DtwResource_get_error_message(resource);
+        LuaCEmbedResponse *response = LuaCEmbed_send_str(error_mensage);
         DtwResource_clear_errors(resource);
-        return  LuaCEmbed_send_bool(false);
+        return  response;
     }
-    return LuaCEmbed_send_bool(true);
+
+    return LuaCEmbed_send_bool(false);
 }
 LuaCEmbedResponse * resource_set_value(LuaCEmbedTable  *self,LuaCEmbed *args){
     Writeble  write_obj = create_writeble(args,0);
@@ -65,10 +68,13 @@ LuaCEmbedResponse * resource_try_set_value(LuaCEmbedTable  *self,LuaCEmbed *args
     DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     DtwResource_set_binary(resource,write_obj.content, write_obj.size);
     if(DtwResource_error(resource)){
+        char *error_mensage = DtwResource_get_error_message(resource);
+        LuaCEmbedResponse *response = LuaCEmbed_send_str(error_mensage);
         DtwResource_clear_errors(resource);
-        return  LuaCEmbed_send_bool(false);
+        return  response;
     }
-    return LuaCEmbed_send_bool(true);
+
+    return LuaCEmbed_send_bool(false);
 
 }
 
@@ -95,10 +101,13 @@ LuaCEmbedResponse * resource_try_destroy(LuaCEmbedTable  *self,LuaCEmbed *args) 
     DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     DtwResource_destroy(resource);
     if(DtwResource_error(resource)){
+        char *error_mensage = DtwResource_get_error_message(resource);
+        LuaCEmbedResponse *response = LuaCEmbed_send_str(error_mensage);
         DtwResource_clear_errors(resource);
-        return  LuaCEmbed_send_bool(false);
+        return  response;
     }
-    return LuaCEmbed_send_bool(true);
+
+    return LuaCEmbed_send_bool(false);
 }
 LuaCEmbedResponse * unload_resurce(LuaCEmbedTable  *self, LuaCEmbed *args){
     DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
@@ -138,14 +147,20 @@ LuaCEmbedResponse * resource_new_schema(LuaCEmbedTable  *self, LuaCEmbed *args){
 LuaCEmbedResponse * resource_try_new_schema(LuaCEmbedTable  *self, LuaCEmbed *args) {
     DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     DtwSchema *schema = DtwResource_newSchema(resource);
+    LuaCEmbedTable *multi_response = LuaCembed_new_anonymous_table(args);
 
     if(DtwResource_error(resource)){
+        char *error_mensage = DtwResource_get_error_message(resource);
+        LuaCEmbedTable_append_string(multi_response,error_mensage);
         DtwResource_clear_errors(resource);
-        return  NULL;
+        return  LuaCEmbed_send_table(multi_response);
     }
 
+    LuaCEmbedTable_append_bool(multi_response,false);
     LuaCEmbedTable  *created = raw_create_schema(args,schema);
-    return LuaCEmbed_send_table(created);
+    LuaCEmbedTable_append_table(multi_response,created);
+    return LuaCEmbed_send_multi_return(multi_response);
+
 }
 LuaCEmbedResponse * resource_set_value_in_sub_resource(LuaCEmbedTable  *self,LuaCEmbed *args){
 
@@ -189,12 +204,13 @@ LuaCEmbedResponse * resource_try_set_value_in_sub_resource(LuaCEmbedTable  *self
     DtwResource *values = DtwResource_sub_resource(resource,folder);
     DtwResource_set_binary(values,write_obj.content,write_obj.size);
     if(DtwResource_error(resource)){
-
+        char *error_mensage = DtwResource_get_error_message(resource);
+        LuaCEmbedResponse *response = LuaCEmbed_send_str()(error_mensage);
         DtwResource_clear_errors(resource);
-        return  LuaCEmbed_send_bool(false);
+        return  response;
     }
 
-    return LuaCEmbed_send_bool(true);
+    return LuaCEmbed_send_bool(false);
 }
 
 LuaCEmbedResponse * resource_is_blob(LuaCEmbedTable  *self,LuaCEmbed *args){

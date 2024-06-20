@@ -148,10 +148,10 @@
 ---@field try_set_value_in_sub_resource fun(key:string ,value:string | number | boolean | string | DtwResource ):boolean
 ---@field get_value_from_sub_resource fun(key:string):string | number | boolean | nil | string
 ---@field newSchema fun():DtwSchema
----@field try_newSchema fun():DtwSchema | nil
----@field try_rename fun(new_name:string):boolean
----@field try_set_value fun(value:string | number | boolean | string | DtwResource ):boolean
----@field try_destroy fun():boolean
+---@field try_newSchema fun():string|false, DtwSchema
+---@field try_rename fun(new_name:string):string |false
+---@field try_set_value fun(value:string | number | boolean | string | DtwResource ):string | false
+---@field try_destroy fun():string | false
 
 
 ---@class DtwModule
