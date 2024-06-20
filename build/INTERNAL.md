@@ -101,7 +101,22 @@ if you need to combine a lot of different entries, you can use the DtwHasher obj
 
 codeof:exemples/Hashing/Hasher.lua
 
+### Transaction
+Transactions its a way to write actions in a atomic way, preventing crashing operations 
 
+codeof:exemples/Transaction/basic_transaction.lua
+
+#### Dumping Transaction to json
+you also can store a transaction into a json, to load it in the future, or in a diferent 
+os
+codeof:exemples/Transaction/dump_transaction_to_json.lua
+
+
+#### Loading a transactiion from json 
+these example loads a transaction from a json file 
+
+
+codeof:exemples/Transaction/load_transaction.lua
 
 
 ### DtwFork 
