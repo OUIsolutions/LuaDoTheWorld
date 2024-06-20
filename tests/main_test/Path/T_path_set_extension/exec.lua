@@ -1,5 +1,5 @@
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
 local path = dtw.newPath("a/b/c.txt")
-path.insert_dir_at_index(1,"inserted_dir")
+path.set_extension("py")
 print(path.get_full_path())

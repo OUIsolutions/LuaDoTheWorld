@@ -1,5 +1,5 @@
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
 local path = dtw.newPath("a/b/c.txt")
-path.insert_dir_at_index(1,"inserted_dir")
-print(path.get_full_path())
+local sub_dirs = path.get_sub_dirs_from_index(1,-1)
+print(sub_dirs)
