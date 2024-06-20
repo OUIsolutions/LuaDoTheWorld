@@ -24,7 +24,7 @@ LuaCEmbedResponse * transaction_dumps_to_json_string(LuaCEmbedTable *self,LuaCEm
     return response;
 }
 
-LuaCEmbedResponse * create_empty_transaction_from_json_string(LuaCEmbed *args) {
+LuaCEmbedResponse * create_transaction_from_json_string(LuaCEmbed *args) {
 
     char *content = LuaCEmbed_get_str_arg(args,0);
     if(LuaCEmbed_has_errors(args)){
@@ -60,7 +60,7 @@ LuaCEmbedResponse * create_empty_transaction_from_json_string(LuaCEmbed *args) {
 }
 
 
-LuaCEmbedResponse * create_empty_transaction_from_json_file(LuaCEmbed *args) {
+LuaCEmbedResponse * create_transaction_from_json_file(LuaCEmbed *args) {
 
     char *filename = LuaCEmbed_get_str_arg(args,0);
     if(LuaCEmbed_has_errors(args)){

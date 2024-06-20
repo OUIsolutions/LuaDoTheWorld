@@ -1,7 +1,7 @@
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
 
-local transaction = dtw.newTransaction_from_file("tests/target/json_transaction.json")
+local transaction = dtw.new_transaction_from_file("tests/target/json_transaction.json")
 transaction.each(function (action)
 	local dest = action.get_dest()
 	local type = action.get_type()
