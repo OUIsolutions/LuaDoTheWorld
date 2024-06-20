@@ -177,6 +177,45 @@ these example loads a transaction from a json file
 
 codeof:exemples/Transaction/load_transaction.lua
 
+### Trees and Tree Parts
+
+Trees and Tree parts are a way to manage files in a one dimension list 
+
+#### Creating a Tree
+in these example, we create a tree
+codeof:exemples/Tree/creating_a_tree.lua
+
+### Modifying a Tree
+Here we set all txt extension to py extension of a loaded tree
+codeof:exemples/Tree/modifying_extension.lua
+
+#### Map Tree
+You also can map trees , to create custom objects list derived from tree parts 
+
+codeof:exemples/Tree/map.lua
+
+#### Count Tree
+or you can count tree parts that fits conditions
+codeof:exemples/Tree/count.lua
+`
+`### Hardwar Operators
+These tree actions type on tree behave different on each other
+#### Hardware Write 
+Hardware Write will make the changes ,ignoring previews existence
+for example ,if a file its "a.txt"  and you set the path to "b.txt" it will
+create a new file "b.txt" ignoring a.txt, but if you set the content of a.txt without 
+modifying the path, it will overwrite the "a.txt"
+
+codeof:exemples/Tree/hardware_write.lua
+
+#### Hardware Modify
+Hardware Modify will consider previews path, and in the same example, if you change the path
+from "a.txt" to "b.txt" it will rename the file
+codeof:exemples/Tree/hardware_modify.lua
+
+#### Hardware Remove
+These directive will remove the given tree part that you typed
+codeof:exemples/Tree/hardware_remove.lua
 
 ### DtwFork 
 with DtwFork you can fork process easily 

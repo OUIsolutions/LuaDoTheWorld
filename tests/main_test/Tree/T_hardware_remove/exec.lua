@@ -12,4 +12,5 @@ end)
 target.path.set_name("new_name.txt")
 target.hardware_remove()
 
+tree.commit()
 

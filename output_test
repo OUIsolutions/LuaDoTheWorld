@@ -1,33 +1,15 @@
-==5952== Memcheck, a memory error detector
-==5952== Copyright (C) 2002-2024, and GNU GPL'd, by Julian Seward et al.
-==5952== Using Valgrind-3.23.0 and LibVEX; rerun with -h for copyright info
-==5952== Command: lua tests/main_test/Tree/T_creating_a_tree/exec.lua
-==5952== Parent PID: 5673
-==5952== 
-==5952== Conditional jump or move depends on uninitialised value(s)
-==5952==    at 0x484BDE8: strlen (vg_replace_strmem.c:505)
-==5952==    by 0x505C154: calc_sha_256_from_string_returning_string (in /home/mateusmoutinho/Documentos/OUI/production/lualibs/LuaDoTheWorld/luaDoTheWorld/luaDoTheWorld_clib.so)
-==5952==    by 0x505CA1B: dtw_generate_sha_from_string (in /home/mateusmoutinho/Documentos/OUI/production/lualibs/LuaDoTheWorld/luaDoTheWorld/luaDoTheWorld_clib.so)
-==5952==    by 0x506153D: DtwTreePart_hardware_write (in /home/mateusmoutinho/Documentos/OUI/production/lualibs/LuaDoTheWorld/luaDoTheWorld/luaDoTheWorld_clib.so)
-==5952==    by 0x50617A6: DtwTreePart_hardware_commit (in /home/mateusmoutinho/Documentos/OUI/production/lualibs/LuaDoTheWorld/luaDoTheWorld/luaDoTheWorld_clib.so)
-==5952==    by 0x5063337: DtwTree_hardware_commit_tree (in /home/mateusmoutinho/Documentos/OUI/production/lualibs/LuaDoTheWorld/luaDoTheWorld/luaDoTheWorld_clib.so)
-==5952==    by 0x5076690: hardware_commit_tree (in /home/mateusmoutinho/Documentos/OUI/production/lualibs/LuaDoTheWorld/luaDoTheWorld/luaDoTheWorld_clib.so)
-==5952==    by 0x5059890: privateLuaCEmbed_main_callback_handler (in /home/mateusmoutinho/Documentos/OUI/production/lualibs/LuaDoTheWorld/luaDoTheWorld/luaDoTheWorld_clib.so)
-==5952==    by 0x4883FF9: UnknownInlinedFun (ldo.c:529)
-==5952==    by 0x4883FF9: luaD_precall (ldo.c:595)
-==5952==    by 0x4898BF3: luaV_execute (lvm.c:1686)
-==5952==    by 0x487AFD5: UnknownInlinedFun (ldo.c:637)
-==5952==    by 0x487AFD5: UnknownInlinedFun (ldo.c:655)
-==5952==    by 0x487AFD5: f_call (lapi.c:1038)
-==5952==    by 0x4880944: luaD_rawrunprotected (ldo.c:144)
-==5952== 
-==5952== 
-==5952== HEAP SUMMARY:
-==5952==     in use at exit: 0 bytes in 0 blocks
-==5952==   total heap usage: 903 allocs, 903 frees, 90,382 bytes allocated
-==5952== 
-==5952== All heap blocks were freed -- no leaks are possible
-==5952== 
-==5952== Use --track-origins=yes to see where uninitialised values come from
-==5952== For lists of detected and suppressed errors, rerun with: -s
-==5952== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
+==11162== Memcheck, a memory error detector
+==11162== Copyright (C) 2002-2024, and GNU GPL'd, by Julian Seward et al.
+==11162== Using Valgrind-3.23.0 and LibVEX; rerun with -h for copyright info
+==11162== Command: lua tests/main_test/Tree/T_hardware_write/exec.lua
+==11162== Parent PID: 11139
+==11162== 
+==11162== 
+==11162== HEAP SUMMARY:
+==11162==     in use at exit: 0 bytes in 0 blocks
+==11162==   total heap usage: 1,046 allocs, 1,046 frees, 240,214 bytes allocated
+==11162== 
+==11162== All heap blocks were freed -- no leaks are possible
+==11162== 
+==11162== For lists of detected and suppressed errors, rerun with: -s
+==11162== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

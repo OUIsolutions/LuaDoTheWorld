@@ -12,7 +12,8 @@ LuaCEmbedResponse *tree_find(LuaCEmbedTable *self, LuaCEmbed *args){
             return LuaCEmbed_send_error(error_msg);
         }
         int response_type =LuaCEmbedTable_get_type_by_index(response,0);
-        if(response_type != LUA_CEMBED_NIL){
+
+        if(response_type != LUA_CEMBED_NIL && response_type != LUA_CEMBED_NOT_FOUND){
             bool is_the_value = LuaCEmbedTable_get_bool_by_index(response,0);
             if(LuaCEmbed_has_errors(args)){
                 char *error_msg = LuaCEmbed_get_error_message(args);

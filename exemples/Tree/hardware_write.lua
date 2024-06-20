@@ -8,8 +8,8 @@ local target = tree.find(function (element)
         return true;
 	end
 end)
-
 target.path.set_name("new_name.txt")
-target.hardware_remove()
+target.hardware_write()
 
+tree.commit()
 

@@ -1,0 +1,12 @@
+[{
+  "action":	"write",
+  "source":	"tests/target/a.txt",
+  "content":	"content of a"
+}, {
+  "action":	"delete",
+  "source":	"tests/target/test_dir"
+}, {
+  "action":	"copy",
+  "source":	"tests/target/a",
+  "dest":	"tests/target/b"
+}]
