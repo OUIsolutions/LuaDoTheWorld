@@ -28,11 +28,12 @@
 ---@field is_blob fun():boolean
 ---@field unload fun():DtwTreePart
 ---@field load fun():DtwTreePart
-
+---@field content_exist_in_hardware fun():boolean
+---@field content_exist fun():boolean
 
 ---@class DtwTree
----@field newTreePart_empty fun ():DtwTreePart
----@field newTreePart_loading fun ():DtwTreePart
+---@field newTreePart_empty fun (path:string):DtwTreePart
+---@field newTreePart_loading fun (path:string):DtwTreePart
 ---@field get_tree_part_by_index fun(index:number):DtwTreePart
 ---@field insecure_hardware_write_tree fun():DtwTree
 ---@field insecure_hardware_remove fun():DtwTree

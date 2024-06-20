@@ -1,5 +1,24 @@
 
 
+LuaCEmbedResponse * tree_part_exist_in_hardware(LuaCEmbedTable *self,LuaCEmbed *args) {
+    DtwTreePart *self_part  = (DtwTreePart*)LuaCembedTable_get_long_prop(self,TREE_PART_POINTER);
+    return  LuaCEmbed_send_bool(self_part->content_exist_in_hardware);
+}
+
+
+LuaCEmbedResponse * tree_part_exis(LuaCEmbedTable *self,LuaCEmbed *args) {
+    DtwTreePart *self_part  = (DtwTreePart*)LuaCembedTable_get_long_prop(self,TREE_PART_POINTER);
+    if(self_part->content_exist_in_hardware) {
+        return  LuaCEmbed_send_bool(true);
+    }
+    if(self_part->content) {
+        return  LuaCEmbed_send_bool(true);
+    }
+    return LuaCEmbed_send_bool(false);
+
+}
+
+
 LuaCEmbedResponse * tree_part_get_value(LuaCEmbedTable *self,LuaCEmbed *args){
     DtwTreePart *self_part  = (DtwTreePart*)LuaCembedTable_get_long_prop(self,TREE_PART_POINTER);
 
@@ -122,6 +141,8 @@ LuaCEmbedTable * create_tree_part_reference(LuaCEmbed *args,DtwTreePart *part){
     LuaCEmbedTable_set_method(self,TO_STRING_METHOD,tree_part_to_string);
     LuaCEmbedTable_set_method(self,IS_BLOB_FUNC,tree_part_is_blob);
     LuaCEmbedTable_set_method(self,LOAD_METHOD,tree_part_load_content);
+    LuaCEmbedTable_set_method(self,TREE_PART_CONTENT_EXIST,tree_part_exis);
+    LuaCEmbedTable_set_method(self,TREE_PART_CONTENT_EXIST_IN_HARDWARE,tree_part_exist_in_hardware);
     return self;
 }
 
