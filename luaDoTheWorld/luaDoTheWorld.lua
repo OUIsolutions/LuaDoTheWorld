@@ -144,10 +144,10 @@
 ---@field set_extension fun(extension:string)
 ---@field list fun(): DtwResource[]
 ---@field destroy fun():DtwResource
-
 ---@field set_value_in_sub_resource fun(key:string ,value:string | number | boolean | string | DtwResource )
 ---@field get_value_from_sub_resource fun(key:string):string | number | boolean | nil | string
 ---@field newSchema fun():DtwSchema
+---@field try_newSchema fun():DtwSchema | nil
 ---@field try_rename fun(new_name:string):boolean
 ---@field try_set_value fun(value:string | number | boolean | string | DtwResource ):boolean
 ---@field try_destroy fun():boolean

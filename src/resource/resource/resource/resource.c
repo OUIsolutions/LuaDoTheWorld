@@ -123,11 +123,30 @@ LuaCEmbedResponse * unlock_resource(LuaCEmbedTable  *self, LuaCEmbed *args){
 LuaCEmbedResponse * resource_new_schema(LuaCEmbedTable  *self, LuaCEmbed *args){
     DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     DtwSchema *schema = DtwResource_newSchema(resource);
+
+    if(DtwResource_error(resource)){
+        char *error_mensage = DtwResource_get_error_message(resource);
+        LuaCEmbedResponse *response = LuaCEmbed_send_error(error_mensage);
+        DtwResource_clear_errors(resource);
+        return  response;
+    }
+
     LuaCEmbedTable  *created = raw_create_schema(args,schema);
     return LuaCEmbed_send_table(created);
 
 }
+LuaCEmbedResponse * resource_try_new_schema(LuaCEmbedTable  *self, LuaCEmbed *args) {
+    DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
+    DtwSchema *schema = DtwResource_newSchema(resource);
 
+    if(DtwResource_error(resource)){
+        DtwResource_clear_errors(resource);
+        return  NULL;
+    }
+
+    LuaCEmbedTable  *created = raw_create_schema(args,schema);
+    return LuaCEmbed_send_table(created);
+}
 LuaCEmbedResponse * resource_set_value_in_sub_resource(LuaCEmbedTable  *self,LuaCEmbed *args){
 
     char *folder = LuaCEmbed_get_str_arg(args,0);
@@ -218,6 +237,7 @@ LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource){
     LuaCEmbedTable_set_method(self, RESOURCE_TRY_SET_VALUE_METHOD, resource_try_set_value);
     LuaCEmbedTable_set_method(self,RESOURCE_TRY_RENAME_METHOD,resource_try_rename);
     LuaCEmbedTable_set_method(self,RESOURCE_TRY_DESTROY,resource_try_destroy);
+    LuaCEmbedTable_set_method(self,RESOURCE_TRY_NEW_SCHEMA,resource_try_new_schema);
 
     if(resource->mother ==NULL){
         LuaCEmbedTable_set_method(self, DELETE_METHOD, free_resource);

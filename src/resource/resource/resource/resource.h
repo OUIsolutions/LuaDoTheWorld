@@ -28,6 +28,8 @@ LuaCEmbedResponse * unlock_resource(LuaCEmbedTable  *self, LuaCEmbed *args);
 
 LuaCEmbedResponse * resource_new_schema(LuaCEmbedTable  *self, LuaCEmbed *args);
 
+LuaCEmbedResponse * resource_try_new_schema(LuaCEmbedTable  *self, LuaCEmbed *args);
+
 LuaCEmbedResponse * resource_set_value_in_sub_resource(LuaCEmbedTable  *self,LuaCEmbed *args);
 
 LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource);

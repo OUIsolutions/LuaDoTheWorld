@@ -29,3 +29,4 @@
 #define RESOURCE_TRY_RENAME_METHOD "try_rename"
 #define RESOURCE_TRY_SET_VALUE_METHOD "try_set_value"
 #define RESOURCE_TRY_DESTROY "try_destroy"
+#define RESOURCE_TRY_NEW_SCHEMA "try_newSchema"
