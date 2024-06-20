@@ -90,6 +90,16 @@ LuaCEmbedResponse * resource_destroy(LuaCEmbedTable  *self,LuaCEmbed *args){
     }
     return  LuaCEmbed_send_table(self);
 }
+
+LuaCEmbedResponse * resource_try_destroy(LuaCEmbedTable  *self,LuaCEmbed *args) {
+    DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
+    DtwResource_destroy(resource);
+    if(DtwResource_error(resource)){
+        DtwResource_clear_errors(resource);
+        return  LuaCEmbed_send_bool(false);
+    }
+    return LuaCEmbed_send_bool(true);
+}
 LuaCEmbedResponse * unload_resurce(LuaCEmbedTable  *self, LuaCEmbed *args){
     DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     DtwResource_unload(resource);
@@ -206,8 +216,8 @@ LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource){
     LuaCEmbedTable_set_method(self, SCHEMA_NEW_INSERTION, Resource_new_insertion);
 
     LuaCEmbedTable_set_method(self, RESOURCE_TRY_SET_VALUE_METHOD, resource_try_set_value);
-
     LuaCEmbedTable_set_method(self,RESOURCE_TRY_RENAME_METHOD,resource_try_rename);
+    LuaCEmbedTable_set_method(self,RESOURCE_TRY_DESTROY,resource_try_destroy);
 
     if(resource->mother ==NULL){
         LuaCEmbedTable_set_method(self, DELETE_METHOD, free_resource);

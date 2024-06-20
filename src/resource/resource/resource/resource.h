@@ -18,6 +18,8 @@ LuaCEmbedResponse * resource_commit(LuaCEmbedTable  *self,LuaCEmbed *args);
 
 LuaCEmbedResponse * resource_destroy(LuaCEmbedTable  *self,LuaCEmbed *args);
 
+LuaCEmbedResponse * resource_try_destroy(LuaCEmbedTable  *self,LuaCEmbed *args);
+
 LuaCEmbedResponse * unload_resurce(LuaCEmbedTable  *self, LuaCEmbed *args);
 
 LuaCEmbedResponse * lock_resource(LuaCEmbedTable  *self, LuaCEmbed *args);
