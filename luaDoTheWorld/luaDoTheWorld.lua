@@ -176,8 +176,8 @@
 ---@field isfile fun():boolean
 ---@field isfile_blob fun():boolean
 ---@field newTransaction fun():DtwTransaction
----@field newTransaction_from_file fun():DtwTransaction
----@field newTransaction_from_json_string fun():DtwTransaction
+---@field newTransaction_from_file fun(file:string):DtwTransaction
+---@field newTransaction_from_json_string fun(content:string):DtwTransaction
 ---@field newPath fun(path:string):DtwPath
 ---@field newTree fun():DtwTree
 ---@field newTree_from_hardware fun(path:string):DtwTree
