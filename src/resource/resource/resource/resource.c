@@ -279,6 +279,8 @@ LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource){
     LuaCEmbedTable_set_method(self,RESOURCE_TRY_DESTROY,resource_try_destroy);
     LuaCEmbedTable_set_method(self,RESOURCE_TRY_NEW_SCHEMA,resource_try_new_schema);
     LuaCEmbedTable_set_method(self,RESOURCE_TRY_SET_VALUE_IN_SUB_RESOURCE_METHOD,resource_try_set_value_in_sub_resource);
+    LuaCEmbedTable_set_method(self,RESOURCE_TRY_NEW_INSERTION_METHOD,Resource_try_new_insertion);
+
 
     if(resource->mother ==NULL){
         LuaCEmbedTable_set_method(self, DELETE_METHOD, free_resource);
