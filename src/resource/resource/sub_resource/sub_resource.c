@@ -27,9 +27,11 @@ LuaCEmbedResponse * resource_sub_resource_index(LuaCEmbedTable  *self, LuaCEmbed
     }
 
     char *src = LuaCEmbed_get_str_arg(args,1);
-    if(LuaCEmbed_has_errors(args)){
-        char *error_message = LuaCEmbed_get_error_message(args);
-        return  LuaCEmbed_send_error(error_message);
+    if(DtwResource_error(resource)){
+        char *message = DtwResource_get_error_message(resource);
+        LuaCEmbedResponse *response = LuaCEmbed_send_error(message);
+        DtwResource_clear_errors(resource);
+        return  response;
     }
     return private_resource_sub_resource_raw(self,args,src);
 }
@@ -57,7 +59,14 @@ LuaCEmbedResponse * resource_sub_resource_next(LuaCEmbedTable  *self,LuaCEmbed *
 
     DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     DtwResource *sub_resource = DtwResource_sub_resource_next(resource,src);
+    if(DtwResource_error(resource)){
+        char *message = DtwResource_get_error_message(resource);
+        LuaCEmbedResponse *response = LuaCEmbed_send_error(message);
+        DtwResource_clear_errors(resource);
+        return  response;
+    }
     LuaCEmbedTable  *sub = raw_create_resource(args,sub_resource);
+
     return LuaCEmbed_send_table(sub);
 }
 
@@ -73,6 +82,12 @@ LuaCEmbedResponse * resource_sub_resource_now(LuaCEmbedTable  *self,LuaCEmbed *a
 
     DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     DtwResource *sub_resource = DtwResource_sub_resource_now(resource,src);
+    if(DtwResource_error(resource)){
+        char *message = DtwResource_get_error_message(resource);
+        LuaCEmbedResponse *response = LuaCEmbed_send_error(message);
+        DtwResource_clear_errors(resource);
+        return  response;
+    }
     LuaCEmbedTable  *sub = raw_create_resource(args,sub_resource);
     return LuaCEmbed_send_table(sub);
 }
@@ -89,6 +104,14 @@ LuaCEmbedResponse * resource_sub_resource_now_in_unix(LuaCEmbedTable  *self,LuaC
 
     DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     DtwResource *sub_resource = DtwResource_sub_resource_now_in_unix(resource,src);
+
+    if(DtwResource_error(resource)){
+        char *message = DtwResource_get_error_message(resource);
+        LuaCEmbedResponse *response = LuaCEmbed_send_error(message);
+        DtwResource_clear_errors(resource);
+        return  response;
+    }
+
     LuaCEmbedTable  *sub = raw_create_resource(args,sub_resource);
     return LuaCEmbed_send_table(sub);
 }

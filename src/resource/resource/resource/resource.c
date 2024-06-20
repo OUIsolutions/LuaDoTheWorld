@@ -205,7 +205,7 @@ LuaCEmbedResponse * resource_try_set_value_in_sub_resource(LuaCEmbedTable  *self
     DtwResource_set_binary(values,write_obj.content,write_obj.size);
     if(DtwResource_error(resource)){
         char *error_mensage = DtwResource_get_error_message(resource);
-        LuaCEmbedResponse *response = LuaCEmbed_send_str()(error_mensage);
+        LuaCEmbedResponse *response = LuaCEmbed_send_str(error_mensage);
         DtwResource_clear_errors(resource);
         return  response;
     }
