@@ -76,8 +76,10 @@ LuaCEmbedResponse * unload_resurce(LuaCEmbedTable  *self, LuaCEmbed *args){
 
 LuaCEmbedResponse * lock_resource(LuaCEmbedTable  *self, LuaCEmbed *args){
     DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
-    DtwResource_lock(resource);
-    return  LuaCEmbed_send_table(self);
+    if(DtwResource_lock(resource)) {
+        return LuaCEmbed_send_bool(false);
+    }
+    return LuaCEmbed_send_bool(true);
 }
 
 LuaCEmbedResponse * unlock_resource(LuaCEmbedTable  *self, LuaCEmbed *args){

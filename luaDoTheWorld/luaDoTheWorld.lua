@@ -136,7 +136,7 @@
 ---@field get_bool fun(): boolean | nil
 ---@field set_value fun(value:string | number | boolean | string | DtwResource )
 ---@field commit fun()  apply the modifications
----@field lock fun() lock the resource from other process 
+---@field lock fun() boolean
 ---@field unlock fun()
 ---@field unload fun() unload the content 
 ---@field get_path_string fun() :string
