@@ -1,0 +1,15 @@
+===================================
+dest	nil
+to	tests/target/a.txt
+type	write
+content	content of a
+===================================
+dest	nil
+to	tests/target/test_dir
+type	delete
+content	nil
+===================================
+dest	tests/target/b
+to	tests/target/a
+type	copy
+content	nil

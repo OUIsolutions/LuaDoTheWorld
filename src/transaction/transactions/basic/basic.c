@@ -24,6 +24,7 @@ LuaCEmbedResponse * transaction_commit(LuaCEmbedTable *self,LuaCEmbed *args) {
 LuaCEmbedResponse * transaction_delete(LuaCEmbedTable *self,LuaCEmbed *args) {
     DtwTransaction *t = (DtwTransaction*)LuaCembedTable_get_long_prop(self,TRANSACTION_POINTER);
     bool ref = LuaCembedTable_get_bool_prop(self,IS_A_REF);
+
     if(!ref){
         DtwTransaction_free(t);
     }

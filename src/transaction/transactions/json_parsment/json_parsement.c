@@ -51,7 +51,7 @@ LuaCEmbedResponse * create_transaction_from_json_string(LuaCEmbed *args) {
     }
 
     LuaCEmbedTable * self = LuaCembed_new_anonymous_table(args);
-    LuaCEmbedTable_set_method(self,IS_A_REF,false);
+    LuaCEmbedTable_set_bool_prop(self,IS_A_REF,false);
     private_transaction_add_base_methods(self,transaction_obj);
     UniversalGarbage_free(garbage);
     return LuaCEmbed_send_table(self);
@@ -102,7 +102,7 @@ LuaCEmbedResponse * create_transaction_from_json_file(LuaCEmbed *args) {
     }
 
     LuaCEmbedTable * self = LuaCembed_new_anonymous_table(args);
-    LuaCEmbedTable_set_method(self,IS_A_REF,false);
+    LuaCEmbedTable_set_bool_prop(self,IS_A_REF,false);
     private_transaction_add_base_methods(self,transaction_obj);
     UniversalGarbage_free(garbage);
     return LuaCEmbed_send_table(self);
