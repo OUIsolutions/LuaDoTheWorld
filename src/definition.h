@@ -13,3 +13,4 @@
 #include "randonizer/randonizer.c"
 #include "fork_process/fork_process.c"
 #include "locker/locker.c"
+#include "entity_modification/entity_modification.c"

@@ -187,6 +187,8 @@
 ---@field newRandonizer fun():DtwRandonizer
 ---@field newFork fun(callback:fun()):DtwFork
 ---@field newLocker fun():DtwLocker
+---@field get_entity_last_modification_in_unix fun(entity:string):number | nil
+---@field get_entity_last_modification fun(entity:string)):string | nil
 
 local info = debug.getinfo(1, "S")
 local path = info.source:match("@(.*/)") or ""

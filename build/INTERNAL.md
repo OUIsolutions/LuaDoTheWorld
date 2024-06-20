@@ -88,6 +88,14 @@ codeof:exemples/Base64/transform_file_in_base64.lua
 #### Retransform b64 to binary 
 codeof:exemples/Base64/transform_binary_in_base64.lua
 
+### Getting Entity Last Modification
+if you want to get the  folder/file last modification, its also possible
+codeof:exemples/last_modification/entity_last_modification.lua
+
+### Getting Entity Last Modification in Unix
+you also can generate it in unix 
+
+codeof:exemples/last_modification/entity_last_modification_in_unix.lua
 
 ### Hashing 
 You can generate assignature of anything you want  with all the hash functions

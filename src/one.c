@@ -46,6 +46,8 @@ void start_lua_props(LuaCEmbed *l){
     LuaCEmbed_add_callback(l,NEW_RANDONIZER,create_randonizer);
     LuaCEmbed_add_callback(l,NEW_FORK,create_fork_process);
     LuaCEmbed_add_callback(l,NEW_LOCKER,create_locker);
+    LuaCEmbed_add_callback(l,GET_ENTITY_LAST_MODIFICATION,lua_get_entity_last_modification);
+    LuaCEmbed_add_callback(l,GET_ENTITY_LAST_MODIFICATION_IN_UNIX,lua_get_entity_last_modification_in_unix);
 }
 
 int load_luaDoTheWorld(lua_State *state){

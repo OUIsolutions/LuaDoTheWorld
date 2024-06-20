@@ -43,3 +43,6 @@
 #define NEW_RANDONIZER "newRandonizer"
 #define NEW_FORK "newFork"
 #define NEW_LOCKER "newLocker"
+#define GET_ENTITY_LAST_MODIFICATION_IN_UNIX "get_entity_last_modification_in_unix"
+#define  GET_ENTITY_LAST_MODIFICATION "get_entity_last_modification"
+
