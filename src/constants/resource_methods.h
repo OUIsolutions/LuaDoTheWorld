@@ -30,3 +30,4 @@
 #define RESOURCE_TRY_SET_VALUE_METHOD "try_set_value"
 #define RESOURCE_TRY_DESTROY "try_destroy"
 #define RESOURCE_TRY_NEW_SCHEMA "try_newSchema"
+#define RESOURCE_TRY_SET_VALUE_IN_SUB_RESOURCE_METHOD "try_set_value_in_sub_resource"

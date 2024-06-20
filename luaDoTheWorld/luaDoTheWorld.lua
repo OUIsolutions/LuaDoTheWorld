@@ -145,6 +145,7 @@
 ---@field list fun(): DtwResource[]
 ---@field destroy fun():DtwResource
 ---@field set_value_in_sub_resource fun(key:string ,value:string | number | boolean | string | DtwResource )
+---@field try_set_value_in_sub_resource fun(key:string ,value:string | number | boolean | string | DtwResource ):boolean
 ---@field get_value_from_sub_resource fun(key:string):string | number | boolean | nil | string
 ---@field newSchema fun():DtwSchema
 ---@field try_newSchema fun():DtwSchema | nil
