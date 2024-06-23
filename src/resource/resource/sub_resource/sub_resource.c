@@ -1,7 +1,13 @@
 
-LuaCEmbedResponse * private_resource_sub_resource_raw(LuaCEmbedTable  *self, LuaCEmbed *args,const char *src){
+LuaCEmbedResponse * resource_sub_resource_raw(LuaCEmbedTable  *self, LuaCEmbed *args,const char *src){
     DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     DtwResource *sub_resource = DtwResource_sub_resource(resource,"%s",src);
+    if(DtwResource_error(resource)){
+        char *message = DtwResource_get_error_message(resource);
+        LuaCEmbedResponse *response = LuaCEmbed_send_error(message);
+        DtwResource_clear_errors(resource);
+        return  response;
+    }
     LuaCEmbedTable  *sub = raw_create_resource(args,sub_resource);
     return LuaCEmbed_send_table(sub);
 }
@@ -33,7 +39,7 @@ LuaCEmbedResponse * resource_sub_resource_index(LuaCEmbedTable  *self, LuaCEmbed
         DtwResource_clear_errors(resource);
         return  response;
     }
-    return private_resource_sub_resource_raw(self,args,src);
+    return resource_sub_resource_raw(self,args,src);
 }
 
 
@@ -44,7 +50,7 @@ LuaCEmbedResponse * resource_sub_resource_method(LuaCEmbedTable  *self, LuaCEmbe
         char *error_message = LuaCEmbed_get_error_message(args);
         return  LuaCEmbed_send_error(error_message);
     }
-    return private_resource_sub_resource_raw(self,args,src);
+    return resource_sub_resource_raw(self,args,src);
 }
 
 LuaCEmbedResponse * resource_sub_resource_next(LuaCEmbedTable  *self,LuaCEmbed *args){

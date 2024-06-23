@@ -19,7 +19,7 @@ LuaCEmbedResponse * resource_new_schema(LuaCEmbedTable  *self, LuaCEmbed *args){
 
 LuaCEmbedResponse * resource_try_new_schema(LuaCEmbedTable  *self, LuaCEmbed *args) {
     DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
-    DtwDtatabaseSchema *schema = DtwResource_newDatabaseSchema(resource);
+    DtwDatabaseSchema *schema = DtwResource_newDatabaseSchema(resource);
     LuaCEmbedTable *schema_or_error = LuaCembed_new_anonymous_table(args);
 
     if(DtwResource_error(resource)){
