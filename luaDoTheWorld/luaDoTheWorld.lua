@@ -168,6 +168,10 @@
 ---@field try_get_resource_by_name_id fun(id_name:string) :DtwResourceOrError
 ---@field try_dangerous_rename_prop fun(primary_key:string ,new_name:string):string | nil
 ---@field try_dangerous_remove_prop fun(primary_key:string):string | nil
+---@field try_sub_resource fun(name:string):DtwResourceOrError
+---@field try_sub_resource_next fun(name:string):DtwResourceOrError
+---@field try_sub_resource_now fun(name:string):DtwResourceOrError
+---@field try_sub_resource_now_in_unix fun(name:string):DtwResourceOrError
 
 
 ---@class DtwModule
@@ -210,7 +214,7 @@
 ---@field newFork fun(callback:fun()):DtwFork
 ---@field newLocker fun():DtwLocker
 ---@field get_entity_last_modification_in_unix fun(entity:string):number | nil
----@field get_entity_last_modification fun(entity:string)):string | nil
+---@field get_entity_last_modification fun(entity:string):string | nil
 
 local info = debug.getinfo(1, "S")
 local path = info.source:match("@(.*/)") or ""
