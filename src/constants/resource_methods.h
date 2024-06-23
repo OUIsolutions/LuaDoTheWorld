@@ -32,3 +32,7 @@
 #define RESOURCE_TRY_NEW_SCHEMA "try_newSchema"
 #define RESOURCE_TRY_SET_VALUE_IN_SUB_RESOURCE_METHOD "try_set_value_in_sub_resource"
 #define RESOURCE_TRY_NEW_INSERTION_METHOD "try_new_insertion"
+#define TRY_GET_RESOURCE_MATCHING_PRIMARY_KEY_METHOD "try_fget_resource_matching_primary_key"
+#define TRY_GET_RESOURCE_BY_NAME_ID "get_resource_by_name_id"
+#define  TRY_DANGEROUS_REMOVE_PROP_METHOD "dangerous_remove_prop"
+#define  TRY_DANGEROUS_RENAME_PROP_METHOD "dangerous_rename_prop"

@@ -125,10 +125,10 @@
 
 ---@class DtwResource
 ---@field schema_new_insertion fun():DtwResource
----@field dangerous_remove_prop fun(primary_key:string)
----@field dangerous_rename_prop fun(primary_key:string ,new_name:string)
+---@field dangerous_remove_prop fun(primary_key:string):DtwResource
+---@field dangerous_rename_prop fun(primary_key:string ,new_name:string) :DtwResource
 ---@field get_resource_matching_primary_key fun(primary_key: string,  value:string | number | boolean | Dtwblobs | DtwResource ):DtwResource
----@field get_resource_by_name_id fun(id_name:string)
+---@field get_resource_by_name_id fun(id_name:string)  DtwResource | nil
 ---@field schema_list fun(): DtwResource[]
 ---@field schema_each fun(callback:fun(value:DtwResource))
 ---@field schema_find fun(callback:fun(value:DtwResource):boolean):DtwResource
@@ -162,6 +162,9 @@
 ---@field try_set_value fun(value:string | number | boolean | string | DtwResource ):string | nil
 ---@field try_destroy fun():string | nil
 ---@field try_schema_new_insertion fun():DtwResourceOrError
+---@field try_get_resource_by_name_id fun(id_name:string) :DtwResourceOrError
+---@field try_dangerous_rename_prop fun(primary_key:string ,new_name:string):string | nil
+---@field try_dangerous_remove_prop fun(primary_key:string):string | nil
 
 
 ---@class DtwModule

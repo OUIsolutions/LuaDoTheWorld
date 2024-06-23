@@ -1,5 +1,6 @@
 
 #include "../../../constants/resource_methods.h"
+#include "../schema/schema.h"
 
 LuaCEmbedResponse * free_resource(LuaCEmbedTable  *self, LuaCEmbed *args){
     DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
@@ -129,39 +130,7 @@ LuaCEmbedResponse * unlock_resource(LuaCEmbedTable  *self, LuaCEmbed *args){
     return  LuaCEmbed_send_table(self);
 }
 
-LuaCEmbedResponse * resource_new_schema(LuaCEmbedTable  *self, LuaCEmbed *args){
-    DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
-    DtwSchema *schema = DtwResource_newSchema(resource);
 
-    if(DtwResource_error(resource)){
-        char *error_mensage = DtwResource_get_error_message(resource);
-        LuaCEmbedResponse *response = LuaCEmbed_send_error(error_mensage);
-        DtwResource_clear_errors(resource);
-        return  response;
-    }
-
-    LuaCEmbedTable  *created = raw_create_schema(args,schema);
-    return LuaCEmbed_send_table(created);
-
-}
-
-LuaCEmbedResponse * resource_try_new_schema(LuaCEmbedTable  *self, LuaCEmbed *args) {
-    DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
-    DtwSchema *schema = DtwResource_newSchema(resource);
-    LuaCEmbedTable *schema_or_error = LuaCembed_new_anonymous_table(args);
-
-    if(DtwResource_error(resource)){
-        char *error_mensage = DtwResource_get_error_message(resource);
-        LuaCEmbedTable_set_string_prop(schema_or_error,ERROR_PROP,error_mensage);
-        DtwResource_clear_errors(resource);
-        return  LuaCEmbed_send_table(schema_or_error);
-    }
-
-    LuaCEmbedTable  *created = raw_create_schema(args,schema);
-    LuaCEmbedTable_set_sub_table_prop(schema_or_error,SCHEMA_VALUE_PROP,created);
-    return  LuaCEmbed_send_table(schema_or_error);
-
-}
 LuaCEmbedResponse * resource_set_value_in_sub_resource(LuaCEmbedTable  *self,LuaCEmbed *args){
 
     char *folder = LuaCEmbed_get_str_arg(args,0);
@@ -280,6 +249,10 @@ LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource){
     LuaCEmbedTable_set_method(self,RESOURCE_TRY_NEW_SCHEMA,resource_try_new_schema);
     LuaCEmbedTable_set_method(self,RESOURCE_TRY_SET_VALUE_IN_SUB_RESOURCE_METHOD,resource_try_set_value_in_sub_resource);
     LuaCEmbedTable_set_method(self,RESOURCE_TRY_NEW_INSERTION_METHOD,Resource_try_new_insertion);
+    LuaCEmbedTable_set_method(self,TRY_GET_RESOURCE_MATCHING_PRIMARY_KEY_METHOD,try_get_resource_match_schema_by_primary_key);
+    LuaCEmbedTable_set_method(self,TRY_GET_RESOURCE_BY_NAME_ID,try_get_resource_by_name_id);
+    LuaCEmbedTable_set_method(self,TRY_DANGEROUS_RENAME_PROP_METHOD,try_dangerous_rename_schema_prop);
+    LuaCEmbedTable_set_method(self,TRY_DANGEROUS_REMOVE_PROP_METHOD,try_dangerous_remove_schema_prop);
 
 
     if(resource->mother ==NULL){

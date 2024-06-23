@@ -26,7 +26,6 @@ LuaCEmbedResponse * lock_resource(LuaCEmbedTable  *self, LuaCEmbed *args);
 
 LuaCEmbedResponse * unlock_resource(LuaCEmbedTable  *self, LuaCEmbed *args);
 
-LuaCEmbedResponse * resource_new_schema(LuaCEmbedTable  *self, LuaCEmbed *args);
 
 
 LuaCEmbedResponse * resource_set_value_in_sub_resource(LuaCEmbedTable  *self,LuaCEmbed *args);
