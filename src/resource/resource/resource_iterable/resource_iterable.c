@@ -49,8 +49,7 @@ LuaCEmbedResponse * resource_filter(LuaCEmbedTable  *self,LuaCEmbed *args) {
 
     LuaCEmbedTable *response = LuaCembed_new_anonymous_table(args);
     LuaCEmbedTable_append_table(multi_response,response);
-    LuaCEmbedTable_append_long(multi_response,elements->size);
-
+    long total = 0;
     for(int i = 0; i < elements->size; i++) {
         DtwResource*current = elements->resources[i];
         LuaCEmbedTable  *sub = raw_create_resource(args,current);
@@ -75,13 +74,14 @@ LuaCEmbedResponse * resource_filter(LuaCEmbedTable  *self,LuaCEmbed *args) {
             return LuaCEmbed_send_error(error);
         }
         if(append_element) {
+            total+=1;
             LuaCEmbedTable_append_table(response,sub);
         }
 
 
 
     }
-
+    LuaCEmbedTable_append_long(multi_response,total);
     return LuaCEmbed_send_multi_return(multi_response);
 }
 LuaCEmbedResponse * resource_map(LuaCEmbedTable  *self,LuaCEmbed *args) {

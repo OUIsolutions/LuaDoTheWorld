@@ -5,7 +5,7 @@ local tree = dtw.newTree_from_hardware("tests/target/test_dir")
 local result,size = tree.filter(function (element)
 
     if(element.get_value() ~=nil)then
-    return true
+        return true
     end
 
 end)

@@ -82,7 +82,7 @@ LuaCEmbedResponse *tree_filter(LuaCEmbedTable *self, LuaCEmbed *args){
     LuaCEmbedTable *multi_response = LuaCembed_new_anonymous_table(args);
     LuaCEmbedTable *final_map = LuaCembed_new_anonymous_table(args);
     LuaCEmbedTable_append_table(multi_response,final_map);
-    LuaCEmbedTable_append_long(multi_response,self_tree->size);
+    long total = 0;
 
 
     for(int i =0; i < self_tree->size;i++){
@@ -97,7 +97,8 @@ LuaCEmbedResponse *tree_filter(LuaCEmbedTable *self, LuaCEmbed *args){
         }
         long size = LuaCEmbedTable_get_full_size(user_response);
         bool append_element = false;
-        if(size ==1){
+        if(size >0){
+            total+=1;
             append_element = LuaCEmbedTable_get_bool_by_index(user_response,0);
         }
 
@@ -106,10 +107,13 @@ LuaCEmbedResponse *tree_filter(LuaCEmbedTable *self, LuaCEmbed *args){
             return LuaCEmbed_send_error(error);
         }
         if(append_element) {
+            total+=1;
             LuaCEmbedTable_append_table(final_map,tree_part);
         }
 
     }
+    LuaCEmbedTable_append_long(multi_response,total);
+
     return  LuaCEmbed_send_multi_return(multi_response);
 }
 

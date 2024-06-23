@@ -1,15 +1,1 @@
-========================
-path	tests/target/test_dir/
-content	nil
-========================
 path	tests/target/test_dir/a.txt
-content	ss
-========================
-path	tests/target/test_dir/b.txt
-content	
-========================
-path	tests/target/test_dir/dira/
-content	nil
-========================
-path	tests/target/test_dir/dira/content_of_dira
-content	
