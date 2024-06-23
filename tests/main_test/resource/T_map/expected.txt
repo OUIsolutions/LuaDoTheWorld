@@ -1,0 +1,9 @@
+path	tests/target/test_dir/a.txt
+value	ss
+type	string
+path	tests/target/test_dir/b.txt
+value	
+type	string
+path	tests/target/test_dir/dira
+value	nil
+type	folder
