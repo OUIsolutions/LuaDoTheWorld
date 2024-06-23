@@ -3,11 +3,12 @@ LuaCEmbedResponse * resource_sub_resource_raw(LuaCEmbedTable  *self, LuaCEmbed *
 
 LuaCEmbedResponse * try_resource_sub_resource_raw(LuaCEmbedTable  *self, LuaCEmbed *args,const char *src);
 
+LuaCEmbedResponse * resource_sub_resource_method(LuaCEmbedTable  *self, LuaCEmbed *args);
+
+
 LuaCEmbedResponse * resource_sub_resource_index(LuaCEmbedTable  *self, LuaCEmbed *args);
 
-LuaCEmbedResponse * try_resource_sub_resource_index(LuaCEmbedTable  *self, LuaCEmbed *args);
 
-LuaCEmbedResponse * resource_sub_resource_method(LuaCEmbedTable  *self, LuaCEmbed *args);
 
 LuaCEmbedResponse * try_resource_sub_resource_method(LuaCEmbedTable  *self, LuaCEmbed *args);
 

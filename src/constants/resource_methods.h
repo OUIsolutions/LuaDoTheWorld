@@ -36,3 +36,4 @@
 #define TRY_GET_RESOURCE_BY_NAME_ID "get_resource_by_name_id"
 #define  TRY_DANGEROUS_REMOVE_PROP_METHOD "dangerous_remove_prop"
 #define  TRY_DANGEROUS_RENAME_PROP_METHOD "dangerous_rename_prop"
+#define TRY_SUB_RESOURCE_METHOD "sub_resource"
