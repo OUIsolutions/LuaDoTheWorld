@@ -205,6 +205,13 @@ LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource){
     LuaCEmbedTable_set_method(self, SUB_RESOURCE_METHOD, resource_sub_resource_method);
     LuaCEmbedTable_set_method(self,RESOURCE_RENAME_METHOD,resource_rename);
 
+
+    LuaCEmbedTable_set_method(self,LIST_METHOD,resource_list);
+    LuaCEmbedTable_set_method(self,EACH_METHOD,resource_foreach);
+    LuaCEmbedTable_set_method(self,MAP_METHOD,resource_map);
+    LuaCEmbedTable_set_method(self,COUNT_METHOD,resource_count);
+    LuaCEmbedTable_set_method(self,FIND_METHOD,resource_find);
+
     LuaCEmbedTable_set_method(self,RESOURCE_GET_STRING,resource_value_string);
     LuaCEmbedTable_set_method(self,RESOURCE_GET_NUMBER,resource_value_number);
     LuaCEmbedTable_set_method(self,RESOURCE_GET_BOOL,resource_value_bool);
@@ -239,8 +246,7 @@ LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource){
     LuaCEmbedTable_set_method(self,SCHEMA_COUNT_RESOURCE_METHOD,schema_count_resource);
     LuaCEmbedTable_set_method(self, SCHEMA_EACH_METHOD, resource_schema_each);
 
-    LuaCEmbedTable_set_method(self,LIST_METHOD,resource_list);
-    LuaCEmbedTable_set_method(self,EACH_METHOD,resource_foreach);
+
     LuaCEmbedTable_set_method(self, SCHEMA_NEW_INSERTION, Resource_new_insertion);
 
     LuaCEmbedTable_set_method(self, RESOURCE_TRY_SET_VALUE_METHOD, resource_try_set_value);
@@ -257,6 +263,7 @@ LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource){
     LuaCEmbedTable_set_method(self,TRY_SUB_RESOURCE_NEXT_METHOD,try_resource_sub_resource_next);
     LuaCEmbedTable_set_method(self,TRY_SUB_RESOURCE_NOW_METHOD,try_resource_sub_resource_now);
     LuaCEmbedTable_set_method(self,TRY_SUB_RESOURCE_NOW_IN_UNIX,try_resource_sub_resource_now_in_unix);
+    LuaCEmbedTable_set_method(self,TRY_SCHEMA_LIST,try_schema_list_resources);
 
     if(resource->mother ==NULL){
         LuaCEmbedTable_set_method(self, DELETE_METHOD, free_resource);

@@ -40,3 +40,7 @@
 #define TRY_SUB_RESOURCE_NEXT_METHOD "try_sub_resource_next"
 #define TRY_SUB_RESOURCE_NOW_METHOD "try_sub_resource_now"
 #define TRY_SUB_RESOURCE_NOW_IN_UNIX "try_sub_resource_now_in_unix"
+#define TRY_SCHEMA_LIST "try_schema_list"
+
+#define RESOURCE_LISTAGE_PROP "resources"
+

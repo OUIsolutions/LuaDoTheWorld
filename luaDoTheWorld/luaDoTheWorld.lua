@@ -131,6 +131,13 @@
 ---@field schema DtwResource | nil
 ---@field error string | nil
 
+---@class DtwResourceListaage
+---@field resources DtwResource[] | nil
+---@field size number | nil
+---@field error string | nil
+
+
+
 ---@class DtwResource
 ---@field schema_new_insertion fun():DtwResource
 ---@field dangerous_remove_prop fun(primary_key:string):DtwResource
@@ -178,6 +185,7 @@
 ---@field try_sub_resource_next fun(name:string):DtwResourceOrError
 ---@field try_sub_resource_now fun(name:string):DtwResourceOrError
 ---@field try_sub_resource_now_in_unix fun(name:string):DtwResourceOrError
+---@field try_schema_list fun():DtwResourceListaage
 
 
 ---@class DtwModule
