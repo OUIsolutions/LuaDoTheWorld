@@ -12,7 +12,8 @@ end
 ---@param name string
 ---@param email string
 local function create_user(database,name,email,password)
-    local user = database.schema_new_insertion()
+    local users = database.sub_resource("users")
+    local user = users.schema_new_insertion()
     user.set_value_in_sub_resource("name",name)
     user.set_value_in_sub_resource("email",email)
     local password_sha = dtw.generate_sha(password)
@@ -23,8 +24,9 @@ end
 
 
 local database = create_database();
-local new_user,error  = pcall(create_user,database,"user1","user1@gmail.com","123")
-if error then
+local correct,user_or_error  = pcall(create_user,database,"user1","user1@gmail.com","123")
+if correct == false then
+	local error = user_or_error
 	print(error)
 else
 	print("user created")
