@@ -248,7 +248,7 @@ LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource){
     LuaCEmbedTable_set_method(self, GET_RESOURCE_MATCHING_PRIMARY_KEY_METHOD, get_resource_match_schema_by_primary_key);
     LuaCEmbedTable_set_method(self,GET_RESOURCE_BY_NAME_ID,get_resource_by_name_id);
 
-    LuaCEmbedTable_set_method(self,RESOURCE_NEW_SCHEMA,resource_new_schema);
+    LuaCEmbedTable_set_method(self,RESOURCE_NEW_DATABASE_SCHEMA,resource_new_schema);
     LuaCEmbedTable_set_method(self,SCHEMA_LIST_RESOURCE_METHOD,schema_list_resources);
     LuaCEmbedTable_set_method(self, SCHEMA_FIND_RESOURCE_METHOD, schema_find_resource);
     LuaCEmbedTable_set_method(self,SCHEMA_MAP_RESOURCE_METHOD,schema_map_resource);

@@ -38,13 +38,14 @@ LuaCEmbedResponse * resource_try_new_schema(LuaCEmbedTable  *self, LuaCEmbed *ar
 LuaCEmbedResponse  * Resource_new_insertion(LuaCEmbedTable *self, LuaCEmbed *args){
     DtwResource *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     DtwResource  *created = DtwResource_new_schema_insertion(resource);
-    LuaCEmbedTable  *sub = raw_create_resource(args,created);
     if(DtwResource_error(resource)){
         char *message = DtwResource_get_error_message(resource);
         LuaCEmbedResponse *response = LuaCEmbed_send_error(message);
         DtwResource_clear_errors(resource);
         return  response;
     }
+
+    LuaCEmbedTable  *sub = raw_create_resource(args,created);
 
     return LuaCEmbed_send_table(sub);
 }
