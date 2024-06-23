@@ -6,11 +6,11 @@ LuaCEmbedResponse *set_randonizer_seed_seed(LuaCEmbedTable *self,LuaCEmbed *args
         char *msg = LuaCEmbed_get_error_message(args);
         return  LuaCEmbed_send_error(msg);
     }
-    random->time_seed = seed;
+    random->seed = seed;
     return LuaCEmbed_send_table(self);
 }
 
-LuaCEmbedResponse *set_randonizer_time_seed(LuaCEmbedTable *self,LuaCEmbed *args) {
+LuaCEmbedResponse *set_randonizer_internal_seed(LuaCEmbedTable *self,LuaCEmbed *args) {
 
     DtwRandonizer *random = (DtwRandonizer*)LuaCembedTable_get_long_prop(self,RANDONIZER_POINTER);
     long seed = LuaCEmbed_get_long_arg(args,0);
@@ -18,7 +18,7 @@ LuaCEmbedResponse *set_randonizer_time_seed(LuaCEmbedTable *self,LuaCEmbed *args
         char *msg = LuaCEmbed_get_error_message(args);
         return  LuaCEmbed_send_error(msg);
     }
-    random->seed = seed;
+    random->internal_seed = seed;
     return LuaCEmbed_send_table(self);
 }
 
@@ -55,7 +55,7 @@ LuaCEmbedResponse *create_randonizer(LuaCEmbed *args) {
     LuaCEmbedTable *self =  LuaCembed_new_anonymous_table(args);
     LuaCEmbedTable_set_long_prop(self,RANDONIZER_POINTER,(long long)random);
     LuaCEmbedTable_set_method(self,SET_RANDONIZER_SEED_METHOD,set_randonizer_seed_seed);
-    LuaCEmbedTable_set_method(self,SET_RANDONIZER_TIME_SEED_METHOD,set_randonizer_time_seed);
+    LuaCEmbedTable_set_method(self,SET_RANDONIZER_INTERNAL_SEED_METHOD,set_randonizer_internal_seed);
     LuaCEmbedTable_set_method(self,GENERATE_RANDONIZER_TOKEN,generate_randonizer_token);
     LuaCEmbedTable_set_method(self,DELETE_METHOD,delete_randonizer);
     LuaCEmbedTable_set_method(self,GENERATE_RANDONIZER_NUM_METHOD,generate_randonizer_num);

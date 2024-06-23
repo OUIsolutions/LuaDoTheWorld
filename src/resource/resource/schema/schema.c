@@ -4,7 +4,7 @@
 
 LuaCEmbedResponse * resource_new_schema(LuaCEmbedTable  *self, LuaCEmbed *args){
     DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
-    DtwDtatabaseSchema *schema = DtwResource_newDatabaseSchema(resource);
+    DtwDatabaseSchema *schema = DtwResource_newDatabaseSchema(resource);
     if(DtwResource_error(resource)){
         char *error_mensage = DtwResource_get_error_message(resource);
         LuaCEmbedResponse *response = LuaCEmbed_send_error(error_mensage);
