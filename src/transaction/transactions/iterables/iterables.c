@@ -1,4 +1,18 @@
 
+LuaCEmbedResponse  * transaction_list(LuaCEmbedTable *self,LuaCEmbed *args) {
+    DtwTransaction *transaction = (DtwTransaction*)LuaCembedTable_get_long_prop(self,TRANSACTION_POINTER);
+
+    LuaCEmbedTable *multi_response = LuaCembed_new_anonymous_table(args);
+    LuaCEmbedTable *elements = LuaCembed_new_anonymous_table(args);
+    LuaCEmbedTable_append_table(multi_response,elements);
+    LuaCEmbedTable_append_long(multi_response,transaction->size);
+    for(long i = 0 ; i < transaction->size; i++){
+        DtwActionTransaction *action = transaction->actions[i];
+        LuaCEmbedTable  *table = raw_create_action_transaction(args,action);
+        LuaCEmbedTable_append_table(elements,table);
+    }
+    return LuaCEmbed_send_multi_return(multi_response);
+}
 
 
 LuaCEmbedResponse  * transaction_index(LuaCEmbedTable *self,LuaCEmbed *args){
@@ -38,7 +52,12 @@ LuaCEmbedResponse  * transaction_foreach(LuaCEmbedTable *self,LuaCEmbed *args){
 LuaCEmbedResponse  * transaction_map(LuaCEmbedTable *self,LuaCEmbed *args){
 
     DtwTransaction *transaction = (DtwTransaction*)LuaCembedTable_get_long_prop(self,TRANSACTION_POINTER);
+
+    LuaCEmbedTable *multi_response = LuaCembed_new_anonymous_table(args);
     LuaCEmbedTable *final_map = LuaCembed_new_anonymous_table(args);
+    LuaCEmbedTable_append_table(multi_response,final_map);
+    LuaCEmbedTable_append_long(multi_response,transaction->size);
+
     for(long i = 0 ; i < transaction->size; i++){
         DtwActionTransaction *action = transaction->actions[i];
         LuaCEmbedTable  *table = raw_create_action_transaction(args,action);
@@ -57,7 +76,8 @@ LuaCEmbedResponse  * transaction_map(LuaCEmbedTable *self,LuaCEmbed *args){
         }
     }
 
-    return  LuaCEmbed_send_table(final_map);
+    return  LuaCEmbed_send_multi_return(multi_response);
+
 }
 
 LuaCEmbedResponse  * transaction_find(LuaCEmbedTable *self,LuaCEmbed *args){

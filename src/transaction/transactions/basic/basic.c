@@ -42,6 +42,7 @@ void  private_transaction_add_base_methods(LuaCEmbedTable *self,DtwTransaction *
     LuaCEmbedTable_set_method(self,COMMIT_METHOD,transaction_commit);
     LuaCEmbedTable_set_method(self,DUMP_TO_JSON_FILE_METHOD,transaction_dumps_to_json_file);
     LuaCEmbedTable_set_method(self,DUMP_TO_JSON_STRING,transaction_dumps_to_json_string);
+    LuaCEmbedTable_set_method(self,LIST_METHOD,transaction_list);
     LuaCEmbedTable_set_method(self,EACH_METHOD,transaction_foreach);
     LuaCEmbedTable_set_method(self,MAP_METHOD,transaction_map);
     LuaCEmbedTable_set_method(self,COUNT_METHOD,transaction_count);

@@ -135,8 +135,11 @@ LuaCEmbedResponse * schema_map_resource(LuaCEmbedTable *self,LuaCEmbed *args){
         DtwResource_clear_errors(resource);
         return  response;
     }
+    LuaCEmbedTable * multi_response = LuaCembed_new_anonymous_table(args);
 
     LuaCEmbedTable *response = LuaCembed_new_anonymous_table(args);
+    LuaCEmbedTable_append_table(multi_response,response);
+    LuaCEmbedTable_append_long(multi_response,elements->size);
 
     for(int i = 0; i < elements->size; i++) {
         DtwResource*current = elements->resources[i];
@@ -158,7 +161,7 @@ LuaCEmbedResponse * schema_map_resource(LuaCEmbedTable *self,LuaCEmbed *args){
 
     }
 
-    return LuaCEmbed_send_table(response);
+    return LuaCEmbed_send_multi_return(multi_response);
 }
 
 LuaCEmbedResponse * resource_schema_each(LuaCEmbedTable *self, LuaCEmbed *args){

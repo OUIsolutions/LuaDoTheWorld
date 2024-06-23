@@ -1,4 +1,6 @@
 
+LuaCEmbedResponse  * transaction_list(LuaCEmbedTable *self,LuaCEmbed *args);
+
 
 LuaCEmbedResponse  * transaction_index(LuaCEmbedTable *self,LuaCEmbed *args);
 

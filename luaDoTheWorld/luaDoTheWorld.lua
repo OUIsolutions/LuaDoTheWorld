@@ -41,6 +41,7 @@
 ---@field get_size fun():number
 ---@field get_tree_part_by_name fun(name:string):DtwTreePart
 ---@field get_tree_part_by_path fun(name:string):DtwTreePart
+---@field list fun(): DtwTreePart[] ,number
 ---@field find fun(callback: fun(part:DtwTreePart):boolean):DtwTreePart
 ---@field count fun(callback: fun(part:DtwTreePart):boolean):number
 ---@field map fun(callback: fun(part:DtwTreePart):any):any[]
@@ -101,8 +102,9 @@
 ---@field move_any fun(src:string,dest:string):DtwTransaction
 ---@field dump_to_json_string fun():string
 ---@field dump_to_json_file fun(src:string):DtwTransaction
+---@field list fun(): DtwActionTransaction[] ,number
 ---@field each fun(callbac: fun(value:DtwActionTransaction))
----@field map fun(callbac: fun(value:DtwActionTransaction):any):any[]
+---@field map fun(callbac: fun(value:DtwActionTransaction):any):any[],number
 ---@field find fun(callbac: fun(value:DtwActionTransaction):boolean):DtwActionTransaction
 ---@field count fun(callbac: fun(value:DtwActionTransaction):boolean):number
 ---@field __index fun(index:number):DtwActionTransaction
@@ -144,10 +146,15 @@
 ---@field dangerous_rename_prop fun(primary_key:string ,new_name:string) :DtwResource
 ---@field get_resource_matching_primary_key fun(primary_key: string,  value:string | number | boolean | Dtwblobs | DtwResource ):DtwResource
 ---@field get_resource_by_name_id fun(id_name:string)  DtwResource | nil
+---@field list fun(): DtwResource[] ,number
+---@field each fun(callback :fun(element:DtwResource))
+---@field find fun(callback:fun(value:DtwResource):boolean):DtwResource
+---@field map fun(callback:fun(value:DtwResource):any):any[],number
+---@field count fun(callback:fun(value:DtwResource):boolean):number
 ---@field schema_list fun(): DtwResource[]
 ---@field schema_each fun(callback:fun(value:DtwResource))
 ---@field schema_find fun(callback:fun(value:DtwResource):boolean):DtwResource
----@field schema_map fun(callback:fun(value:DtwResource):any)
+---@field schema_map fun(callback:fun(value:DtwResource):any):any[],number
 ---@field schema_count fun(callback:fun(value:DtwResource):boolean):number
 ---@field sub_resource fun(str:string) :DtwResource
 ---@field sub_resource_next fun(str:string | nil) :DtwResource
@@ -164,9 +171,7 @@
 ---@field unlock fun():DtwResource
 ---@field unload fun() unload the content 
 ---@field get_path_string fun() :string
----@field each fun(callback :fun(element:DtwResource))
 ---@field set_extension fun(extension:string)
----@field list fun(): DtwResource[]
 ---@field destroy fun():DtwResource
 ---@field set_value_in_sub_resource fun(key:string ,value:string | number | boolean | string | DtwResource )
 ---@field try_set_value_in_sub_resource fun(key:string ,value:string | number | boolean | string | DtwResource ):boolean

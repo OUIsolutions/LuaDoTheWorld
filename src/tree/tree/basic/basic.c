@@ -1,5 +1,7 @@
 
 
+#include "../iterables/iterables.h"
+
 LuaCEmbedResponse *hardware_commit_tree(LuaCEmbedTable *self, LuaCEmbed *args){
     DtwTree *self_tree = (DtwTree*)LuaCembedTable_get_long_prop(self,TREE_POINTER);
     DtwTree_hardware_commit_tree(self_tree);
@@ -45,6 +47,7 @@ LuaCEmbedTable * raw_create_tree(LuaCEmbed *args,DtwTree *tree){
     LuaCEmbedTable_set_method(self,GET_SIZE_METHOD,tree_get_size);
     LuaCEmbedTable_set_method(self,GET_TREE_PART_BY_NAME,tree_get_tree_part_by_name);
     LuaCEmbedTable_set_method(self,GET_TREE_PART_BY_PATH,tree_get_tree_part_by_path);
+    LuaCEmbedTable_set_method(self,LIST_METHOD,tree_list);
     LuaCEmbedTable_set_method(self,FIND_METHOD,tree_find);
     LuaCEmbedTable_set_method(self,COUNT_METHOD,tree_count);
     LuaCEmbedTable_set_method(self,MAP_METHOD,tree_map);
