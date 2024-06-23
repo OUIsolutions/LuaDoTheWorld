@@ -157,7 +157,6 @@ LuaCEmbedResponse  * try_get_resource_by_name_id(LuaCEmbedTable *self, LuaCEmbed
         char *error_message = LuaCEmbed_get_error_message(args);
         return  LuaCEmbed_send_error(error_message);
     }
-    LuaCEmbedTable *resource_or_error = LuaCembed_new_anonymous_table(args);
 
     DtwResource *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     DtwResource *founded = DtwResource_find_by_name_id(resource,name_id);
@@ -211,6 +210,7 @@ LuaCEmbedResponse  * try_dangerous_rename_schema_prop(LuaCEmbedTable *self,LuaCE
     DtwResource *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     DtwResource_dangerous_rename_schema_prop(resource,key,new_name);
     LuaCEmbedTable *multi_response =  LuaCembed_new_anonymous_table(args);
+
     if(DtwResource_error(resource)){
         char *error_mensage = DtwResource_get_error_message(resource);
         LuaCEmbedTable_append_bool(multi_response,false);
@@ -218,6 +218,7 @@ LuaCEmbedResponse  * try_dangerous_rename_schema_prop(LuaCEmbedTable *self,LuaCE
         DtwResource_clear_errors(resource);
         return  LuaCEmbed_send_multi_return(multi_response);
     }
+    LuaCEmbedTable_append_bool(multi_response,true);
     return LuaCEmbed_send_multi_return(multi_response);
 }
 
@@ -255,6 +256,7 @@ LuaCEmbedResponse  * try_dangerous_remove_schema_prop(LuaCEmbedTable *self,LuaCE
         DtwResource_clear_errors(resource);
         return  LuaCEmbed_send_multi_return(multi_response);
     }
+    LuaCEmbedTable_append_bool(multi_response,true);
     return LuaCEmbed_send_multi_return(multi_response);
 }
 

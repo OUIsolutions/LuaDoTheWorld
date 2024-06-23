@@ -54,7 +54,8 @@ LuaCEmbedResponse * resource_try_rename(LuaCEmbedTable  *self,LuaCEmbed *args) {
         return  LuaCEmbed_send_multi_return(multi_response);
     }
 
-    return  LuaCEmbed_send_multi_return(multi_response);
+    LuaCEmbedTable_append_bool(multi_response,true);
+    return LuaCEmbed_send_multi_return(multi_response);
 
 }
 LuaCEmbedResponse * resource_set_value(LuaCEmbedTable  *self,LuaCEmbed *args){
@@ -91,8 +92,8 @@ LuaCEmbedResponse * resource_try_set_value(LuaCEmbedTable  *self,LuaCEmbed *args
         return  LuaCEmbed_send_multi_return(multi_response);
     }
 
-    return  LuaCEmbed_send_multi_return(multi_response);
-
+    LuaCEmbedTable_append_bool(multi_response,true);
+    return LuaCEmbed_send_multi_return(multi_response);
 }
 
 LuaCEmbedResponse * resource_commit(LuaCEmbedTable  *self,LuaCEmbed *args){
@@ -125,8 +126,10 @@ LuaCEmbedResponse * resource_try_destroy(LuaCEmbedTable  *self,LuaCEmbed *args) 
         DtwResource_clear_errors(resource);
         return  LuaCEmbed_send_multi_return(multi_response);
     }
+    LuaCEmbedTable_append_bool(multi_response,true);
     return LuaCEmbed_send_multi_return(multi_response);
 }
+
 LuaCEmbedResponse * unload_resurce(LuaCEmbedTable  *self, LuaCEmbed *args){
     DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     DtwResource_unload(resource);

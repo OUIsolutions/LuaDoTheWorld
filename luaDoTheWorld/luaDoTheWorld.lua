@@ -126,14 +126,6 @@
 ---@field set_value_name fun(name:string):DtwSchema
 ---@field set_index_name fun(name:string):DtwSchema
 
----@class DtwDatabaseSchemaOrError
----@field database_schema DtwDatabaseSchema | nil
----@field error string | nil
-
-
----@class DtwResourceOrError
----@field schema DtwResource | nil
----@field error string | nil
 
 ---@class DtwResourceListaage
 ---@field resources DtwResource[] | nil
@@ -180,23 +172,23 @@
 ---@field set_extension fun(extension:string)
 ---@field destroy fun():DtwResource
 ---@field set_value_in_sub_resource fun(key:string ,value:string | number | boolean | string | DtwResource )
----@field try_set_value_in_sub_resource fun(key:string ,value:string | number | boolean | string | DtwResource ):boolean
+---@field try_set_value_in_sub_resource fun(key:string ,value:string | number | boolean | string | DtwResource ):boolean,string | nil
 ---@field get_value_from_sub_resource fun(key:string):string | number | boolean | nil | string
 ---@field newDatabaseSchema fun():DtwDatabaseSchema
----@field try_newSchema fun():DtwDatabaseSchemaOrError
----@field try_rename fun(new_name:string):string |nil
+---@field try_newSchema fun():boolean,string | DtwSchema
+---@field try_rename fun(new_name:string):boolean,string | nil
 ---@field rename fun(new_name:string)
----@field try_set_value fun(value:string | number | boolean | string | DtwResource ):string | nil
----@field try_destroy fun():string | nil
----@field try_schema_new_insertion fun():DtwResourceOrError
----@field try_get_resource_by_name_id fun(id_name:string) :DtwResourceOrError
----@field try_dangerous_rename_prop fun(primary_key:string ,new_name:string):string | nil
----@field try_dangerous_remove_prop fun(primary_key:string):string | nil
----@field try_sub_resource fun(name:string):DtwResourceOrError
----@field try_sub_resource_next fun(name:string):DtwResourceOrError
----@field try_sub_resource_now fun(name:string):DtwResourceOrError
----@field try_sub_resource_now_in_unix fun(name:string):DtwResourceOrError
----@field try_sub_resource_random fun(name:string):DtwResourceOrError
+---@field try_set_value fun(value:string | number | boolean | string | DtwResource ):boolean,string | nil
+---@field try_destroy fun():boolean,string | nil
+---@field try_schema_new_insertion fun():boolean,string | DtwResource
+---@field try_get_resource_by_name_id fun(id_name:string) :boolean,string | DtwResource
+---@field try_dangerous_rename_prop fun(primary_key:string ,new_name:string):boolean,string | nil
+---@field try_dangerous_remove_prop fun(primary_key:string):boolean,string | nil
+---@field try_sub_resource fun(name:string):boolean,string | DtwResource
+---@field try_sub_resource_next fun(name:string):boolean,string | DtwResource
+---@field try_sub_resource_now fun(name:string):boolean,string | DtwResource
+---@field try_sub_resource_now_in_unix fun(name:string):boolean,string | DtwResource
+---@field try_sub_resource_random fun(name:string):boolean,string | DtwResource
 ---@field try_schema_list fun():DtwResourceListaage
 
 

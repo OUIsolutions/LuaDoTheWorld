@@ -14,17 +14,20 @@ LuaCEmbedResponse * resource_sub_resource_raw(LuaCEmbedTable  *self, LuaCEmbed *
 LuaCEmbedResponse * try_resource_sub_resource_raw(LuaCEmbedTable  *self, LuaCEmbed *args,const char *src) {
     DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     DtwResource *sub_resource = DtwResource_sub_resource(resource,"%s",src);
-    LuaCEmbedTable *resource_or_error = LuaCembed_new_anonymous_table(args);
 
+    LuaCEmbedTable *multi_response =  LuaCembed_new_anonymous_table(args);
     if(DtwResource_error(resource)){
-        char *message = DtwResource_get_error_message(resource);
-        LuaCEmbedTable_set_string_prop(resource_or_error,ERROR_PROP,message);
+        char *error_mensage = DtwResource_get_error_message(resource);
+        LuaCEmbedTable_append_bool(multi_response,false);
+        LuaCEmbedTable_append_string(multi_response,error_mensage);
         DtwResource_clear_errors(resource);
-        return LuaCEmbed_send_table(resource_or_error);
+        return  LuaCEmbed_send_multi_return(multi_response);
     }
+    LuaCEmbedTable_append_bool(multi_response,true);
     LuaCEmbedTable  *sub = raw_create_resource(args,sub_resource);
-    LuaCEmbedTable_set_sub_table_prop(resource_or_error,RESOURCE_VALUE_PROP,sub);
-    return LuaCEmbed_send_table(resource_or_error);
+    LuaCEmbedTable_append_table(multi_response,sub);
+    return  LuaCEmbed_send_multi_return(multi_response);
+
 
 }
 
@@ -44,6 +47,7 @@ LuaCEmbedResponse * try_resource_sub_resource_method(LuaCEmbedTable  *self, LuaC
         char *error_message = LuaCEmbed_get_error_message(args);
         return  LuaCEmbed_send_error(error_message);
     }
+
     return try_resource_sub_resource_raw(self,args,src);
 }
 
@@ -116,16 +120,18 @@ LuaCEmbedResponse * try_resource_sub_resource_next(LuaCEmbedTable  *self,LuaCEmb
     DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     DtwResource *sub_resource = DtwResource_sub_resource_next(resource,src);
 
-    LuaCEmbedTable *resource_or_error = LuaCembed_new_anonymous_table(args);
+    LuaCEmbedTable *multi_response =  LuaCembed_new_anonymous_table(args);
     if(DtwResource_error(resource)){
-        char *message = DtwResource_get_error_message(resource);
-        LuaCEmbedTable_set_string_prop(resource_or_error,ERROR_PROP,message);
+        char *error_mensage = DtwResource_get_error_message(resource);
+        LuaCEmbedTable_append_bool(multi_response,false);
+        LuaCEmbedTable_append_string(multi_response,error_mensage);
         DtwResource_clear_errors(resource);
-        return  LuaCEmbed_send_table(resource_or_error);
+        return  LuaCEmbed_send_multi_return(multi_response);
     }
+    LuaCEmbedTable_append_bool(multi_response,true);
     LuaCEmbedTable  *sub = raw_create_resource(args,sub_resource);
-    LuaCEmbedTable_set_sub_table_prop(resource_or_error,RESOURCE_VALUE_PROP,sub);
-    return  LuaCEmbed_send_table(resource_or_error);
+    LuaCEmbedTable_append_table(multi_response,sub);
+    return  LuaCEmbed_send_multi_return(multi_response);
 }
 
 LuaCEmbedResponse * resource_sub_resource_now(LuaCEmbedTable  *self,LuaCEmbed *args){
@@ -162,16 +168,19 @@ LuaCEmbedResponse * try_resource_sub_resource_now(LuaCEmbedTable  *self,LuaCEmbe
 
     DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     DtwResource *sub_resource = DtwResource_sub_resource_now(resource,src);
-    LuaCEmbedTable *resource_or_error = LuaCembed_new_anonymous_table(args);
+
+    LuaCEmbedTable *multi_response =  LuaCembed_new_anonymous_table(args);
     if(DtwResource_error(resource)){
-        char *message = DtwResource_get_error_message(resource);
-        LuaCEmbedTable_set_string_prop(resource_or_error,ERROR_PROP,message);
+        char *error_mensage = DtwResource_get_error_message(resource);
+        LuaCEmbedTable_append_bool(multi_response,false);
+        LuaCEmbedTable_append_string(multi_response,error_mensage);
         DtwResource_clear_errors(resource);
-        return  LuaCEmbed_send_table(resource_or_error);
+        return  LuaCEmbed_send_multi_return(multi_response);
     }
+    LuaCEmbedTable_append_bool(multi_response,true);
     LuaCEmbedTable  *sub = raw_create_resource(args,sub_resource);
-    LuaCEmbedTable_set_sub_table_prop(resource_or_error,RESOURCE_VALUE_PROP,sub);
-    return  LuaCEmbed_send_table(resource_or_error);
+    LuaCEmbedTable_append_table(multi_response,sub);
+    return  LuaCEmbed_send_multi_return(multi_response);
 }
 
 LuaCEmbedResponse * resource_sub_resource_now_in_unix(LuaCEmbedTable  *self,LuaCEmbed *args){
@@ -212,16 +221,18 @@ LuaCEmbedResponse * try_resource_sub_resource_now_in_unix(LuaCEmbedTable  *self,
     DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     DtwResource *sub_resource = DtwResource_sub_resource_now_in_unix(resource,src);
 
-    LuaCEmbedTable *resource_or_error = LuaCembed_new_anonymous_table(args);
+    LuaCEmbedTable *multi_response =  LuaCembed_new_anonymous_table(args);
     if(DtwResource_error(resource)){
-        char *message = DtwResource_get_error_message(resource);
-        LuaCEmbedTable_set_string_prop(resource_or_error,ERROR_PROP,message);
+        char *error_mensage = DtwResource_get_error_message(resource);
+        LuaCEmbedTable_append_bool(multi_response,false);
+        LuaCEmbedTable_append_string(multi_response,error_mensage);
         DtwResource_clear_errors(resource);
-        return  LuaCEmbed_send_table(resource_or_error);
+        return  LuaCEmbed_send_multi_return(multi_response);
     }
+    LuaCEmbedTable_append_bool(multi_response,true);
     LuaCEmbedTable  *sub = raw_create_resource(args,sub_resource);
-    LuaCEmbedTable_set_sub_table_prop(resource_or_error,RESOURCE_VALUE_PROP,sub);
-    return  LuaCEmbed_send_table(resource_or_error);
+    LuaCEmbedTable_append_table(multi_response,sub);
+    return  LuaCEmbed_send_multi_return(multi_response);
 }
 
 
@@ -262,14 +273,16 @@ LuaCEmbedResponse * try_resource_sub_resource_random(LuaCEmbedTable  *self,LuaCE
     DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     DtwResource *sub_resource = DtwResource_sub_resource_random(resource,src);
 
-    LuaCEmbedTable *resource_or_error = LuaCembed_new_anonymous_table(args);
+    LuaCEmbedTable *multi_response =  LuaCembed_new_anonymous_table(args);
     if(DtwResource_error(resource)){
-        char *message = DtwResource_get_error_message(resource);
-        LuaCEmbedTable_set_string_prop(resource_or_error,ERROR_PROP,message);
+        char *error_mensage = DtwResource_get_error_message(resource);
+        LuaCEmbedTable_append_bool(multi_response,false);
+        LuaCEmbedTable_append_string(multi_response,error_mensage);
         DtwResource_clear_errors(resource);
-        return  LuaCEmbed_send_table(resource_or_error);
+        return  LuaCEmbed_send_multi_return(multi_response);
     }
+    LuaCEmbedTable_append_bool(multi_response,true);
     LuaCEmbedTable  *sub = raw_create_resource(args,sub_resource);
-    LuaCEmbedTable_set_sub_table_prop(resource_or_error,RESOURCE_VALUE_PROP,sub);
-    return  LuaCEmbed_send_table(resource_or_error);
+    LuaCEmbedTable_append_table(multi_response,sub);
+    return  LuaCEmbed_send_multi_return(multi_response);
 }
