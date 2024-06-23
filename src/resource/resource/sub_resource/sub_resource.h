@@ -23,3 +23,7 @@ LuaCEmbedResponse * try_resource_sub_resource_now(LuaCEmbedTable  *self,LuaCEmbe
 LuaCEmbedResponse * resource_sub_resource_now_in_unix(LuaCEmbedTable  *self,LuaCEmbed *args);
 
 LuaCEmbedResponse * try_resource_sub_resource_now_in_unix(LuaCEmbedTable  *self,LuaCEmbed *args);
+
+LuaCEmbedResponse * resource_sub_resource_random(LuaCEmbedTable  *self,LuaCEmbed *args);
+
+LuaCEmbedResponse * try_resource_sub_resource_random(LuaCEmbedTable  *self,LuaCEmbed *args);

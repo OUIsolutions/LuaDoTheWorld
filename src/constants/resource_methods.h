@@ -16,6 +16,7 @@
 #define SUB_RESOURCE_NEXT_METHOD "sub_resource_next"
 #define SUB_RESOURCE_NOW_METHOD "sub_resource_now"
 #define SUB_RESOURCE_NOW_IN_UNIX "sub_resource_now_in_unix"
+#define SUB_RESOURCE_RANDOM "sub_resource_random"
 #define SUB_RESOURCE_METHOD "sub_resource"
 #define RESOURCE_GET_STRING "get_string"
 #define RESOURCE_GET_NUMBER "get_number"
@@ -40,7 +41,8 @@
 #define TRY_SUB_RESOURCE_NEXT_METHOD "try_sub_resource_next"
 #define TRY_SUB_RESOURCE_NOW_METHOD "try_sub_resource_now"
 #define TRY_SUB_RESOURCE_NOW_IN_UNIX "try_sub_resource_now_in_unix"
+#define TRY_SUB_RESOURCE_RANDON "try_sub_resource_random"
 #define TRY_SCHEMA_LIST "try_schema_list"
-
+#define RESOURCE_GET_TYPE "get_type"
 #define RESOURCE_LISTAGE_PROP "resources"
 

@@ -189,6 +189,13 @@ LuaCEmbedResponse * resource_is_blob(LuaCEmbedTable  *self,LuaCEmbed *args){
 }
 
 
+LuaCEmbedResponse * resource_get_type(LuaCEmbedTable  *self,LuaCEmbed *args) {
+    DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
+    const char *type = DtwResource_type_in_str(resource);
+    return LuaCEmbed_send_str(type);
+}
+
+
 
 LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource){
 
@@ -205,7 +212,7 @@ LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource){
     LuaCEmbedTable_set_method(self, SUB_RESOURCE_METHOD, resource_sub_resource_method);
     LuaCEmbedTable_set_method(self,RESOURCE_RENAME_METHOD,resource_rename);
 
-
+    LuaCEmbedTable_set_method(self,RESOURCE_GET_TYPE,resource_get_type);
     LuaCEmbedTable_set_method(self,LIST_METHOD,resource_list);
     LuaCEmbedTable_set_method(self,EACH_METHOD,resource_foreach);
     LuaCEmbedTable_set_method(self,MAP_METHOD,resource_map);
@@ -219,6 +226,7 @@ LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource){
     LuaCEmbedTable_set_method(self, SUB_RESOURCE_NEXT_METHOD, resource_sub_resource_next);
     LuaCEmbedTable_set_method(self, SUB_RESOURCE_NOW_METHOD, resource_sub_resource_now);
     LuaCEmbedTable_set_method(self, SUB_RESOURCE_NOW_IN_UNIX, resource_sub_resource_now_in_unix);
+    LuaCEmbedTable_set_method(self,SUB_RESOURCE_RANDOM,resource_sub_resource_random);
     LuaCEmbedTable_set_method(self,LOCK_METHOD,lock_resource);
     LuaCEmbedTable_set_method(self,UNLOCK_METHOD,unlock_resource);
     LuaCEmbedTable_set_method(self,UNLOAD_METHOD,unload_resurce);
@@ -263,6 +271,7 @@ LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource){
     LuaCEmbedTable_set_method(self,TRY_SUB_RESOURCE_NEXT_METHOD,try_resource_sub_resource_next);
     LuaCEmbedTable_set_method(self,TRY_SUB_RESOURCE_NOW_METHOD,try_resource_sub_resource_now);
     LuaCEmbedTable_set_method(self,TRY_SUB_RESOURCE_NOW_IN_UNIX,try_resource_sub_resource_now_in_unix);
+    LuaCEmbedTable_set_method(self,TRY_SUB_RESOURCE_RANDON,try_resource_sub_resource_random);
     LuaCEmbedTable_set_method(self,TRY_SCHEMA_LIST,try_schema_list_resources);
 
     if(resource->mother ==NULL){

@@ -10,6 +10,10 @@ LuaCEmbedResponse * free_resource(LuaCEmbedTable  *self, LuaCEmbed *args);
 
 LuaCEmbedResponse * resource_is_blob(LuaCEmbedTable  *self,LuaCEmbed *args);
 
+LuaCEmbedResponse * resource_has_value(LuaCEmbedTable  *self,LuaCEmbed *args);
+
+LuaCEmbedResponse * resource_get_type(LuaCEmbedTable  *self,LuaCEmbed *args);
+
 LuaCEmbedResponse * resource_set_value(LuaCEmbedTable  *self,LuaCEmbed *args);
 
 LuaCEmbedResponse * resource_try_set_value(LuaCEmbedTable  *self,LuaCEmbed *args);

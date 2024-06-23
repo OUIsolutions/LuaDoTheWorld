@@ -159,10 +159,12 @@
 ---@field sub_resource fun(str:string) :DtwResource
 ---@field sub_resource_next fun(str:string | nil) :DtwResource
 ---@field sub_resource_now fun(str:string | nil) :DtwResource
+---@field sub_resource_random fun(str:string | nil) :DtwResource
 ---@field sub_resource_now_in_unix fun(str:string | nil) :DtwResource
 ---@field __index fun(str:string) : number ,DtwResource
 ---@field get_value fun():string | number | boolean | nil | string
 ---@field get_string fun():string | nil
+---@field get_type fun():string
 ---@field get_number fun(): number | nil
 ---@field get_bool fun(): boolean | nil
 ---@field set_value fun(value:string | number | boolean | string | DtwResource ):boolean
@@ -190,6 +192,7 @@
 ---@field try_sub_resource_next fun(name:string):DtwResourceOrError
 ---@field try_sub_resource_now fun(name:string):DtwResourceOrError
 ---@field try_sub_resource_now_in_unix fun(name:string):DtwResourceOrError
+---@field try_sub_resource_random fun(name:string):DtwResourceOrError
 ---@field try_schema_list fun():DtwResourceListaage
 
 

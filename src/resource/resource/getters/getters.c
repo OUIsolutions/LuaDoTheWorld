@@ -27,7 +27,6 @@ LuaCEmbedResponse * resource_to_number(LuaCEmbedTable  *self,LuaCEmbed *args){
 LuaCEmbedResponse * resource_value(LuaCEmbedTable  *self,LuaCEmbed *args){
     DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     int type = DtwResource_type(resource);
-
     if(type == DTW_FOLDER_TYPE || type == DTW_NOT_FOUND){
         return NULL;
     }
@@ -46,7 +45,12 @@ LuaCEmbedResponse * resource_value(LuaCEmbedTable  *self,LuaCEmbed *args){
         long size;
         bool is_binary;
         unsigned  char *content =  DtwResource_get_any(resource,&size,&is_binary);
+        if(size ==0) {
+            return LuaCEmbed_send_str("");
+        }
+
         return LuaCEmbed_send_raw_string_reference((char*)content,size);
+
     }
 
     return NULL;
