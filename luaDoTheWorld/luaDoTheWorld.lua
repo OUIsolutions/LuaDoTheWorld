@@ -113,9 +113,14 @@
 ---@class DtwSchema
 ---@field add_primary_keys fun(values:string | string[])
 ---@field sub_schema fun(values:string | string[]):DtwSchema
+---@field set_value_name fun(name:string):DtwSchema
+---@field set_index_name fun(name:string):DtwSchema
+
 
 ---@class DtwDatabaseSchema
 ---@field sub_schema fun(values:string | string[]):DtwSchema
+---@field set_value_name fun(name:string):DtwSchema
+---@field set_index_name fun(name:string):DtwSchema
 
 ---@class DtwDatabaseSchemaOrError
 ---@field database_schema DtwDatabaseSchema | nil
