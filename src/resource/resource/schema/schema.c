@@ -205,13 +205,15 @@ LuaCEmbedResponse  * try_dangerous_rename_schema_prop(LuaCEmbedTable *self,LuaCE
 
     DtwResource *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     DtwResource_dangerous_rename_schema_prop(resource,key,new_name);
+    LuaCEmbedTable *multi_response =  LuaCembed_new_anonymous_table(args);
     if(DtwResource_error(resource)){
-        char *message = DtwResource_get_error_message(resource);
-        LuaCEmbedResponse *response = LuaCEmbed_send_str(message);
+        char *error_mensage = DtwResource_get_error_message(resource);
+        LuaCEmbedTable_append_bool(multi_response,false);
+        LuaCEmbedTable_append_string(multi_response,error_mensage);
         DtwResource_clear_errors(resource);
-        return  response;
+        return  LuaCEmbed_send_multi_return(multi_response);
     }
-    return NULL;
+    return LuaCEmbed_send_multi_return(multi_response);
 }
 
 LuaCEmbedResponse  * dangerous_remove_schema_prop(LuaCEmbedTable *self,LuaCEmbed *args){
@@ -240,13 +242,15 @@ LuaCEmbedResponse  * try_dangerous_remove_schema_prop(LuaCEmbedTable *self,LuaCE
 
     DtwResource *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     DtwResource_dangerous_remove_schema_prop(resource,key_to_remove);
+    LuaCEmbedTable *multi_response =  LuaCembed_new_anonymous_table(args);
     if(DtwResource_error(resource)){
-        char *message = DtwResource_get_error_message(resource);
-        LuaCEmbedResponse *response = LuaCEmbed_send_str(message);
+        char *error_mensage = DtwResource_get_error_message(resource);
+        LuaCEmbedTable_append_bool(multi_response,false);
+        LuaCEmbedTable_append_string(multi_response,error_mensage);
         DtwResource_clear_errors(resource);
-        return  response;
+        return  LuaCEmbed_send_multi_return(multi_response);
     }
-    return NULL;
+    return LuaCEmbed_send_multi_return(multi_response);
 }
 
 

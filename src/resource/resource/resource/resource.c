@@ -21,6 +21,11 @@ LuaCEmbedResponse * resource_get_path(LuaCEmbedTable  *self,LuaCEmbed *args){
 LuaCEmbedResponse * resource_rename(LuaCEmbedTable  *self,LuaCEmbed *args){
     DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     char *new_name = LuaCEmbed_get_str_arg(args,0);
+    if(LuaCEmbed_has_errors(args)){
+        char *error_message = LuaCEmbed_get_error_message(args);
+        return  LuaCEmbed_send_error(error_message);
+    }
+
     DtwResource_rename(resource,new_name);
     if(DtwResource_error(resource)){
         char *error_mensage = DtwResource_get_error_message(resource);
@@ -34,15 +39,23 @@ LuaCEmbedResponse * resource_rename(LuaCEmbedTable  *self,LuaCEmbed *args){
 LuaCEmbedResponse * resource_try_rename(LuaCEmbedTable  *self,LuaCEmbed *args) {
     DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     char *new_name = LuaCEmbed_get_str_arg(args,0);
+    if(LuaCEmbed_has_errors(args)){
+        char *error_message = LuaCEmbed_get_error_message(args);
+        return  LuaCEmbed_send_error(error_message);
+    }
     DtwResource_rename(resource,new_name);
+    LuaCEmbedTable *multi_response = LuaCembed_new_anonymous_table(args);
+
     if(DtwResource_error(resource)){
         char *error_mensage = DtwResource_get_error_message(resource);
-        LuaCEmbedResponse *response = LuaCEmbed_send_str(error_mensage);
+        LuaCEmbedTable_append_bool(multi_response,false);
+        LuaCEmbedTable_append_string(multi_response,error_mensage);
         DtwResource_clear_errors(resource);
-        return  response;
+        return  LuaCEmbed_send_multi_return(multi_response);
     }
 
-    return NULL;
+    return  LuaCEmbed_send_multi_return(multi_response);
+
 }
 LuaCEmbedResponse * resource_set_value(LuaCEmbedTable  *self,LuaCEmbed *args){
     Writeble  write_obj = create_writeble(args,0);
@@ -66,16 +79,19 @@ LuaCEmbedResponse * resource_try_set_value(LuaCEmbedTable  *self,LuaCEmbed *args
     if(write_obj.error){
         return write_obj.error;
     }
+    LuaCEmbedTable * multi_response = LuaCembed_new_anonymous_table(args);
+
     DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     DtwResource_set_binary(resource,write_obj.content, write_obj.size);
     if(DtwResource_error(resource)){
         char *error_mensage = DtwResource_get_error_message(resource);
-        LuaCEmbedResponse *response = LuaCEmbed_send_str(error_mensage);
+        LuaCEmbedTable_append_bool(multi_response,false);
+        LuaCEmbedTable_append_string(multi_response,error_mensage);
         DtwResource_clear_errors(resource);
-        return  response;
+        return  LuaCEmbed_send_multi_return(multi_response);
     }
 
-    return NULL;
+    return  LuaCEmbed_send_multi_return(multi_response);
 
 }
 
@@ -101,14 +117,15 @@ LuaCEmbedResponse * resource_destroy(LuaCEmbedTable  *self,LuaCEmbed *args){
 LuaCEmbedResponse * resource_try_destroy(LuaCEmbedTable  *self,LuaCEmbed *args) {
     DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     DtwResource_destroy(resource);
+    LuaCEmbedTable *multi_response =  LuaCembed_new_anonymous_table(args);
     if(DtwResource_error(resource)){
         char *error_mensage = DtwResource_get_error_message(resource);
-        LuaCEmbedResponse *response = LuaCEmbed_send_str(error_mensage);
+        LuaCEmbedTable_append_bool(multi_response,false);
+        LuaCEmbedTable_append_string(multi_response,error_mensage);
         DtwResource_clear_errors(resource);
-        return  response;
+        return  LuaCEmbed_send_multi_return(multi_response);
     }
-
-    return NULL;
+    return LuaCEmbed_send_multi_return(multi_response);
 }
 LuaCEmbedResponse * unload_resurce(LuaCEmbedTable  *self, LuaCEmbed *args){
     DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
@@ -172,14 +189,15 @@ LuaCEmbedResponse * resource_try_set_value_in_sub_resource(LuaCEmbedTable  *self
 
     DtwResource *values = DtwResource_sub_resource(resource,folder);
     DtwResource_set_binary(values,write_obj.content,write_obj.size);
+    LuaCEmbedTable *multi_response =  LuaCembed_new_anonymous_table(args);
     if(DtwResource_error(resource)){
         char *error_mensage = DtwResource_get_error_message(resource);
-        LuaCEmbedResponse *response = LuaCEmbed_send_str(error_mensage);
+        LuaCEmbedTable_append_bool(multi_response,false);
+        LuaCEmbedTable_append_string(multi_response,error_mensage);
         DtwResource_clear_errors(resource);
-        return  response;
+        return  LuaCEmbed_send_multi_return(multi_response);
     }
-
-    return NULL;
+    return LuaCEmbed_send_multi_return(multi_response);
 }
 
 LuaCEmbedResponse * resource_is_blob(LuaCEmbedTable  *self,LuaCEmbed *args){

@@ -1,0 +1,9 @@
+    LuaCEmbedTable *multi_response =  LuaCembed_new_anonymous_table(args);
+    if(DtwResource_error(resource)){
+        char *error_mensage = DtwResource_get_error_message(resource);
+        LuaCEmbedTable_append_bool(multi_response,false);
+        LuaCEmbedTable_append_string(multi_response,error_mensage);
+        DtwResource_clear_errors(resource);
+        return  LuaCEmbed_send_multi_return(multi_response);
+    }
+    return LuaCEmbed_send_multi_return(multi_response);
