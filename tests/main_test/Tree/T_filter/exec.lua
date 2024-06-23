@@ -12,5 +12,5 @@ end)
 for i=1,size do
     local current = result[i]
     print("path",current.path.get_full_path())
-    print("content",current.path.get_value())
+    print("content",current.get_value())
 end

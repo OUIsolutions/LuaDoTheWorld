@@ -98,7 +98,6 @@ LuaCEmbedResponse *tree_filter(LuaCEmbedTable *self, LuaCEmbed *args){
         long size = LuaCEmbedTable_get_full_size(user_response);
         bool append_element = false;
         if(size >0){
-            total+=1;
             append_element = LuaCEmbedTable_get_bool_by_index(user_response,0);
         }
 
