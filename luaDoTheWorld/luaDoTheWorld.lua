@@ -143,9 +143,9 @@
 ---@field schema_map fun(callback:fun(value:DtwResource):any)
 ---@field schema_count fun(callback:fun(value:DtwResource):boolean):number
 ---@field sub_resource fun(str:string) :DtwResource
----@field sub_resource_next fun(str:string) :DtwResource
----@field sub_resource_now fun(str:string) :DtwResource
----@field sub_resource_now_in_unix fun(str:string) :DtwResource
+---@field sub_resource_next fun(str:string | nil) :DtwResource
+---@field sub_resource_now fun(str:string | nil) :DtwResource
+---@field sub_resource_now_in_unix fun(str:string | nil) :DtwResource
 ---@field __index fun(str:string) : number ,DtwResource
 ---@field get_value fun():string | number | boolean | nil | string
 ---@field get_string fun():string | nil
@@ -167,6 +167,7 @@
 ---@field newSchema fun():DtwDatabaseSchema
 ---@field try_newSchema fun():DtwDatabaseSchemaOrError
 ---@field try_rename fun(new_name:string):string |nil
+---@field rename fun(new_name:string)
 ---@field try_set_value fun(value:string | number | boolean | string | DtwResource ):string | nil
 ---@field try_destroy fun():string | nil
 ---@field try_schema_new_insertion fun():DtwResourceOrError
