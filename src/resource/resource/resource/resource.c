@@ -41,7 +41,7 @@ LuaCEmbedResponse * resource_try_rename(LuaCEmbedTable  *self,LuaCEmbed *args) {
         return  response;
     }
 
-    return LuaCEmbed_send_bool(false);
+    return NULL;
 }
 LuaCEmbedResponse * resource_set_value(LuaCEmbedTable  *self,LuaCEmbed *args){
     Writeble  write_obj = create_writeble(args,0);
@@ -74,7 +74,7 @@ LuaCEmbedResponse * resource_try_set_value(LuaCEmbedTable  *self,LuaCEmbed *args
         return  response;
     }
 
-    return LuaCEmbed_send_bool(false);
+    return NULL;
 
 }
 
@@ -107,7 +107,7 @@ LuaCEmbedResponse * resource_try_destroy(LuaCEmbedTable  *self,LuaCEmbed *args) 
         return  response;
     }
 
-    return LuaCEmbed_send_bool(false);
+    return NULL;
 }
 LuaCEmbedResponse * unload_resurce(LuaCEmbedTable  *self, LuaCEmbed *args){
     DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
@@ -144,22 +144,22 @@ LuaCEmbedResponse * resource_new_schema(LuaCEmbedTable  *self, LuaCEmbed *args){
     return LuaCEmbed_send_table(created);
 
 }
+
 LuaCEmbedResponse * resource_try_new_schema(LuaCEmbedTable  *self, LuaCEmbed *args) {
     DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     DtwSchema *schema = DtwResource_newSchema(resource);
-    LuaCEmbedTable *multi_response = LuaCembed_new_anonymous_table(args);
+    LuaCEmbedTable *schema_or_error = LuaCembed_new_anonymous_table(args);
 
     if(DtwResource_error(resource)){
         char *error_mensage = DtwResource_get_error_message(resource);
-        LuaCEmbedTable_append_string(multi_response,error_mensage);
+        LuaCEmbedTable_set_string_prop(schema_or_error,ERROR_PROP,error_mensage);
         DtwResource_clear_errors(resource);
-        return  LuaCEmbed_send_table(multi_response);
+        return  LuaCEmbed_send_table(schema_or_error);
     }
 
-    LuaCEmbedTable_append_bool(multi_response,false);
     LuaCEmbedTable  *created = raw_create_schema(args,schema);
-    LuaCEmbedTable_append_table(multi_response,created);
-    return LuaCEmbed_send_multi_return(multi_response);
+    LuaCEmbedTable_set_sub_table_prop(schema_or_error,SCHEMA_VALUE_PROP,created);
+    return  LuaCEmbed_send_table(schema_or_error);
 
 }
 LuaCEmbedResponse * resource_set_value_in_sub_resource(LuaCEmbedTable  *self,LuaCEmbed *args){
@@ -210,7 +210,7 @@ LuaCEmbedResponse * resource_try_set_value_in_sub_resource(LuaCEmbedTable  *self
         return  response;
     }
 
-    return LuaCEmbed_send_bool(false);
+    return NULL;
 }
 
 LuaCEmbedResponse * resource_is_blob(LuaCEmbedTable  *self,LuaCEmbed *args){

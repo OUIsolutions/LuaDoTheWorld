@@ -13,3 +13,8 @@
 #define TREE_PART_POINTER "dtw_tree_part"
 #define PATH_PROPS "path"
 #define RANDONIZER_POINTER "randonizer"
+
+//errors
+#define ERROR_PROP "error"
+#define SCHEMA_VALUE_PROP "schema"
+#define RESOURCE_VALUE_PROP "resource"

@@ -1,15 +1,27 @@
-local dtw = require("luaDoTheWorld/luaDoTheWorld")
+function filter(props)
 
-local tree = dtw.newTree_from_hardware("tests/target/test_dir")
+local acoes = get_json ("acoes.json")
 
-local target = tree.find(function (element)
+   if acoes == nil then
 
-	if element.path.get_name() == "a.txt" then
-        return true;
-	end
-end)
+       return false
 
-target.path.set_name("new_name.txt")
-target.hardware_remove()
+   end
 
+local downloaddoprocesso = acoes.download_processo
 
+  if downloaddoprocesso.realizada == true then
+
+  return false
+
+ end
+
+  if downloaddoprocesso.tentativas > 4 then
+
+  return false
+
+   end
+
+return true
+
+end

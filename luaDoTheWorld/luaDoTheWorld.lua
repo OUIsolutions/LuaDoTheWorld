@@ -114,6 +114,15 @@
 ---@field add_primary_keys fun(values:string | string[])
 ---@field sub_schema fun(values:string | string[])
 
+---@class DtwSchemaOrError
+---@field schema DtwSchema | nil
+---@field error string | nil
+
+
+---@class DtwResourceOrError
+---@field schema DtwResource | nil
+---@field error string | nil
+
 ---@class DtwResource
 ---@field schema_new_insertion fun():DtwResource
 ---@field dangerous_remove_prop fun(primary_key:string)
@@ -148,11 +157,11 @@
 ---@field try_set_value_in_sub_resource fun(key:string ,value:string | number | boolean | string | DtwResource ):boolean
 ---@field get_value_from_sub_resource fun(key:string):string | number | boolean | nil | string
 ---@field newSchema fun():DtwSchema
----@field try_newSchema fun():string|false, DtwSchema | nil
----@field try_rename fun(new_name:string):string |false
----@field try_set_value fun(value:string | number | boolean | string | DtwResource ):string | false
----@field try_destroy fun():string | false
----@field try_schema_new_insertion fun():string | false,DtwResource | nil
+---@field try_newSchema fun():DtwSchemaOrError
+---@field try_rename fun(new_name:string):string |nil
+---@field try_set_value fun(value:string | number | boolean | string | DtwResource ):string | nil
+---@field try_destroy fun():string | nil
+---@field try_schema_new_insertion fun():DtwResourceOrError
 
 
 ---@class DtwModule

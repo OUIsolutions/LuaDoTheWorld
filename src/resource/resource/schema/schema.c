@@ -17,19 +17,18 @@ LuaCEmbedResponse  * Resource_new_insertion(LuaCEmbedTable *self, LuaCEmbed *arg
 LuaCEmbedResponse  * Resource_try_new_insertion(LuaCEmbedTable *self, LuaCEmbed *args) {
     DtwResource *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     DtwResource  *created = DtwResource_new_schema_insertion(resource);
-    LuaCEmbedTable * multi_response = LuaCembed_new_anonymous_table(args);
+    LuaCEmbedTable * resource_or_error = LuaCembed_new_anonymous_table(args);
 
     if(DtwResource_error(resource)){
         char *message = DtwResource_get_error_message(resource);
-        LuaCEmbedTable_append_string(multi_response,message);
+        LuaCEmbedTable_set_string_prop(resource_or_error,ERROR_PROP,message);
         DtwResource_clear_errors(resource);
-        return  LuaCEmbed_send_multi_return(multi_response);
+        return  LuaCEmbed_send_table(resource_or_error);
     }
 
-    LuaCEmbedTable  *sub = raw_create_resource(args,created);
-    LuaCEmbedTable_append_bool(multi_response,false);
-    LuaCEmbedTable_append_table(multi_response,sub);
-    return  LuaCEmbed_send_multi_return(multi_response);
+    LuaCEmbedTable  *sub = raw_create_resource(args,created);;
+    LuaCEmbedTable_set_sub_table_prop(resource_or_error,RESOURCE_VALUE_PROP,sub);
+    return  LuaCEmbed_send_table(resource_or_error);
 
 }
 
