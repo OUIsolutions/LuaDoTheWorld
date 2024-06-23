@@ -46,6 +46,7 @@
 ---@field count fun(callback: fun(part:DtwTreePart):boolean):number
 ---@field map fun(callback: fun(part:DtwTreePart):any):any[]
 ---@field each fun(callback: fun(part:DtwTreePart))
+---@field filter fun(callback:fun(part:DtwTreePart):boolean):DtwTreePart[],number
 ---@field dump_to_json_string fun():string
 ---@field dump_to_json_file fun():DtwTree
 
@@ -107,6 +108,7 @@
 ---@field map fun(callbac: fun(value:DtwActionTransaction):any):any[],number
 ---@field find fun(callbac: fun(value:DtwActionTransaction):boolean):DtwActionTransaction
 ---@field count fun(callbac: fun(value:DtwActionTransaction):boolean):number
+---@field filter fun(callback:fun(part:DtwActionTransaction):boolean):DtwActionTransaction[],number
 ---@field __index fun(index:number):DtwActionTransaction
 ---@field get_action fun(index:number):DtwActionTransaction
 ---@field commit fun():DtwTransaction
@@ -151,11 +153,13 @@
 ---@field find fun(callback:fun(value:DtwResource):boolean):DtwResource
 ---@field map fun(callback:fun(value:DtwResource):any):any[],number
 ---@field count fun(callback:fun(value:DtwResource):boolean):number
+---@field filter fun(callback:fun(value:DtwResource):boolean):DtwResource[],number
 ---@field schema_list fun(): DtwResource[]
 ---@field schema_each fun(callback:fun(value:DtwResource))
 ---@field schema_find fun(callback:fun(value:DtwResource):boolean):DtwResource
 ---@field schema_map fun(callback:fun(value:DtwResource):any):any[],number
 ---@field schema_count fun(callback:fun(value:DtwResource):boolean):number
+---@field schema_filter fun(callback:fun(value:DtwResource):boolean):DtwResource[],number
 ---@field sub_resource fun(str:string) :DtwResource
 ---@field sub_resource_next fun(str:string | nil) :DtwResource
 ---@field sub_resource_now fun(str:string | nil) :DtwResource
