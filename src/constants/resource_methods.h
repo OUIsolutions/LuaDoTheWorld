@@ -13,6 +13,7 @@
 #define SCHEMA_FIND_RESOURCE_METHOD "schema_find"
 #define SCHEMA_MAP_RESOURCE_METHOD "schema_map"
 #define SCHEMA_EACH_METHOD "schema_each"
+#define SCHEMA_FILTER_METHOD "schema_filter"
 #define SUB_RESOURCE_NEXT_METHOD "sub_resource_next"
 #define SUB_RESOURCE_NOW_METHOD "sub_resource_now"
 #define SUB_RESOURCE_NOW_IN_UNIX "sub_resource_now_in_unix"

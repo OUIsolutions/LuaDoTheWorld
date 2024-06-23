@@ -52,6 +52,7 @@ LuaCEmbedTable * raw_create_tree(LuaCEmbed *args,DtwTree *tree){
     LuaCEmbedTable_set_method(self,COUNT_METHOD,tree_count);
     LuaCEmbedTable_set_method(self,MAP_METHOD,tree_map);
     LuaCEmbedTable_set_method(self,EACH_METHOD,tree_foreach);
+    LuaCEmbedTable_set_method(self,FILTER_METHOD,tree_filter);
     LuaCEmbedTable_set_method(self,DUMP_TO_JSON_STRING,tree_dump_to_json_string);
     LuaCEmbedTable_set_method(self,DUMP_TO_JSON_FILE_METHOD,tree_dump_to_json_file);
     LuaCEmbedTable_set_method(self,DELETE_METHOD,tree_delete);

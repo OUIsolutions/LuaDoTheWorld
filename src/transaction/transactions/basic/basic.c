@@ -48,6 +48,7 @@ void  private_transaction_add_base_methods(LuaCEmbedTable *self,DtwTransaction *
     LuaCEmbedTable_set_method(self,COUNT_METHOD,transaction_count);
     LuaCEmbedTable_set_method(self,INDEX_METHOD,transaction_index);
     LuaCEmbedTable_set_method(self,FIND_METHOD,transaction_find);
+    LuaCEmbedTable_set_method(self,FILTER_METHOD,transaction_filter);
     LuaCEmbedTable_set_method(self,DELETE_METHOD,transaction_delete);
 
 }

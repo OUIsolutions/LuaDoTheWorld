@@ -218,6 +218,7 @@ LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource){
     LuaCEmbedTable_set_method(self,MAP_METHOD,resource_map);
     LuaCEmbedTable_set_method(self,COUNT_METHOD,resource_count);
     LuaCEmbedTable_set_method(self,FIND_METHOD,resource_find);
+    LuaCEmbedTable_set_method(self,FILTER_METHOD,resource_filter);
 
     LuaCEmbedTable_set_method(self,RESOURCE_GET_STRING,resource_value_string);
     LuaCEmbedTable_set_method(self,RESOURCE_GET_NUMBER,resource_value_number);
@@ -253,7 +254,7 @@ LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource){
     LuaCEmbedTable_set_method(self,SCHEMA_MAP_RESOURCE_METHOD,schema_map_resource);
     LuaCEmbedTable_set_method(self,SCHEMA_COUNT_RESOURCE_METHOD,schema_count_resource);
     LuaCEmbedTable_set_method(self, SCHEMA_EACH_METHOD, resource_schema_each);
-
+    LuaCEmbedTable_set_method(self,SCHEMA_FILTER_METHOD,schema_filter_resource);
 
     LuaCEmbedTable_set_method(self, SCHEMA_NEW_INSERTION, Resource_new_insertion);
 

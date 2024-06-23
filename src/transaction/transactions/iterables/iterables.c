@@ -49,6 +49,45 @@ LuaCEmbedResponse  * transaction_foreach(LuaCEmbedTable *self,LuaCEmbed *args){
     return  NULL;
 }
 
+LuaCEmbedResponse  * transaction_filter(LuaCEmbedTable *self,LuaCEmbed *args){
+
+    DtwTransaction *transaction = (DtwTransaction*)LuaCembedTable_get_long_prop(self,TRANSACTION_POINTER);
+
+    LuaCEmbedTable *multi_response = LuaCembed_new_anonymous_table(args);
+    LuaCEmbedTable *final_map = LuaCembed_new_anonymous_table(args);
+    LuaCEmbedTable_append_table(multi_response,final_map);
+    LuaCEmbedTable_append_long(multi_response,transaction->size);
+
+    for(long i = 0 ; i < transaction->size; i++){
+        DtwActionTransaction *action = transaction->actions[i];
+        LuaCEmbedTable  *table = raw_create_action_transaction(args,action);
+        LuaCEmbedTable  * args_of_callbac = LuaCembed_new_anonymous_table(args);
+        LuaCEmbedTable_append_table(args_of_callbac,table);
+        LuaCEmbedTable * user_response = LuaCEmbed_run_args_lambda(args,0,args_of_callbac,0);
+        if(LuaCEmbed_has_errors(args)){
+
+            char *error = LuaCEmbed_get_error_message(args);
+            return LuaCEmbed_send_error(error);
+        }
+        long size = LuaCEmbedTable_get_full_size(user_response);
+        bool append_element = false;
+        if(size ==1){
+            append_element = LuaCEmbedTable_get_bool_by_index(user_response,0);
+        }
+
+        if(LuaCEmbed_has_errors(args)){
+            char *error = LuaCEmbed_get_error_message(args);
+            return LuaCEmbed_send_error(error);
+        }
+        if(append_element) {
+            LuaCEmbedTable_append_table(final_map,table);
+        }
+
+    }
+
+    return  LuaCEmbed_send_multi_return(multi_response);
+
+}
 LuaCEmbedResponse  * transaction_map(LuaCEmbedTable *self,LuaCEmbed *args){
 
     DtwTransaction *transaction = (DtwTransaction*)LuaCembedTable_get_long_prop(self,TRANSACTION_POINTER);
@@ -70,8 +109,8 @@ LuaCEmbedResponse  * transaction_map(LuaCEmbedTable *self,LuaCEmbed *args){
             return LuaCEmbed_send_error(error);
         }
 
-        int response_type =LuaCEmbedTable_get_type_by_index(response_values,0);
-        if(response_type!= LUA_CEMBED_NIL && response_type != LUA_CEMBED_NOT_FOUND){
+        long size = LuaCEmbedTable_get_full_size(response_values);
+        if(size > 0){
             LuaCEmbedTable_append_evaluation(final_map,"%s[1]",response_values->global_name);
         }
     }
@@ -93,11 +132,19 @@ LuaCEmbedResponse  * transaction_find(LuaCEmbedTable *self,LuaCEmbed *args){
             char *error = LuaCEmbed_get_error_message(args);
             return LuaCEmbed_send_error(error);
         }
-        int response_type =LuaCEmbedTable_get_type_by_index(response_values,0);
-        if(response_type ==  LUA_CEMBED_BOOL){
-            return LuaCEmbed_send_bool(
-                    LuaCEmbedTable_get_bool_by_index(response_values,0)
-                    );
+        long size = LuaCEmbedTable_get_full_size(response_values);
+        bool return_element = false;
+        if(size > 0 ){
+            return_element = LuaCEmbedTable_get_bool_by_index(response_values,0)
+        }
+        if(LuaCEmbed_has_errors(args)){
+
+            char *error = LuaCEmbed_get_error_message(args);
+            return LuaCEmbed_send_error(error);
+        }
+
+        if(return_element) {
+            return LuaCEmbed_send_table(table);
         }
     }
 
@@ -119,12 +166,17 @@ LuaCEmbedResponse  * transaction_count(LuaCEmbedTable *self,LuaCEmbed *args){
             char *error = LuaCEmbed_get_error_message(args);
             return LuaCEmbed_send_error(error);
         }
-        int response_type =LuaCEmbedTable_get_type_by_index(response_values,0);
-        if(response_type !=  LUA_CEMBED_BOOL){
-            continue;
+        long size = LuaCEmbedTable_get_full_size(response_values);
+        bool append_element = false;
+        if(size >0){
+            append_element = LuaCEmbedTable_get_bool_by_index(response_values,0);
         }
-        bool value = LuaCEmbedTable_get_bool_by_index(response_values,0);
-        if(value){
+
+        if(LuaCEmbed_has_errors(args)){
+            char *error = LuaCEmbed_get_error_message(args);
+            return LuaCEmbed_send_error(error);
+        }
+        if(append_element) {
             total+=1;
         }
 

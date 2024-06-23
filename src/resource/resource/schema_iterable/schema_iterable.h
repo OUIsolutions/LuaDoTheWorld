@@ -8,6 +8,7 @@ LuaCEmbedResponse * schema_find_resource(LuaCEmbedTable *self,LuaCEmbed *args);
 
 LuaCEmbedResponse * schema_count_resource(LuaCEmbedTable *self,LuaCEmbed *args);
 
+LuaCEmbedResponse * schema_filter_resource(LuaCEmbedTable *self,LuaCEmbed *args);
 
 LuaCEmbedResponse * schema_map_resource(LuaCEmbedTable *self,LuaCEmbed *args);
 
