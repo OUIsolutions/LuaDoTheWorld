@@ -253,7 +253,10 @@ LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource){
     LuaCEmbedTable_set_method(self,TRY_GET_RESOURCE_BY_NAME_ID,try_get_resource_by_name_id);
     LuaCEmbedTable_set_method(self,TRY_DANGEROUS_RENAME_PROP_METHOD,try_dangerous_rename_schema_prop);
     LuaCEmbedTable_set_method(self,TRY_DANGEROUS_REMOVE_PROP_METHOD,try_dangerous_remove_schema_prop);
-
+    LuaCEmbedTable_set_method(self,TRY_SUB_RESOURCE_METHOD,try_resource_sub_resource_method);
+    LuaCEmbedTable_set_method(self,TRY_SUB_RESOURCE_NEXT_METHOD,try_resource_sub_resource_next);
+    LuaCEmbedTable_set_method(self,TRY_SUB_RESOURCE_NOW_METHOD,try_resource_sub_resource_now);
+    LuaCEmbedTable_set_method(self,TRY_SUB_RESOURCE_NOW_IN_UNIX,try_resource_sub_resource_now_in_unix);
 
     if(resource->mother ==NULL){
         LuaCEmbedTable_set_method(self, DELETE_METHOD, free_resource);
