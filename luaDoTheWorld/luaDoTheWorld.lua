@@ -112,10 +112,13 @@
 
 ---@class DtwSchema
 ---@field add_primary_keys fun(values:string | string[])
----@field sub_schema fun(values:string | string[])
+---@field sub_schema fun(values:string | string[]):DtwSchema
 
----@class DtwSchemaOrError
----@field schema DtwSchema | nil
+---@class DtwDatabaseSchema
+---@field sub_schema fun(values:string | string[]):DtwSchema
+
+---@class DtwDatabaseSchemaOrError
+---@field database_schema DtwDatabaseSchema | nil
 ---@field error string | nil
 
 
@@ -156,8 +159,8 @@
 ---@field set_value_in_sub_resource fun(key:string ,value:string | number | boolean | string | DtwResource )
 ---@field try_set_value_in_sub_resource fun(key:string ,value:string | number | boolean | string | DtwResource ):boolean
 ---@field get_value_from_sub_resource fun(key:string):string | number | boolean | nil | string
----@field newSchema fun():DtwSchema
----@field try_newSchema fun():DtwSchemaOrError
+---@field newSchema fun():DtwDatabaseSchema
+---@field try_newSchema fun():DtwDatabaseSchemaOrError
 ---@field try_rename fun(new_name:string):string |nil
 ---@field try_set_value fun(value:string | number | boolean | string | DtwResource ):string | nil
 ---@field try_destroy fun():string | nil

@@ -14,3 +14,4 @@
 #include "randonizer_methods.h"
 #include "fork_process.h"
 #include "locker.h"
+#include "database_schema.h"

@@ -30,7 +30,7 @@ LuaCEmbedResponse  * add_schema_primary_keys(LuaCEmbedTable *self,LuaCEmbed *arg
     return LuaCEmbed_send_table(self);
 }
 
-LuaCEmbedResponse  * add_sub_schema(LuaCEmbedTable *self,LuaCEmbed *args){
+LuaCEmbedResponse  * schema_add_sub_schema(LuaCEmbedTable *self,LuaCEmbed *args){
     char *name = LuaCEmbed_get_str_arg(args,0);
     if(LuaCEmbed_has_errors(args)){
         char *message = LuaCEmbed_get_error_message(args);
@@ -47,7 +47,7 @@ LuaCEmbedTable  * raw_create_schema(LuaCEmbed *args,DtwSchema *schema){
     LuaCEmbedTable *created= LuaCembed_new_anonymous_table(args);
     LuaCEmbedTable_set_long_prop(created,SCHEMA_POINTER,(long long )schema);
     LuaCEmbedTable_set_method(created,ADD_PRIMARY_KEYS,add_schema_primary_keys);
-    LuaCEmbedTable_set_method(created,ADD_SUB_SCHEMA_METHOD,add_sub_schema);
+    LuaCEmbedTable_set_method(created,ADD_SUB_SCHEMA_METHOD,schema_add_sub_schema);
     return created;
 }
 

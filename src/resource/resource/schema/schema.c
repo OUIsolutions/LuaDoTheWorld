@@ -4,8 +4,7 @@
 
 LuaCEmbedResponse * resource_new_schema(LuaCEmbedTable  *self, LuaCEmbed *args){
     DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
-    DtwSchema *schema = DtwResource_newSchema(resource);
-
+    DtwDtatabaseSchema *schema = DtwResource_newDatabaseSchema(resource);
     if(DtwResource_error(resource)){
         char *error_mensage = DtwResource_get_error_message(resource);
         LuaCEmbedResponse *response = LuaCEmbed_send_error(error_mensage);
@@ -13,14 +12,14 @@ LuaCEmbedResponse * resource_new_schema(LuaCEmbedTable  *self, LuaCEmbed *args){
         return  response;
     }
 
-    LuaCEmbedTable  *created = raw_create_schema(args,schema);
+    LuaCEmbedTable  *created = raw_create_database_schema(args,schema);
     return LuaCEmbed_send_table(created);
 
 }
 
 LuaCEmbedResponse * resource_try_new_schema(LuaCEmbedTable  *self, LuaCEmbed *args) {
     DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
-    DtwSchema *schema = DtwResource_newSchema(resource);
+    DtwDtatabaseSchema *schema = DtwResource_newDatabaseSchema(resource);
     LuaCEmbedTable *schema_or_error = LuaCembed_new_anonymous_table(args);
 
     if(DtwResource_error(resource)){
@@ -30,7 +29,7 @@ LuaCEmbedResponse * resource_try_new_schema(LuaCEmbedTable  *self, LuaCEmbed *ar
         return  LuaCEmbed_send_table(schema_or_error);
     }
 
-    LuaCEmbedTable  *created = raw_create_schema(args,schema);
+    LuaCEmbedTable  *created = raw_create_database_schema(args,schema);
     LuaCEmbedTable_set_sub_table_prop(schema_or_error,SCHEMA_VALUE_PROP,created);
     return  LuaCEmbed_send_table(schema_or_error);
 
