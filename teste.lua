@@ -27,7 +27,7 @@ end
 local database = create_database();
 create_user(database,"user1","user1@gmail.com",20,"123")
 create_user(database,"user2","user2@gmail.com",40,"123")
-create_user(database,"user3","user3@gmail.com",50,"123")
+create_user(database,"user2","user3@gmail.com",50,"123")
 
 local users = database.sub_resource("users")
 local users_higher_than_30,size = users.schema_filter(function (current_user)
