@@ -177,6 +177,63 @@ these example loads a transaction from a json file
 
 codeof:exemples/Transaction/load_transaction.lua
 
+
+### Resources 
+Resources it's a way to manipulate files and folders, as dictionarys, they are usefull for  
+larger storage models
+
+#### Basic Resource in Lua
+codeof:exemples/resource/basic_resource.lua
+
+Resources can be files or folders, that are automaticly determined based on the code behavior
+for example, if you use the function "get_value" the lib understand that its a file , if you type 
+sub resource, it understand that its a folder 
+
+#### Getting a value from a file
+in these example we are getting a value from a faile 
+
+codeof:exemples/resource/retriving_values.lua
+
+#### Getting  a value from a sub resource
+In these example we are getting a value from a sub resource directaly
+
+codeof:exemples/resource/retriving_values_from_sub_resource.lua
+
+#### Setting Values in Sub Resource 
+
+codeof:exemples/resource/setting_values_in_sub_resource.lua
+
+#### Destroying a sub resource
+you also can destroy a resource
+
+codeof:exemples/resource/destroying_values.lua
+
+
+#### Listage 
+there is a lot of ways to list into  files in lua,based on your style of coding
+codeof:exemples/resource/list.lua
+
+#### Each 
+if you prefer  a more functional way ,you can use the each method for basic iteration 
+
+codeof:exemples/resource/each.lua
+
+#### Map 
+you also can map the resources retriving a generated struct
+
+codeof:exemples/resource/map.lua
+
+#### Find 
+its possible to find elements based on functions to
+
+codeof:exemples/resource/find.lua
+
+#### Filter 
+and you can filter elements, in these example we are filtering based on file exist
+
+codeof:exemples/resource/filter.lua
+
+
 ### Trees and Tree Parts
 
 Trees and Tree parts are a way to manage files in a one dimension list 

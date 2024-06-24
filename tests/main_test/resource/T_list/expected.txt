@@ -1,0 +1,6 @@
+path	tests/target/test_dir/a.txt
+type	string
+path	tests/target/test_dir/b.txt
+type	string
+path	tests/target/test_dir/dira
+type	folder

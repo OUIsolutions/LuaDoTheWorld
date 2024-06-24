@@ -487,6 +487,178 @@ end)
 
 ~~~
 
+
+### Resources 
+Resources it's a way to manipulate files and folders, as dictionarys, they are usefull for  
+larger storage models
+
+#### Basic Resource in Lua
+
+~~~lua
+local dtw = require("luaDoTheWorld/luaDoTheWorld")
+
+local a = dtw.newResource("tests/target/a")
+local b = a.sub_resource("b.txt")
+b.set_value("content of b1")
+a.commit()
+
+~~~
+
+Resources can be files or folders, that are automaticly determined based on the code behavior
+for example, if you use the function "get_value" the lib understand that its a file , if you type 
+sub resource, it understand that its a folder 
+
+#### Getting a value from a file
+in these example we are getting a value from a faile 
+
+
+~~~lua
+local dtw = require("luaDoTheWorld/luaDoTheWorld")
+
+local a = dtw.newResource("tests/target/a")
+local b = a.sub_resource("b.txt")
+print(b.get_value())
+a.commit()
+
+~~~
+
+#### Getting  a value from a sub resource
+In these example we are getting a value from a sub resource directaly
+
+
+~~~lua
+local dtw = require("luaDoTheWorld/luaDoTheWorld")
+
+local a = dtw.newResource("tests/target/a")
+
+print(a.get_value_from_sub_resource("b.txt"))
+~~~
+
+#### Setting Values in Sub Resource 
+
+
+~~~lua
+local dtw = require("luaDoTheWorld/luaDoTheWorld")
+
+local a = dtw.newResource("tests/target/a")
+a.set_value_in_sub_resource("b.txt","content of b")
+a.commit()
+
+~~~
+
+#### Destroying a sub resource
+you also can destroy a resource
+
+
+~~~lua
+local dtw = require("luaDoTheWorld/luaDoTheWorld")
+
+local a = dtw.newResource("tests/target/a")
+local b = a.sub_resource("b.txt")
+b.destroy()
+
+a.commit()
+
+~~~
+
+
+#### Listage 
+there is a lot of ways to list into  files in lua,based on your style of coding
+
+~~~lua
+local dtw = require("luaDoTheWorld/luaDoTheWorld")
+
+local a = dtw.newResource("tests/target/test_dir")
+local elements,size = a.list()
+
+for i=1,size do
+    local value = elements[i]
+	print("path",value.get_path_string())
+	print("type",value.get_type())
+end
+
+
+
+~~~
+
+#### Each 
+if you prefer  a more functional way ,you can use the each method for basic iteration 
+
+
+~~~lua
+local dtw = require("luaDoTheWorld/luaDoTheWorld")
+
+local a = dtw.newResource("tests/target/test_dir")
+a.each(function (value)
+	print("path",value.get_path_string())
+	print("type",value.get_type())
+end)
+
+~~~
+
+#### Map 
+you also can map the resources retriving a generated struct
+
+
+~~~lua
+local dtw = require("luaDoTheWorld/luaDoTheWorld")
+
+local a = dtw.newResource("tests/target/test_dir")
+local elements,size  = a.map(function(value)
+	local result = {}
+	result.path = value.get_path_string()
+    result.value = value.get_value()
+    result.type = value.get_type()
+    return result;
+end)
+for i=1,size do
+	local current = elements[i]
+	print("path",current.path)
+	print("value",current.value)
+	print("type",current.type)
+end
+~~~
+
+#### Find 
+its possible to find elements based on functions to
+
+
+~~~lua
+local dtw = require("luaDoTheWorld/luaDoTheWorld")
+
+local a = dtw.newResource("tests/target/test_dir")
+local element  = a.find(function(value)
+	local path = dtw.newPath(value.get_path_string())
+    if path.get_name() == "a.txt" then
+    	return true;
+    end
+end)
+
+print(element.get_value())
+~~~
+
+#### Filter 
+and you can filter elements, in these example we are filtering based on file exist
+
+
+~~~lua
+local dtw = require("luaDoTheWorld/luaDoTheWorld")
+
+local a = dtw.newResource("tests/target/test_dir")
+local files,size  = a.filter(function(value)
+	if value.get_value() then
+		return true
+	end
+end)
+
+
+for i=1,size do
+	local file = files[i]
+	print(file.get_value())
+end
+~~~
+
+
 ### Trees and Tree Parts
 
 Trees and Tree parts are a way to manage files in a one dimension list 

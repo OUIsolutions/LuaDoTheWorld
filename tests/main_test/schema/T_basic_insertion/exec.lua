@@ -22,8 +22,14 @@ local function create_user(database,name,email,password)
 end
 
 
+
 local database = create_database();
-create_user(database,"user1","user1@gmail.com","123")
-create_user(database,"user2","user1@gmail.com","123")
+local correct,user_or_error  = pcall(create_user,database,"user1","user1@gmail.com","123")
+if correct == false then
+	local error = user_or_error
+	print(error)
+else
+	print("user created")
+end
 
 database.commit()
