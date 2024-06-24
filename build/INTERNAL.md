@@ -233,6 +233,30 @@ and you can filter elements, in these example we are filtering based on file exi
 
 codeof:exemples/resource/filter.lua
 
+#### Custom sub Resources
+With Custom sub resources , you can generate customizible elements to your resources
+making elements based onyour necessity
+
+#### Sub Resource Now 
+
+will create a sub resource with the name of the current time
+codeof:exemples/resource/sub_resource_now.lua
+
+#### Sub Resource Now in Unix
+
+Will create a resource with the current unix time
+codeof:exemples/resource/sub_resource_now_in_unix.lua
+
+#### Sub Resource Random 
+Will create a resource with a random name
+
+codeof:exemples/resource/sub_resource_random.lua
+
+#### Sub Resource Next 
+will creeate a resource with the given size of mothers folder
+
+codeof:exemples/resource/sub_resource_next.lua
+
 
 ### Trees and Tree Parts
 

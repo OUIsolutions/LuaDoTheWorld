@@ -658,6 +658,66 @@ for i=1,size do
 end
 ~~~
 
+#### Custom sub Resources
+With Custom sub resources , you can generate customizible elements to your resources
+making elements based onyour necessity
+
+#### Sub Resource Now 
+
+will create a sub resource with the name of the current time
+
+~~~lua
+local dtw = require("luaDoTheWorld/luaDoTheWorld")
+
+local a = dtw.newResource("tests/target/a")
+local now = a.sub_resource_now(".txt")
+now.set_value("content generated")
+a.commit()
+
+~~~
+
+#### Sub Resource Now in Unix
+
+Will create a resource with the current unix time
+
+~~~lua
+local dtw = require("luaDoTheWorld/luaDoTheWorld")
+
+local a = dtw.newResource("tests/target/a")
+local now = a.sub_resource_now_in_unix(".txt")
+now.set_value("content generated")
+a.commit()
+
+~~~
+
+#### Sub Resource Random 
+Will create a resource with a random name
+
+
+~~~lua
+local dtw = require("luaDoTheWorld/luaDoTheWorld")
+
+local a = dtw.newResource("tests/target/a")
+local now = a.sub_resource_random(".txt")
+now.set_value("content generated")
+a.commit()
+
+~~~
+
+#### Sub Resource Next 
+will creeate a resource with the given size of mothers folder
+
+
+~~~lua
+local dtw = require("luaDoTheWorld/luaDoTheWorld")
+
+local a = dtw.newResource("tests/target/a")
+local next = a.sub_resource_next(".txt")
+next.set_value("content generated")
+a.commit()
+
+~~~
+
 
 ### Trees and Tree Parts
 
