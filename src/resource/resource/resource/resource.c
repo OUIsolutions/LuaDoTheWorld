@@ -59,12 +59,15 @@ LuaCEmbedResponse * resource_try_rename(LuaCEmbedTable  *self,LuaCEmbed *args) {
 
 }
 LuaCEmbedResponse * resource_set_value(LuaCEmbedTable  *self,LuaCEmbed *args){
-    Writeble  write_obj = create_writeble(args,0);
-    if(write_obj.error){
-        return write_obj.error;
+    Writeble  *write_obj = create_writeble(args,0);
+    if(write_obj->error){
+        LuaCEmbedResponse *response =  write_obj->error;
+        Writeble_free(write_obj);
+        return  response;
     }
     DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
-    DtwResource_set_any(resource,write_obj.content, write_obj.size,write_obj.is_binary);
+    DtwResource_set_any(resource,write_obj->content, write_obj->size,write_obj->is_binary);
+    Writeble_free(write_obj);
     if(DtwResource_error(resource)){
         char *error_mensage = DtwResource_get_error_message(resource);
         LuaCEmbedResponse *response = LuaCEmbed_send_error(error_mensage);
@@ -76,14 +79,17 @@ LuaCEmbedResponse * resource_set_value(LuaCEmbedTable  *self,LuaCEmbed *args){
 }
 
 LuaCEmbedResponse * resource_try_set_value(LuaCEmbedTable  *self,LuaCEmbed *args) {
-    Writeble  write_obj = create_writeble(args,0);
-    if(write_obj.error){
-        return write_obj.error;
+    Writeble  *write_obj = create_writeble(args,1);
+    if(write_obj->error){
+        LuaCEmbedResponse *response =  write_obj->error;
+        Writeble_free(write_obj);
+        return  response;
     }
     LuaCEmbedTable * multi_response = LuaCembed_new_anonymous_table(args);
 
     DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
-    DtwResource_set_binary(resource,write_obj.content, write_obj.size);
+    DtwResource_set_any(resource,write_obj->content, write_obj->size,write_obj->is_binary);
+    Writeble_free(write_obj);
     if(DtwResource_error(resource)){
         char *error_mensage = DtwResource_get_error_message(resource);
         LuaCEmbedTable_append_bool(multi_response,false);
@@ -159,15 +165,15 @@ LuaCEmbedResponse * resource_set_value_in_sub_resource(LuaCEmbedTable  *self,Lua
         char *error_message = LuaCEmbed_get_error_message(args);
         return  LuaCEmbed_send_error(error_message);
     }
-
-    Writeble  write_obj = create_writeble(args,1);
-    if(write_obj.error){
-        return write_obj.error;
+    Writeble  *write_obj = create_writeble(args,1);
+    if(write_obj->error){
+        LuaCEmbedResponse *response =  write_obj->error;
+        Writeble_free(write_obj);
+        return  response;
     }
-
     DtwResource *values = DtwResource_sub_resource(resource,folder);
-    DtwResource_set_any(values,write_obj.content,write_obj.size,write_obj.is_binary);
-    Writeble_free(&write_obj);
+    DtwResource_set_any(values,write_obj->content,write_obj->size,write_obj->is_binary);
+    Writeble_free(write_obj);
     if(DtwResource_error(resource)){
         char *error_mensage = DtwResource_get_error_message(resource);
         LuaCEmbedResponse *response = LuaCEmbed_send_error(error_mensage);
@@ -185,14 +191,16 @@ LuaCEmbedResponse * resource_try_set_value_in_sub_resource(LuaCEmbedTable  *self
         char *error_message = LuaCEmbed_get_error_message(args);
         return  LuaCEmbed_send_error(error_message);
     }
-
-    Writeble  write_obj = create_writeble(args,1);
-    if(write_obj.error){
-        return write_obj.error;
+    Writeble  *write_obj = create_writeble(args,1);
+    if(write_obj->error){
+        LuaCEmbedResponse *response =  write_obj->error;
+        Writeble_free(write_obj);
+        return  response;
     }
 
     DtwResource *values = DtwResource_sub_resource(resource,folder);
-    DtwResource_set_binary(values,write_obj.content,write_obj.size);
+    DtwResource_set_binary(values,write_obj->content,write_obj->size);
+    Writeble_free(write_obj);
     LuaCEmbedTable *multi_response =  LuaCembed_new_anonymous_table(args);
     if(DtwResource_error(resource)){
         char *error_mensage = DtwResource_get_error_message(resource);

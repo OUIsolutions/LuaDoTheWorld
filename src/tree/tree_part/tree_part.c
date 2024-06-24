@@ -38,12 +38,15 @@ LuaCEmbedResponse * tree_part_to_string(LuaCEmbedTable *self,LuaCEmbed *args){
 }
 
 LuaCEmbedResponse * tree_part_set_value(LuaCEmbedTable *self,LuaCEmbed *args){
-    Writeble  write_obj = create_writeble(args,0);
-    if(write_obj.error){
-        return write_obj.error;
+    Writeble  *write_obj = create_writeble(args,0);
+    if(write_obj->error){
+        LuaCEmbedResponse *response =  write_obj->error;
+        Writeble_free(write_obj);
+        return  response;
     }
     DtwTreePart *self_part  = (DtwTreePart*)LuaCembedTable_get_long_prop(self,TREE_PART_POINTER);
-    DtwTreePart_set_any_content(self_part,write_obj.content,write_obj.size,write_obj.is_binary);
+    DtwTreePart_set_any_content(self_part,write_obj->content,write_obj->size,write_obj->is_binary);
+    Writeble_free(write_obj);
     return LuaCEmbed_send_table(self);
 }
 

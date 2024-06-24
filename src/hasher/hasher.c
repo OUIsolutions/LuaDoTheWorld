@@ -64,13 +64,15 @@ LuaCEmbedResponse * delete_hasher(LuaCEmbedTable *self,LuaCEmbed *args){
 }
 
 LuaCEmbedResponse * hasher_digest(LuaCEmbedTable *self,LuaCEmbed *args){
-    Writeble write_obj = create_writeble(args,0);
-    if(write_obj.error){
-        return write_obj.error;
+    Writeble  *write_obj = create_writeble(args,0);
+    if(write_obj->error){
+        LuaCEmbedResponse *response =  write_obj->error;
+        Writeble_free(write_obj);
+        return  response;
     }
     DtwHash *hash = (DtwHash*)LuaCembedTable_get_long_prop(self,HASH_POINTER);
-    DtwHash_digest_any(hash,write_obj.content,write_obj.size);
-    Writeble_free(&write_obj);
+    DtwHash_digest_any(hash,write_obj->content,write_obj->size);
+    Writeble_free(write_obj);
     return NULL;
 }
 

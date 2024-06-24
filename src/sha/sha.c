@@ -56,14 +56,16 @@ LuaCEmbedResponse  * generate_sha_from_folder_by_last_modification(LuaCEmbed *ar
 }
 
 LuaCEmbedResponse  * generate_sha(LuaCEmbed *args){
-    Writeble write_obj = create_writeble(args,0);
-    if(write_obj.error){
-        return write_obj.error;
+    Writeble  *write_obj = create_writeble(args,0);
+    if(write_obj->error){
+        LuaCEmbedResponse *response =  write_obj->error;
+        Writeble_free(write_obj);
+        return  response;
     }
-    char  *sha = dtw_generate_sha_from_any(write_obj.content,write_obj.size);
-    Writeble_free(&write_obj);
+    char  *sha = dtw_generate_sha_from_any(write_obj->content,write_obj->size);
     LuaCEmbedResponse *response = LuaCEmbed_send_str(sha);
     free(sha);
+    Writeble_free(write_obj);
     return response;
 }
 

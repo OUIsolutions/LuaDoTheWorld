@@ -1,21 +1,15 @@
-==9486== Memcheck, a memory error detector
-==9486== Copyright (C) 2002-2024, and GNU GPL'd, by Julian Seward et al.
-==9486== Using Valgrind-3.23.0 and LibVEX; rerun with -h for copyright info
-==9486== Command: lua tests/main_test/schema/T_filter/exec.lua
-==9486== Parent PID: 9452
-==9486== 
-==9486== 
-==9486== HEAP SUMMARY:
-==9486==     in use at exit: 6 bytes in 2 blocks
-==9486==   total heap usage: 1,807 allocs, 1,805 frees, 165,766 bytes allocated
-==9486== 
-==9486== LEAK SUMMARY:
-==9486==    definitely lost: 6 bytes in 2 blocks
-==9486==    indirectly lost: 0 bytes in 0 blocks
-==9486==      possibly lost: 0 bytes in 0 blocks
-==9486==    still reachable: 0 bytes in 0 blocks
-==9486==         suppressed: 0 bytes in 0 blocks
-==9486== Rerun with --leak-check=full to see details of leaked memory
-==9486== 
-==9486== For lists of detected and suppressed errors, rerun with: -s
-==9486== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==15035== Memcheck, a memory error detector
+==15035== Copyright (C) 2002-2024, and GNU GPL'd, by Julian Seward et al.
+==15035== Using Valgrind-3.23.0 and LibVEX; rerun with -h for copyright info
+==15035== Command: lua tests/main_test/schema/T_basic_insertion_without_pcall/exec.lua
+==15035== Parent PID: 14420
+==15035== 
+==15035== 
+==15035== HEAP SUMMARY:
+==15035==     in use at exit: 0 bytes in 0 blocks
+==15035==   total heap usage: 1,280 allocs, 1,280 frees, 142,080 bytes allocated
+==15035== 
+==15035== All heap blocks were freed -- no leaks are possible
+==15035== 
+==15035== For lists of detected and suppressed errors, rerun with: -s
+==15035== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)

@@ -36,13 +36,14 @@ LuaCEmbedResponse  * base64_decode(LuaCEmbed *args){
 }
 
 LuaCEmbedResponse  * base64_encode(LuaCEmbed *args){
-    Writeble write_obj = create_writeble(args,0);
-    if(write_obj.error){
-        return write_obj.error;
+    Writeble  *write_obj = create_writeble(args,0);
+    if(write_obj->error){
+        LuaCEmbedResponse *response =  write_obj->error;
+        Writeble_free(write_obj);
+        return  response;
     }
-
-    char *created = dtw_base64_encode(write_obj.content,write_obj.size);
-    Writeble_free(&write_obj);
+    char *created = dtw_base64_encode(write_obj->content,write_obj->size);
+    Writeble_free(write_obj);
     LuaCEmbedResponse *response = LuaCEmbed_send_str(created);
     free(created);
     return response;

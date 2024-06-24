@@ -76,13 +76,16 @@ LuaCEmbedResponse  * get_resource_match_schema_by_primary_key(LuaCEmbedTable *se
         char *error_message = LuaCEmbed_get_error_message(args);
         return  LuaCEmbed_send_error(error_message);
     }
-    Writeble  write_obj = create_writeble(args,1);
-    if(write_obj.error){
-        return write_obj.error;
+    Writeble  *write_obj = create_writeble(args,1);
+    if(write_obj->error){
+        LuaCEmbedResponse *response =  write_obj->error;
+        Writeble_free(write_obj);
+        return  response;
     }
     DtwResource *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
 
-    DtwResource *founded = DtwResource_find_by_primary_key_with_binary(resource,key,write_obj.content,write_obj.size);
+    DtwResource *founded = DtwResource_find_by_primary_key_with_binary(resource,key,write_obj->content,write_obj->size);
+    Writeble_free(write_obj);
     if(DtwResource_error(resource)){
         char *message = DtwResource_get_error_message(resource);
         LuaCEmbedResponse *response = LuaCEmbed_send_error(message);
@@ -102,14 +105,15 @@ LuaCEmbedResponse  * try_get_resource_match_schema_by_primary_key(LuaCEmbedTable
         char *error_message = LuaCEmbed_get_error_message(args);
         return  LuaCEmbed_send_error(error_message);
     }
-    Writeble  write_obj = create_writeble(args,1);
-    if(write_obj.error){
-        return write_obj.error;
+    Writeble  *write_obj = create_writeble(args,1);
+    if(write_obj->error){
+        LuaCEmbedResponse *response =  write_obj->error;
+        Writeble_free(write_obj);
+        return  response;
     }
-
     DtwResource *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
-    DtwResource *founded = DtwResource_find_by_primary_key_with_binary(resource,key,write_obj.content,write_obj.size);
-
+    DtwResource *founded = DtwResource_find_by_primary_key_with_binary(resource,key,write_obj->content,write_obj->size);
+    Writeble_free(write_obj);
     LuaCEmbedTable *multi_response =  LuaCembed_new_anonymous_table(args);
     if(DtwResource_error(resource)){
         char *error_mensage = DtwResource_get_error_message(resource);
