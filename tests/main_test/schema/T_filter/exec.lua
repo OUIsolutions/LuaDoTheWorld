@@ -45,3 +45,4 @@ for i=1,size do
     	print("password",current_user.get_value_from_sub_resource("password"))
 end
 
+database.commit()

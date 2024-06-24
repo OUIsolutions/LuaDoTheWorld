@@ -43,3 +43,4 @@ for i=1,size do
 end
 
 
+database.commit()

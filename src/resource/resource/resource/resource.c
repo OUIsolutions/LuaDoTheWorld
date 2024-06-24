@@ -166,7 +166,7 @@ LuaCEmbedResponse * resource_set_value_in_sub_resource(LuaCEmbedTable  *self,Lua
     }
 
     DtwResource *values = DtwResource_sub_resource(resource,folder);
-    DtwResource_set_binary(values,write_obj.content,write_obj.size);
+    DtwResource_set_any(values,write_obj.content,write_obj.size,write_obj.is_binary);
     if(DtwResource_error(resource)){
         char *error_mensage = DtwResource_get_error_message(resource);
         LuaCEmbedResponse *response = LuaCEmbed_send_error(error_mensage);
@@ -213,6 +213,7 @@ LuaCEmbedResponse * resource_is_blob(LuaCEmbedTable  *self,LuaCEmbed *args){
 LuaCEmbedResponse * resource_get_type(LuaCEmbedTable  *self,LuaCEmbed *args) {
     DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     const char *type = DtwResource_type_in_str(resource);
+
     return LuaCEmbed_send_str(type);
 }
 
