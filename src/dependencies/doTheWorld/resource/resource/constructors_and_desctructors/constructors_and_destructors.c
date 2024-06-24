@@ -175,13 +175,9 @@ void DtwResource_free(DtwResource *self){
 
     DtwResourceArray_free((DtwResourceArray*)self->sub_resources);
 
-
-
     if(self->value_any){
         free(self->value_any);
     }
-
-
     free(self->path);
     free(self->name);
     free(self);

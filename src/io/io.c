@@ -8,19 +8,9 @@ LuaCEmbedResponse  * load_file(LuaCEmbed *args){
     }
 
     long  size;
-    bool is_binary;
-    unsigned  char *content = dtw_load_any_content(filename,&size,&is_binary);
-    if(!content){
-        if(dtw_entity_type(filename) == DTW_FILE_TYPE){
-             return LuaCEmbed_send_str("");
-        }
-        return NULL;
-    }
-    if(!is_binary){
-
-        LuaCEmbedResponse  * response = LuaCEmbed_send_str((const char*)content);
-        free(content);
-        return response;
+    unsigned  char *content = dtw_load_binary_content(filename,&size);
+    if(content == NULL) {
+        return  NULL;
     }
 
     LuaCEmbedResponse  *response  = LuaCEmbed_send_raw_string((char*)content,size);
