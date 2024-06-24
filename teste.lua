@@ -1,7 +1,7 @@
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
 local function  create_database()
-    local database = dtw.newResource("database")
+    local database = dtw.newResource("tests/target/database")
     local root_schema = database.newDatabaseSchema()
     local users  =root_schema.sub_schema("users")
     users.add_primary_keys({"name","email"})
@@ -21,9 +21,19 @@ local function create_user(database,name,email,password)
     return user;
 end
 
+---@param database DtwResource
+---@param email string
+---@return DtwResource
+local function find_by_email(database,email)
+    local users = database.sub_resource("users")
+    return users.get_resource_matching_primary_key("email",email)
+end
 
 local database = create_database();
 create_user(database,"user1","user1@gmail.com","123")
-create_user(database,"user2","user1@gmail.com","123")
+create_user(database,"user2","user2@gmail.com","123")
 
-database.commit()
+local first_user = find_by_email(database,"user1@gmail.com")
+local name = first_user.sub_resource("name")
+print(name.get_value())
+

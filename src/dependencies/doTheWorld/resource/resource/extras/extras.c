@@ -167,7 +167,7 @@ int DtwResource_type(DtwResource *self){
     }
     DtwResource_load_if_not_loaded(self);
 
-    if(!self->value_any){
+    if(self->value_any == NULL){
         return dtw_entity_type(self->path);
     }
 

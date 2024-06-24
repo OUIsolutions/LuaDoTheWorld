@@ -1,7 +1,7 @@
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
 local function  create_database()
-    local database = dtw.newResource("database")
+    local database = dtw.newResource("tests/target/database")
     local root_schema = database.newDatabaseSchema()
     local users  =root_schema.sub_schema("users")
     users.add_primary_keys({"name","email"})

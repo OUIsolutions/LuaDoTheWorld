@@ -25,6 +25,7 @@ void DtwResource_load(DtwResource *self){
     //means its a empty string
     if(dtw_entity_type(self->path) == DTW_FILE_TYPE  && self->value_size ==0 ){
         self->value_any = (unsigned char*)strdup("");
+
     }
     self->loaded = true;
 

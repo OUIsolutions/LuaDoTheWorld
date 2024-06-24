@@ -63,7 +63,8 @@ LuaCEmbedResponse * resource_set_value(LuaCEmbedTable  *self,LuaCEmbed *args){
     if(write_obj.error){
         return write_obj.error;
     }
-    DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
+    DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER)
+
     DtwResource_set_binary(resource,write_obj.content, write_obj.size);
     if(DtwResource_error(resource)){
         char *error_mensage = DtwResource_get_error_message(resource);
