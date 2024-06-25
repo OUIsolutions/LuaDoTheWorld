@@ -9,8 +9,13 @@ LuaDoTheWorld it's a wrapper of the original doTHeWorld lib that can be found in
 [DoTheWorld Link](https://github.com/OUIsolutions/DoTheWorld)
 
 
+## Disclaimers
+<h3 style="color: red">These lib only suport lua 5.4 > on linux</h3>
+<h3 style="color: red">Dispite been convered by test, these lib its not production ready yet</h3>
 
-# The Try Mechanic 
+
+
+## The Try Mechanic 
 Since you may want to run the lib into a enviroment that pcall its not availiable, thes lib provides 
 the try mechanic to all functions that can not be tested into a verify first aproach, each function
 that has **try** before the function , will always return an bolean, followed by the value ,or the error
@@ -19,7 +24,7 @@ of the value.
 codeof:exemples/schema/basic_insertion_without_pcall.lua
 
 
-# Basics
+## Basics
 
 ### Loading a file
 codeof:exemples/IO/load_file.lua
