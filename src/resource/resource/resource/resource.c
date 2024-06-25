@@ -39,21 +39,10 @@ LuaCEmbedResponse * resource_rename(LuaCEmbedTable  *self,LuaCEmbed *args){
 LuaCEmbedResponse * resource_try_rename(LuaCEmbedTable  *self,LuaCEmbed *args) {
     DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     char *new_name = LuaCEmbed_get_str_arg(args,0);
-    if(LuaCEmbed_has_errors(args)){
-        char *error_message = LuaCEmbed_get_error_message(args);
-        return  LuaCEmbed_send_error(error_message);
-    }
+    lua_cembed_protect(args)
     DtwResource_rename(resource,new_name);
+    resource_protect(resource,args)
     LuaCEmbedTable *multi_response = LuaCembed_new_anonymous_table(args);
-
-    if(DtwResource_error(resource)){
-        char *error_mensage = DtwResource_get_error_message(resource);
-        LuaCEmbedTable_append_bool(multi_response,false);
-        LuaCEmbedTable_append_string(multi_response,error_mensage);
-        DtwResource_clear_errors(resource);
-        return  LuaCEmbed_send_multi_return(multi_response);
-    }
-
     LuaCEmbedTable_append_bool(multi_response,true);
     return LuaCEmbed_send_multi_return(multi_response);
 
