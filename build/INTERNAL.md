@@ -6,6 +6,28 @@ to highly abstracted functions like transactions, hashing, seting primary keys, 
 
 LuaDoTheWorld it's a wrapper of the original doTHeWorld lib that can be found in these repo
 
+## Installation 
+To install the lib, just download the lib [Lib Download](https://github.com/OUIsolutions/LuaDoTheWorld/releases/download/v0.01/luaDoTheWorld.zip)
+in the root of your project, and run with:
+
+```lua
+local dtw = require("luaDoTheWorld/luaDoTheWorld")
+```
+#### Installation from Command 
+if you prefer to install with a command, just type:
+```shell
+curl -L -o luaDoTheWorld.zip https://github.com/OUIsolutions/LuaDoTheWorld/releases/download/v0.01/luaDoTheWorld.zip && unzip luaDoTheWorld.zip -d luaDoTheWorld && rm luaDoTheWorld.zip
+```
+#### Build from scratch
+if you want to build from scracth , just clone these repo into your machine, and run:
+it will prodice,the **luaDoTheWorld/luaDoTheWorld_clib.so** link lib
+```shell
+gcc -Wall -shared -fpic -o luaDoTheWorld/luaDoTheWorld_clib.so  src/one.c
+```
+#### Perform tests
+if you want to perform the tests, just run the **build.out** executable
+
+
 [DoTheWorld Link](https://github.com/OUIsolutions/DoTheWorld)
 
 
