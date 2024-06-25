@@ -257,6 +257,7 @@ will creeate a resource with the given size of mothers folder
 
 codeof:exemples/resource/sub_resource_next.lua
 
+### Schemas
 
 ### Trees and Tree Parts
 
@@ -265,6 +266,7 @@ Trees and Tree parts are a way to manage files in a one dimension list
 #### Creating a Tree
 in these example, we create a tree
 codeof:exemples/Tree/creating_a_tree.lua
+
 
 ### Modifying a Tree
 Here we set all txt extension to py extension of a loaded tree
