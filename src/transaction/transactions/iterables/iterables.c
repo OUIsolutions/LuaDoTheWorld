@@ -62,7 +62,7 @@ LuaCEmbedResponse  * transaction_filter(LuaCEmbedTable *self,LuaCEmbed *args){
         LuaCEmbedTable  *table = raw_create_action_transaction(args,action);
         LuaCEmbedTable  * args_of_callbac = LuaCembed_new_anonymous_table(args);
         LuaCEmbedTable_append_table(args_of_callbac,table);
-        LuaCEmbedTable * user_response = LuaCEmbed_run_args_lambda(args,0,args_of_callbac,0);
+        LuaCEmbedTable * user_response = LuaCEmbed_run_args_lambda(args,0,args_of_callbac,1);
         if(LuaCEmbed_has_errors(args)){
 
             char *error = LuaCEmbed_get_error_message(args);
@@ -103,7 +103,7 @@ LuaCEmbedResponse  * transaction_map(LuaCEmbedTable *self,LuaCEmbed *args){
         LuaCEmbedTable  *table = raw_create_action_transaction(args,action);
         LuaCEmbedTable  * args_of_callbac = LuaCembed_new_anonymous_table(args);
         LuaCEmbedTable_append_table(args_of_callbac,table);
-        LuaCEmbedTable * response_values = LuaCEmbed_run_args_lambda(args,0,args_of_callbac,0);
+        LuaCEmbedTable * response_values = LuaCEmbed_run_args_lambda(args,0,args_of_callbac,1);
         if(LuaCEmbed_has_errors(args)){
 
             char *error = LuaCEmbed_get_error_message(args);

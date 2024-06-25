@@ -15,7 +15,6 @@ local mapped,size = transaction.map(function (action)
       content=action.get_content()
     }
 end)
-
 for i=1,size do
     local current = mapped[i]
 	print("type",current.transaction_type)
