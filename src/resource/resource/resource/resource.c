@@ -80,24 +80,15 @@ LuaCEmbedResponse * resource_set_value(LuaCEmbedTable  *self,LuaCEmbed *args){
 
 LuaCEmbedResponse * resource_try_set_value(LuaCEmbedTable  *self,LuaCEmbed *args) {
     Writeble  *write_obj = create_writeble(args,1);
-    if(write_obj->error){
-        LuaCEmbedResponse *response =  write_obj->error;
-        Writeble_free(write_obj);
-        return  response;
-    }
-    LuaCEmbedTable * multi_response = LuaCembed_new_anonymous_table(args);
+    writeble_protect(write_obj,args)
+
 
     DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     DtwResource_set_any(resource,write_obj->content, write_obj->size,write_obj->is_binary);
     Writeble_free(write_obj);
-    if(DtwResource_error(resource)){
-        char *error_mensage = DtwResource_get_error_message(resource);
-        LuaCEmbedTable_append_bool(multi_response,false);
-        LuaCEmbedTable_append_string(multi_response,error_mensage);
-        DtwResource_clear_errors(resource);
-        return  LuaCEmbed_send_multi_return(multi_response);
-    }
+    resource_protect(resource,args)
 
+    LuaCEmbedTable * multi_response = LuaCembed_new_anonymous_table(args);
     LuaCEmbedTable_append_bool(multi_response,true);
     return LuaCEmbed_send_multi_return(multi_response);
 }

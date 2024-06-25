@@ -1,3 +1,4 @@
+#include "macros/all.h"
 #include "constants/all.h"
 #include "writeble/writble.h"
 #include "io/io.h"
