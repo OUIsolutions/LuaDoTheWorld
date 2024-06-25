@@ -10,6 +10,15 @@ LuaDoTheWorld it's a wrapper of the original doTHeWorld lib that can be found in
 
 
 
+# The Try Mechanic 
+Since you may want to run the lib into a enviroment that pcall its not availiable, thes lib provides 
+the try mechanic to all functions that can not be tested into a verify first aproach, each function
+that has **try** before the function , will always return an bolean, followed by the value ,or the error
+of the value.
+
+codeof:exemples/schema/basic_insertion_without_pcall.lua
+
+
 # Basics
 
 ### Loading a file
