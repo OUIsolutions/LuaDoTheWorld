@@ -98,7 +98,6 @@ LuaCEmbedResponse * try_create_transaction_from_json_string(LuaCEmbed *args) {
 
 
 LuaCEmbedResponse * create_transaction_from_json_file(LuaCEmbed *args) {
-
     char *filename = LuaCEmbed_get_str_arg(args,0);
     if(LuaCEmbed_has_errors(args)){
         char *error_message = LuaCEmbed_get_error_message(args);
