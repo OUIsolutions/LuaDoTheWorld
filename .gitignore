@@ -1,5 +1,7 @@
 # Prerequisites
-*.d
+*.
+luaDoTheWorld.zip
+
 cache2
 # Object files
 *.o

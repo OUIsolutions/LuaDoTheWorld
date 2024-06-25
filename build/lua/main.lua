@@ -30,6 +30,7 @@ local function main()
         if readme ~= nil then
             dtw.write_file("README.md",readme)
         end
+        clib.system_with_status("")
 
 end
 
