@@ -19,7 +19,7 @@ DtwResource_clear_errors(resource);\
 return  LuaCEmbed_send_multi_return(multi_response);\
     }
 
-#define lua_cembed_protect(args) if(LuaCEmbed_has_errors(args)){\
+#define args_protect(args) if(LuaCEmbed_has_errors(args)){\
         char *error_message = LuaCEmbed_get_error_message(args);\
         LuaCEmbedTable *multi_response = LuaCembed_new_anonymous_table(args);\
         LuaCEmbedTable_append_bool(multi_response,false);\

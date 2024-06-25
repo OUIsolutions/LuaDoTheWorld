@@ -39,7 +39,7 @@ LuaCEmbedResponse * resource_rename(LuaCEmbedTable  *self,LuaCEmbed *args){
 LuaCEmbedResponse * resource_try_rename(LuaCEmbedTable  *self,LuaCEmbed *args) {
     DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     char *new_name = LuaCEmbed_get_str_arg(args,0);
-    lua_cembed_protect(args)
+    args_protect(args)
     DtwResource_rename(resource,new_name);
     resource_protect(resource,args)
     LuaCEmbedTable *multi_response = LuaCembed_new_anonymous_table(args);
@@ -104,14 +104,8 @@ LuaCEmbedResponse * resource_destroy(LuaCEmbedTable  *self,LuaCEmbed *args){
 LuaCEmbedResponse * resource_try_destroy(LuaCEmbedTable  *self,LuaCEmbed *args) {
     DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     DtwResource_destroy(resource);
+    resource_protect(resource,args)
     LuaCEmbedTable *multi_response =  LuaCembed_new_anonymous_table(args);
-    if(DtwResource_error(resource)){
-        char *error_mensage = DtwResource_get_error_message(resource);
-        LuaCEmbedTable_append_bool(multi_response,false);
-        LuaCEmbedTable_append_string(multi_response,error_mensage);
-        DtwResource_clear_errors(resource);
-        return  LuaCEmbed_send_multi_return(multi_response);
-    }
     LuaCEmbedTable_append_bool(multi_response,true);
     return LuaCEmbed_send_multi_return(multi_response);
 }
@@ -167,28 +161,15 @@ LuaCEmbedResponse * resource_set_value_in_sub_resource(LuaCEmbedTable  *self,Lua
 LuaCEmbedResponse * resource_try_set_value_in_sub_resource(LuaCEmbedTable  *self,LuaCEmbed *args) {
     char *folder = LuaCEmbed_get_str_arg(args,0);
     DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
-    if(LuaCEmbed_has_errors(args)){
-        char *error_message = LuaCEmbed_get_error_message(args);
-        return  LuaCEmbed_send_error(error_message);
-    }
+    args_protect(args)
     Writeble  *write_obj = create_writeble(args,1);
-    if(write_obj->error){
-        LuaCEmbedResponse *response =  write_obj->error;
-        Writeble_free(write_obj);
-        return  response;
-    }
+    writeble_protect(write_obj,args)
 
     DtwResource *values = DtwResource_sub_resource(resource,folder);
     DtwResource_set_binary(values,write_obj->content,write_obj->size);
     Writeble_free(write_obj);
     LuaCEmbedTable *multi_response =  LuaCembed_new_anonymous_table(args);
-    if(DtwResource_error(resource)){
-        char *error_mensage = DtwResource_get_error_message(resource);
-        LuaCEmbedTable_append_bool(multi_response,false);
-        LuaCEmbedTable_append_string(multi_response,error_mensage);
-        DtwResource_clear_errors(resource);
-        return  LuaCEmbed_send_multi_return(multi_response);
-    }
+    resource_protect(resource,args)
     return LuaCEmbed_send_multi_return(multi_response);
 }
 

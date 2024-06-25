@@ -29,14 +29,8 @@ LuaCEmbedResponse * try_schema_list_resources(LuaCEmbedTable *self,LuaCEmbed *ar
     DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     DtwResourceArray  *elements = DtwResource_get_schema_values(resource);
 
+    resource_protect(resource,args)
     LuaCEmbedTable *multi_response =  LuaCembed_new_anonymous_table(args);
-    if(DtwResource_error(resource)){
-        char *error_mensage = DtwResource_get_error_message(resource);
-        LuaCEmbedTable_append_bool(multi_response,false);
-        LuaCEmbedTable_append_string(multi_response,error_mensage);
-        DtwResource_clear_errors(resource);
-        return  LuaCEmbed_send_multi_return(multi_response);
-    }
     LuaCEmbedTable_append_bool(multi_response,true);
 
     LuaCEmbedTable *listage = LuaCembed_new_anonymous_table(args);

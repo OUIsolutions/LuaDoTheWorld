@@ -61,17 +61,14 @@ LuaCEmbedResponse * create_transaction_from_json_string(LuaCEmbed *args) {
 LuaCEmbedResponse * try_create_transaction_from_json_string(LuaCEmbed *args) {
 
     char *content = LuaCEmbed_get_str_arg(args,0);
-    if(LuaCEmbed_has_errors(args)){
-        char *error_message = LuaCEmbed_get_error_message(args);
-        return  LuaCEmbed_send_error(error_message);
-    }
+    args_protect(args)
     UniversalGarbage *garbage = newUniversalGarbage();
 
     cJSON * parsed = cJSON_Parse(content);
     UniversalGarbage_add(garbage,cJSON_Delete,parsed);
-    LuaCEmbedTable *multiresponse = LuaCembed_new_anonymous_table(args);
 
     if(parsed == NULL) {
+        LuaCEmbedTable *multiresponse = LuaCembed_new_anonymous_table(args);
         LuaCEmbedTable_append_bool(multiresponse,false);
         LuaCEmbedTable_append_string(multiresponse,INVALID_JSON_STRING);
         UniversalGarbage_free(garbage);
@@ -80,6 +77,7 @@ LuaCEmbedResponse * try_create_transaction_from_json_string(LuaCEmbed *args) {
 
     DtwTransaction * transaction_obj = newDtwTransaction_from_json(parsed);
     if(transaction_obj == NULL) {
+        LuaCEmbedTable *multiresponse = LuaCembed_new_anonymous_table(args);
         DtwJsonTransactionError * error =  dtw_validate_json_transaction(parsed);
         UniversalGarbage_add(garbage,DtwJsonTransactionError_free,error);
         LuaCEmbedTable_append_bool(multiresponse,false);
@@ -87,6 +85,8 @@ LuaCEmbedResponse * try_create_transaction_from_json_string(LuaCEmbed *args) {
         UniversalGarbage_free(garbage);
         return  LuaCEmbed_send_multi_return(multiresponse);
     }
+
+    LuaCEmbedTable *multiresponse = LuaCembed_new_anonymous_table(args);
     LuaCEmbedTable_append_bool(multiresponse,true);
     LuaCEmbedTable * self = LuaCembed_new_anonymous_table(args);
     LuaCEmbedTable_append_table(multiresponse,self);
@@ -148,17 +148,14 @@ LuaCEmbedResponse * create_transaction_from_json_file(LuaCEmbed *args) {
 LuaCEmbedResponse * try_create_transaction_from_json_file(LuaCEmbed *args) {
 
     char *filename = LuaCEmbed_get_str_arg(args,0);
-    if(LuaCEmbed_has_errors(args)){
-        char *error_message = LuaCEmbed_get_error_message(args);
-        return  LuaCEmbed_send_error(error_message);
-    }
+    args_protect(args)
     UniversalGarbage *garbage = newUniversalGarbage();
 
     char *content = dtw_load_string_file_content(filename);
     UniversalGarbage_add_simple(garbage,content);
 
-    LuaCEmbedTable * multi_response = LuaCembed_new_anonymous_table(args);
     if(content == NULL) {
+        LuaCEmbedTable * multi_response = LuaCembed_new_anonymous_table(args);
         char *error = private_LuaCembed_format(FILE_NOT_FOUND,filename);
         UniversalGarbage_add_simple(garbage,error);
         LuaCEmbedTable_append_bool(multi_response,false);
@@ -171,6 +168,7 @@ LuaCEmbedResponse * try_create_transaction_from_json_file(LuaCEmbed *args) {
 
 
     if(parsed == NULL) {
+        LuaCEmbedTable * multi_response = LuaCembed_new_anonymous_table(args);
         char *error = private_LuaCembed_format(INVALID_JSON_FILE,filename);
         UniversalGarbage_add_simple(garbage,error);
         LuaCEmbedTable_append_bool(multi_response,false);
@@ -182,6 +180,7 @@ LuaCEmbedResponse * try_create_transaction_from_json_file(LuaCEmbed *args) {
 
     DtwTransaction * transaction_obj = newDtwTransaction_from_json(parsed);
     if(transaction_obj == NULL) {
+        LuaCEmbedTable * multi_response = LuaCembed_new_anonymous_table(args);
         DtwJsonTransactionError * error =  dtw_validate_json_transaction(parsed);
         UniversalGarbage_add(garbage,DtwJsonTransactionError_free,error);
         LuaCEmbedTable_append_bool(multi_response,false);
@@ -189,7 +188,7 @@ LuaCEmbedResponse * try_create_transaction_from_json_file(LuaCEmbed *args) {
         UniversalGarbage_free(garbage);
         return  LuaCEmbed_send_multi_return(multi_response);
     }
-
+    LuaCEmbedTable * multi_response = LuaCembed_new_anonymous_table(args);
     LuaCEmbedTable_append_bool(multi_response,true);
     LuaCEmbedTable * self = LuaCembed_new_anonymous_table(args);
     LuaCEmbedTable_append_table(multi_response,self);
