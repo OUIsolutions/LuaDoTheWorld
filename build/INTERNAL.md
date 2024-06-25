@@ -6,6 +6,8 @@ to highly abstracted functions like transactions, hashing, seting primary keys, 
 
 LuaDoTheWorld it's a wrapper of the original doTHeWorld lib that can be found in these repo
 
+[Do The World](https://github.com/OUIsolutions/DoTheWorld)
+
 ## Installation 
 To install the lib, just download the lib [Lib Download](https://github.com/OUIsolutions/LuaDoTheWorld/releases/download/v0.01/luaDoTheWorld.zip)
 in the root of your project, and run with:
