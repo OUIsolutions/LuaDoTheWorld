@@ -258,6 +258,42 @@ will creeate a resource with the given size of mothers folder
 codeof:exemples/resource/sub_resource_next.lua
 
 ### Schemas
+Schemas its a way to emulate relational behavior inside resource system 
+its super usefull for larger storage models, int contemplates, insertions and primary keys
+(joins  maybe will be avaliable in the future)
+
+#### Basic Schema Insertion 
+
+codeof:exemples/schema/basic_insertion.lua
+
+#### Finding By Primary key
+you also can find elements based on their primary key
+
+codeof:exemples/schema/finding_by_primary_key.lua
+
+#### Destroying
+the schema destruction grants the system integridy, so all the entity and its keys, will be destroyed 
+
+codeof:exemples/schema/destroyng_user.lua
+
+#### Schema Listage
+You can also list elements of the schema easly
+codeof:exemples/schema/listing.lua
+
+#### Schema Each 
+if you prefer an functional aproact , each its also available 
+
+codeof:exemples/schema/foreach.lua
+
+#### Schema Map 
+if you need to construct a struct of your schema ( to return in web apis for example)map its also available
+codeof:exemples/schema/map.lua
+
+#### Schema Filter
+you also can aply filtrage in schemas
+
+codeof:exemples/schema/filter.lua
+
 
 ### Trees and Tree Parts
 

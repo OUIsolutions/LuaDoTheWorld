@@ -718,6 +718,345 @@ a.commit()
 
 ~~~
 
+### Schemas
+Schemas its a way to emulate relational behavior inside resource system 
+its super usefull for larger storage models, int contemplates, insertions and primary keys
+(joins  maybe will be avaliable in the future)
+
+#### Basic Schema Insertion 
+
+
+~~~lua
+local dtw = require("luaDoTheWorld/luaDoTheWorld")
+
+local function  create_database()
+    local database = dtw.newResource("tests/target/database")
+    local root_schema = database.newDatabaseSchema()
+    local users  =root_schema.sub_schema("users")
+    users.add_primary_keys({"name","email"})
+    return database;
+end
+
+---@param database DtwResource
+---@param name string
+---@param email string
+local function create_user(database,name,email,password)
+    local users = database.sub_resource("users")
+    local user = users.schema_new_insertion()
+    user.set_value_in_sub_resource("name",name)
+    user.set_value_in_sub_resource("email",email)
+    local password_sha = dtw.generate_sha(password)
+    user.set_value_in_sub_resource("password",password_sha)
+    return user;
+end
+
+
+
+local database = create_database();
+local correct,user_or_error  = pcall(create_user,database,"user1","user1@gmail.com","123")
+if correct == false then
+	local error = user_or_error
+	print(error)
+else
+	print("user created")
+end
+
+database.commit()
+
+~~~
+
+#### Finding By Primary key
+you also can find elements based on their primary key
+
+
+~~~lua
+local dtw = require("luaDoTheWorld/luaDoTheWorld")
+
+local function  create_database()
+    local database = dtw.newResource("tests/target/database")
+    local root_schema = database.newDatabaseSchema()
+    local users  =root_schema.sub_schema("users")
+    users.add_primary_keys({"name","email"})
+    return database;
+end
+
+---@param database DtwResource
+---@param name string
+---@param email string
+local function create_user(database,name,email,password)
+    local users = database.sub_resource("users")
+    local user = users.schema_new_insertion()
+    user.set_value_in_sub_resource("name",name)
+    user.set_value_in_sub_resource("email",email)
+    local password_sha = dtw.generate_sha(password)
+    user.set_value_in_sub_resource("password",password_sha)
+    return user;
+end
+
+---@param database DtwResource
+---@param email string
+---@return DtwResource
+local function find_by_email(database,email)
+    local users = database.sub_resource("users")
+    return users.get_resource_matching_primary_key("email",email)
+end
+
+local database = create_database();
+create_user(database,"user1","user1@gmail.com","123")
+create_user(database,"user2","user2@gmail.com","123")
+
+local first_user = find_by_email(database,"user1@gmail.com")
+if first_user ~= nil then
+    print("name",first_user.get_value_from_sub_resource("name"))
+    print("email",first_user.get_value_from_sub_resource("email"))
+    print("password",first_user.get_value_from_sub_resource("password"))
+else
+    print("user not found")
+end
+
+database.commit()
+
+~~~
+
+#### Destroying
+the schema destruction grants the system integridy, so all the entity and its keys, will be destroyed 
+
+
+~~~lua
+local dtw = require("luaDoTheWorld/luaDoTheWorld")
+
+local function  create_database()
+    local database = dtw.newResource("tests/target/database")
+    local root_schema = database.newDatabaseSchema()
+    local users  =root_schema.sub_schema("users")
+    users.add_primary_keys({"name","email"})
+    return database;
+end
+
+---@param database DtwResource
+---@param name string
+---@param email string
+local function create_user(database,name,email,password)
+    local users = database.sub_resource("users")
+    local user = users.schema_new_insertion()
+    user.set_value_in_sub_resource("name",name)
+    user.set_value_in_sub_resource("email",email)
+    local password_sha = dtw.generate_sha(password)
+    user.set_value_in_sub_resource("password",password_sha)
+    return user;
+end
+---@param database DtwResource
+---@param email string
+---@return DtwResource
+local function find_by_email(database,email)
+    local users = database.sub_resource("users")
+    return users.get_resource_matching_primary_key("email",email)
+end
+
+local database = create_database();
+create_user(database,"user1","user1@gmail.com","123")
+create_user(database,"user2","user2@gmail.com","123")
+
+local first_user = find_by_email(database,"user1@gmail.com")
+first_user.destroy()
+print("user destroyed")
+database.commit()
+~~~
+
+#### Schema Listage
+You can also list elements of the schema easly
+
+~~~lua
+local dtw = require("luaDoTheWorld/luaDoTheWorld")
+
+local function  create_database()
+    local database = dtw.newResource("tests/target/database")
+    local root_schema = database.newDatabaseSchema()
+    local users  =root_schema.sub_schema("users")
+    users.add_primary_keys({"name","email"})
+    return database;
+end
+
+---@param database DtwResource
+---@param name string
+---@param email string
+local function create_user(database,name,email,password)
+    local users = database.sub_resource("users")
+    local user = users.schema_new_insertion()
+    user.set_value_in_sub_resource("name",name)
+    user.set_value_in_sub_resource("email",email)
+    local password_sha = dtw.generate_sha(password)
+    user.set_value_in_sub_resource("password",password_sha)
+    return user;
+end
+
+
+local database = create_database();
+create_user(database,"user1","user1@gmail.com","123")
+create_user(database,"user2","user2@gmail.com","123")
+
+local users = database.sub_resource("users")
+local elements,size= users.schema_list()
+for i=1,size do
+	local current_user = elements[i]
+	print("name",current_user.get_value_from_sub_resource("name"))
+	print("email",current_user.get_value_from_sub_resource("email"))
+	print("password",current_user.get_value_from_sub_resource("password"))
+end
+
+database.commit()
+
+~~~
+
+#### Schema Each 
+if you prefer an functional aproact , each its also available 
+
+
+~~~lua
+local dtw = require("luaDoTheWorld/luaDoTheWorld")
+
+local function  create_database()
+    local database = dtw.newResource("tests/target/database")
+    local root_schema = database.newDatabaseSchema()
+    local users  =root_schema.sub_schema("users")
+    users.add_primary_keys({"name","email"})
+    return database;
+end
+
+---@param database DtwResource
+---@param name string
+---@param email string
+local function create_user(database,name,email,password)
+    local users = database.sub_resource("users")
+    local user = users.schema_new_insertion()
+    user.set_value_in_sub_resource("name",name)
+    user.set_value_in_sub_resource("email",email)
+    local password_sha = dtw.generate_sha(password)
+    user.set_value_in_sub_resource("password",password_sha)
+    return user;
+end
+
+
+local database = create_database();
+create_user(database,"user1","user1@gmail.com","123")
+create_user(database,"user2","user2@gmail.com","123")
+
+local users = database.sub_resource("users")
+users.schema_each(function (current_user)
+		print("name",current_user.get_value_from_sub_resource("name"))
+    	print("email",current_user.get_value_from_sub_resource("email"))
+    	print("password",current_user.get_value_from_sub_resource("password"))
+end)
+database.commit()
+~~~
+
+#### Schema Map 
+if you need to construct a struct of your schema ( to return in web apis for example)map its also available
+
+~~~lua
+local dtw = require("luaDoTheWorld/luaDoTheWorld")
+
+local function  create_database()
+    local database = dtw.newResource("tests/target/database")
+    local root_schema = database.newDatabaseSchema()
+    local users  =root_schema.sub_schema("users")
+    users.add_primary_keys({"name","email"})
+    return database;
+end
+
+---@param database DtwResource
+---@param name string
+---@param email string
+local function create_user(database,name,email,password)
+    local users = database.sub_resource("users")
+    local user = users.schema_new_insertion()
+    user.set_value_in_sub_resource("name",name)
+    user.set_value_in_sub_resource("email",email)
+    local password_sha = dtw.generate_sha(password)
+    user.set_value_in_sub_resource("password",password_sha)
+    return user;
+end
+
+
+local database = create_database();
+create_user(database,"user1","user1@gmail.com","123")
+create_user(database,"user2","user2@gmail.com","123")
+
+local users = database.sub_resource("users")
+local users_mapped,size = users.schema_map(function (current_user)
+		return {
+		   name= current_user.get_value_from_sub_resource("name"),
+		   email = current_user.get_value_from_sub_resource("email"),
+		   password = current_user.get_value_from_sub_resource("password")
+		}
+end)
+
+for i=1,size do
+    local current_user = users_mapped[i]
+	print("name",current_user.name)
+	print("email",current_user.email)
+	print("password",current_user.password)
+end
+
+
+database.commit()
+~~~
+
+#### Schema Filter
+you also can aply filtrage in schemas
+
+
+~~~lua
+local dtw = require("luaDoTheWorld/luaDoTheWorld")
+
+local function  create_database()
+    local database = dtw.newResource("tests/target/database")
+    local root_schema = database.newDatabaseSchema()
+    local users  =root_schema.sub_schema("users")
+    users.add_primary_keys({"name","email"})
+    return database;
+end
+
+---@param database DtwResource
+---@param name string
+---@param email string
+---@param age number
+local function create_user(database,name,email,age,password)
+    local users = database.sub_resource("users")
+    local user = users.schema_new_insertion()
+    user.set_value_in_sub_resource("name",name)
+    user.set_value_in_sub_resource("email",email)
+    user.set_value_in_sub_resource("age",age)
+    local password_sha = dtw.generate_sha(password)
+    user.set_value_in_sub_resource("password",password_sha)
+    return user;
+end
+
+
+local database = create_database();
+create_user(database,"user1","user1@gmail.com",20,"123")
+create_user(database,"user2","user2@gmail.com",40,"123")
+create_user(database,"user3","user3@gmail.com",50,"123")
+
+local users = database.sub_resource("users")
+local users_higher_than_30,size = users.schema_filter(function (current_user)
+
+		if current_user.get_value_from_sub_resource("age") > 30 then
+			return true
+		end
+end)
+
+for i=1,size do
+        local current_user = users_higher_than_30[i]
+		print("name",current_user.get_value_from_sub_resource("name"))
+    	print("email",current_user.get_value_from_sub_resource("email"))
+    	print("age",current_user.get_value_from_sub_resource("age"))
+    	print("password",current_user.get_value_from_sub_resource("password"))
+end
+
+database.commit()
+~~~
+
 
 ### Trees and Tree Parts
 
@@ -741,6 +1080,7 @@ tree.commit()
 
 
 ~~~
+
 
 ### Modifying a Tree
 Here we set all txt extension to py extension of a loaded tree
