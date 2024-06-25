@@ -28,8 +28,6 @@ gcc -Wall -shared -fpic -o luaDoTheWorld/luaDoTheWorld_clib.so  src/one.c
 if you want to perform the tests, just run the **build.out** executable
 
 
-[DoTheWorld Link](https://github.com/OUIsolutions/DoTheWorld)
-
 
 ## Disclaimers
 <h3 style="color: red">These lib only suport lua 5.4 > on linux</h3>
