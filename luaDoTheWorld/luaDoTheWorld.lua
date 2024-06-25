@@ -222,6 +222,8 @@
 ---@field newTransaction fun():DtwTransaction
 ---@field new_transaction_from_file fun(file:string):DtwTransaction
 ---@field new_transaction_from_string fun(content:string):DtwTransaction
+---@field try_new_transaction_from_file fun(file:string):boolean,DtwTransaction |string
+---@field try_new_transaction_from_string fun(content:string):boolean, DtwTransaction | string
 ---@field newPath fun(path:string):DtwPath
 ---@field newTree fun():DtwTree
 ---@field newTree_from_hardware fun(path:string):DtwTree

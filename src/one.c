@@ -36,7 +36,9 @@ void start_lua_props(LuaCEmbed *l){
     LuaCEmbed_add_callback(l,GENERATE_SHA_FROM_FOLDER_BY_LAST_MODIFICATION,generate_sha_from_folder_by_last_modification);
     LuaCEmbed_add_callback(l, NEW_TRANSACTION, transaction_new_transaction);
     LuaCEmbed_add_callback(l,NEW_TRANSACTION_FROM_JSON_STRING,create_transaction_from_json_string);
+    LuaCEmbed_add_callback(l,TRY_NEW_TRANSACTION_FROM_JSON_STRING,try_create_transaction_from_json_string);
     LuaCEmbed_add_callback(l,NEW_TRANSACTION_FROM_JSON_FILE,create_transaction_from_json_file);
+    LuaCEmbed_add_callback(l,TRY_NEW_TRANSACTION_FROM_JSON_FILE,try_create_transaction_from_json_file);
     LuaCEmbed_add_callback(l,NEW_PATH,create_path);
     LuaCEmbed_add_callback(l,NEW_TREE,create_empty_tree);
     LuaCEmbed_add_callback(l,CONCAT_PATH,concat_path);

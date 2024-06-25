@@ -59,9 +59,14 @@ local function handle_side_effect_folder(original_side_effect_sha,artifact)
           return
       end
 
-      if RECONSTRUCT then
+      if RECONSTRUCT and  artifact.side_effect_sha ~=current_sidde_effect  then
          dtw.move_any_overwriting(SIDE_EFFECT,artifact.side_effect_folder_path)
          clib.print(ANSI_MAGENTA.."\tside effect folder: recreated\n")
+         return
+      end
+
+      if RECONSTRUCT and  artifact.side_effect_sha == current_sidde_effect  then
+         clib.print(ANSI_GREEN.."\tside effect folder: passed\n")
          return
       end
 

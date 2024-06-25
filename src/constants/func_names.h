@@ -33,6 +33,8 @@
 #define CONCAT_PATH "concat_path"
 #define NEW_TRANSACTION_FROM_JSON_STRING "new_transaction_from_json_string"
 #define NEW_TRANSACTION_FROM_JSON_FILE "new_transaction_from_file"
+#define TRY_NEW_TRANSACTION_FROM_JSON_STRING "new_transaction_from_json_string"
+#define TRY_NEW_TRANSACTION_FROM_JSON_FILE "new_transaction_from_file"
 #define NEW_TRANSACTION "newTransaction"
 #define NEW_SCHEMA "newSchema"
 #define NEW_PATH "newPath"
