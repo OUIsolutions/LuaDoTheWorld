@@ -47,3 +47,4 @@
 #define RESOURCE_GET_TYPE "get_type"
 #define RESOURCE_LISTAGE_PROP "resources"
 
+#define GET_TRANSACTION_METHOD "get_transaction"

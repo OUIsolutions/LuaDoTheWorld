@@ -199,6 +199,7 @@
 ---@field try_sub_resource_now_in_unix fun(name:string):boolean,string | DtwResource
 ---@field try_sub_resource_random fun(name:string):boolean,string | DtwResource
 ---@field try_schema_list fun():DtwResourceListaage
+---@field get_transaction fun():DtwTransaction
 
 
 ---@class DtwModule

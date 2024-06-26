@@ -188,6 +188,16 @@ LuaCEmbedResponse * resource_get_type(LuaCEmbedTable  *self,LuaCEmbed *args) {
 }
 
 
+LuaCEmbedResponse *resource_get_transaction(LuaCEmbedTable *self,LuaCEmbed *args) {
+    DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
+    LuaCEmbedTable * transaction_table = LuaCembed_new_anonymous_table(args);
+    LuaCEmbedTable_set_bool_prop(transaction_table,IS_A_REF,true);
+    DtwTransaction *transaction = resource->root_props->transaction;
+    private_transaction_add_base_methods(transaction_table,transaction);
+    return LuaCEmbed_send_table(transaction_table);
+
+}
+
 
 LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource){
 
@@ -265,6 +275,8 @@ LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource){
     LuaCEmbedTable_set_method(self,TRY_SUB_RESOURCE_NOW_IN_UNIX,try_resource_sub_resource_now_in_unix);
     LuaCEmbedTable_set_method(self,TRY_SUB_RESOURCE_RANDON,try_resource_sub_resource_random);
     LuaCEmbedTable_set_method(self,TRY_SCHEMA_LIST,try_schema_list_resources);
+    LuaCEmbedTable_set_method(self,GET_TRANSACTION_METHOD,resource_get_transaction);
+
 
     if(resource->mother ==NULL){
         LuaCEmbedTable_set_method(self, DELETE_METHOD, free_resource);
