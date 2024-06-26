@@ -16,6 +16,13 @@
 ---@field generate_token fun(size:number):DtwRandonizer
 ---@field generate_num fun(size:number):number
 
+---@class DtwTreeProps
+---@field include_content boolean | nil
+---@field include_content_data boolean | nil
+---@field include_hardware_data boolean | nil
+---@field include_ignored_elements boolean | nil
+---@field mimify_json boolean | nil
+---@field include_path_attributes boolean | nil
 
 ---@class DtwTreePart
 ---@field path DtwPath
@@ -41,14 +48,16 @@
 ---@field get_size fun():number
 ---@field get_tree_part_by_name fun(name:string):DtwTreePart
 ---@field get_tree_part_by_path fun(name:string):DtwTreePart
+---@field add_tree_from_hardware fun(path:string,props:DtwTreeProps | nil):DtwTreePart
 ---@field list fun(): DtwTreePart[] ,number
 ---@field find fun(callback: fun(part:DtwTreePart):boolean):DtwTreePart
 ---@field count fun(callback: fun(part:DtwTreePart):boolean):number
 ---@field map fun(callback: fun(part:DtwTreePart):any):any[]
 ---@field each fun(callback: fun(part:DtwTreePart))
 ---@field filter fun(callback:fun(part:DtwTreePart):boolean):DtwTreePart[],number
----@field dump_to_json_string fun():string
----@field dump_to_json_file fun():DtwTree
+---@field dump_to_json_string fun(props:DtwTreeProps | nil):string
+---@field dump_to_json_file fun(file:string,props:DtwTreeProps | nil):DtwTree
+
 
 ---@class DtwPath
 ---@field path_changed fun():boolean
@@ -226,7 +235,11 @@
 ---@field try_new_transaction_from_string fun(content:string):boolean, DtwTransaction | string
 ---@field newPath fun(path:string):DtwPath
 ---@field newTree fun():DtwTree
----@field newTree_from_hardware fun(path:string):DtwTree
+---@field newTree_from_hardware fun(path:string,props:DtwTreeProps | nil):DtwTree
+---@field newTree_from_json_file fun(path:string):DtwTree
+---@field newTree_from_json_string fun (content:string):DtwTree
+---@field try_newTree_from_json_file fun(path:string):DtwTree
+---@field try_newTree_from_json_string fun (content:string):DtwTree
 ---@field concat_path fun(path1:string,path2:string):string
 ---@field starts_with fun(comparation:string,prefix:string):boolean
 ---@field ends_with fun(comparation:string,sulfix:string):boolean

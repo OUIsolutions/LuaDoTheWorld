@@ -40,6 +40,11 @@
 #define NEW_PATH "newPath"
 #define NEW_TREE "newTree"
 #define NEW_TREE_FROM_HARWARE "newTree_from_hardware"
+#define NEW_TREE_FROM_JSON_FILE "newTree_from_json_file"
+#define NEW_TREE_FROM_JSON_STRING "newTree_from_json_string"
+#define TRY_NEW_TREE_FROM_JSON_FILE "try_newTree_from_json_file"
+#define TRY_NEW_TREE_FROM_JSON_STRING "try_newTree_from_json_string"
+
 #define STARTS_WITH "starts_with"
 #define ENDS_WITH "ends_with"
 #define NEW_RANDONIZER "newRandonizer"

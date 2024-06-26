@@ -160,7 +160,7 @@ DtwResource * DtwResource_sub_resource_ensuring_not_exist(DtwResource *self,cons
 }
 
 void DtwResource_free(DtwResource *self){
-    if(self==NULL){
+    if(!self){
         return;
     }
 

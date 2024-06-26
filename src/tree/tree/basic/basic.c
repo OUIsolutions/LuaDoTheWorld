@@ -55,6 +55,7 @@ LuaCEmbedTable * raw_create_tree(LuaCEmbed *args,DtwTree *tree){
     LuaCEmbedTable_set_method(self,FILTER_METHOD,tree_filter);
     LuaCEmbedTable_set_method(self,DUMP_TO_JSON_STRING,tree_dump_to_json_string);
     LuaCEmbedTable_set_method(self,DUMP_TO_JSON_FILE_METHOD,tree_dump_to_json_file);
+    LuaCEmbedTable_set_method(self,ADD_TREE_FROM_HARDWARE,add_tree_fro_hardware);
     LuaCEmbedTable_set_method(self,DELETE_METHOD,tree_delete);
     return self;
 }
@@ -81,10 +82,9 @@ LuaCEmbedResponse * create_tree_fro_hardware(LuaCEmbed *args){
     char *path = LuaCEmbed_get_str_arg(args,0);
     LuaCEmbedTable *props_table = NULL;
     if(LuaCEmbed_get_arg_type(args,1) != LUA_CEMBED_NIL){
-        printf("value %s\n",LuaCEmbed_get_str_arg(args,0));
-        printf("value1 %s\n",LuaCEmbed_get_str_arg(args,1));
         props_table = LuaCEmbed_get_arg_table(args,1);
     }
+
     if(LuaCEmbed_has_errors(args)){
         char *error_msg = LuaCEmbed_get_error_message(args);
         return LuaCEmbed_send_error(error_msg);
@@ -98,5 +98,27 @@ LuaCEmbedResponse * create_tree_fro_hardware(LuaCEmbed *args){
     DtwTree * tree = newDtwTree();
     LuaCEmbedTable *self = raw_create_tree(args,tree);
     DtwTree_add_tree_from_hardware(tree,path,props);
+    return LuaCEmbed_send_table(self);
+}
+LuaCEmbedResponse * add_tree_fro_hardware(LuaCEmbedTable *self,LuaCEmbed *args) {
+
+    char *path = LuaCEmbed_get_str_arg(args,0);
+    LuaCEmbedTable *props_table = NULL;
+    if(LuaCEmbed_get_arg_type(args,1) != LUA_CEMBED_NIL){
+        props_table = LuaCEmbed_get_arg_table(args,1);
+    }
+
+    if(LuaCEmbed_has_errors(args)){
+        char *error_msg = LuaCEmbed_get_error_message(args);
+        return LuaCEmbed_send_error(error_msg);
+    }
+
+    DtwTreeProps props = create_tree_props(props_table);
+    if(LuaCEmbed_has_errors(args)){
+        char *error_msg = LuaCEmbed_get_error_message(args);
+        return LuaCEmbed_send_error(error_msg);
+    }
+    DtwTree *self_tree = (DtwTree*)LuaCembedTable_get_long_prop(self,TREE_POINTER);
+    DtwTree_add_tree_from_hardware(self_tree,path,props);
     return LuaCEmbed_send_table(self);
 }
