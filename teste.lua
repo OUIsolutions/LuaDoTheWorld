@@ -1,3 +1,4 @@
+
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
 local content = dtw.load_file("teste.json")
