@@ -103,8 +103,6 @@
 ---@field set_dest fun():string
 
 
-
-
 ---@class DtwTransaction
 ---@field write fun(src :string , value:string | number | boolean | string | DtwResource ):DtwTransaction
 ---@field remove_any fun(src:string):DtwTransaction
