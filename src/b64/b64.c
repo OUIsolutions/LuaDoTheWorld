@@ -6,6 +6,7 @@ LuaCEmbedResponse  * base64_encode_file(LuaCEmbed *args){
         return  LuaCEmbed_send_error(error_message);
     }
     char * b64_string =  dtw_convert_binary_file_to_base64(source);
+
     if(!b64_string){
         char *formated  = private_LuaCembed_format(FILE_NOT_FOUND, source);
         LuaCEmbedResponse  *response = LuaCEmbed_send_error(formated);
@@ -28,7 +29,12 @@ LuaCEmbedResponse  * base64_decode(LuaCEmbed *args){
     }
     long size;
     unsigned char *content = dtw_base64_decode(source,&size);
+    if(content == NULL){
+        return NULL;
+    }
+
     content[size] = '\0';
+
     LuaCEmbedResponse* response =  LuaCEmbed_send_raw_string((char*)content,size);
     free(content);
     return response;

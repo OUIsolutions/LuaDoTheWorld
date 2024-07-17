@@ -211,12 +211,12 @@
 ---@field base64_encode_file fun(src:string):string transform file into base64 
 ---@field base64_encode fun(value:string | number | boolean | string):string transform content into base64
 ---@field base64_decode fun(value:string): string | string retransform base64 into normal value
----@field list_files fun(src:string):string[],number
----@field list_dirs fun(src:string):string[],number
----@field list_all fun(src:string):string[],number
----@field list_files_recursively fun(src:string):string[],number
----@field list_dirs_recursively fun(src:string):string[],number
----@field list_all_recursively fun(src:string):string[],number
+---@field list_files fun(src:string,concat_path:boolean):string[],number
+---@field list_dirs fun(src:string,concat_path:boolean):string[],number
+---@field list_all fun(src:string,concat_path:boolean):string[],number
+---@field list_files_recursively fun(src:string,concat_path:boolean):string[],number
+---@field list_dirs_recursively fun(src:string,concat_path:boolean):string[],number
+---@field list_all_recursively fun(src:string,concat_path:boolean):string[],number
 ---@field load_file fun(src:string):string | string
 ---@field write_file fun(src:string,value:string | number | boolean | DtwTreePart | DtwResource | DtwActionTransaction)
 ---@field is_blob fun(value:any):boolean returns if a value is a blob
@@ -226,9 +226,9 @@
 ---@field generate_sha_from_folder_by_content fun(src:string):string
 ---@field generate_sha_from_folder_by_last_modification fun(src:string):string
 ---@field newHasher fun():DtwHasher
----@field isdir fun():boolean
----@field isfile fun():boolean
----@field isfile_blob fun():boolean
+---@field isdir fun(file:string):boolean
+---@field isfile fun(file:string):boolean
+---@field isfile_blob fun(file:string):boolean
 ---@field newTransaction fun():DtwTransaction
 ---@field new_transaction_from_file fun(file:string):DtwTransaction
 ---@field new_transaction_from_string fun(content:string):DtwTransaction
