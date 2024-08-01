@@ -1,6 +1,6 @@
 
 
-Lua DoTheWorld its a Lua Lib to manipulate IO in all possible ways, providing 
+Lua DoTheWorld its a Lua Lib to manipulate IO in all possible ways, providing
 from basic functions like, read/write/move/copy to listage and listage recurisively
 to highly abstracted functions like transactions, hashing, seting primary keys, etc..
 
@@ -8,17 +8,17 @@ LuaDoTheWorld it's a wrapper of the original doTHeWorld lib that can be found in
 
 [Do The World](https://github.com/OUIsolutions/DoTheWorld)
 
-## Installation 
+## Installation
 To install the lib, just download the lib [Lib Download](https://github.com/OUIsolutions/LuaDoTheWorld/releases/download/v0.04/luaDoTheWorld.zip)
 in the root of your project, and run with:
 
 ```lua
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
 ```
-#### Installation from Command 
+#### Installation from Command
 if you prefer to install with a command, just type:
 ```shell
-curl -L -o luaDoTheWorld.zip https://github.com/OUIsolutions/LuaDoTheWorld/releases/download/v0.05/luaDoTheWorld.zip && unzip luaDoTheWorld.zip -d luaDoTheWorld && rm luaDoTheWorld.zip
+curl -L -o luaDoTheWorld.zip https://github.com/OUIsolutions/LuaDoTheWorld/releases/download/v0.06/luaDoTheWorld.zip && unzip luaDoTheWorld.zip -d luaDoTheWorld && rm luaDoTheWorld.zip
 ```
 
 #### Build from scratch
@@ -38,8 +38,8 @@ if you want to perform the tests, just run the **build.out** executable
 
 
 
-## The Try Mechanic 
-Since you may want to run the lib into a enviroment that pcall its not availiable, thes lib provides 
+## The Try Mechanic
+Since you may want to run the lib into a enviroment that pcall its not availiable, thes lib provides
 the try mechanic to all functions that can not be tested into a verify first aproach, each function
 that has **try** before the function , will always return an bolean, followed by the value ,or the error
 of the value.
@@ -53,7 +53,7 @@ codeof:exemples/schema/basic_insertion_without_pcall.lua
 codeof:exemples/IO/load_file.lua
 
 
-### Writing a file 
+### Writing a file
 codeof:exemples/IO/write_file.lua
 
 ### Copying anything overwiting content
@@ -66,7 +66,7 @@ these  copy will try to merge toe folder (if its a folder) with the dest
 
 codeof:exemples/IO/copy_any_merging.lua
 
-### Move AnyThing Overwriting 
+### Move AnyThing Overwriting
 will move anything (folder/file) to the dest, removing the dest if exist
 
 codeof:exemples/IO/move_any_overwriting.lua
@@ -77,24 +77,24 @@ if dest its a folder
 
 codeof:exemples/IO/move_any_merging.lua
 
-### Listage 
+### Listage
 
-#### List files 
+#### List files
 
-will list all files of the current dir, as optional second argument, you can pass if 
+will list all files of the current dir, as optional second argument, you can pass if
 its to concat the path withing the listage
 
 codeof:exemples/listage/list_files.lua
 
-### List Dirs 
+### List Dirs
 
-will list all the dirs of the given dir 
+will list all the dirs of the given dir
 
 codeof:exemples/listage/list_dirs.lua
 
 
-### List All 
-Will list dirs and files of the given dir 
+### List All
+Will list dirs and files of the given dir
 
 codeof:exemples/listage/list_all.lua
 
@@ -115,14 +115,14 @@ codeof:exemples/listage/list_all_recursively.lua
 ### Base64
 you can encode and decode files to base64 easly with luaDoTheWorld
 
-#### Enconding a binary 
+#### Enconding a binary
 codeof:exemples/Base64/transaform_b64_string_in_binary.lua
 
-#### Encoding a File 
+#### Encoding a File
 
 codeof:exemples/Base64/transform_file_in_base64.lua
 
-#### Retransform b64 to binary 
+#### Retransform b64 to binary
 codeof:exemples/Base64/transform_binary_in_base64.lua
 
 ### Getting Entity Last Modification
@@ -130,15 +130,15 @@ if you want to get the  folder/file last modification, its also possible
 codeof:exemples/last_modification/entity_last_modification.lua
 
 ### Getting Entity Last Modification in Unix
-you also can generate it in unix 
+you also can generate it in unix
 
 codeof:exemples/last_modification/entity_last_modification_in_unix.lua
 
-### Hashing 
+### Hashing
 You can generate assignature of anything you want  with all the hash functions
 
 #### Generating Sha from string
-Will generate a sha256 assignature of a string 
+Will generate a sha256 assignature of a string
 codeof:exemples/Hashing/generate_sha_from_string.lua
 
 #### Generating Sha from file
@@ -159,21 +159,21 @@ if you need to combine a lot of different entries, you can use the DtwHasher obj
 
 codeof:exemples/Hashing/Hasher.lua
 
-### Path  
+### Path
 Path its a algo class to handle path logics
 
-#### Basic path extraction 
+#### Basic path extraction
 codeof:exemples/Path/basic_path.lua
 
-#### Extracting Sub dirs 
+#### Extracting Sub dirs
 You also can extract sub dirs, by passing start and end keyworks (-1 its the last, -2 the second last)
 
 codeof:exemples/Path/path_get_dir_at.lua
 
 
-#### Basic Path Insertions 
+#### Basic Path Insertions
 
-#### Set Dir 
+#### Set Dir
 codeof:exemples/Path/path_set_dir.lua
 
 #### Set Name
@@ -198,36 +198,36 @@ codeof:exemples/Path/path_replace_dirs.lua
 
 
 ### Transaction
-Transactions its a way to write actions in a atomic way, preventing crashing operations 
+Transactions its a way to write actions in a atomic way, preventing crashing operations
 
 codeof:exemples/Transaction/basic_transaction.lua
 
 #### Dumping Transaction to json
-you also can store a transaction into a json, to load it in the future, or in a diferent 
+you also can store a transaction into a json, to load it in the future, or in a diferent
 os
 codeof:exemples/Transaction/dump_transaction_to_json.lua
 
 
-#### Loading a transactiion from json 
-these example loads a transaction from a json file 
+#### Loading a transactiion from json
+these example loads a transaction from a json file
 
 
 codeof:exemples/Transaction/load_transaction.lua
 
 
-### Resources 
-Resources it's a way to manipulate files and folders, as dictionarys, they are usefull for  
+### Resources
+Resources it's a way to manipulate files and folders, as dictionarys, they are usefull for
 larger storage models
 
 #### Basic Resource in Lua
 codeof:exemples/resource/basic_resource.lua
 
 Resources can be files or folders, that are automaticly determined based on the code behavior
-for example, if you use the function "get_value" the lib understand that its a file , if you type 
-sub resource, it understand that its a folder 
+for example, if you use the function "get_value" the lib understand that its a file , if you type
+sub resource, it understand that its a folder
 
 #### Getting a value from a file
-in these example we are getting a value from a faile 
+in these example we are getting a value from a faile
 
 codeof:exemples/resource/retriving_values.lua
 
@@ -236,7 +236,7 @@ In these example we are getting a value from a sub resource directaly
 
 codeof:exemples/resource/retriving_values_from_sub_resource.lua
 
-#### Setting Values in Sub Resource 
+#### Setting Values in Sub Resource
 
 codeof:exemples/resource/setting_values_in_sub_resource.lua
 
@@ -246,26 +246,26 @@ you also can destroy a resource
 codeof:exemples/resource/destroying_values.lua
 
 
-#### Listage 
+#### Listage
 there is a lot of ways to list into  files in lua,based on your style of coding
 codeof:exemples/resource/list.lua
 
-#### Each 
-if you prefer  a more functional way ,you can use the each method for basic iteration 
+#### Each
+if you prefer  a more functional way ,you can use the each method for basic iteration
 
 codeof:exemples/resource/each.lua
 
-#### Map 
+#### Map
 you also can map the resources retriving a generated struct
 
 codeof:exemples/resource/map.lua
 
-#### Find 
+#### Find
 its possible to find elements based on functions to
 
 codeof:exemples/resource/find.lua
 
-#### Filter 
+#### Filter
 and you can filter elements, in these example we are filtering based on file exist
 
 codeof:exemples/resource/filter.lua
@@ -274,7 +274,7 @@ codeof:exemples/resource/filter.lua
 With Custom sub resources , you can generate customizible elements to your resources
 making elements based onyour necessity
 
-#### Sub Resource Now 
+#### Sub Resource Now
 
 will create a sub resource with the name of the current time
 codeof:exemples/resource/sub_resource_now.lua
@@ -284,22 +284,22 @@ codeof:exemples/resource/sub_resource_now.lua
 Will create a resource with the current unix time
 codeof:exemples/resource/sub_resource_now_in_unix.lua
 
-#### Sub Resource Random 
+#### Sub Resource Random
 Will create a resource with a random name
 
 codeof:exemples/resource/sub_resource_random.lua
 
-#### Sub Resource Next 
+#### Sub Resource Next
 will creeate a resource with the given size of mothers folder
 
 codeof:exemples/resource/sub_resource_next.lua
 
 ### Schemas
-Schemas its a way to emulate relational behavior inside resource system 
+Schemas its a way to emulate relational behavior inside resource system
 its super usefull for larger storage models, int contemplates, insertions and primary keys
 (joins  maybe will be avaliable in the future)
 
-#### Basic Schema Insertion 
+#### Basic Schema Insertion
 
 codeof:exemples/schema/basic_insertion.lua
 
@@ -309,7 +309,7 @@ you also can find elements based on their primary key
 codeof:exemples/schema/finding_by_primary_key.lua
 
 #### Destroying
-the schema destruction grants the system integridy, so all the entity and its keys, will be destroyed 
+the schema destruction grants the system integridy, so all the entity and its keys, will be destroyed
 
 codeof:exemples/schema/destroyng_user.lua
 
@@ -317,12 +317,12 @@ codeof:exemples/schema/destroyng_user.lua
 You can also list elements of the schema easly
 codeof:exemples/schema/listing.lua
 
-#### Schema Each 
-if you prefer an functional aproact , each its also available 
+#### Schema Each
+if you prefer an functional aproact , each its also available
 
 codeof:exemples/schema/foreach.lua
 
-#### Schema Map 
+#### Schema Map
 if you need to construct a struct of your schema ( to return in web apis for example)map its also available
 codeof:exemples/schema/map.lua
 
@@ -334,7 +334,7 @@ codeof:exemples/schema/filter.lua
 
 ### Trees and Tree Parts
 
-Trees and Tree parts are a way to manage files in a one dimension list 
+Trees and Tree parts are a way to manage files in a one dimension list
 
 #### Creating a Tree
 in these example, we create a tree
@@ -346,7 +346,7 @@ Here we set all txt extension to py extension of a loaded tree
 codeof:exemples/Tree/modifying_extension.lua
 
 #### Map Tree
-You also can map trees , to create custom objects list derived from tree parts 
+You also can map trees , to create custom objects list derived from tree parts
 
 codeof:exemples/Tree/map.lua
 
@@ -356,10 +356,10 @@ codeof:exemples/Tree/count.lua
 `
 `### Hardwar Operators
 These tree actions type on tree behave different on each other
-#### Hardware Write 
+#### Hardware Write
 Hardware Write will make the changes ,ignoring previews existence
 for example ,if a file its "a.txt"  and you set the path to "b.txt" it will
-create a new file "b.txt" ignoring a.txt, but if you set the content of a.txt without 
+create a new file "b.txt" ignoring a.txt, but if you set the content of a.txt without
 modifying the path, it will overwrite the "a.txt"
 
 codeof:exemples/Tree/hardware_write.lua
@@ -373,9 +373,9 @@ codeof:exemples/Tree/hardware_modify.lua
 These directive will remove the given tree part that you typed
 codeof:exemples/Tree/hardware_remove.lua
 
-### DtwFork 
-with DtwFork you can fork process easily 
-~~~lua 
+### DtwFork
+with DtwFork you can fork process easily
+~~~lua
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
 
@@ -391,7 +391,7 @@ print("executed in main prrocess")
 
 you also can interrupt the code forcing kill
 
-~~~lua 
+~~~lua
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
 
@@ -451,5 +451,5 @@ for i=1,total_forks do
     local current= all_forks[i]
     current.wait(-1)
 end
- 
+
 ~~~

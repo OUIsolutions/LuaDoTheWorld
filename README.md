@@ -1,6 +1,6 @@
 
 
-Lua DoTheWorld its a Lua Lib to manipulate IO in all possible ways, providing 
+Lua DoTheWorld its a Lua Lib to manipulate IO in all possible ways, providing
 from basic functions like, read/write/move/copy to listage and listage recurisively
 to highly abstracted functions like transactions, hashing, seting primary keys, etc..
 
@@ -8,17 +8,17 @@ LuaDoTheWorld it's a wrapper of the original doTHeWorld lib that can be found in
 
 [Do The World](https://github.com/OUIsolutions/DoTheWorld)
 
-## Installation 
+## Installation
 To install the lib, just download the lib [Lib Download](https://github.com/OUIsolutions/LuaDoTheWorld/releases/download/v0.04/luaDoTheWorld.zip)
 in the root of your project, and run with:
 
 ```lua
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
 ```
-#### Installation from Command 
+#### Installation from Command
 if you prefer to install with a command, just type:
 ```shell
-curl -L -o luaDoTheWorld.zip https://github.com/OUIsolutions/LuaDoTheWorld/releases/download/v0.05/luaDoTheWorld.zip && unzip luaDoTheWorld.zip -d luaDoTheWorld && rm luaDoTheWorld.zip
+curl -L -o luaDoTheWorld.zip https://github.com/OUIsolutions/LuaDoTheWorld/releases/download/v0.06/luaDoTheWorld.zip && unzip luaDoTheWorld.zip -d luaDoTheWorld && rm luaDoTheWorld.zip
 ```
 
 #### Build from scratch
@@ -38,8 +38,8 @@ if you want to perform the tests, just run the **build.out** executable
 
 
 
-## The Try Mechanic 
-Since you may want to run the lib into a enviroment that pcall its not availiable, thes lib provides 
+## The Try Mechanic
+Since you may want to run the lib into a enviroment that pcall its not availiable, thes lib provides
 the try mechanic to all functions that can not be tested into a verify first aproach, each function
 that has **try** before the function , will always return an bolean, followed by the value ,or the error
 of the value.
@@ -108,7 +108,7 @@ print(a)
 ~~~
 
 
-### Writing a file 
+### Writing a file
 
 ~~~lua
 
@@ -142,7 +142,7 @@ local dtw = require("luaDoTheWorld/luaDoTheWorld")
 dtw.copy_any_merging("tests/target/test_dir","tests/target/a")
 ~~~
 
-### Move AnyThing Overwriting 
+### Move AnyThing Overwriting
 will move anything (folder/file) to the dest, removing the dest if exist
 
 
@@ -165,11 +165,11 @@ local dtw = require("luaDoTheWorld/luaDoTheWorld")
 dtw.move_any_merging("tests/target/test_dir","tests/target/a")
 ~~~
 
-### Listage 
+### Listage
 
-#### List files 
+#### List files
 
-will list all files of the current dir, as optional second argument, you can pass if 
+will list all files of the current dir, as optional second argument, you can pass if
 its to concat the path withing the listage
 
 
@@ -188,9 +188,9 @@ for i=1,size do
 end
 ~~~
 
-### List Dirs 
+### List Dirs
 
-will list all the dirs of the given dir 
+will list all the dirs of the given dir
 
 
 ~~~lua
@@ -210,8 +210,8 @@ end
 ~~~
 
 
-### List All 
-Will list dirs and files of the given dir 
+### List All
+Will list dirs and files of the given dir
 
 
 ~~~lua
@@ -289,7 +289,7 @@ end
 ### Base64
 you can encode and decode files to base64 easly with luaDoTheWorld
 
-#### Enconding a binary 
+#### Enconding a binary
 
 ~~~lua
 
@@ -299,7 +299,7 @@ print(inb64)
 
 ~~~
 
-#### Encoding a File 
+#### Encoding a File
 
 
 ~~~lua
@@ -310,7 +310,7 @@ local image = dtw.base64_decode(inb64)
 dtw.write_file("tests/target/blob2.png",image)
 ~~~
 
-#### Retransform b64 to binary 
+#### Retransform b64 to binary
 
 ~~~lua
 
@@ -332,7 +332,7 @@ print(last)
 ~~~
 
 ### Getting Entity Last Modification in Unix
-you also can generate it in unix 
+you also can generate it in unix
 
 
 ~~~lua
@@ -342,11 +342,11 @@ local last_in_unix = dtw.get_entity_last_modification_in_unix("tests/target/blob
 print(last_in_unix)
 ~~~
 
-### Hashing 
+### Hashing
 You can generate assignature of anything you want  with all the hash functions
 
 #### Generating Sha from string
-Will generate a sha256 assignature of a string 
+Will generate a sha256 assignature of a string
 
 ~~~lua
 
@@ -406,10 +406,10 @@ hasher.digest_folder_by_content("tests/target/test_dir")
 print(hasher.get_value())
 ~~~
 
-### Path  
+### Path
 Path its a algo class to handle path logics
 
-#### Basic path extraction 
+#### Basic path extraction
 
 ~~~lua
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
@@ -423,7 +423,7 @@ print("dir",dir)
 print("extension",extension)
 ~~~
 
-#### Extracting Sub dirs 
+#### Extracting Sub dirs
 You also can extract sub dirs, by passing start and end keyworks (-1 its the last, -2 the second last)
 
 
@@ -436,9 +436,9 @@ print(sub_dirs)
 ~~~
 
 
-#### Basic Path Insertions 
+#### Basic Path Insertions
 
-#### Set Dir 
+#### Set Dir
 
 ~~~lua
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
@@ -512,7 +512,7 @@ print(path.get_full_path())
 
 
 ### Transaction
-Transactions its a way to write actions in a atomic way, preventing crashing operations 
+Transactions its a way to write actions in a atomic way, preventing crashing operations
 
 
 ~~~lua
@@ -529,7 +529,7 @@ transaction.commit()
 ~~~
 
 #### Dumping Transaction to json
-you also can store a transaction into a json, to load it in the future, or in a diferent 
+you also can store a transaction into a json, to load it in the future, or in a diferent
 os
 
 ~~~lua
@@ -546,8 +546,8 @@ print(transaction_json)
 ~~~
 
 
-#### Loading a transactiion from json 
-these example loads a transaction from a json file 
+#### Loading a transactiion from json
+these example loads a transaction from a json file
 
 
 
@@ -572,8 +572,8 @@ end)
 ~~~
 
 
-### Resources 
-Resources it's a way to manipulate files and folders, as dictionarys, they are usefull for  
+### Resources
+Resources it's a way to manipulate files and folders, as dictionarys, they are usefull for
 larger storage models
 
 #### Basic Resource in Lua
@@ -589,11 +589,11 @@ a.commit()
 ~~~
 
 Resources can be files or folders, that are automaticly determined based on the code behavior
-for example, if you use the function "get_value" the lib understand that its a file , if you type 
-sub resource, it understand that its a folder 
+for example, if you use the function "get_value" the lib understand that its a file , if you type
+sub resource, it understand that its a folder
 
 #### Getting a value from a file
-in these example we are getting a value from a faile 
+in these example we are getting a value from a faile
 
 
 ~~~lua
@@ -618,7 +618,7 @@ local a = dtw.newResource("tests/target/a")
 print(a.get_value_from_sub_resource("b.txt"))
 ~~~
 
-#### Setting Values in Sub Resource 
+#### Setting Values in Sub Resource
 
 
 ~~~lua
@@ -646,7 +646,7 @@ a.commit()
 ~~~
 
 
-#### Listage 
+#### Listage
 there is a lot of ways to list into  files in lua,based on your style of coding
 
 ~~~lua
@@ -665,8 +665,8 @@ end
 
 ~~~
 
-#### Each 
-if you prefer  a more functional way ,you can use the each method for basic iteration 
+#### Each
+if you prefer  a more functional way ,you can use the each method for basic iteration
 
 
 ~~~lua
@@ -680,7 +680,7 @@ end)
 
 ~~~
 
-#### Map 
+#### Map
 you also can map the resources retriving a generated struct
 
 
@@ -703,7 +703,7 @@ for i=1,size do
 end
 ~~~
 
-#### Find 
+#### Find
 its possible to find elements based on functions to
 
 
@@ -721,7 +721,7 @@ end)
 print(element.get_value())
 ~~~
 
-#### Filter 
+#### Filter
 and you can filter elements, in these example we are filtering based on file exist
 
 
@@ -746,7 +746,7 @@ end
 With Custom sub resources , you can generate customizible elements to your resources
 making elements based onyour necessity
 
-#### Sub Resource Now 
+#### Sub Resource Now
 
 will create a sub resource with the name of the current time
 
@@ -774,7 +774,7 @@ a.commit()
 
 ~~~
 
-#### Sub Resource Random 
+#### Sub Resource Random
 Will create a resource with a random name
 
 
@@ -788,7 +788,7 @@ a.commit()
 
 ~~~
 
-#### Sub Resource Next 
+#### Sub Resource Next
 will creeate a resource with the given size of mothers folder
 
 
@@ -803,11 +803,11 @@ a.commit()
 ~~~
 
 ### Schemas
-Schemas its a way to emulate relational behavior inside resource system 
+Schemas its a way to emulate relational behavior inside resource system
 its super usefull for larger storage models, int contemplates, insertions and primary keys
 (joins  maybe will be avaliable in the future)
 
-#### Basic Schema Insertion 
+#### Basic Schema Insertion
 
 
 ~~~lua
@@ -903,7 +903,7 @@ database.commit()
 ~~~
 
 #### Destroying
-the schema destruction grants the system integridy, so all the entity and its keys, will be destroyed 
+the schema destruction grants the system integridy, so all the entity and its keys, will be destroyed
 
 
 ~~~lua
@@ -992,8 +992,8 @@ database.commit()
 
 ~~~
 
-#### Schema Each 
-if you prefer an functional aproact , each its also available 
+#### Schema Each
+if you prefer an functional aproact , each its also available
 
 
 ~~~lua
@@ -1034,7 +1034,7 @@ end)
 database.commit()
 ~~~
 
-#### Schema Map 
+#### Schema Map
 if you need to construct a struct of your schema ( to return in web apis for example)map its also available
 
 ~~~lua
@@ -1144,7 +1144,7 @@ database.commit()
 
 ### Trees and Tree Parts
 
-Trees and Tree parts are a way to manage files in a one dimension list 
+Trees and Tree parts are a way to manage files in a one dimension list
 
 #### Creating a Tree
 in these example, we create a tree
@@ -1186,7 +1186,7 @@ tree.commit()
 ~~~
 
 #### Map Tree
-You also can map trees , to create custom objects list derived from tree parts 
+You also can map trees , to create custom objects list derived from tree parts
 
 
 ~~~lua
@@ -1230,10 +1230,10 @@ print(size)
 `
 `### Hardwar Operators
 These tree actions type on tree behave different on each other
-#### Hardware Write 
+#### Hardware Write
 Hardware Write will make the changes ,ignoring previews existence
 for example ,if a file its "a.txt"  and you set the path to "b.txt" it will
-create a new file "b.txt" ignoring a.txt, but if you set the content of a.txt without 
+create a new file "b.txt" ignoring a.txt, but if you set the content of a.txt without
 modifying the path, it will overwrite the "a.txt"
 
 
@@ -1302,9 +1302,9 @@ tree.commit()
 
 ~~~
 
-### DtwFork 
-with DtwFork you can fork process easily 
-~~~lua 
+### DtwFork
+with DtwFork you can fork process easily
+~~~lua
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
 
@@ -1320,7 +1320,7 @@ print("executed in main prrocess")
 
 you also can interrupt the code forcing kill
 
-~~~lua 
+~~~lua
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
 
@@ -1392,5 +1392,5 @@ for i=1,total_forks do
     local current= all_forks[i]
     current.wait(-1)
 end
- 
+
 ~~~
