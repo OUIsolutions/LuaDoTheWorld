@@ -1,15 +1,15 @@
-==29638== Memcheck, a memory error detector
-==29638== Copyright (C) 2002-2024, and GNU GPL'd, by Julian Seward et al.
-==29638== Using Valgrind-3.23.0 and LibVEX; rerun with -h for copyright info
-==29638== Command: lua tests/main_test/resource/T_sub_resource_now/exec.lua
-==29638== Parent PID: 29618
-==29638== 
-==29638== 
-==29638== HEAP SUMMARY:
-==29638==     in use at exit: 0 bytes in 0 blocks
-==29638==   total heap usage: 885 allocs, 885 frees, 99,765 bytes allocated
-==29638== 
-==29638== All heap blocks were freed -- no leaks are possible
-==29638== 
-==29638== For lists of detected and suppressed errors, rerun with: -s
-==29638== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
+==18425== Memcheck, a memory error detector
+==18425== Copyright (C) 2002-2024, and GNU GPL'd, by Julian Seward et al.
+==18425== Using Valgrind-3.23.0 and LibVEX; rerun with -h for copyright info
+==18425== Command: lua tests/main_test/schema/T_map/exec.lua
+==18425== Parent PID: 16882
+==18425== 
+==18425== 
+==18425== HEAP SUMMARY:
+==18425==     in use at exit: 0 bytes in 0 blocks
+==18425==   total heap usage: 2,083 allocs, 2,083 frees, 231,152 bytes allocated
+==18425== 
+==18425== All heap blocks were freed -- no leaks are possible
+==18425== 
+==18425== For lists of detected and suppressed errors, rerun with: -s
+==18425== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 0 from 0)
