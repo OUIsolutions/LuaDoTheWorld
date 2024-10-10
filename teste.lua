@@ -12,6 +12,8 @@ for i = 1, size do
     end
     local dir = path.get_dir()
     if dir == "constants/" then
-
+        value_to_add = "consts" .. name
+        path.set_name(name)
+        dtw.move_any_overwriting(current, path.get_full_path())
     end
 end
