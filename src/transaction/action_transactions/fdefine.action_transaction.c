@@ -1,4 +1,9 @@
 
+//silver_chain_scope_start
+//mannaged by silver chain
+#include "../../imports/imports.fdeclare.h"
+//silver_chain_scope_end
+
 
 LuaCEmbedResponse  *action_transaction_get_transaction_type_code(LuaCEmbedTable *self,LuaCEmbed *args){
     DtwActionTransaction *transaction = (DtwActionTransaction *) LuaCembedTable_get_long_prop(self,ACTION_TRANSACTION_POINTER);

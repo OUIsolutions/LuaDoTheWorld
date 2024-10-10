@@ -1,3 +1,9 @@
+#ifdef  __linux__
+
+//silver_chain_scope_start
+//mannaged by silver chain
+#include "../imports/imports.fdeclare.h"
+//silver_chain_scope_end
 
 int lua_do_the_world_sleep_mili_seconds(long miliseconds){
      struct timespec rem;
@@ -90,3 +96,4 @@ LuaCEmbedResponse * create_fork_process(LuaCEmbed *args) {
 
 
 }
+#endif

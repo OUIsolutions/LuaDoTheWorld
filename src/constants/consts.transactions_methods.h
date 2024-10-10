@@ -1,4 +1,9 @@
 
+//silver_chain_scope_start
+//mannaged by silver chain
+#include "../imports/imports.dependency.h"
+//silver_chain_scope_end
+
 #define LUA_DO_THE_WORLD_GET_DEST "get_dest"
 #define LUA_DO_THE_WORLD_SET_DEST "set_dest"
 #define LUA_DO_THE_WORLD_GET_SOURCE "get_source"

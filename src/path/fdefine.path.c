@@ -1,4 +1,9 @@
 
+//silver_chain_scope_start
+//mannaged by silver chain
+#include "../imports/imports.fdeclare.h"
+//silver_chain_scope_end
+
 LuaCEmbedResponse *path_changed(LuaCEmbedTable *self,LuaCEmbed *args){
     DtwPath *self_path = (DtwPath*)LuaCembedTable_get_long_prop(self,PATH_POINTER);
     return LuaCEmbed_send_bool(DtwPath_changed(self_path));

@@ -1,3 +1,8 @@
+
+//silver_chain_scope_start
+//mannaged by silver chain
+#include "../imports/imports.fdeclare.h"
+//silver_chain_scope_end
 LuaCEmbedResponse *set_randonizer_seed_seed(LuaCEmbedTable *self,LuaCEmbed *args) {
 
     DtwRandonizer *random = (DtwRandonizer*)LuaCembedTable_get_long_prop(self,RANDONIZER_POINTER);

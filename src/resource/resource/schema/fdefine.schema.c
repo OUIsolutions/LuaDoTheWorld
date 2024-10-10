@@ -1,3 +1,8 @@
+
+//silver_chain_scope_start
+//mannaged by silver chain
+#include "../../../imports/imports.fdeclare.h"
+//silver_chain_scope_end
 //
 // Created by mateusmoutinho on 22/05/24.
 //

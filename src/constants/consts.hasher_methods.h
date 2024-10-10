@@ -1,3 +1,8 @@
+
+//silver_chain_scope_start
+//mannaged by silver chain
+#include "../imports/imports.dependency.h"
+//silver_chain_scope_end
 #define DIGESST_METHOD "digest"
 #define DIGESST_FOLDER_BY_CONTENT_METHOD "digest_folder_by_content"
 #define DIGESST_FOLDER_BY_LAST_MODIFICATION_METHOD "digest_folder_by_last_modification"

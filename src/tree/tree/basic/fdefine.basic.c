@@ -1,6 +1,9 @@
 
+//silver_chain_scope_start
+//mannaged by silver chain
+#include "../../../imports/imports.fdeclare.h"
+//silver_chain_scope_end
 
-#include "../iterables/iterables.h"
 
 LuaCEmbedResponse *hardware_commit_tree(LuaCEmbedTable *self, LuaCEmbed *args){
     DtwTree *self_tree = (DtwTree*)LuaCembedTable_get_long_prop(self,TREE_POINTER);

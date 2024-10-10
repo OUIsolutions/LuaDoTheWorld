@@ -1,4 +1,9 @@
 
+//silver_chain_scope_start
+//mannaged by silver chain
+#include "../../src/imports/imports.macros.h"
+//silver_chain_scope_end
+
 
 LuaCEmbedResponse  * load_file(LuaCEmbed *args);
 

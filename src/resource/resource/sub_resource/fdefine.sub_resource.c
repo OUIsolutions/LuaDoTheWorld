@@ -1,4 +1,9 @@
 
+//silver_chain_scope_start
+//mannaged by silver chain
+#include "../../../imports/imports.fdeclare.h"
+//silver_chain_scope_end
+
 LuaCEmbedResponse * resource_sub_resource_raw(LuaCEmbedTable  *self, LuaCEmbed *args,const char *src){
     DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     DtwResource *sub_resource = DtwResource_sub_resource(resource,"%s",src);
@@ -43,8 +48,9 @@ LuaCEmbedResponse * resource_sub_resource_method(LuaCEmbedTable  *self, LuaCEmbe
 
 LuaCEmbedResponse * try_resource_sub_resource_method(LuaCEmbedTable  *self, LuaCEmbed *args){
     char *src = LuaCEmbed_get_str_arg(args,0);
-   args_protect(args)
+    args_protect(args)
     return try_resource_sub_resource_raw(self,args,src);
+
 }
 
 LuaCEmbedResponse * resource_sub_resource_index(LuaCEmbedTable  *self, LuaCEmbed *args){

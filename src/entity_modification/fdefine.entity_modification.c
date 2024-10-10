@@ -1,4 +1,9 @@
 
+//silver_chain_scope_start
+//mannaged by silver chain
+#include "../imports/imports.fdeclare.h"
+//silver_chain_scope_end
+
 LuaCEmbedResponse * lua_get_entity_last_modification_in_unix(LuaCEmbed *args) {
     char *file = LuaCEmbed_get_str_arg(args,0);
     if(LuaCEmbed_has_errors(args)) {

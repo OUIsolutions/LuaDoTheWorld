@@ -1,3 +1,8 @@
+
+//silver_chain_scope_start
+//mannaged by silver chain
+#include "../imports/imports.dependency.h"
+//silver_chain_scope_end
 #define ADD_PRIMARY_KEYS "add_primary_keys"
 #define  DANGEROUS_REMOVE_PROP_METHOD "dangerous_remove_prop"
 #define  DANGEROUS_RENAME_PROP_METHOD "dangerous_rename_prop"

@@ -1,0 +1,21 @@
+#include "imports.dependency.h"
+#ifndef silverchain_consts
+#define silverchain_consts
+#include "../constants/consts.commun_methods.h"
+#include "../constants/consts.database_schema.h"
+#include "../constants/consts.errors.h"
+#include "../constants/consts.fork_process.h"
+#include "../constants/consts.func_names.h"
+#include "../constants/consts.hasher_methods.h"
+#include "../constants/consts.locker.h"
+#include "../constants/consts.path_methods.h"
+#include "../constants/consts.props.h"
+#include "../constants/consts.randonizer_methods.h"
+#include "../constants/consts.resource_methods.h"
+#include "../constants/consts.schema_methods.h"
+#include "../constants/consts.transactions_methods.h"
+#include "../constants/consts.tree_methods.h"
+#include "../constants/consts.tree_part_methods.h"
+#include "../constants/consts.tree_props.h"
+#include "../constants/consts.type_codes.h"
+#endif

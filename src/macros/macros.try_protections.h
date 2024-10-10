@@ -1,4 +1,9 @@
 
+//silver_chain_scope_start
+//mannaged by silver chain
+#include "../imports/imports.consts.h"
+//silver_chain_scope_end
+
 
 #define writeble_protect(writeble,args)if(writeble->error){\
         LuaCEmbedTable *multi_response = LuaCembed_new_anonymous_table(args);\

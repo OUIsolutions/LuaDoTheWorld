@@ -1,11 +1,6 @@
 
-#include <inttypes.h>
 
-#include "dependecies.h"
-
-#include "declaration.h"
-#include "definition.h"
-
+#include "imports/imports.fdefine.h"
 
 void start_lua_props(LuaCEmbed *l){
     LuaCEmbed_add_callback(l,LOAD_FILE,load_file);
@@ -51,7 +46,10 @@ void start_lua_props(LuaCEmbed *l){
     LuaCEmbed_add_callback(l,STARTS_WITH,starts_with);
     LuaCEmbed_add_callback(l,ENDS_WITH,ends_with);
     LuaCEmbed_add_callback(l,NEW_RANDONIZER,create_randonizer);
+    #ifdef  __linux__
     LuaCEmbed_add_callback(l,NEW_FORK,create_fork_process);
+    #endif
+
     LuaCEmbed_add_callback(l,NEW_LOCKER,create_locker);
     LuaCEmbed_add_callback(l,GET_ENTITY_LAST_MODIFICATION,lua_get_entity_last_modification);
     LuaCEmbed_add_callback(l,GET_ENTITY_LAST_MODIFICATION_IN_UNIX,lua_get_entity_last_modification_in_unix);
@@ -64,4 +62,3 @@ int load_luaDoTheWorld(lua_State *state){
 
     return LuaCembed_perform(l);
 }
-

@@ -1,3 +1,8 @@
+
+//silver_chain_scope_start
+//mannaged by silver chain
+#include "../imports/imports.dependency.h"
+//silver_chain_scope_end
 #define DTW_TYPE "dtw_type"
 #define SIZE "size"
 #define CONTENT_POINTER "dtw_content_pointer"
