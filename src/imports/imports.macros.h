@@ -1,5 +1,5 @@
 #include "imports.consts.h"
-#ifndef silverchain_macros
-#define silverchain_macros
+#ifndef luadotheworld_macros
+#define luadotheworld_macros
 #include "../macros/macros.try_protections.h"
 #endif

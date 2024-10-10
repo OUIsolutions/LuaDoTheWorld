@@ -1,6 +1,6 @@
 #include "imports.dependency.h"
-#ifndef silverchain_consts
-#define silverchain_consts
+#ifndef luadotheworld_consts
+#define luadotheworld_consts
 #include "../constants/consts.commun_methods.h"
 #include "../constants/consts.database_schema.h"
 #include "../constants/consts.errors.h"

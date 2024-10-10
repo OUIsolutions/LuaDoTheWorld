@@ -1,6 +1,6 @@
 #include "imports.macros.h"
-#ifndef silverchain_fdeclare
-#define silverchain_fdeclare
+#ifndef luadotheworld_fdeclare
+#define luadotheworld_fdeclare
 #include "../b64/fdeclare.b64.h"
 #include "../entity_modification/fdeclare.entity_modification.h"
 #include "../extra/fdeclare.extra.h"
