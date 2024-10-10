@@ -122,6 +122,7 @@ LuaCEmbedResponse  * get_resource_by_name_id(LuaCEmbedTable *self, LuaCEmbed *ar
         DtwResource_clear_errors(resource);
         return  response;
     }
+
     if(founded ==NULL){
         return NULL;
     }
