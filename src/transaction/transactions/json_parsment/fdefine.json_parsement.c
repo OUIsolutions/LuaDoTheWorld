@@ -11,7 +11,7 @@ LuaCEmbedResponse * transaction_dumps_to_json_file(LuaCEmbedTable *self,LuaCEmbe
         char *error_message = LuaCEmbed_get_error_message(args);
         return  LuaCEmbed_send_error(error_message);
     }
-    DtwTransaction *t = (DtwTransaction*)LuaCembedTable_get_long_prop(self,TRANSACTION_POINTER);
+    DtwTransaction *t = (DtwTransaction*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,TRANSACTION_POINTER);
     DtwTransaction_dumps_to_json_file(t,filename);
 
     return  LuaCEmbed_send_table(self);
@@ -19,7 +19,7 @@ LuaCEmbedResponse * transaction_dumps_to_json_file(LuaCEmbedTable *self,LuaCEmbe
 
 LuaCEmbedResponse * transaction_dumps_to_json_string(LuaCEmbedTable *self,LuaCEmbed *args) {
 
-    DtwTransaction *t = (DtwTransaction*)LuaCembedTable_get_long_prop(self,TRANSACTION_POINTER);
+    DtwTransaction *t = (DtwTransaction*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,TRANSACTION_POINTER);
     cJSON *parsed = DtwTransaction_dumps_to_json(t);
     char * content = cJSON_Print(parsed);
 

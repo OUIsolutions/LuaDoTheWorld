@@ -19,7 +19,7 @@ LuaCEmbedResponse * transaction_commit(LuaCEmbedTable *self,LuaCEmbed *args) {
         char *error_message = LuaCEmbed_get_error_message(args);
         return  LuaCEmbed_send_error(error_message);
     }
-    DtwTransaction *t = (DtwTransaction*)LuaCembedTable_get_long_prop(self,TRANSACTION_POINTER);
+    DtwTransaction *t = (DtwTransaction*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,TRANSACTION_POINTER);
     DtwTransaction_commit(t,path);
     return  LuaCEmbed_send_table(self);
 }
@@ -27,7 +27,7 @@ LuaCEmbedResponse * transaction_commit(LuaCEmbedTable *self,LuaCEmbed *args) {
 
 
 LuaCEmbedResponse * transaction_delete(LuaCEmbedTable *self,LuaCEmbed *args) {
-    DtwTransaction *t = (DtwTransaction*)LuaCembedTable_get_long_prop(self,TRANSACTION_POINTER);
+    DtwTransaction *t = (DtwTransaction*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,TRANSACTION_POINTER);
     bool ref = LuaCembedTable_get_bool_prop(self,IS_A_REF);
 
     if(!ref){
@@ -38,7 +38,7 @@ LuaCEmbedResponse * transaction_delete(LuaCEmbedTable *self,LuaCEmbed *args) {
 
 
 void  private_transaction_add_base_methods(LuaCEmbedTable *self,DtwTransaction *transaction){
-    LuaCEmbedTable_set_long_prop(self,TRANSACTION_POINTER,(long long)transaction);
+    LuaCEmbedTable_set_long_prop(self,TRANSACTION_POINTER,(ldtw_ptr_cast)transaction);
     LuaCEmbedTable_set_method(self,WRITE_METHOD,transaction_write);
     LuaCEmbedTable_set_method(self,COPY_ANY_METHOD,transaction_copy_any);
     LuaCEmbedTable_set_method(self,REMOVE_ANY_METHOD,transaction_remove_any);

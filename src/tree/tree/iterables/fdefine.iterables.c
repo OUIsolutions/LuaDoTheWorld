@@ -4,7 +4,7 @@
 #include "../../../imports/imports.fdeclare.h"
 //silver_chain_scope_end
 LuaCEmbedResponse *tree_list(LuaCEmbedTable *self, LuaCEmbed *args) {
-    DtwTree *self_tree = (DtwTree*)LuaCembedTable_get_long_prop(self,TREE_POINTER);
+    DtwTree *self_tree = (DtwTree*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,TREE_POINTER);
     LuaCEmbedTable *multi_response = LuaCembed_new_anonymous_table(args);
     LuaCEmbedTable *elements = LuaCembed_new_anonymous_table(args);
     LuaCEmbedTable_append_table(multi_response,elements);
@@ -19,7 +19,7 @@ LuaCEmbedResponse *tree_list(LuaCEmbedTable *self, LuaCEmbed *args) {
 }
 
 LuaCEmbedResponse *tree_find(LuaCEmbedTable *self, LuaCEmbed *args){
-    DtwTree *self_tree = (DtwTree*)LuaCembedTable_get_long_prop(self,TREE_POINTER);
+    DtwTree *self_tree = (DtwTree*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,TREE_POINTER);
 
     for(int i =0; i < self_tree->size;i++){
         LuaCEmbedTable *tree_part = create_tree_part_reference(args,self_tree->tree_parts[i]);
@@ -51,7 +51,7 @@ LuaCEmbedResponse *tree_find(LuaCEmbedTable *self, LuaCEmbed *args){
 
 
 LuaCEmbedResponse *tree_count(LuaCEmbedTable *self, LuaCEmbed *args){
-    DtwTree *self_tree = (DtwTree*)LuaCembedTable_get_long_prop(self,TREE_POINTER);
+    DtwTree *self_tree = (DtwTree*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,TREE_POINTER);
     long total = 0;
     for(int i =0; i < self_tree->size;i++){
         LuaCEmbedTable *tree_part = create_tree_part_reference(args,self_tree->tree_parts[i]);
@@ -83,7 +83,7 @@ LuaCEmbedResponse *tree_count(LuaCEmbedTable *self, LuaCEmbed *args){
 
 LuaCEmbedResponse *tree_filter(LuaCEmbedTable *self, LuaCEmbed *args){
 
-    DtwTree *self_tree = (DtwTree*)LuaCembedTable_get_long_prop(self,TREE_POINTER);
+    DtwTree *self_tree = (DtwTree*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,TREE_POINTER);
     LuaCEmbedTable *multi_response = LuaCembed_new_anonymous_table(args);
     LuaCEmbedTable *final_map = LuaCembed_new_anonymous_table(args);
     LuaCEmbedTable_append_table(multi_response,final_map);
@@ -124,7 +124,7 @@ LuaCEmbedResponse *tree_filter(LuaCEmbedTable *self, LuaCEmbed *args){
 
 LuaCEmbedResponse *tree_map(LuaCEmbedTable *self, LuaCEmbed *args){
 
-    DtwTree *self_tree = (DtwTree*)LuaCembedTable_get_long_prop(self,TREE_POINTER);
+    DtwTree *self_tree = (DtwTree*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,TREE_POINTER);
     LuaCEmbedTable *multi_response = LuaCembed_new_anonymous_table(args);
     LuaCEmbedTable *final_map = LuaCembed_new_anonymous_table(args);
     LuaCEmbedTable_append_table(multi_response,final_map);
@@ -155,7 +155,7 @@ LuaCEmbedResponse *tree_map(LuaCEmbedTable *self, LuaCEmbed *args){
 
 LuaCEmbedResponse *tree_foreach(LuaCEmbedTable *self, LuaCEmbed *args){
 
-    DtwTree *self_tree = (DtwTree*)LuaCembedTable_get_long_prop(self,TREE_POINTER);
+    DtwTree *self_tree = (DtwTree*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,TREE_POINTER);
 
     for(int i =0; i < self_tree->size;i++){
         LuaCEmbedTable *tree_part = create_tree_part_reference(args,self_tree->tree_parts[i]);

@@ -4,7 +4,7 @@
 #include "../../../imports/imports.fdeclare.h"
 //silver_chain_scope_end
 LuaCEmbedResponse * resource_to_string(LuaCEmbedTable  *self,LuaCEmbed *args){
-    DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
+    DtwResource  *resource = (DtwResource*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     int  type = DtwResource_type(resource);
     if(type == DTW_NOT_FOUND || type == DTW_FOLDER_TYPE ){
         return  LuaCEmbed_send_str(resource->path);
@@ -18,7 +18,7 @@ LuaCEmbedResponse * resource_to_string(LuaCEmbedTable  *self,LuaCEmbed *args){
 
 
 LuaCEmbedResponse * resource_to_number(LuaCEmbedTable  *self,LuaCEmbed *args){
-    DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
+    DtwResource  *resource = (DtwResource*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     double value = DtwResource_get_double(resource);
     if(DtwResource_error(resource)){
         char *error_message = DtwResource_get_error_message(resource);
@@ -30,7 +30,7 @@ LuaCEmbedResponse * resource_to_number(LuaCEmbedTable  *self,LuaCEmbed *args){
 }
 
 LuaCEmbedResponse * resource_value(LuaCEmbedTable  *self,LuaCEmbed *args){
-    DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
+    DtwResource  *resource = (DtwResource*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     int type = DtwResource_type(resource);
 
     if(type == DTW_FOLDER_TYPE || type == DTW_NOT_FOUND){
@@ -58,7 +58,7 @@ LuaCEmbedResponse * resource_value(LuaCEmbedTable  *self,LuaCEmbed *args){
     return NULL;
 }
 LuaCEmbedResponse * resource_value_string(LuaCEmbedTable  *self,LuaCEmbed *args){
-    DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
+    DtwResource  *resource = (DtwResource*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     int type = DtwResource_type(resource);
     if(type != DTW_NOT_FOUND && type != DTW_FOLDER_TYPE){
         long size;
@@ -70,7 +70,7 @@ LuaCEmbedResponse * resource_value_string(LuaCEmbedTable  *self,LuaCEmbed *args)
 }
 
 LuaCEmbedResponse * resource_value_number(LuaCEmbedTable  *self,LuaCEmbed *args){
-    DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
+    DtwResource  *resource = (DtwResource*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     int type = DtwResource_type(resource);
 
     if(type == DTW_COMPLEX_DOUBLE_TYPE || type == DTW_COMPLEX_LONG_TYPE){
@@ -82,7 +82,7 @@ LuaCEmbedResponse * resource_value_number(LuaCEmbedTable  *self,LuaCEmbed *args)
 }
 
 LuaCEmbedResponse * resource_value_bool(LuaCEmbedTable  *self,LuaCEmbed *args){
-    DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
+    DtwResource  *resource = (DtwResource*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     int type = DtwResource_type(resource);
 
 
@@ -102,7 +102,7 @@ LuaCEmbedResponse * resource_value_from_sub_resource(LuaCEmbedTable  *self,LuaCE
         return  LuaCEmbed_send_error(error_message);
     }
 
-    DtwResource  *master = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
+    DtwResource  *master = (DtwResource*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     DtwResource *sub = DtwResource_sub_resource(master,src);
 
     int type = DtwResource_type(sub);
@@ -131,7 +131,7 @@ LuaCEmbedResponse * resource_value_from_sub_resource(LuaCEmbedTable  *self,LuaCE
 }
 
 LuaCEmbedResponse * resource_to_boolean(LuaCEmbedTable  *self,LuaCEmbed *args){
-    DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
+    DtwResource  *resource = (DtwResource*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     bool value = DtwResource_get_bool(resource);
     if(DtwResource_error(resource)){
         char *error_message = DtwResource_get_error_message(resource);

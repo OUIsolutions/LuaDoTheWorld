@@ -14,7 +14,7 @@ bool handle_table_writble(Writeble *self,LuaCEmbed *args,int index){
 
 
     if(type == DTW_RESOURCE_TYPE) {
-        DtwResource *resource = (DtwResource *) LuaCembedTable_get_long_prop(element, RESOURCE_POINTER);
+        DtwResource *resource = (DtwResource *)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(element, RESOURCE_POINTER);
         self->content = DtwResource_get_any(resource, &self->size, &self->is_binary);
         if (DtwResource_error(resource)) {
             char *message = DtwResource_get_error_message(resource);
@@ -26,7 +26,7 @@ bool handle_table_writble(Writeble *self,LuaCEmbed *args,int index){
     }
 
     if(type == DTW_TREE_PART_TYPE){
-        DtwTreePart *part = (DtwTreePart*)LuaCembedTable_get_long_prop(element,TREE_PART_POINTER);
+        DtwTreePart *part = (DtwTreePart*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(element,TREE_PART_POINTER);
         DtwTreePart_load_content_from_hardware(part);
         if(part->content==NULL){
             return false;
@@ -37,7 +37,7 @@ bool handle_table_writble(Writeble *self,LuaCEmbed *args,int index){
         return true;
     }
     if(type == DTW_ACTION_TRANSACTION_TYPE){
-        DtwActionTransaction *transaction= (DtwActionTransaction*)LuaCembedTable_get_long_prop(element,TRANSACTION_POINTER);
+        DtwActionTransaction *transaction= (DtwActionTransaction*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(element,TRANSACTION_POINTER);
         if(transaction->content == NULL){
             return false;
         }
@@ -62,7 +62,9 @@ Writeble  * create_writeble(LuaCEmbed *args,int index){
     int type_to_write = LuaCEmbed_get_arg_type(args,index);
     bool writeble = false;
     if(type_to_write == LUA_CEMBED_STRING){
-        self->content = (unsigned  char*)LuaCEmbed_get_raw_str_arg(args,&self->size,index);
+        lua_Integer size_ptr;
+        self->content = (unsigned  char*)LuaCEmbed_get_raw_str_arg(args,&size_ptr,index);
+        self->size = size_ptr;
         for(long i = 0; i < self->size;i++){
             if(self->content[i] == 0){
                 self->is_binary = true;

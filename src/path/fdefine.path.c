@@ -5,11 +5,11 @@
 //silver_chain_scope_end
 
 LuaCEmbedResponse *path_changed(LuaCEmbedTable *self,LuaCEmbed *args){
-    DtwPath *self_path = (DtwPath*)LuaCembedTable_get_long_prop(self,PATH_POINTER);
+    DtwPath *self_path = (DtwPath*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,PATH_POINTER);
     return LuaCEmbed_send_bool(DtwPath_changed(self_path));
 }
 LuaCEmbedResponse *path_unpack(LuaCEmbedTable *self,LuaCEmbed *args){
-    DtwPath *self_path = (DtwPath*)LuaCembedTable_get_long_prop(self,PATH_POINTER);
+    DtwPath *self_path = (DtwPath*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,PATH_POINTER);
     int total_dirs = DtwPath_get_total_dirs(self_path);
     int size= total_dirs;
     LuaCEmbedTable *elements =LuaCembed_new_anonymous_table(args);
@@ -39,7 +39,7 @@ LuaCEmbedResponse *path_add_start_dir(LuaCEmbedTable *self,LuaCEmbed *args){
         char *error = LuaCEmbed_get_error_message(args);
         return  LuaCEmbed_send_error(error);
     }
-    DtwPath *self_path = (DtwPath*)LuaCembedTable_get_long_prop(self,PATH_POINTER);
+    DtwPath *self_path = (DtwPath*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,PATH_POINTER);
     DtwPath_add_start_dir(self_path,start_dir);
     return LuaCEmbed_send_table(self);
 }
@@ -51,13 +51,13 @@ LuaCEmbedResponse *path_add_end_dir(LuaCEmbedTable *self,LuaCEmbed *args){
         char *error = LuaCEmbed_get_error_message(args);
         return  LuaCEmbed_send_error(error);
     }
-    DtwPath *self_path = (DtwPath*)LuaCembedTable_get_long_prop(self,PATH_POINTER);
+    DtwPath *self_path = (DtwPath*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,PATH_POINTER);
     DtwPath_add_end_dir(self_path,end_dir);
     return LuaCEmbed_send_table(self);
 }
 
 LuaCEmbedResponse *path_get_dir(LuaCEmbedTable *self,LuaCEmbed *args){
-    DtwPath *self_path = (DtwPath*)LuaCembedTable_get_long_prop(self,PATH_POINTER);
+    DtwPath *self_path = (DtwPath*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,PATH_POINTER);
     char *dir = DtwPath_get_dir(self_path);
     if(dir == NULL){
         return NULL;
@@ -67,7 +67,7 @@ LuaCEmbedResponse *path_get_dir(LuaCEmbedTable *self,LuaCEmbed *args){
 }
 
 LuaCEmbedResponse *path_get_extension(LuaCEmbedTable *self,LuaCEmbed *args){
-    DtwPath *self_path = (DtwPath*)LuaCembedTable_get_long_prop(self,PATH_POINTER);
+    DtwPath *self_path = (DtwPath*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,PATH_POINTER);
     char *extension = DtwPath_get_extension(self_path);
     if(extension == NULL){
         return  NULL;
@@ -76,7 +76,7 @@ LuaCEmbedResponse *path_get_extension(LuaCEmbedTable *self,LuaCEmbed *args){
 }
 
 LuaCEmbedResponse *path_get_name(LuaCEmbedTable *self,LuaCEmbed *args){
-    DtwPath *self_path = (DtwPath*)LuaCembedTable_get_long_prop(self,PATH_POINTER);
+    DtwPath *self_path = (DtwPath*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,PATH_POINTER);
     char * fullname = DtwPath_get_full_name(self_path);
     if(fullname== NULL){
         return  NULL;
@@ -85,7 +85,7 @@ LuaCEmbedResponse *path_get_name(LuaCEmbedTable *self,LuaCEmbed *args){
 }
 
 LuaCEmbedResponse *path_get_only_name(LuaCEmbedTable *self,LuaCEmbed *args){
-    DtwPath *self_path = (DtwPath*)LuaCembedTable_get_long_prop(self,PATH_POINTER);
+    DtwPath *self_path = (DtwPath*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,PATH_POINTER);
     char *name = DtwPath_get_name(self_path);
     if(name == NULL){
         return NULL;
@@ -94,12 +94,12 @@ LuaCEmbedResponse *path_get_only_name(LuaCEmbedTable *self,LuaCEmbed *args){
 }
 
 LuaCEmbedResponse *path_get_full_path(LuaCEmbedTable *self,LuaCEmbed *args){
-    DtwPath *self_path = (DtwPath*)LuaCembedTable_get_long_prop(self,PATH_POINTER);
+    DtwPath *self_path = (DtwPath*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,PATH_POINTER);
     return  LuaCEmbed_send_str_reference(DtwPath_get_path(self_path));
 }
 
 LuaCEmbedResponse *path_to_string(LuaCEmbedTable *self,LuaCEmbed *args){
-    DtwPath *self_path = (DtwPath*)LuaCembedTable_get_long_prop(self,PATH_POINTER);
+    DtwPath *self_path = (DtwPath*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,PATH_POINTER);
     return  LuaCEmbed_send_str_reference(DtwPath_get_path(self_path));
 }
 
@@ -109,7 +109,7 @@ LuaCEmbedResponse *path_set_name(LuaCEmbedTable *self,LuaCEmbed *args){
         char *error = LuaCEmbed_get_error_message(args);
         return  LuaCEmbed_send_error(error);
     }
-    DtwPath *self_path = (DtwPath*)LuaCembedTable_get_long_prop(self,PATH_POINTER);
+    DtwPath *self_path = (DtwPath*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,PATH_POINTER);
 
     DtwPath_set_full_name(self_path,new_full_name);
     return LuaCEmbed_send_table(self);
@@ -121,7 +121,7 @@ LuaCEmbedResponse *path_set_only_name(LuaCEmbedTable *self,LuaCEmbed *args){
         char *error = LuaCEmbed_get_error_message(args);
         return  LuaCEmbed_send_error(error);
     }
-    DtwPath *self_path = (DtwPath*)LuaCembedTable_get_long_prop(self,PATH_POINTER);
+    DtwPath *self_path = (DtwPath*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,PATH_POINTER);
 
     DtwPath_set_name(self_path,new_name);
     return LuaCEmbed_send_table(self);
@@ -133,7 +133,7 @@ LuaCEmbedResponse *path_set_extension(LuaCEmbedTable *self,LuaCEmbed *args){
         char *error = LuaCEmbed_get_error_message(args);
         return  LuaCEmbed_send_error(error);
     }
-    DtwPath *self_path = (DtwPath*)LuaCembedTable_get_long_prop(self,PATH_POINTER);
+    DtwPath *self_path = (DtwPath*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,PATH_POINTER);
 
     DtwPath_set_extension(self_path,new_extension);
     return LuaCEmbed_send_table(self);
@@ -145,7 +145,7 @@ LuaCEmbedResponse *path_set_dir(LuaCEmbedTable *self,LuaCEmbed *args){
         char *error = LuaCEmbed_get_error_message(args);
         return  LuaCEmbed_send_error(error);
     }
-    DtwPath *self_path = (DtwPath*)LuaCembedTable_get_long_prop(self,PATH_POINTER);
+    DtwPath *self_path = (DtwPath*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,PATH_POINTER);
 
     DtwPath_set_dir(self_path,new_dir);
     return LuaCEmbed_send_table(self);
@@ -157,7 +157,7 @@ LuaCEmbedResponse *path_set_path(LuaCEmbedTable *self,LuaCEmbed *args){
         char *error = LuaCEmbed_get_error_message(args);
         return  LuaCEmbed_send_error(error);
     }
-    DtwPath *self_path = (DtwPath*)LuaCembedTable_get_long_prop(self,PATH_POINTER);
+    DtwPath *self_path = (DtwPath*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,PATH_POINTER);
 
     DtwPath_set_path(self_path,new_path);
     return LuaCEmbed_send_table(self);
@@ -170,14 +170,14 @@ LuaCEmbedResponse *path_replace_dirs(LuaCEmbedTable *self,LuaCEmbed *args){
         char *error = LuaCEmbed_get_error_message(args);
         return  LuaCEmbed_send_error(error);
     }
-    DtwPath *self_path = (DtwPath*)LuaCembedTable_get_long_prop(self,PATH_POINTER);
+    DtwPath *self_path = (DtwPath*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,PATH_POINTER);
 
     DtwPath_replace_dirs(self_path,old_dir,new_dir);
     return LuaCEmbed_send_table(self);
 }
 
 LuaCEmbedResponse *path_get_total_dirs(LuaCEmbedTable *self,LuaCEmbed *args){
-    DtwPath *self_path = (DtwPath*)LuaCembedTable_get_long_prop(self,PATH_POINTER);
+    DtwPath *self_path = (DtwPath*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,PATH_POINTER);
     return  LuaCEmbed_send_long(DtwPath_get_total_dirs(self_path));
 }
 
@@ -188,7 +188,7 @@ LuaCEmbedResponse *path_get_sub_dirs_from_index(LuaCEmbedTable *self,LuaCEmbed *
         char *error = LuaCEmbed_get_error_message(args);
         return  LuaCEmbed_send_error(error);
     }
-    DtwPath *self_path = (DtwPath*)LuaCembedTable_get_long_prop(self,PATH_POINTER);
+    DtwPath *self_path = (DtwPath*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,PATH_POINTER);
     char *sub_dirs = DtwPath_get_sub_dirs_from_index(self_path,start_index,end_index);
     if(sub_dirs == NULL){
         return NULL;
@@ -203,7 +203,7 @@ LuaCEmbedResponse *path_insert_dir_at_index(LuaCEmbedTable *self,LuaCEmbed *args
         char *error = LuaCEmbed_get_error_message(args);
         return  LuaCEmbed_send_error(error);
     }
-    DtwPath *self_path = (DtwPath*)LuaCembedTable_get_long_prop(self,PATH_POINTER);
+    DtwPath *self_path = (DtwPath*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,PATH_POINTER);
     DtwPath_insert_dir_at_index(self_path,index,dir);
     return LuaCEmbed_send_table(self);
 }
@@ -215,7 +215,7 @@ LuaCEmbedResponse *path_remove_sub_dir_at_index(LuaCEmbedTable *self,LuaCEmbed *
         char *error = LuaCEmbed_get_error_message(args);
         return  LuaCEmbed_send_error(error);
     }
-    DtwPath *self_path = (DtwPath*)LuaCembedTable_get_long_prop(self,PATH_POINTER);
+    DtwPath *self_path = (DtwPath*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,PATH_POINTER);
     DtwPath_remove_sub_dirs_at_index(self_path,start,end);
     return LuaCEmbed_send_table(self);
 }
@@ -228,7 +228,7 @@ LuaCEmbedResponse *path_insert_dir_after(LuaCEmbedTable *self,LuaCEmbed *args){
         char *error = LuaCEmbed_get_error_message(args);
         return  LuaCEmbed_send_error(error);
     }
-    DtwPath *self_path = (DtwPath*)LuaCembedTable_get_long_prop(self,PATH_POINTER);
+    DtwPath *self_path = (DtwPath*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,PATH_POINTER);
     DtwPath_insert_dir_after(self_path,after_dir,dir);
     return LuaCEmbed_send_table(self);
 }
@@ -241,7 +241,7 @@ LuaCEmbedResponse *path_insert_dir_before(LuaCEmbedTable *self,LuaCEmbed *args){
         char *error = LuaCEmbed_get_error_message(args);
         return  LuaCEmbed_send_error(error);
     }
-    DtwPath *self_path = (DtwPath*)LuaCembedTable_get_long_prop(self,PATH_POINTER);
+    DtwPath *self_path = (DtwPath*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,PATH_POINTER);
     DtwPath_insert_dir_before(self_path,before_dir,dir);
     return LuaCEmbed_send_table(self);
 }
@@ -252,7 +252,7 @@ LuaCEmbedResponse *path_remove_sub_dirs_at(LuaCEmbedTable *self,LuaCEmbed *args)
         char *error = LuaCEmbed_get_error_message(args);
         return  LuaCEmbed_send_error(error);
     }
-    DtwPath *self_path = (DtwPath*)LuaCembedTable_get_long_prop(self,PATH_POINTER);
+    DtwPath *self_path = (DtwPath*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,PATH_POINTER);
     DtwPath_remove_sub_dirs_at(self_path,dirs_to_remove);
     return LuaCEmbed_send_table(self);
 }
@@ -261,7 +261,7 @@ LuaCEmbedResponse *path_delete(LuaCEmbedTable *self,LuaCEmbed *args){
 
     bool its_a_ref = LuaCembedTable_get_bool_prop(self,IS_A_REF);
     if(!its_a_ref){
-        DtwPath *self_path = (DtwPath*)LuaCembedTable_get_long_prop(self,PATH_POINTER);
+        DtwPath *self_path = (DtwPath*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,PATH_POINTER);
         DtwPath_free(self_path);
     }
 
@@ -271,7 +271,7 @@ LuaCEmbedResponse *path_delete(LuaCEmbedTable *self,LuaCEmbed *args){
 LuaCEmbedTable *raw_create_path(LuaCEmbed *args,DtwPath *path){
     LuaCEmbedTable *self = LuaCembed_new_anonymous_table(args);
 
-    LuaCEmbedTable_set_long_prop(self,PATH_POINTER,(long long )path);
+    LuaCEmbedTable_set_long_prop(self,PATH_POINTER,(ldtw_ptr_cast)path);
     LuaCEmbedTable_set_method(self,PATH_ADD_END_DIR_METHOD,path_add_end_dir);
     LuaCEmbedTable_set_method(self,PATH_CHANGED_METHOD,path_changed);
     LuaCEmbedTable_set_method(self,PATH_ADD_START_DIR_METHOD,path_add_start_dir);
@@ -319,4 +319,3 @@ LuaCEmbedResponse *create_path(LuaCEmbed *args){
     LuaCEmbedTable_set_bool_prop(self,IS_A_REF,false);
     return LuaCEmbed_send_table(self);
 }
-

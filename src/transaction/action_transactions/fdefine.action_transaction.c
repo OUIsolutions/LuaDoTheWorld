@@ -6,12 +6,12 @@
 
 
 LuaCEmbedResponse  *action_transaction_get_transaction_type_code(LuaCEmbedTable *self,LuaCEmbed *args){
-    DtwActionTransaction *transaction = (DtwActionTransaction *) LuaCembedTable_get_long_prop(self,ACTION_TRANSACTION_POINTER);
+    DtwActionTransaction *transaction = (DtwActionTransaction *) (ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,ACTION_TRANSACTION_POINTER);
     return LuaCEmbed_send_long(transaction->action_type);
 }
 
 LuaCEmbedResponse  *action_transaction_get_transaction_type(LuaCEmbedTable *self,LuaCEmbed *args){
-    DtwActionTransaction *transaction = (DtwActionTransaction *) LuaCembedTable_get_long_prop(self,ACTION_TRANSACTION_POINTER);
+    DtwActionTransaction *transaction = (DtwActionTransaction *) (ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,ACTION_TRANSACTION_POINTER);
    int type = transaction->action_type;
    const char *converted = DtwActionTransaction_convert_action_to_string(type);
    return LuaCEmbed_send_str_reference(converted);
@@ -19,7 +19,7 @@ LuaCEmbedResponse  *action_transaction_get_transaction_type(LuaCEmbedTable *self
 
 
 LuaCEmbedResponse  *action_transaction_get_content(LuaCEmbedTable *self,LuaCEmbed *args){
-    DtwActionTransaction *transaction = (DtwActionTransaction *) LuaCembedTable_get_long_prop(self,ACTION_TRANSACTION_POINTER);
+    DtwActionTransaction *transaction = (DtwActionTransaction *)(ldtw_ptr_cast) LuaCembedTable_get_long_prop(self,ACTION_TRANSACTION_POINTER);
     if(!transaction->content){
         return NULL;
     }
@@ -34,7 +34,7 @@ LuaCEmbedResponse  *action_transaction_set_content(LuaCEmbedTable *self,LuaCEmbe
         Writeble_free(write_obj);
         return  response;
     }
-    DtwActionTransaction *transaction = (DtwActionTransaction *) LuaCembedTable_get_long_prop(self,ACTION_TRANSACTION_POINTER);
+    DtwActionTransaction *transaction = (DtwActionTransaction *) (ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,ACTION_TRANSACTION_POINTER);
 
     if(transaction->content){
         free(transaction->content);
@@ -55,7 +55,7 @@ LuaCEmbedResponse  *action_transaction_set_source(LuaCEmbedTable *self,LuaCEmbed
         return LuaCEmbed_send_error(error);
     }
 
-    DtwActionTransaction *transaction = (DtwActionTransaction *) LuaCembedTable_get_long_prop(self,
+    DtwActionTransaction *transaction = (DtwActionTransaction *)(ldtw_ptr_cast) LuaCembedTable_get_long_prop(self,
                                                                                           ACTION_TRANSACTION_POINTER);
 
     if (transaction->source != NULL) {
@@ -74,7 +74,7 @@ LuaCEmbedResponse  *action_transaction_set_dest(LuaCEmbedTable *self,LuaCEmbed *
         char * error = LuaCEmbed_get_error_message(args);
         return LuaCEmbed_send_error(error);
     }
-    DtwActionTransaction *transaction = (DtwActionTransaction *) LuaCembedTable_get_long_prop(self,ACTION_TRANSACTION_POINTER);
+    DtwActionTransaction *transaction = (DtwActionTransaction *)(ldtw_ptr_cast) LuaCembedTable_get_long_prop(self,ACTION_TRANSACTION_POINTER);
 
     if (transaction->dest != NULL) {
         free(transaction->dest);
@@ -86,7 +86,7 @@ LuaCEmbedResponse  *action_transaction_set_dest(LuaCEmbedTable *self,LuaCEmbed *
 
 LuaCEmbedResponse  *action_transaction_get_source(LuaCEmbedTable *self,LuaCEmbed *args){
 
-    DtwActionTransaction *transaction = (DtwActionTransaction *) LuaCembedTable_get_long_prop(self,
+    DtwActionTransaction *transaction = (DtwActionTransaction *)(ldtw_ptr_cast) LuaCembedTable_get_long_prop(self,
                                                                                           ACTION_TRANSACTION_POINTER);
     if (transaction->source) {
         return LuaCEmbed_send_str_reference(transaction->source);
@@ -95,7 +95,7 @@ LuaCEmbedResponse  *action_transaction_get_source(LuaCEmbedTable *self,LuaCEmbed
 }
 
 LuaCEmbedResponse  *action_transaction_get_dest(LuaCEmbedTable *self,LuaCEmbed *args){
-    DtwActionTransaction *transaction = (DtwActionTransaction*)LuaCembedTable_get_long_prop(self,ACTION_TRANSACTION_POINTER);
+    DtwActionTransaction *transaction = (DtwActionTransaction*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,ACTION_TRANSACTION_POINTER);
     if(transaction->dest){
         return LuaCEmbed_send_str_reference(transaction->dest);
     }
@@ -105,7 +105,7 @@ LuaCEmbedResponse  *action_transaction_get_dest(LuaCEmbedTable *self,LuaCEmbed *
 LuaCEmbedTable *raw_create_action_transaction(LuaCEmbed *args,DtwActionTransaction *transaction){
     LuaCEmbedTable * table = LuaCembed_new_anonymous_table(args);
     LuaCEmbedTable_set_long_prop(table,DTW_TYPE,DTW_ACTION_TRANSACTION_TYPE);
-    LuaCEmbedTable_set_long_prop(table,ACTION_TRANSACTION_POINTER,(long long)transaction);
+    LuaCEmbedTable_set_long_prop(table,ACTION_TRANSACTION_POINTER,(ldtw_ptr_cast)transaction);
     LuaCEmbedTable_set_method(table,LUA_DO_THE_WORLD_GET_DEST,action_transaction_get_dest);
     LuaCEmbedTable_set_method(table,LUA_DO_THE_WORLD_SET_DEST,action_transaction_set_dest);
     LuaCEmbedTable_set_method(table,LUA_DO_THE_WORLD_GET_SOURCE,action_transaction_get_source);

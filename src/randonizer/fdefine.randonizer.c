@@ -5,7 +5,7 @@
 //silver_chain_scope_end
 LuaCEmbedResponse *set_randonizer_seed_seed(LuaCEmbedTable *self,LuaCEmbed *args) {
 
-    DtwRandonizer *random = (DtwRandonizer*)LuaCembedTable_get_long_prop(self,RANDONIZER_POINTER);
+    DtwRandonizer *random = (DtwRandonizer*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,RANDONIZER_POINTER);
     long seed = LuaCEmbed_get_long_arg(args,0);
     if(LuaCEmbed_has_errors(args)) {
         char *msg = LuaCEmbed_get_error_message(args);
@@ -17,7 +17,7 @@ LuaCEmbedResponse *set_randonizer_seed_seed(LuaCEmbedTable *self,LuaCEmbed *args
 
 LuaCEmbedResponse *set_randonizer_internal_seed(LuaCEmbedTable *self,LuaCEmbed *args) {
 
-    DtwRandonizer *random = (DtwRandonizer*)LuaCembedTable_get_long_prop(self,RANDONIZER_POINTER);
+    DtwRandonizer *random = (DtwRandonizer*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,RANDONIZER_POINTER);
     long seed = LuaCEmbed_get_long_arg(args,0);
     if(LuaCEmbed_has_errors(args)) {
         char *msg = LuaCEmbed_get_error_message(args);
@@ -28,7 +28,7 @@ LuaCEmbedResponse *set_randonizer_internal_seed(LuaCEmbedTable *self,LuaCEmbed *
 }
 
 LuaCEmbedResponse *generate_randonizer_token(LuaCEmbedTable *self,LuaCEmbed *args) {
-    DtwRandonizer *random = (DtwRandonizer*)LuaCembedTable_get_long_prop(self,RANDONIZER_POINTER);
+    DtwRandonizer *random = (DtwRandonizer*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,RANDONIZER_POINTER);
     long size = LuaCEmbed_get_long_arg(args,0);
     if(LuaCEmbed_has_errors(args)) {
         char *msg = LuaCEmbed_get_error_message(args);
@@ -40,7 +40,7 @@ LuaCEmbedResponse *generate_randonizer_token(LuaCEmbedTable *self,LuaCEmbed *arg
     return response;
 }
 LuaCEmbedResponse *generate_randonizer_num(LuaCEmbedTable *self,LuaCEmbed *args) {
-    DtwRandonizer *random = (DtwRandonizer*)LuaCembedTable_get_long_prop(self,RANDONIZER_POINTER);
+    DtwRandonizer *random = (DtwRandonizer*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,RANDONIZER_POINTER);
     long max = LuaCEmbed_get_long_arg(args,0);
     if(LuaCEmbed_has_errors(args)) {
         char *msg = LuaCEmbed_get_error_message(args);
@@ -51,14 +51,14 @@ LuaCEmbedResponse *generate_randonizer_num(LuaCEmbedTable *self,LuaCEmbed *args)
 
 }
 LuaCEmbedResponse *delete_randonizer(LuaCEmbedTable *self,LuaCEmbed *args) {
-    DtwRandonizer *random = (DtwRandonizer*)LuaCembedTable_get_long_prop(self,RANDONIZER_POINTER);
+    DtwRandonizer *random = (DtwRandonizer*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,RANDONIZER_POINTER);
     DtwRandonizer_free(random);
     return NULL;
 }
 LuaCEmbedResponse *create_randonizer(LuaCEmbed *args) {
     DtwRandonizer *random = newDtwRandonizer();
     LuaCEmbedTable *self =  LuaCembed_new_anonymous_table(args);
-    LuaCEmbedTable_set_long_prop(self,RANDONIZER_POINTER,(long long)random);
+    LuaCEmbedTable_set_long_prop(self,RANDONIZER_POINTER,(ldtw_ptr_cast)random);
     LuaCEmbedTable_set_method(self,SET_RANDONIZER_SEED_METHOD,set_randonizer_seed_seed);
     LuaCEmbedTable_set_method(self,SET_RANDONIZER_INTERNAL_SEED_METHOD,set_randonizer_internal_seed);
     LuaCEmbedTable_set_method(self,GENERATE_RANDONIZER_TOKEN,generate_randonizer_token);

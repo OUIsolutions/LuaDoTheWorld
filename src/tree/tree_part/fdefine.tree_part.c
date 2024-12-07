@@ -6,13 +6,13 @@
 
 
 LuaCEmbedResponse * tree_part_exist_in_hardware(LuaCEmbedTable *self,LuaCEmbed *args) {
-    DtwTreePart *self_part  = (DtwTreePart*)LuaCembedTable_get_long_prop(self,TREE_PART_POINTER);
+    DtwTreePart *self_part  = (DtwTreePart*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,TREE_PART_POINTER);
     return  LuaCEmbed_send_bool(self_part->content_exist_in_hardware);
 }
 
 
 LuaCEmbedResponse * tree_part_exis(LuaCEmbedTable *self,LuaCEmbed *args) {
-    DtwTreePart *self_part  = (DtwTreePart*)LuaCembedTable_get_long_prop(self,TREE_PART_POINTER);
+    DtwTreePart *self_part  = (DtwTreePart*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,TREE_PART_POINTER);
     if(self_part->content_exist_in_hardware) {
         return  LuaCEmbed_send_bool(true);
     }
@@ -25,7 +25,7 @@ LuaCEmbedResponse * tree_part_exis(LuaCEmbedTable *self,LuaCEmbed *args) {
 
 
 LuaCEmbedResponse * tree_part_get_value(LuaCEmbedTable *self,LuaCEmbed *args){
-    DtwTreePart *self_part  = (DtwTreePart*)LuaCembedTable_get_long_prop(self,TREE_PART_POINTER);
+    DtwTreePart *self_part  = (DtwTreePart*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,TREE_PART_POINTER);
 
     if(self_part->content){
         return LuaCEmbed_send_raw_string((char*)self_part->content,self_part->content_size);
@@ -34,7 +34,7 @@ LuaCEmbedResponse * tree_part_get_value(LuaCEmbedTable *self,LuaCEmbed *args){
 }
 
 LuaCEmbedResponse * tree_part_to_string(LuaCEmbedTable *self,LuaCEmbed *args){
-    DtwTreePart *self_part  = (DtwTreePart*)LuaCembedTable_get_long_prop(self,TREE_PART_POINTER);
+    DtwTreePart *self_part  = (DtwTreePart*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,TREE_PART_POINTER);
 
     if(self_part->content){
         return LuaCEmbed_send_raw_string((char*)self_part->content,self_part->content_size);
@@ -49,7 +49,7 @@ LuaCEmbedResponse * tree_part_set_value(LuaCEmbedTable *self,LuaCEmbed *args){
         Writeble_free(write_obj);
         return  response;
     }
-    DtwTreePart *self_part  = (DtwTreePart*)LuaCembedTable_get_long_prop(self,TREE_PART_POINTER);
+    DtwTreePart *self_part  = (DtwTreePart*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,TREE_PART_POINTER);
     DtwTreePart_set_any_content(self_part,write_obj->content,write_obj->size,write_obj->is_binary);
     Writeble_free(write_obj);
     return LuaCEmbed_send_table(self);
@@ -67,7 +67,7 @@ LuaCEmbedResponse * tree_part_hardware_remove(LuaCEmbedTable *self,LuaCEmbed *ar
         return LuaCEmbed_send_error(error_menssage);
     }
 
-    DtwTreePart *self_part  = (DtwTreePart*)LuaCembedTable_get_long_prop(self,TREE_PART_POINTER);
+    DtwTreePart *self_part  = (DtwTreePart*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,TREE_PART_POINTER);
     DtwTreePart_hardware_remove(self_part,set_as_action);
     return LuaCEmbed_send_table(self);
 }
@@ -85,7 +85,7 @@ LuaCEmbedResponse * tree_part_hardware_write(LuaCEmbedTable *self,LuaCEmbed *arg
     }
 
 
-    DtwTreePart *self_part  = (DtwTreePart*)LuaCembedTable_get_long_prop(self,TREE_PART_POINTER);
+    DtwTreePart *self_part  = (DtwTreePart*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,TREE_PART_POINTER);
     DtwTreePart_hardware_write(self_part,set_as_action);
     return LuaCEmbed_send_table(self);
 }
@@ -102,13 +102,13 @@ LuaCEmbedResponse * tree_part_hardware_modify(LuaCEmbedTable *self,LuaCEmbed *ar
         return LuaCEmbed_send_error(error_menssage);
     }
 
-    DtwTreePart *self_part  = (DtwTreePart*)LuaCembedTable_get_long_prop(self,TREE_PART_POINTER);
+    DtwTreePart *self_part  = (DtwTreePart*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,TREE_PART_POINTER);
     DtwTreePart_hardware_modify(self_part,set_as_action);
     return LuaCEmbed_send_table(self);
 }
 
 LuaCEmbedResponse * tree_part_get_content_sha(LuaCEmbedTable *self,LuaCEmbed *args){
-    DtwTreePart *self_part  = (DtwTreePart*)LuaCembedTable_get_long_prop(self,TREE_PART_POINTER);
+    DtwTreePart *self_part  = (DtwTreePart*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,TREE_PART_POINTER);
     if(self_part->current_sha){
         return LuaCEmbed_send_str(self_part->current_sha);
     }
@@ -117,25 +117,25 @@ LuaCEmbedResponse * tree_part_get_content_sha(LuaCEmbedTable *self,LuaCEmbed *ar
 
 
 LuaCEmbedResponse * tree_part_unload_content(LuaCEmbedTable *self,LuaCEmbed *args){
-    DtwTreePart *self_part  = (DtwTreePart*)LuaCembedTable_get_long_prop(self,TREE_PART_POINTER);
+    DtwTreePart *self_part  = (DtwTreePart*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,TREE_PART_POINTER);
     DtwTreePart_free_content(self_part);
     return LuaCEmbed_send_table(self);
 }
 
 LuaCEmbedResponse * tree_part_load_content(LuaCEmbedTable *self,LuaCEmbed *args){
-    DtwTreePart *self_part  = (DtwTreePart*)LuaCembedTable_get_long_prop(self,TREE_PART_POINTER);
+    DtwTreePart *self_part  = (DtwTreePart*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,TREE_PART_POINTER);
     DtwTreePart_load_content_from_hardware(self_part);
     return LuaCEmbed_send_table(self);
 }
 
 LuaCEmbedResponse *tree_part_is_blob(LuaCEmbedTable *self, LuaCEmbed *args){
-    DtwTreePart *self_part  = (DtwTreePart*)LuaCembedTable_get_long_prop(self,TREE_PART_POINTER);
+    DtwTreePart *self_part  = (DtwTreePart*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,TREE_PART_POINTER);
     return  LuaCEmbed_send_bool(self_part->is_binary);
 }
 
 LuaCEmbedTable * create_tree_part_reference(LuaCEmbed *args,DtwTreePart *part){
     LuaCEmbedTable *self = LuaCembed_new_anonymous_table(args);
-    LuaCEmbedTable_set_long_prop(self,TREE_PART_POINTER,(long long)part);
+    LuaCEmbedTable_set_long_prop(self,TREE_PART_POINTER,(ldtw_ptr_cast)part);
     LuaCEmbedTable_set_long_prop(self,DTW_TYPE,DTW_TREE_PART_TYPE);
     LuaCEmbedTable *path = create_path_reference(args,part->path);
     LuaCEmbedTable_set_sub_table_prop(self,PATH_PROPS,path);
@@ -153,6 +153,3 @@ LuaCEmbedTable * create_tree_part_reference(LuaCEmbed *args,DtwTreePart *part){
     LuaCEmbedTable_set_method(self,TREE_PART_CONTENT_EXIST_IN_HARDWARE,tree_part_exist_in_hardware);
     return self;
 }
-
-
-

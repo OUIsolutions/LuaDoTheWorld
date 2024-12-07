@@ -6,41 +6,41 @@
 
 
 LuaCEmbedResponse *hardware_commit_tree(LuaCEmbedTable *self, LuaCEmbed *args){
-    DtwTree *self_tree = (DtwTree*)LuaCembedTable_get_long_prop(self,TREE_POINTER);
+    DtwTree *self_tree = (DtwTree*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,TREE_POINTER);
     DtwTree_hardware_commit_tree(self_tree);
     return  LuaCEmbed_send_table(self);
 }
 
 
 LuaCEmbedResponse *tree_get_size(LuaCEmbedTable *self, LuaCEmbed *args){
-    DtwTree *self_tree = (DtwTree*)LuaCembedTable_get_long_prop(self,TREE_POINTER);
+    DtwTree *self_tree = (DtwTree*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,TREE_POINTER);
     return LuaCEmbed_send_long(self_tree->size);
 }
 
 
 
 LuaCEmbedResponse *insecure_hardware_write_tree(LuaCEmbedTable *self, LuaCEmbed *args){
-    DtwTree *self_tree = (DtwTree*)LuaCembedTable_get_long_prop(self,TREE_POINTER);
+    DtwTree *self_tree = (DtwTree*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,TREE_POINTER);
     DtwTree_insecure_hardware_write_tree(self_tree);
     return LuaCEmbed_send_table(self);
 }
 
 
 LuaCEmbedResponse *insecure_hardware_remove_tree(LuaCEmbedTable *self, LuaCEmbed *args){
-    DtwTree *self_tree = (DtwTree*)LuaCembedTable_get_long_prop(self,TREE_POINTER);
+    DtwTree *self_tree = (DtwTree*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,TREE_POINTER);
     DtwTree_insecure_hardware_remove_tree(self_tree);
     return LuaCEmbed_send_table(self);
 }
 
 LuaCEmbedResponse * tree_delete(LuaCEmbedTable *self,LuaCEmbed *args){
-    DtwTree *self_tree = (DtwTree*)LuaCembedTable_get_long_prop(self,TREE_POINTER);
+    DtwTree *self_tree = (DtwTree*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,TREE_POINTER);
     DtwTree_free(self_tree);
     return  NULL;
 }
 
 LuaCEmbedTable * raw_create_tree(LuaCEmbed *args,DtwTree *tree){
     LuaCEmbedTable *self = LuaCembed_new_anonymous_table(args);
-    LuaCEmbedTable_set_long_prop(self,TREE_POINTER,(long long)tree);
+    LuaCEmbedTable_set_long_prop(self,TREE_POINTER,(ldtw_ptr_cast)tree);
     LuaCEmbedTable_set_method(self,TREE_NEW_TREE_PART_EMPTY,new_tree_part_empty);
     LuaCEmbedTable_set_method(self,TREE_NEW_TREE_PART_LOADING,new_tree_part_loading);
     LuaCEmbedTable_set_method(self,GET_TREE_PART_BY_INDEX_METHOD,get_tree_part_by_index);
@@ -121,7 +121,7 @@ LuaCEmbedResponse * add_tree_fro_hardware(LuaCEmbedTable *self,LuaCEmbed *args) 
         char *error_msg = LuaCEmbed_get_error_message(args);
         return LuaCEmbed_send_error(error_msg);
     }
-    DtwTree *self_tree = (DtwTree*)LuaCembedTable_get_long_prop(self,TREE_POINTER);
+    DtwTree *self_tree = (DtwTree*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,TREE_POINTER);
     DtwTree_add_tree_from_hardware(self_tree,path,props);
     return LuaCEmbed_send_table(self);
 }

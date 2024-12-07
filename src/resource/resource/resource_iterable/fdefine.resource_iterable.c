@@ -5,7 +5,7 @@
 //silver_chain_scope_end
 
 LuaCEmbedResponse * resource_list(LuaCEmbedTable  *self,LuaCEmbed *args) {
-    DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
+    DtwResource  *resource = (DtwResource*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     DtwResourceArray  *elements = DtwResource_sub_resources(resource);
     LuaCEmbedTable *multi_response = LuaCembed_new_anonymous_table(args);
     LuaCEmbedTable *response = LuaCembed_new_anonymous_table(args);
@@ -26,7 +26,7 @@ LuaCEmbedResponse * resource_list(LuaCEmbedTable  *self,LuaCEmbed *args) {
 LuaCEmbedResponse * resource_foreach(LuaCEmbedTable  *self,LuaCEmbed *args) {
 
 
-    DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
+    DtwResource  *resource = (DtwResource*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     DtwResourceArray  *elements = DtwResource_sub_resources(resource);
 
     for(int i =0; i < elements->size; i++) {
@@ -47,7 +47,7 @@ LuaCEmbedResponse * resource_foreach(LuaCEmbedTable  *self,LuaCEmbed *args) {
 }
 
 LuaCEmbedResponse * resource_filter(LuaCEmbedTable  *self,LuaCEmbed *args) {
-    DtwResource *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
+    DtwResource *resource = (DtwResource*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     DtwResourceArray  *elements = DtwResource_sub_resources(resource);
 
     LuaCEmbedTable * multi_response = LuaCembed_new_anonymous_table(args);
@@ -90,7 +90,7 @@ LuaCEmbedResponse * resource_filter(LuaCEmbedTable  *self,LuaCEmbed *args) {
     return LuaCEmbed_send_multi_return(multi_response);
 }
 LuaCEmbedResponse * resource_map(LuaCEmbedTable  *self,LuaCEmbed *args) {
-    DtwResource *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
+    DtwResource *resource = (DtwResource*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     DtwResourceArray  *elements = DtwResource_sub_resources(resource);
 
     LuaCEmbedTable * multi_response = LuaCembed_new_anonymous_table(args);
@@ -122,7 +122,7 @@ LuaCEmbedResponse * resource_map(LuaCEmbedTable  *self,LuaCEmbed *args) {
 }
 
 LuaCEmbedResponse * resource_count(LuaCEmbedTable  *self,LuaCEmbed *args) {
-    DtwResource *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
+    DtwResource *resource = (DtwResource*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     DtwResourceArray  *elements = DtwResource_sub_resources(resource);
     long total  = 0;
     for(int i = 0; i < elements->size; i++) {
@@ -157,7 +157,7 @@ LuaCEmbedResponse * resource_count(LuaCEmbedTable  *self,LuaCEmbed *args) {
 
 
 LuaCEmbedResponse * resource_find(LuaCEmbedTable  *self,LuaCEmbed *args) {
-    DtwResource *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
+    DtwResource *resource = (DtwResource*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     DtwResourceArray  *elements = DtwResource_sub_resources(resource);
     for(int i = 0; i < elements->size; i++) {
         DtwResource*current = elements->resources[i];

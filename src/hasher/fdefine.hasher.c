@@ -10,7 +10,7 @@ LuaCEmbedResponse * hasher_digest_path(LuaCEmbedTable *self,LuaCEmbed *args){
         char *error_message = LuaCEmbed_get_error_message(args);
         return  LuaCEmbed_send_error(error_message);
     }
-    DtwHash *hash = (DtwHash*)LuaCembedTable_get_long_prop(self,HASH_POINTER);
+    DtwHash *hash = (DtwHash*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,HASH_POINTER);
     int type =dtw_entity_type(path);
 
     if(type== DTW_FILE_TYPE){
@@ -30,7 +30,7 @@ LuaCEmbedResponse * hasher_digest_file(LuaCEmbedTable *self,LuaCEmbed *args){
         return  LuaCEmbed_send_error(error_message);
     }
 
-    DtwHash *hash = (DtwHash*)LuaCembedTable_get_long_prop(self,HASH_POINTER);
+    DtwHash *hash = (DtwHash*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,HASH_POINTER);
     DtwHash_digest_file(hash,filename);
     return NULL;
 }
@@ -42,7 +42,7 @@ LuaCEmbedResponse * hasher_digest_folder_by_content(LuaCEmbedTable *self, LuaCEm
         return  LuaCEmbed_send_error(error_message);
     }
 
-    DtwHash *hash = (DtwHash*)LuaCembedTable_get_long_prop(self,HASH_POINTER);
+    DtwHash *hash = (DtwHash*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,HASH_POINTER);
     DtwHash_digest_folder_by_content(hash,folder);
     return NULL;
 }
@@ -55,7 +55,7 @@ LuaCEmbedResponse * hasher_digest_folder_by_last_modification(LuaCEmbedTable *se
     }
 
 
-    DtwHash *hash = (DtwHash*)LuaCembedTable_get_long_prop(self,HASH_POINTER);
+    DtwHash *hash = (DtwHash*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,HASH_POINTER);
     DtwHash_digest_folder_by_last_modification(hash,folder);
     return NULL;
 }
@@ -63,7 +63,7 @@ LuaCEmbedResponse * hasher_digest_folder_by_last_modification(LuaCEmbedTable *se
 
 
 LuaCEmbedResponse * delete_hasher(LuaCEmbedTable *self,LuaCEmbed *args){
-    DtwHash *hash = (DtwHash*)LuaCembedTable_get_long_prop(self,HASH_POINTER);
+    DtwHash *hash = (DtwHash*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,HASH_POINTER);
     DtwHash_free(hash);
     return NULL;
 }
@@ -75,14 +75,14 @@ LuaCEmbedResponse * hasher_digest(LuaCEmbedTable *self,LuaCEmbed *args){
         Writeble_free(write_obj);
         return  response;
     }
-    DtwHash *hash = (DtwHash*)LuaCembedTable_get_long_prop(self,HASH_POINTER);
+    DtwHash *hash = (DtwHash*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,HASH_POINTER);
     DtwHash_digest_any(hash,write_obj->content,write_obj->size);
     Writeble_free(write_obj);
     return NULL;
 }
 
 LuaCEmbedResponse * hasher_get_value(LuaCEmbedTable *self,LuaCEmbed *args){
-    DtwHash *hash = (DtwHash*)LuaCembedTable_get_long_prop(self,HASH_POINTER);
+    DtwHash *hash = (DtwHash*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,HASH_POINTER);
     return LuaCEmbed_send_str(hash->hash);
 }
 
@@ -90,7 +90,7 @@ LuaCEmbedResponse * hasher_get_value(LuaCEmbedTable *self,LuaCEmbed *args){
 LuaCEmbedResponse * create_hasher(LuaCEmbed *args){
     LuaCEmbedTable * self = LuaCembed_new_anonymous_table(args);
     DtwHash *hash = newDtwHash();
-    LuaCEmbedTable_set_long_prop(self,HASH_POINTER,(long long)hash);
+    LuaCEmbedTable_set_long_prop(self,HASH_POINTER,(ldtw_ptr_cast)hash);
     LuaCEmbedTable_set_method(self,DIGEST_PATH,hasher_digest_path);
     LuaCEmbedTable_set_method(self, DIGESST_METHOD, hasher_digest);
     LuaCEmbedTable_set_method(self, TO_STRING_METHOD, hasher_get_value);

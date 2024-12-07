@@ -167,7 +167,7 @@ LuaCEmbedResponse *tree_dump_to_json_string(LuaCEmbedTable *self, LuaCEmbed *arg
         char *error_msg = LuaCEmbed_get_error_message(args);
         return LuaCEmbed_send_error(error_msg);
     }
-    DtwTree *self_tree = (DtwTree*)LuaCembedTable_get_long_prop(self,TREE_POINTER);
+    DtwTree *self_tree = (DtwTree*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,TREE_POINTER);
     char *result = DtwTree_dumps_tree_json(self_tree,props);
     LuaCEmbedResponse *response = LuaCEmbed_send_str(result);
     free(result);
@@ -190,7 +190,7 @@ LuaCEmbedResponse *tree_dump_to_json_file(LuaCEmbedTable *self, LuaCEmbed *args)
         char *error_msg = LuaCEmbed_get_error_message(args);
         return LuaCEmbed_send_error(error_msg);
     }
-    DtwTree *self_tree = (DtwTree*)LuaCembedTable_get_long_prop(self,TREE_POINTER);
+    DtwTree *self_tree = (DtwTree*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,TREE_POINTER);
     DtwTree_dumps_tree_json_to_file(self_tree,path,props);
 
     return  LuaCEmbed_send_table(self);

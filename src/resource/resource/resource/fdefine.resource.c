@@ -6,7 +6,7 @@
 
 
 LuaCEmbedResponse * free_resource(LuaCEmbedTable  *self, LuaCEmbed *args){
-    DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
+    DtwResource  *resource = (DtwResource*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
 
     DtwResource_free(resource);
 
@@ -17,12 +17,12 @@ LuaCEmbedResponse * free_resource(LuaCEmbedTable  *self, LuaCEmbed *args){
 
 
 LuaCEmbedResponse * resource_get_path(LuaCEmbedTable  *self,LuaCEmbed *args){
-    DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
+    DtwResource  *resource = (DtwResource*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     return LuaCEmbed_send_str(resource->path);
 }
 
 LuaCEmbedResponse * resource_rename(LuaCEmbedTable  *self,LuaCEmbed *args){
-    DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
+    DtwResource  *resource = (DtwResource*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     char *new_name = LuaCEmbed_get_str_arg(args,0);
     if(LuaCEmbed_has_errors(args)){
         char *error_message = LuaCEmbed_get_error_message(args);
@@ -40,7 +40,7 @@ LuaCEmbedResponse * resource_rename(LuaCEmbedTable  *self,LuaCEmbed *args){
 
 }
 LuaCEmbedResponse * resource_try_rename(LuaCEmbedTable  *self,LuaCEmbed *args) {
-    DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
+    DtwResource  *resource = (DtwResource*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     char *new_name = LuaCEmbed_get_str_arg(args,0);
     args_protect(args)
     DtwResource_rename(resource,new_name);
@@ -57,7 +57,7 @@ LuaCEmbedResponse * resource_set_value(LuaCEmbedTable  *self,LuaCEmbed *args){
         Writeble_free(write_obj);
         return  response;
     }
-    DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
+    DtwResource  *resource = (DtwResource*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     DtwResource_set_any(resource,write_obj->content, write_obj->size,write_obj->is_binary);
     Writeble_free(write_obj);
     if(DtwResource_error(resource)){
@@ -75,7 +75,7 @@ LuaCEmbedResponse * resource_try_set_value(LuaCEmbedTable  *self,LuaCEmbed *args
     writeble_protect(write_obj,args)
 
 
-    DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
+    DtwResource  *resource = (DtwResource*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     DtwResource_set_any(resource,write_obj->content, write_obj->size,write_obj->is_binary);
     Writeble_free(write_obj);
     resource_protect(resource,args)
@@ -86,14 +86,14 @@ LuaCEmbedResponse * resource_try_set_value(LuaCEmbedTable  *self,LuaCEmbed *args
 }
 
 LuaCEmbedResponse * resource_commit(LuaCEmbedTable  *self,LuaCEmbed *args){
-    DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
+    DtwResource  *resource = (DtwResource*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     DtwResource_commit(resource);
     return  LuaCEmbed_send_table(self);
 
 }
 
 LuaCEmbedResponse * resource_destroy(LuaCEmbedTable  *self,LuaCEmbed *args){
-    DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
+    DtwResource  *resource = (DtwResource*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     DtwResource_destroy(resource);
     if(DtwResource_error(resource)){
         char *error_mensage = DtwResource_get_error_message(resource);
@@ -105,7 +105,7 @@ LuaCEmbedResponse * resource_destroy(LuaCEmbedTable  *self,LuaCEmbed *args){
 }
 
 LuaCEmbedResponse * resource_try_destroy(LuaCEmbedTable  *self,LuaCEmbed *args) {
-    DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
+    DtwResource  *resource = (DtwResource*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     DtwResource_destroy(resource);
     resource_protect(resource,args)
     LuaCEmbedTable *multi_response =  LuaCembed_new_anonymous_table(args);
@@ -114,13 +114,13 @@ LuaCEmbedResponse * resource_try_destroy(LuaCEmbedTable  *self,LuaCEmbed *args) 
 }
 
 LuaCEmbedResponse * unload_resurce(LuaCEmbedTable  *self, LuaCEmbed *args){
-    DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
+    DtwResource  *resource = (DtwResource*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     DtwResource_unload(resource);
     return  LuaCEmbed_send_table(self);
 }
 
 LuaCEmbedResponse * lock_resource(LuaCEmbedTable  *self, LuaCEmbed *args){
-    DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
+    DtwResource  *resource = (DtwResource*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     if(DtwResource_lock(resource)) {
         return LuaCEmbed_send_bool(false);
     }
@@ -128,7 +128,7 @@ LuaCEmbedResponse * lock_resource(LuaCEmbedTable  *self, LuaCEmbed *args){
 }
 
 LuaCEmbedResponse * unlock_resource(LuaCEmbedTable  *self, LuaCEmbed *args){
-    DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
+    DtwResource  *resource = (DtwResource*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     DtwResource_unlock(resource);
     return  LuaCEmbed_send_table(self);
 }
@@ -137,7 +137,7 @@ LuaCEmbedResponse * unlock_resource(LuaCEmbedTable  *self, LuaCEmbed *args){
 LuaCEmbedResponse * resource_set_value_in_sub_resource(LuaCEmbedTable  *self,LuaCEmbed *args){
 
     char *folder = LuaCEmbed_get_str_arg(args,0);
-    DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
+    DtwResource  *resource = (DtwResource*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     if(LuaCEmbed_has_errors(args)){
         char *error_message = LuaCEmbed_get_error_message(args);
         return  LuaCEmbed_send_error(error_message);
@@ -163,7 +163,7 @@ LuaCEmbedResponse * resource_set_value_in_sub_resource(LuaCEmbedTable  *self,Lua
 }
 LuaCEmbedResponse * resource_try_set_value_in_sub_resource(LuaCEmbedTable  *self,LuaCEmbed *args) {
     char *folder = LuaCEmbed_get_str_arg(args,0);
-    DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
+    DtwResource  *resource = (DtwResource*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     args_protect(args)
     Writeble  *write_obj = create_writeble(args,1);
     writeble_protect(write_obj,args)
@@ -177,14 +177,14 @@ LuaCEmbedResponse * resource_try_set_value_in_sub_resource(LuaCEmbedTable  *self
 }
 
 LuaCEmbedResponse * resource_is_blob(LuaCEmbedTable  *self,LuaCEmbed *args){
-    DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
+    DtwResource  *resource = (DtwResource*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     DtwResource_load(resource);
     return LuaCEmbed_send_bool(resource->is_binary);
 }
 
 
 LuaCEmbedResponse * resource_get_type(LuaCEmbedTable  *self,LuaCEmbed *args) {
-    DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
+    DtwResource  *resource = (DtwResource*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     const char *type = DtwResource_type_in_str(resource);
 
     return LuaCEmbed_send_str(type);
@@ -192,7 +192,7 @@ LuaCEmbedResponse * resource_get_type(LuaCEmbedTable  *self,LuaCEmbed *args) {
 
 
 LuaCEmbedResponse *resource_get_transaction(LuaCEmbedTable *self,LuaCEmbed *args) {
-    DtwResource  *resource = (DtwResource*)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
+    DtwResource  *resource = (DtwResource*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);
     LuaCEmbedTable * transaction_table = LuaCembed_new_anonymous_table(args);
     LuaCEmbedTable_set_bool_prop(transaction_table,IS_A_REF,true);
     DtwTransaction *transaction = resource->root_props->transaction;
@@ -208,7 +208,7 @@ LuaCEmbedTable *raw_create_resource(LuaCEmbed *args,DtwResource *resource){
     LuaCEmbedTable_set_long_prop(self,DTW_TYPE,DTW_RESOURCE_TYPE);
 
 
-    LuaCEmbedTable_set_long_prop(self,RESOURCE_POINTER,(long long )resource);
+    LuaCEmbedTable_set_long_prop(self,RESOURCE_POINTER,(ldtw_ptr_cast)resource);
     LuaCEmbedTable_set_method(self,TO_STRING_METHOD,resource_to_string);
     LuaCEmbedTable_set_method(self,TO_NUMBER_METHOD,resource_to_number);
     LuaCEmbedTable_set_method(self,TO_BOOLEAN_METHOD,resource_to_boolean);
