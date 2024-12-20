@@ -1,4 +1,3 @@
-
 //path: src/one.c
 
 #ifndef LUACEMBED_H
@@ -31175,7 +31174,7 @@ void  LuaCEmbedTable_set_long_prop(LuaCEmbedTable *self , const char *name,lua_I
 
     lua_getglobal(self->main_object->state,self->global_name);
     lua_pushstring(self->main_object->state,name);
-    lua_pushnumber(self->main_object->state,(double)value);
+    lua_pushinteger(self->main_object->state,value);
     lua_settable(self->main_object->state,-3);
     lua_settop(self->main_object->state, 0);
 

@@ -1,6 +1,9 @@
-local dtw = require("luaDoTheWorld/luaDoTheWorld")
+local dtw    = require("luaDoTheWorld/luaDoTheWorld")
 
-itens     = dtw.list_files_recursively("src")
+itens        = dtw.list_files_recursively("src", true)
+local hasher = dtw.newHasher()
+
 for i = 1, #itens do
-    print(itens[i])
+    hasher.digest(dtw.load_file(itens[i]))
 end
+print(hasher)
