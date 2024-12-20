@@ -9,7 +9,7 @@ LuaDoTheWorld it's a wrapper of the original doTHeWorld lib that can be found in
 [Do The World](https://github.com/OUIsolutions/DoTheWorld)
 
 ## Installation
-To install the lib, just download the lib [Lib Download](https://github.com/OUIsolutions/LuaDoTheWorld/releases/download/v0.07/luaDoTheWorld.zip)
+To install the lib, just download the lib [Lib Download](https://github.com/OUIsolutions/LuaDoTheWorld/releases/download/v0.73/luaDoTheWorld.zip)
 in the root of your project, and run with:
 
 ```lua
@@ -18,7 +18,7 @@ local dtw = require("luaDoTheWorld/luaDoTheWorld")
 #### Installation from Command
 if you prefer to install with a command, just type:
 ```shell
-curl -L -o luaDoTheWorld.zip https://github.com/OUIsolutions/LuaDoTheWorld/releases/download/v0.06/luaDoTheWorld.zip && unzip luaDoTheWorld.zip -d luaDoTheWorld && rm luaDoTheWorld.zip
+curl -L -o luaDoTheWorld.zip https://github.com/OUIsolutions/LuaDoTheWorld/releases/download/0.73/luaDoTheWorld.zip && unzip luaDoTheWorld.zip -d luaDoTheWorld && rm luaDoTheWorld.zip
 ```
 
 #### Build from scratch
