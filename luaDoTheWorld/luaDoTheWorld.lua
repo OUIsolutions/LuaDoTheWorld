@@ -201,6 +201,7 @@
 
 
 ---@class DtwModule
+---@field get_absolute_path fun(path:string):string
 ---@field copy_any_overwriting fun(src:string,dest:string):boolean returns true if the operation were ok otherwise false
 ---@field copy_any_merging   fun(src:string,dest:string):boolean returns true if the operation were ok otherwise false
 ---@field move_any_overwriting fun(src:string,dest:string):boolean returns true if the operation were ok otherwise false

@@ -160,7 +160,9 @@ LuaCEmbedResponse * get_absolute_path(LuaCEmbed *args){
         return NULL;
     }
 
-    return LuaCEmbed_send_string(absolute_path);
+    LuaCEmbedResponse *response = LuaCEmbed_send_str(absolute_path);
+    free(absolute_path);   
+    return response;
 }
 
 LuaCEmbedResponse  * remove_any(LuaCEmbed *args){
