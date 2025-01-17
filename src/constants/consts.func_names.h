@@ -50,6 +50,7 @@
 #define TRY_NEW_TREE_FROM_JSON_FILE "try_newTree_from_json_file"
 #define TRY_NEW_TREE_FROM_JSON_STRING "try_newTree_from_json_string"
 
+#define GET_ABSOLUTE_PATH "get_absolute_path"
 #define STARTS_WITH "starts_with"
 #define ENDS_WITH "ends_with"
 #define NEW_RANDONIZER "newRandonizer"

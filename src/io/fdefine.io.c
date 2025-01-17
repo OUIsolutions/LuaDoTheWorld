@@ -148,7 +148,20 @@ LuaCEmbedResponse  * move_any_merging(LuaCEmbed *args){
     bool writed = dtw_move_any(source,dest,DTW_MERGE);
     return LuaCEmbed_send_bool(writed);
 }
+LuaCEmbedResponse * get_absolute_path(LuaCEmbed *args){
+    char *source = LuaCEmbed_get_str_arg(args,0);
+    if(LuaCEmbed_has_errors(args)){
+        char *error_message = LuaCEmbed_get_error_message(args);
+        return  LuaCEmbed_send_error(error_message);
+    }
+    char *absolute_path = dtw_get_absolute_path(source);
+    
+    if(absolute_path == NULL){
+        return NULL;
+    }
 
+    return LuaCEmbed_send_string(absolute_path);
+}
 
 LuaCEmbedResponse  * remove_any(LuaCEmbed *args){
     char *source = LuaCEmbed_get_str_arg(args,0);

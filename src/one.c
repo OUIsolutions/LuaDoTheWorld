@@ -42,7 +42,8 @@ void start_lua_props(LuaCEmbed *l){
     LuaCEmbed_add_callback(l,NEW_TREE_FROM_JSON_STRING,create_tree_from_json_tree_string);
     LuaCEmbed_add_callback(l,TRY_NEW_TREE_FROM_JSON_FILE,try_create_tree_from_json_tree_file);
     LuaCEmbed_add_callback(l,TRY_NEW_TREE_FROM_JSON_STRING,try_create_tree_from_json_tree_string);
-
+    
+    LuaCEmbed_add_callback(l,GET_ABSOLUTE_PATH,get_absolute_path);
     LuaCEmbed_add_callback(l,STARTS_WITH,starts_with);
     LuaCEmbed_add_callback(l,ENDS_WITH,ends_with);
     LuaCEmbed_add_callback(l,NEW_RANDONIZER,create_randonizer);
