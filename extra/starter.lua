@@ -258,9 +258,9 @@ local path = info.source:match("@(.*/)") or ""
 local lib_path = ''
 
 if os.getenv("HOME") then
-    lib_path = path.."luaDoTheWorld_clib.so"
+    lib_path = path.."luaDoTheWorld.so"
 else
-    lib_path = path.."luaDoTheWorld_clib.dll"
+    lib_path = path.."luaDoTheWorld.dll"
 end 
 
 local load_lua = package.loadlib(lib_path, "load_luaDoTheWorld")

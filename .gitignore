@@ -2,6 +2,7 @@
 *.
 luaDoTheWorld.zip
 dependencies
+release
 cache2
 src/imports
 # Object files
@@ -9,7 +10,7 @@ src/imports
 *.ko
 *.obj
 *.elf
-
+teste.lua
 # Linker output
 *.ilk
 *.map
