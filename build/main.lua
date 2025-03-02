@@ -26,6 +26,8 @@ function main()
     darwin.dtw.write_file("release/luaDoTheWorld_no_dep.c", no_dep_amalgamation)
 
     darwin.dtw.copy_any_overwriting("extra/starter.lua","release/luaDoTheWorld/luaDoTheWorld.lua")
-    os.execute("gcc src/one.c -fpic -shared -c -o release/luaDoTheWorld/luaDoTheWorld.so")
+    os.execute("gcc src/one.c -Wall -shared  -fpic -o release/luaDoTheWorld/luaDoTheWorld.so")
 
+    --zip the folder 
+    os.execute("cd release && zip -r luaDoTheWorld.zip luaDoTheWorld")
 end
