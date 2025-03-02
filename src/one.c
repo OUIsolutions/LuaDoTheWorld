@@ -57,7 +57,6 @@ void start_lua_props(LuaCEmbed *l){
 }
 
 int load_luaDoTheWorld(lua_State *state){
-
     LuaCEmbed * l  = newLuaCEmbedLib(state);
     start_lua_props(l);
 
