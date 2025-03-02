@@ -18,7 +18,7 @@ local dtw = require("luaDoTheWorld/luaDoTheWorld")
 #### Installation from Command
 if you prefer to install with a command, just type:
 ```shell
-curl -L -o luaDoTheWorld.zip https://github.com/OUIsolutions/LuaDoTheWorld/releases/download/v0.06/luaDoTheWorld.zip && unzip luaDoTheWorld.zip -d luaDoTheWorld && rm luaDoTheWorld.zip
+ curl -L -o luaDoTheWorld.zip https://github.com/OUIsolutions/LuaDoTheWorld/releases/download/0.7.0/luaDoTheWorld.zip && unzip luaDoTheWorld.zip && rm luaDoTheWorld.zip
 ```
 
 #### Build from scratch

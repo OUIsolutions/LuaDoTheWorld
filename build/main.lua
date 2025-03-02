@@ -30,4 +30,5 @@ function main()
 
     --zip the folder 
     os.execute("cd release && zip -r luaDoTheWorld.zip luaDoTheWorld")
+    darwin.dtw.remove_any("release/luaDoTheWorld")
 end
