@@ -1,3 +1,0 @@
-a.txt
-b.txt
-dira/content_of_dira
