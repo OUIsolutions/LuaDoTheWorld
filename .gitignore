@@ -1,8 +1,9 @@
 # Prerequisites
 *.
 luaDoTheWorld.zip
-
+dependencies
 cache2
+src/imports
 # Object files
 *.o
 *.ko

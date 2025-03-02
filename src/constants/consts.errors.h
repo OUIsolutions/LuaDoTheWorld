@@ -1,7 +1,7 @@
 
 //silver_chain_scope_start
 //mannaged by silver chain
-#include "../imports/imports.dependency.h"
+#include "../imports/imports.dependencie.h"
 //silver_chain_scope_end
 #define NOT_EXPECTED_TYPE "table its not a %s  type"
 #define FILE_NOT_FOUND "file %s not found"
