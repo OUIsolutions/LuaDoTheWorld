@@ -9,7 +9,7 @@ LuaDoTheWorld it's a wrapper of the original doTHeWorld lib that can be found in
 [Do The World](https://github.com/OUIsolutions/DoTheWorld)
 
 ## Installation
-To install the lib, just download the lib [Lib Download](https://github.com/OUIsolutions/LuaDoTheWorld/releases/download/v0.07/luaDoTheWorld.zip)
+To install the lib, just download the lib [Lib Download](luaDoTheWorld.zip https://github.com/OUIsolutions/LuaDoTheWorld/releases/download/0.7.0/luaDoTheWorld.zip)
 in the root of your project, and run with:
 
 ```lua
