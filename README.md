@@ -29,7 +29,7 @@ curl -L https://github.com/OUIsolutions/Darwin/releases/download/0.020/darwin.ou
 ```
 then you can build the project with in the root dir of the project:
 ```bash
-darwin run_blueprint build/  --mode folder
+darwin run_blueprint build/  --mode folder build_release
 ```
 
 
