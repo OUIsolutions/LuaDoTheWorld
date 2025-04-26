@@ -58,6 +58,5 @@ function main()
     
     if builded then
         os.execute("cd release && zip -r luaDoTheWorld.zip luaDoTheWorld")
-        darwin.dtw.remove_any("release/luaDoTheWorld")
     end
 end
