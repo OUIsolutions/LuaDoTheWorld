@@ -25,10 +25,39 @@ function main()
     )
     darwin.dtw.write_file("release/luaDoTheWorld_no_dep.c", no_dep_amalgamation)
 
-    darwin.dtw.copy_any_overwriting("extra/starter.lua","release/luaDoTheWorld/luaDoTheWorld.lua")
-    os.execute("gcc src/one.c -Wall -shared  -fpic -o release/luaDoTheWorld/luaDoTheWorld.so")
+    local builded = false
+    if darwin.argv.one_of_args_exist("build_local") then
+        darwin.dtw.copy_any_overwriting("extra/starter.lua","release/luaDoTheWorld/luaDoTheWorld.lua")
+        os.execute("gcc src/one.c -Wall -shared  -fpic -o release/luaDoTheWorld/luaDoTheWorld.so")
+        builded = true
+    end
 
-    --zip the folder 
-    os.execute("cd release && zip -r luaDoTheWorld.zip luaDoTheWorld")
-    darwin.dtw.remove_any("release/luaDoTheWorld")
+    if darwin.argv.one_of_args_exist("build_release") then
+        darwin.dtw.copy_any_overwriting("extra/starter.lua","release/luaDoTheWorld/luaDoTheWorld.lua")
+
+        -- Create a new container machine
+        local machine = darwin.ship.create_machine("debian:latest")
+        -- Configure container runtime
+        machine.provider = "sudo docker"
+        -- Add build-time commands
+        machine.add_comptime_command("apt update")
+        machine.add_comptime_command("apt install -y gcc")
+        
+        machine.start({
+            flags = {
+                "--network=host"
+            },
+            volumes = {
+                { ".", "/output" }
+            },
+            command = "gcc -shared -fpic /output/src/one.c -o /output/release/luaDoTheWorld/luaDoTheWorld.so"
+        })
+
+        builded = true
+    end
+    
+    if builded then
+        os.execute("cd release && zip -r luaDoTheWorld.zip luaDoTheWorld")
+        darwin.dtw.remove_any("release/luaDoTheWorld")
+    end
 end
