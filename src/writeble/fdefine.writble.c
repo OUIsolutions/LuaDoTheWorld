@@ -1,8 +1,4 @@
 
-//silver_chain_scope_start
-//mannaged by silver chain
-#include "../imports/imports.fdeclare.h"
-//silver_chain_scope_end
 
 bool handle_table_writble(Writeble *self,LuaCEmbed *args,int index){
     LuaCEmbedTable * element = LuaCEmbed_get_arg_table(args,index);

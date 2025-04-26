@@ -1,8 +1,4 @@
 
-//silver_chain_scope_start
-//mannaged by silver chain
-#include "../../imports/imports.fdeclare.h"
-//silver_chain_scope_end
 
 LuaCEmbedResponse * database_schema_set_index_name(LuaCEmbedTable *self,LuaCEmbed *args) {
     char *index_name =  LuaCEmbed_get_str_arg(args,0);

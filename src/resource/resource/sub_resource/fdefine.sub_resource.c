@@ -1,8 +1,4 @@
 
-//silver_chain_scope_start
-//mannaged by silver chain
-#include "../../../imports/imports.fdeclare.h"
-//silver_chain_scope_end
 
 LuaCEmbedResponse * resource_sub_resource_raw(LuaCEmbedTable  *self, LuaCEmbed *args,const char *src){
     DtwResource  *resource = (DtwResource*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,RESOURCE_POINTER);

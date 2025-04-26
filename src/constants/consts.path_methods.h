@@ -1,8 +1,4 @@
 
-//silver_chain_scope_start
-//mannaged by silver chain
-#include "../imports/imports.dependencie.h"
-//silver_chain_scope_end
 
 #define PATH_CHANGED_METHOD "path_changed"
 #define PATH_ADD_END_DIR_METHOD "path_add_end_dir"

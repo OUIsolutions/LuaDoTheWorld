@@ -1,8 +1,4 @@
 
-//silver_chain_scope_start
-//mannaged by silver chain
-#include "../../../imports/imports.fdeclare.h"
-//silver_chain_scope_end
 
 LuaCEmbedResponse * try_create_tree_from_json_tree_string(LuaCEmbed *args) {
     char *content = LuaCEmbed_get_str_arg(args,0);

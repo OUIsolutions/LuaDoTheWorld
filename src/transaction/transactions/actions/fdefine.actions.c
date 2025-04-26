@@ -1,8 +1,4 @@
 
-//silver_chain_scope_start
-//mannaged by silver chain
-#include "../../../imports/imports.fdeclare.h"
-//silver_chain_scope_end
 LuaCEmbedResponse * transaction_write(LuaCEmbedTable *self,LuaCEmbed *args){
 
     char *filename = LuaCEmbed_get_str_arg(args,0);

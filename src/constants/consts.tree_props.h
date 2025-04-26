@@ -1,8 +1,4 @@
 
-//silver_chain_scope_start
-//mannaged by silver chain
-#include "../imports/imports.dependencie.h"
-//silver_chain_scope_end
 #define TREE_PROPS_CONTENT "include_content"
 #define TREE_PROPS_CONTENT_DATA "include_content_data"
 #define TREE_PROPS_HARDWARE_DATA "include_hardware_data"

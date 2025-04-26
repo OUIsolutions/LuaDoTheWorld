@@ -1,8 +1,4 @@
 
-//silver_chain_scope_start
-//mannaged by silver chain
-#include "../imports/imports.dependencie.h"
-//silver_chain_scope_end
 
 #define HARDWARE_REMOVE_METHOD "hardware_remove"
 #define HARWARE_WRITE_METHOD "hardware_write"
