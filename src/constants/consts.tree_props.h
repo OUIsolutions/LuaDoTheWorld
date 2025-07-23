@@ -1,3 +1,7 @@
+//silver_chain_scope_start
+//mannaged by silver chain: https://github.com/OUIsolutions/SilverChain
+#include "../imports/imports.dependencie.h"
+//silver_chain_scope_end
 
 #define TREE_PROPS_CONTENT "include_content"
 #define TREE_PROPS_CONTENT_DATA "include_content_data"

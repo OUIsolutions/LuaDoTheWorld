@@ -1,3 +1,7 @@
+//silver_chain_scope_start
+//mannaged by silver chain: https://github.com/OUIsolutions/SilverChain
+#include "../imports/imports.dependencie.h"
+//silver_chain_scope_end
 
 #define ADD_TREE_PART_METHOD "add_tree_part"
 #define GET_TREE_PART_BY_INDEX_METHOD "get_tree_part_by_index"

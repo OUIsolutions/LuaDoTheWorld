@@ -1,3 +1,7 @@
+//silver_chain_scope_start
+//mannaged by silver chain: https://github.com/OUIsolutions/SilverChain
+#include "../../../imports/imports.fdeclare.h"
+//silver_chain_scope_end
 
 LuaCEmbedResponse *tree_list(LuaCEmbedTable *self, LuaCEmbed *args) {
     DtwTree *self_tree = (DtwTree*)(ldtw_ptr_cast)LuaCembedTable_get_long_prop(self,TREE_POINTER);

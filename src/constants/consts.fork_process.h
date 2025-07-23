@@ -1,3 +1,7 @@
+//silver_chain_scope_start
+//mannaged by silver chain: https://github.com/OUIsolutions/SilverChain
+#include "../imports/imports.dependencie.h"
+//silver_chain_scope_end
 
 #define  PID_PROP "pid_prop"
 #define KILL_FORK_METHOD "kill"

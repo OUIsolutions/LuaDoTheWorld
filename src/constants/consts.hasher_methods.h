@@ -1,3 +1,7 @@
+//silver_chain_scope_start
+//mannaged by silver chain: https://github.com/OUIsolutions/SilverChain
+#include "../imports/imports.dependencie.h"
+//silver_chain_scope_end
 
 #define DIGESST_METHOD "digest"
 #define DIGESST_FOLDER_BY_CONTENT_METHOD "digest_folder_by_content"
