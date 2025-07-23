@@ -1,2 +1,4 @@
 #include "../dependencies/doTheWorld.h"
-#include "../dependencies/LuaCEmbed.h"
+#define error LUA_CEMBED_ERRROR 
+#include "../dependencies/LuaCEmbedOne.c"
+#undef error

@@ -28,7 +28,7 @@ function main()
     local builded = false
     if darwin.argv.one_of_args_exist("build_local") then
         darwin.dtw.copy_any_overwriting("extra/starter.lua","release/luaDoTheWorld/luaDoTheWorld.lua")
-        os.execute("gcc src/one.c -Wall -shared  -fpic -o release/luaDoTheWorld/luaDoTheWorld.so")
+        os.execute("gcc src/one.c -shared  -fpic -o release/luaDoTheWorld/luaDoTheWorld.so")
         builded = true
     end
 

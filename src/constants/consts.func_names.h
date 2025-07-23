@@ -32,7 +32,7 @@
 #define IS_DIR_FUNC "isdir"
 #define IS_FILE_FUNC "isfile"
 #define IS_FILE_BLOB "isfile_blob"
-
+#define CREATE_CACHE_FUNCTION "create_cache_function"
 #define GENERATE_SHA_FROM_FOLDER_BY_CONTENT "generate_sha_from_folder_by_content"
 #define GENERATE_SHA_FROM_FOLDER_BY_LAST_MODIFICATION "generate_sha_from_folder_by_last_modification"
 #define CONCAT_PATH "concat_path"
