@@ -12,6 +12,7 @@ src/imports
 *.obj
 *.elf
 teste.lua
+ai_docs
 # Linker output
 *.ilk
 *.map
