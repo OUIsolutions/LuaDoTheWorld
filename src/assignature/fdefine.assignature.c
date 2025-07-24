@@ -7,9 +7,11 @@ void ldtw_digest_table(LuaCEmbedTable *table,DtwHash *hasher){
     
     
     long size  = LuaCEmbedTable_get_full_size(table);
+    bool existed_some_key = false;
     for(int i = 0; i < size;i++){
         bool has_key = LuaCembedTable_has_key_at_index(table, i);
         if (has_key) {
+            existed_some_key = true;
             continue;
         }
         int type_item = LuaCEmbedTable_get_type_by_index(table, i);
@@ -32,6 +34,10 @@ void ldtw_digest_table(LuaCEmbedTable *table,DtwHash *hasher){
             LuaCEmbedTable *sub_table = LuaCEmbedTable_get_sub_table_by_index(table, i);
             ldtw_digest_table(sub_table, hasher);
         }
+    }
+
+    if(!existed_some_key){
+        return;
     }
     DtwStringArray *keys = newDtwStringArray();
     for(int i = 0; i < size;i++){
