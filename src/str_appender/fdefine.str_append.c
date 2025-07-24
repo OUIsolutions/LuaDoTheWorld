@@ -4,11 +4,6 @@
 //silver_chain_scope_end
 
 
-typedef struct privateLuaDtwStringAppender {
-    char *buffer;
-    long buffer_size;
-    long length;
-} privateLuaDtwStringAppender;
 
 privateLuaDtwStringAppender *newprivateLuaDtwStringAppender(){
     privateLuaDtwStringAppender *self = (privateLuaDtwStringAppender *)malloc(sizeof(privateLuaDtwStringAppender));
