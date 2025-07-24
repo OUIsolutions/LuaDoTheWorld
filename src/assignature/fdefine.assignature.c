@@ -4,7 +4,46 @@
 //silver_chain_scope_end
 
 void ldtw_digest_table(LuaCEmbedTable *table,DtwHash *hasher){
-   
+    
+    
+    long size  = LuaCEmbedTable_get_full_size(table);
+    for(int i = 0; i < size;i++){
+        bool has_key = LuaCembedTable_has_key_at_index(table, i);
+        if (!has_key) {
+            continue;
+        }
+        int type_item = LuaCEmbedTable_get_type_by_index(table, i);
+        switch (type_item) {
+            case LUA_CEMBED_STRING: {
+                char *str = LuaCEmbedTable_get_string_by_index(table, i);
+                DtwHash_digest_string(hasher, str);
+                break;
+            }
+            case LUA_CEMBED_BOOL: {
+                bool b = LuaCEmbedTable_get_bool_by_index(table, i);
+                DtwHash_digest_bool(hasher, b);
+                break;
+            }
+            case LUA_CEMBED_NUMBER: {
+                double d = LuaCEmbedTable_get_double_by_index(table, i);
+                DtwHash_digest_double(hasher, d);
+                break;
+            }
+            case LUA_CEMBED_NIL: {
+                DtwHash_digest_string(hasher, "nil");
+                break;
+            }
+            case LUA_CEMBED_TABLE: {
+                LuaCEmbedTable *sub_table = LuaCEmbedTable_get_sub_table_by_index(table, i);
+                ldtw_digest_table(sub_table, hasher);
+                break;
+            }
+            default:
+                // Unknown type, skip
+                break;
+        }
+    }
+
     
 }
 
