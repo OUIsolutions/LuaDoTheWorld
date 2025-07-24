@@ -28,6 +28,7 @@ void start_lua_props(LuaCEmbed *l){
     LuaCEmbed_add_callback(l, IS_FILE_BLOB, is_blob_file);
     LuaCEmbed_add_callback(l,CREATE_CACHE_FUNCTION,create_cache_function);
     LuaCEmbed_add_callback(l,NEW_HASHER,create_hasher);
+    LuaCEmbed_add_callback(l,DIGEST_LUA_VAR,ldtw_assign_element);
     LuaCEmbed_add_callback(l,GENERATE_SHA_FROM_FOLDER_BY_CONTENT,generate_sha_from_folder_by_content);
     LuaCEmbed_add_callback(l,GENERATE_SHA_FROM_FOLDER_BY_LAST_MODIFICATION,generate_sha_from_folder_by_last_modification);
     LuaCEmbed_add_callback(l, NEW_TRANSACTION, transaction_new_transaction);

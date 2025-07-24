@@ -28,7 +28,7 @@
 #define NEW_HASHER "newHasher"
 #define NEW_RESOURCE "newResource"
 #define IS_BLOB_FUNC "is_blob"
-
+#define DIGEST_LUA_VAR "digest_lua_var"
 #define IS_DIR_FUNC "isdir"
 #define IS_FILE_FUNC "isfile"
 #define IS_FILE_BLOB "isfile_blob"
