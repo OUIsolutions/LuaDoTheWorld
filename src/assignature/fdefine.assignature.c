@@ -49,15 +49,14 @@ void ldtw_digest_table(LuaCEmbedTable *table,DtwHash *hasher){
         if (!has_key) {
             continue;
         }
-        char *key = LuaCEmbedTable_get_string_by_index(table, i);
+        char *key = LuaCembedTable_get_key_by_index(table, i);
         DtwStringArray_append(keys,key);
     }
     DtwStringArray_sort(keys);
     for(int i = 0; i < keys->size;i++){
         char *key = keys->strings[i];
-        printf("key is %s\n", key);
         DtwHash_digest_string(hasher, key);
-    
+
         int type = LuaCEmbedTable_get_type_prop(table, key);
         switch (type) {
             case LUA_CEMBED_STRING: {
