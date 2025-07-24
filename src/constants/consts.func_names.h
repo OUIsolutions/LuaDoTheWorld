@@ -51,6 +51,8 @@
 #define TRY_NEW_TREE_FROM_JSON_STRING "try_newTree_from_json_string"
 
 #define GET_ABSOLUTE_PATH "get_absolute_path"
+#define SERIALIZE_VAR "serialize_var"
+#define INTERPRET_SERIALIZED_VAR "interpret_serialized_var"
 #define STARTS_WITH "starts_with"
 #define ENDS_WITH "ends_with"
 #define NEW_RANDONIZER "newRandonizer"

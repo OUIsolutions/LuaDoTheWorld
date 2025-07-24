@@ -6,6 +6,6 @@
 
 
 privateLuaDtwStringAppender *newprivateLuaDtwStringAppender();
-void privateLuaDtwStringAppender_append(privateLuaDtwStringAppender *self, const char *str, long str_length);
-
+void privateLuaDtwStringAppender_append(privateLuaDtwStringAppender *self, const char *str);
+void privateLuaDtwStringAppender_append_fmt(privateLuaDtwStringAppender *self, const char *fmt, ...);
 void privateLuaDtwStringAppender_free(privateLuaDtwStringAppender *self);
