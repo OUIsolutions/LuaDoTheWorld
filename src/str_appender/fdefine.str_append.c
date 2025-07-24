@@ -26,14 +26,20 @@ void privateLuaDtwStringAppender_append_fmt(privateLuaDtwStringAppender *self, c
     va_list args;
     va_start(args, fmt);
     // Get the formatted string length
-    long str_length = vsnprintf(NULL, 0, fmt, args);
+    va_list args_copy;
+    va_copy(args_copy, args);
+    long str_length = vsnprintf(NULL, 0, fmt, args_copy);
+    va_end(args_copy);
+
     if (self->length + str_length >= self->buffer_size) {
         self->buffer_size = (self->length + str_length) * 2; // Double the size
         self->buffer = (char*)realloc(self->buffer, self->buffer_size);
     }
+
     // Write the formatted string to the buffer
     vsnprintf(self->buffer + self->length, self->buffer_size - self->length, fmt, args);
     self->length += str_length;
+    self->buffer[self->length] = '\0'; // Null-terminate the string
     va_end(args);
 }
 

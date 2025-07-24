@@ -1,2 +1,3 @@
-(function()
-return '\-1\-1\-1\-1'();
+return (function()
+return '\97\97\97\97\97'
+end)();

@@ -28,12 +28,12 @@ LuaCEmbedResponse *ldtw_serialize_var(LuaCEmbed *args){
         ldtw_serialize_str(appender, str, size);
     }
     if(type == LUA_CEMBED_NUMBER){
-        lua_Integer int_val = LuaCEmbed_get_long_arg(args, 0);
-        privateLuaDtwStringAppender_append_fmt(appender, "return %ld", int_val);
+        double int_val = LuaCEmbed_get_double_arg(args, 0);
+        privateLuaDtwStringAppender_append_fmt(appender, "return %f", int_val);
     }
     
     if(type == LUA_CEMBED_BOOL){
-        lua_Integer bool_val = LuaCEmbed_get_bool_arg(args, 0);
+        bool bool_val = LuaCEmbed_get_bool_arg(args, 0);
         privateLuaDtwStringAppender_append_fmt(appender, "return %s", bool_val ? "true" : "false");
     }
     
