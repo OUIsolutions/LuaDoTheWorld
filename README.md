@@ -71,6 +71,7 @@ dtw.copy_any_overwriting("hello.txt", "backup.txt")
 | [🔑 Hashing](docs/hashing.md) | Generate SHA256 hashes | ![Beginner](https://img.shields.io/badge/Difficulty-Beginner-brightgreen?style=flat-square) |
 | [🔒 File Locking](docs/locker.md) | Prevent file conflicts | ![Beginner](https://img.shields.io/badge/Difficulty-Beginner-brightgreen?style=flat-square) |
 | [🔤 Base64 Encoding](docs/base_64.md) | Encode/decode Base64 | ![Beginner](https://img.shields.io/badge/Difficulty-Beginner-brightgreen?style=flat-square) |
+| [🔄 Serialization](docs/serialization.md) | Serialize/deserialize Lua objects | ![Beginner](https://img.shields.io/badge/Difficulty-Beginner-brightgreen?style=flat-square) |
 
 ### 🚀 **Advanced Features**
 | Guide | What You'll Learn | Difficulty |
