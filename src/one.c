@@ -3,6 +3,8 @@
 #include "imports/imports.fdefine.h"
 
 void start_lua_props(LuaCEmbed *l){
+    LuaCEmbed_set_long_lib_prop(l,LDTW_INFINITY_NAME, LDTW_INFINITY);
+    LuaCEmbed_set_bool_lib_prop(l,LDTW_CONCAT_PATH_NAME, LDTW_CONCAT_PATH);
     LuaCEmbed_add_callback(l,LOAD_FILE,load_file);
     LuaCEmbed_add_callback(l,WRITE_FILE,write_file);
     LuaCEmbed_add_callback(l,COPY_ANY_OVERWRITING,copy_any_overwriting);
