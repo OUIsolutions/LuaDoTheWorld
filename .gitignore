@@ -11,6 +11,7 @@ src/imports
 *.ko
 *.obj
 *.elf
+serialized.lua
 teste.lua
 ssss.jpeg
 ai_docs

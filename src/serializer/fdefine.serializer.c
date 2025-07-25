@@ -4,16 +4,21 @@
 //silver_chain_scope_end
 
 
+void ldtw_serialize_str(privateLuaDtwStringAppender *appender, unsigned char *str, long size) {
+    privateLuaDtwStringAppender_append(appender, "'");
 
-void ldtw_serialize_str(privateLuaDtwStringAppender *appender,unsigned char *str,long size){
-    privateLuaDtwStringAppender_append(appender,"'");
-
-    for(int i = 0; i < size; i++){
-        privateLuaDtwStringAppender_append_fmt(appender,"\\%d", (unsigned char)str[i]);
+    for (int i = 0; i < size; i++) {
+        unsigned char c = str[i];
+        if (c >= 32 && c <= 126 && c != '\'') {
+            // Printable ASCII except single quote
+            privateLuaDtwStringAppender_append_fmt(appender, "%c", c);
+        }  else {
+            // Non-printable or non-ASCII
+            privateLuaDtwStringAppender_append_fmt(appender, "\\%d", c);
+        }
     }
 
-    privateLuaDtwStringAppender_append(appender,"'");
-
+    privateLuaDtwStringAppender_append(appender, "'");
 }
 void ldtw_serialize_table(privateLuaDtwStringAppender *appender,LuaCEmbedTable *table){
     privateLuaDtwStringAppender_append(appender, " {");
@@ -56,6 +61,7 @@ void ldtw_serialize_table(privateLuaDtwStringAppender *appender,LuaCEmbedTable *
     }
     
     if(!has_keyed_elements){
+        privateLuaDtwStringAppender_append(appender, " }");
         return;
     }
     
@@ -112,7 +118,7 @@ LuaCEmbedResponse *ldtw_serialize_var(LuaCEmbed *args){
 
 
     privateLuaDtwStringAppender *appender = newprivateLuaDtwStringAppender();
-    privateLuaDtwStringAppender_append(appender,"(function()\n");
+    privateLuaDtwStringAppender_append(appender,"(function();");
     int type  = LuaCEmbed_get_arg_type(args, 0);
     if(type == LUA_CEMBED_STRING){
         lua_Integer size;
@@ -140,9 +146,16 @@ LuaCEmbedResponse *ldtw_serialize_var(LuaCEmbed *args){
         ldtw_serialize_table(appender, table);
     }
 
-    privateLuaDtwStringAppender_append(appender,"\nend)();");
+    privateLuaDtwStringAppender_append(appender,";end)();");
 
     LuaCEmbedResponse *response = LuaCEmbed_send_str(appender->buffer);
     privateLuaDtwStringAppender_free(appender);
     return response;
+}
+LuaCEmbedResponse *ldtw_interpret_serialized_var(LuaCEmbed *args){
+    char *serialized_str = LuaCEmbed_get_str_arg(args, 0);
+    if(LuaCEmbed_has_errors(args)){
+        return LuaCEmbed_send_error("Error: Invalid serialized string");
+    }
+    return LuaCEmbed_send_evaluation(serialized_str);
 }
