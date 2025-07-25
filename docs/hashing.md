@@ -64,6 +64,18 @@ print(sha)
 
 ---
 
+## 🔄 Hash a Lua Table or Variable
+
+You can hash a Lua table or variable directly using `dtw.digest_var`. This is useful for generating a SHA256 hash from structured data (tables, arrays, etc.).
+
+```lua
+local dtw = require("luaDoTheWorld/luaDoTheWorld")
+local data = dtw.digest_var({name="Mateus", age=38, hobbies={"coding", "gaming"}})
+print("data:", data) -- 13d17b23ccee37a92107f8357e980851c6b05fd6e0a7f9878dc384babc8858e4
+```
+
+---
+
 ## 🧩 Combine Hashes with Hasher
 
 If you want to hash many things together, use the Hasher object:
@@ -87,6 +99,7 @@ print(hasher.get_value())
 | `dtw.generate_sha_from_file(path)` | Hash a file | `dtw.generate_sha_from_file("file.png")` |
 | `dtw.generate_sha_from_folder_by_content(path)` | Hash folder by content | `dtw.generate_sha_from_folder_by_content("dir")` |
 | `dtw.generate_sha_from_folder_by_last_modification(path)` | Hash folder by last modification | `dtw.generate_sha_from_folder_by_last_modification("dir")` |
+| `dtw.digest_var(table)` | Hash a Lua table/variable | `dtw.digest_var({a=1, b=2})` |
 | `dtw.newHasher()` | Create a hasher object | `dtw.newHasher()` |
 | `hasher.digest(data)` | Add string to hasher | `hasher.digest("hello")` |
 | `hasher.digest_file(path)` | Add file to hasher | `hasher.digest_file("file.png")` |
