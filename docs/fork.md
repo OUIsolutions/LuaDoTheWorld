@@ -20,6 +20,7 @@
 ## 🛠️ Prerequisites
 
 - LuaDoTheWorld installed and required in your script
+- Unix-like environment (Linux, macOS) for process management
 
 ---
 
