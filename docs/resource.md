@@ -1,571 +1,397 @@
 
-### Resources
-Resources it's a way to manipulate files and folders, as dictionarys, they are usefull for
-larger storage models
+# 📁 Resource Management Guide
 
-#### Basic Resource in Lua
+![Lua](https://img.shields.io/badge/Language-Lua-blue?style=flat-square&logo=lua)
+![API](https://img.shields.io/badge/API-Resources-green?style=flat-square)
+![Difficulty](https://img.shields.io/badge/Difficulty-Beginner-brightgreen?style=flat-square)
+![Version](https://img.shields.io/badge/SDK-LuaDoTheWorld-orange?style=flat-square)
 
-~~~lua
+> 🚀 **Quick Start Guide** for managing files and folders like dictionaries with LuaDoTheWorld
+
+---
+
+## 📋 What You'll Learn
+
+- ✅ How to create and manipulate file/folder resources
+- ✅ How to work with sub-resources (files inside folders)
+- ✅ How to use schemas for database-like operations
+- ✅ How to list, filter, and search through resources
+
+---
+
+## 🛠️ Prerequisites
+
+- LuaDoTheWorld installed and required in your script
+
+---
+
+## 🏗️ Create Your First Resource
+
+Resources are like smart file/folder managers that automatically understand if you're working with files or folders.
+
+```lua
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
-local a = dtw.newResource("tests/target/a")
-local b = a.sub_resource("b.txt")
-b.set_value("content of b1")
-a.commit()
+-- Create a resource (can be file or folder)
+local myFolder = dtw.newResource("my_project")
+local myFile = myFolder.sub_resource("config.txt")
+myFile.set_value("Hello, World!")
+myFolder.commit() -- Save changes to disk
+```
 
-~~~
+---
 
-Resources can be files or folders, that are automaticly determined based on the code behavior
-for example, if you use the function "get_value" the lib understand that its a file , if you type
-sub resource, it understand that its a folder
+## 📖 Read from Files
 
-#### Getting a value from a file
-in these example we are getting a value from a faile
+Get content from any file easily:
 
-
-~~~lua
+```lua
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
-local a = dtw.newResource("tests/target/a")
-local b = a.sub_resource("b.txt")
-print(b.get_value())
-a.commit()
+local myFolder = dtw.newResource("my_project")
+local configFile = myFolder.sub_resource("config.txt")
+print(configFile.get_value()) -- Prints file content
+```
 
-~~~
+---
 
-#### Getting  a value from a sub resource
-In these example we are getting a value from a sub resource directaly
+## 🔍 Get Values from Sub-Resources
 
+Read files directly without creating sub-resource objects:
 
-~~~lua
+```lua
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
-local a = dtw.newResource("tests/target/a")
+local myFolder = dtw.newResource("my_project")
+print(myFolder.get_value_from_sub_resource("config.txt"))
+```
 
-print(a.get_value_from_sub_resource("b.txt"))
-~~~
+---
 
-#### Setting Values in Sub Resource
+## ✏️ Write to Files
 
+Set content in files within folders:
 
-~~~lua
+```lua
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
-local a = dtw.newResource("tests/target/a")
-a.set_value_in_sub_resource("b.txt","content of b")
-a.commit()
+local myFolder = dtw.newResource("my_project")
+myFolder.set_value_in_sub_resource("config.txt", "New configuration data")
+myFolder.commit() -- Don't forget to save!
+```
 
-~~~
+---
 
-#### Destroying a sub resource
-you also can destroy a resource
+## 🗑️ Delete Resources
 
+Remove files or entire folders:
 
-~~~lua
+```lua
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
-local a = dtw.newResource("tests/target/a")
-local b = a.sub_resource("b.txt")
-b.destroy()
+local myFolder = dtw.newResource("my_project")
+local oldFile = myFolder.sub_resource("old_config.txt")
+oldFile.destroy() -- Mark for deletion
+myFolder.commit() -- Apply deletion
+```
 
-a.commit()
+---
 
-~~~
+## 📋 List All Files and Folders
 
+See what's inside a folder:
 
-#### Listage
-there is a lot of ways to list into  files in lua,based on your style of coding
-
-~~~lua
+```lua
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
-local a = dtw.newResource("tests/target/test_dir")
-local elements,size = a.list()
+local myFolder = dtw.newResource("my_project")
+local elements, size = myFolder.list()
 
-for i=1,size do
-    local value = elements[i]
-	print("path",value.get_path_string())
-	print("type",value.get_type())
+for i = 1, size do
+    local item = elements[i]
+    print("Path:", item.get_path_string())
+    print("Type:", item.get_type()) -- "file" or "folder"
 end
+```
 
+---
 
+## 🔄 Loop Through Resources (Each)
 
-~~~
+Process each file/folder with a function:
 
-#### Each
-if you prefer  a more functional way ,you can use the each method for basic iteration
-
-
-~~~lua
+```lua
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
-local a = dtw.newResource("tests/target/test_dir")
-a.each(function (value)
-	print("path",value.get_path_string())
-	print("type",value.get_type())
+local myFolder = dtw.newResource("my_project")
+myFolder.each(function(item)
+    print("Found:", item.get_path_string())
+    print("Type:", item.get_type())
+end)
+```
+
+---
+
+## 🗺️ Transform Resources (Map)
+
+Create a new structure from your resources:
+
+```lua
+local dtw = require("luaDoTheWorld/luaDoTheWorld")
+
+local myFolder = dtw.newResource("my_project")
+local fileInfo, size = myFolder.map(function(item)
+    return {
+        path = item.get_path_string(),
+        content = item.get_value(),
+        type = item.get_type()
+    }
 end)
 
-~~~
-
-#### Map
-you also can map the resources retriving a generated struct
-
-
-~~~lua
-local dtw = require("luaDoTheWorld/luaDoTheWorld")
-
-local a = dtw.newResource("tests/target/test_dir")
-local elements,size  = a.map(function(value)
-	local result = {}
-	result.path = value.get_path_string()
-    result.value = value.get_value()
-    result.type = value.get_type()
-    return result;
-end)
-for i=1,size do
-	local current = elements[i]
-	print("path",current.path)
-	print("value",current.value)
-	print("type",current.type)
+for i = 1, size do
+    local info = fileInfo[i]
+    print("Path:", info.path)
+    print("Content:", info.content)
+    print("Type:", info.type)
 end
-~~~
+```
 
-#### Find
-its possible to find elements based on functions to
+---
 
+## 🔍 Find Specific Resources
 
-~~~lua
+Search for files by name or other criteria:
+
+```lua
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
-local a = dtw.newResource("tests/target/test_dir")
-local element  = a.find(function(value)
-	local path = dtw.newPath(value.get_path_string())
-    if path.get_name() == "a.txt" then
-    	return true;
-    end
+local myFolder = dtw.newResource("my_project")
+local targetFile = myFolder.find(function(item)
+    local path = dtw.newPath(item.get_path_string())
+    return path.get_name() == "config.txt"
 end)
 
-print(element.get_value())
-~~~
+if targetFile then
+    print("Found:", targetFile.get_value())
+end
+```
 
-#### Filter
-and you can filter elements, in these example we are filtering based on file exist
+---
 
+## 🔎 Filter Resources
 
-~~~lua
+Get only files that match your criteria:
+
+```lua
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
-local a = dtw.newResource("tests/target/test_dir")
-local files,size  = a.filter(function(value)
-	if value.get_value() then
-		return true
-	end
+local myFolder = dtw.newResource("my_project")
+local textFiles, size = myFolder.filter(function(item)
+    local path = dtw.newPath(item.get_path_string())
+    return path.get_extension() == ".txt"
 end)
 
-
-for i=1,size do
-	local file = files[i]
-	print(file.get_value())
+for i = 1, size do
+    local file = textFiles[i]
+    print("Text file:", file.get_path_string())
 end
-~~~
+```
 
-#### Custom sub Resources
-With Custom sub resources , you can generate customizible elements to your resources
-making elements based onyour necessity
+---
 
-#### Sub Resource Now
+## 🕒 Auto-Generated Resource Names
 
-will create a sub resource with the name of the current time
+### Current Time Filename
 
-~~~lua
+```lua
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
-local a = dtw.newResource("tests/target/a")
-local now = a.sub_resource_now(".txt")
-now.set_value("content generated")
-a.commit()
+local logs = dtw.newResource("logs")
+local logFile = logs.sub_resource_now(".log") -- Creates "2024-01-15_14-30-25.log"
+logFile.set_value("Application started")
+logs.commit()
+```
 
-~~~
+### Unix Timestamp Filename
 
-#### Sub Resource Now in Unix
-
-Will create a resource with the current unix time
-
-~~~lua
+```lua
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
-local a = dtw.newResource("tests/target/a")
-local now = a.sub_resource_now_in_unix(".txt")
-now.set_value("content generated")
-a.commit()
+local backups = dtw.newResource("backups")
+local backup = backups.sub_resource_now_in_unix(".backup") -- Creates "1705320625.backup"
+backup.set_value("Backup data")
+backups.commit()
+```
 
-~~~
+### Random Filename
 
-#### Sub Resource Random
-Will create a resource with a random name
-
-
-~~~lua
+```lua
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
-local a = dtw.newResource("tests/target/a")
-local now = a.sub_resource_random(".txt")
-now.set_value("content generated")
-a.commit()
+local temp = dtw.newResource("temp")
+local tempFile = temp.sub_resource_random(".tmp") -- Creates random name like "a7b9c2d4.tmp"
+tempFile.set_value("Temporary data")
+temp.commit()
+```
 
-~~~
+### Sequential Filename
 
-#### Sub Resource Next
-will creeate a resource with the given size of mothers folder
-
-
-~~~lua
+```lua
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
-local a = dtw.newResource("tests/target/a")
-local next = a.sub_resource_next(".txt")
-next.set_value("content generated")
-a.commit()
+local uploads = dtw.newResource("uploads")
+local nextFile = uploads.sub_resource_next(".jpg") -- Creates "1.jpg", "2.jpg", etc.
+nextFile.set_value("Image data")
+uploads.commit()
+```
 
-~~~
+---
 
+## 🗄️ Database-Like Operations (Schemas)
 
-### Schemas
-Schemas its a way to emulate relational behavior inside resource system
-its super usefull for larger storage models, int contemplates, insertions and primary keys
-(joins  maybe will be avaliable in the future)
+Turn your folders into databases with primary keys and queries!
 
-#### Basic Schema Insertion
+### Create a User Database
 
-
-~~~lua
+```lua
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
-local function  create_database()
-    local database = dtw.newResource("tests/target/database")
-    local root_schema = database.newDatabaseSchema()
-    local users  =root_schema.sub_schema("users")
-    users.add_primary_keys({"name","email"})
-    return database;
-end
+-- Setup database structure
+local database = dtw.newResource("user_database")
+local schema = database.newDatabaseSchema()
+local users = schema.sub_schema("users")
+users.add_primary_keys({"name", "email"}) -- Prevent duplicates
 
----@param database DtwResource
----@param name string
----@param email string
-local function create_user(database,name,email,password)
-    local users = database.sub_resource("users")
-    local user = users.schema_new_insertion()
-    user.set_value_in_sub_resource("name",name)
-    user.set_value_in_sub_resource("email",email)
-    local password_sha = dtw.generate_sha(password)
-    user.set_value_in_sub_resource("password",password_sha)
-    return user;
-end
+-- Create a user
+local userTable = users.schema_new_insertion()
+userTable.set_value_in_sub_resource("name", "John Doe")
+userTable.set_value_in_sub_resource("email", "john@example.com")
+userTable.set_value_in_sub_resource("password", "secret123")
 
+database.commit()
+```
 
+### Find User by Email
 
-local database = create_database();
-local correct,user_or_error  = pcall(create_user,database,"user1","user1@gmail.com","123")
-if correct == false then
-	local error = user_or_error
-	print(error)
+```lua
+local dtw = require("luaDoTheWorld/luaDoTheWorld")
+
+local database = dtw.newResource("user_database")
+local users = database.sub_resource("users")
+
+-- Find user by primary key
+local user = users.get_resource_matching_primary_key("email", "john@example.com")
+if user then
+    print("Name:", user.get_value_from_sub_resource("name"))
+    print("Email:", user.get_value_from_sub_resource("email"))
 else
-	print("user created")
+    print("User not found")
 end
+```
 
-database.commit()
+### List All Users
 
-~~~
-
-#### Finding By Primary key
-you also can find elements based on their primary key
-
-
-~~~lua
+```lua
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
-local function  create_database()
-    local database = dtw.newResource("tests/target/database")
-    local root_schema = database.newDatabaseSchema()
-    local users  =root_schema.sub_schema("users")
-    users.add_primary_keys({"name","email"})
-    return database;
-end
-
----@param database DtwResource
----@param name string
----@param email string
-local function create_user(database,name,email,password)
-    local users = database.sub_resource("users")
-    local user = users.schema_new_insertion()
-    user.set_value_in_sub_resource("name",name)
-    user.set_value_in_sub_resource("email",email)
-    local password_sha = dtw.generate_sha(password)
-    user.set_value_in_sub_resource("password",password_sha)
-    return user;
-end
-
----@param database DtwResource
----@param email string
----@return DtwResource
-local function find_by_email(database,email)
-    local users = database.sub_resource("users")
-    return users.get_resource_matching_primary_key("email",email)
-end
-
-local database = create_database();
-create_user(database,"user1","user1@gmail.com","123")
-create_user(database,"user2","user2@gmail.com","123")
-
-local first_user = find_by_email(database,"user1@gmail.com")
-if first_user ~= nil then
-    print("name",first_user.get_value_from_sub_resource("name"))
-    print("email",first_user.get_value_from_sub_resource("email"))
-    print("password",first_user.get_value_from_sub_resource("password"))
-else
-    print("user not found")
-end
-
-database.commit()
-
-~~~
-
-#### Destroying
-the schema destruction grants the system integridy, so all the entity and its keys, will be destroyed
-
-
-~~~lua
-local dtw = require("luaDoTheWorld/luaDoTheWorld")
-
-local function  create_database()
-    local database = dtw.newResource("tests/target/database")
-    local root_schema = database.newDatabaseSchema()
-    local users  =root_schema.sub_schema("users")
-    users.add_primary_keys({"name","email"})
-    return database;
-end
-
----@param database DtwResource
----@param name string
----@param email string
-local function create_user(database,name,email,password)
-    local users = database.sub_resource("users")
-    local user = users.schema_new_insertion()
-    user.set_value_in_sub_resource("name",name)
-    user.set_value_in_sub_resource("email",email)
-    local password_sha = dtw.generate_sha(password)
-    user.set_value_in_sub_resource("password",password_sha)
-    return user;
-end
----@param database DtwResource
----@param email string
----@return DtwResource
-local function find_by_email(database,email)
-    local users = database.sub_resource("users")
-    return users.get_resource_matching_primary_key("email",email)
-end
-
-local database = create_database();
-create_user(database,"user1","user1@gmail.com","123")
-create_user(database,"user2","user2@gmail.com","123")
-
-local first_user = find_by_email(database,"user1@gmail.com")
-first_user.destroy()
-print("user destroyed")
-database.commit()
-~~~
-
-#### Schema Listage
-You can also list elements of the schema easly
-
-~~~lua
-local dtw = require("luaDoTheWorld/luaDoTheWorld")
-
-local function  create_database()
-    local database = dtw.newResource("tests/target/database")
-    local root_schema = database.newDatabaseSchema()
-    local users  =root_schema.sub_schema("users")
-    users.add_primary_keys({"name","email"})
-    return database;
-end
-
----@param database DtwResource
----@param name string
----@param email string
-local function create_user(database,name,email,password)
-    local users = database.sub_resource("users")
-    local user = users.schema_new_insertion()
-    user.set_value_in_sub_resource("name",name)
-    user.set_value_in_sub_resource("email",email)
-    local password_sha = dtw.generate_sha(password)
-    user.set_value_in_sub_resource("password",password_sha)
-    return user;
-end
-
-
-local database = create_database();
-create_user(database,"user1","user1@gmail.com","123")
-create_user(database,"user2","user2@gmail.com","123")
-
+local database = dtw.newResource("user_database")
 local users = database.sub_resource("users")
-local elements,size= users.schema_list()
-for i=1,size do
-	local current_user = elements[i]
-	print("name",current_user.get_value_from_sub_resource("name"))
-	print("email",current_user.get_value_from_sub_resource("email"))
-	print("password",current_user.get_value_from_sub_resource("password"))
+
+local allUsers, count = users.schema_list()
+for i = 1, count do
+    local user = allUsers[i]
+    print("User:", user.get_value_from_sub_resource("name"))
+    print("Email:", user.get_value_from_sub_resource("email"))
 end
+```
 
-database.commit()
+### Filter Users by Age
 
-~~~
-
-#### Schema Each
-if you prefer an functional aproact , each its also available
-
-
-~~~lua
+```lua
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
-local function  create_database()
-    local database = dtw.newResource("tests/target/database")
-    local root_schema = database.newDatabaseSchema()
-    local users  =root_schema.sub_schema("users")
-    users.add_primary_keys({"name","email"})
-    return database;
-end
-
----@param database DtwResource
----@param name string
----@param email string
-local function create_user(database,name,email,password)
-    local users = database.sub_resource("users")
-    local user = users.schema_new_insertion()
-    user.set_value_in_sub_resource("name",name)
-    user.set_value_in_sub_resource("email",email)
-    local password_sha = dtw.generate_sha(password)
-    user.set_value_in_sub_resource("password",password_sha)
-    return user;
-end
-
-
-local database = create_database();
-create_user(database,"user1","user1@gmail.com","123")
-create_user(database,"user2","user2@gmail.com","123")
-
+local database = dtw.newResource("user_database")
 local users = database.sub_resource("users")
-users.schema_each(function (current_user)
-		print("name",current_user.get_value_from_sub_resource("name"))
-    	print("email",current_user.get_value_from_sub_resource("email"))
-    	print("password",current_user.get_value_from_sub_resource("password"))
-end)
-database.commit()
-~~~
 
-#### Schema Map
-if you need to construct a struct of your schema ( to return in web apis for example)map its also available
-
-~~~lua
-local dtw = require("luaDoTheWorld/luaDoTheWorld")
-
-local function  create_database()
-    local database = dtw.newResource("tests/target/database")
-    local root_schema = database.newDatabaseSchema()
-    local users  =root_schema.sub_schema("users")
-    users.add_primary_keys({"name","email"})
-    return database;
-end
-
----@param database DtwResource
----@param name string
----@param email string
-local function create_user(database,name,email,password)
-    local users = database.sub_resource("users")
-    local user = users.schema_new_insertion()
-    user.set_value_in_sub_resource("name",name)
-    user.set_value_in_sub_resource("email",email)
-    local password_sha = dtw.generate_sha(password)
-    user.set_value_in_sub_resource("password",password_sha)
-    return user;
-end
-
-
-local database = create_database();
-create_user(database,"user1","user1@gmail.com","123")
-create_user(database,"user2","user2@gmail.com","123")
-
-local users = database.sub_resource("users")
-local users_mapped,size = users.schema_map(function (current_user)
-		return {
-		   name= current_user.get_value_from_sub_resource("name"),
-		   email = current_user.get_value_from_sub_resource("email"),
-		   password = current_user.get_value_from_sub_resource("password")
-		}
+local adults, count = users.schema_filter(function(user)
+    local age = user.get_value_from_sub_resource("age")
+    return age and age >= 18
 end)
 
-for i=1,size do
-    local current_user = users_mapped[i]
-	print("name",current_user.name)
-	print("email",current_user.email)
-	print("password",current_user.password)
+for i = 1, count do
+    local user = adults[i]
+    print("Adult user:", user.get_value_from_sub_resource("name"))
 end
+```
 
+### Delete a User
 
-database.commit()
-~~~
-
-#### Schema Filter
-you also can aply filtrage in schemas
-
-
-~~~lua
+```lua
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
-local function  create_database()
-    local database = dtw.newResource("tests/target/database")
-    local root_schema = database.newDatabaseSchema()
-    local users  =root_schema.sub_schema("users")
-    users.add_primary_keys({"name","email"})
-    return database;
-end
-
----@param database DtwResource
----@param name string
----@param email string
----@param age number
-local function create_user(database,name,email,age,password)
-    local users = database.sub_resource("users")
-    local user = users.schema_new_insertion()
-    user.set_value_in_sub_resource("name",name)
-    user.set_value_in_sub_resource("email",email)
-    user.set_value_in_sub_resource("age",age)
-    local password_sha = dtw.generate_sha(password)
-    user.set_value_in_sub_resource("password",password_sha)
-    return user;
-end
-
-
-local database = create_database();
-create_user(database,"user1","user1@gmail.com",20,"123")
-create_user(database,"user2","user2@gmail.com",40,"123")
-create_user(database,"user3","user3@gmail.com",50,"123")
-
+local database = dtw.newResource("user_database")
 local users = database.sub_resource("users")
-local users_higher_than_30,size = users.schema_filter(function (current_user)
 
-		if current_user.get_value_from_sub_resource("age") > 30 then
-			return true
-		end
-end)
-
-for i=1,size do
-        local current_user = users_higher_than_30[i]
-		print("name",current_user.get_value_from_sub_resource("name"))
-    	print("email",current_user.get_value_from_sub_resource("email"))
-    	print("age",current_user.get_value_from_sub_resource("age"))
-    	print("password",current_user.get_value_from_sub_resource("password"))
+local user = users.get_resource_matching_primary_key("email", "john@example.com")
+if user then
+    user.destroy() -- Safely removes user and all their data
+    print("User deleted")
 end
 
 database.commit()
-~~~
+```
+
+---
+
+## 📚 Quick Reference
+
+### Basic Operations
+| Function | What it does | Example |
+|----------|--------------|---------|
+| `dtw.newResource(path)` | Create resource | `dtw.newResource("my_folder")` |
+| `resource.sub_resource(name)` | Get sub-resource | `folder.sub_resource("file.txt")` |
+| `resource.set_value(data)` | Write to file | `file.set_value("Hello")` |
+| `resource.get_value()` | Read from file | `file.get_value()` |
+| `resource.commit()` | Save changes | `folder.commit()` |
+| `resource.destroy()` | Delete resource | `file.destroy()` |
+
+### Listing and Searching
+| Function | What it does | Example |
+|----------|--------------|---------|
+| `resource.list()` | List all items | `folder.list()` |
+| `resource.each(func)` | Loop through items | `folder.each(function(item) ... end)` |
+| `resource.map(func)` | Transform items | `folder.map(function(item) ... end)` |
+| `resource.find(func)` | Find first match | `folder.find(function(item) ... end)` |
+| `resource.filter(func)` | Filter items | `folder.filter(function(item) ... end)` |
+
+### Auto-Generated Names
+| Function | What it does | Example |
+|----------|--------------|---------|
+| `resource.sub_resource_now(ext)` | Time-based name | `folder.sub_resource_now(".log")` |
+| `resource.sub_resource_now_in_unix(ext)` | Unix timestamp | `folder.sub_resource_now_in_unix(".bak")` |
+| `resource.sub_resource_random(ext)` | Random name | `folder.sub_resource_random(".tmp")` |
+| `resource.sub_resource_next(ext)` | Sequential number | `folder.sub_resource_next(".jpg")` |
+
+### Schema (Database) Operations
+| Function | What it does | Example |
+|----------|--------------|---------|
+| `resource.newDatabaseSchema()` | Create schema | `db.newDatabaseSchema()` |
+| `schema.sub_schema(name)` | Create table | `schema.sub_schema("users")` |
+| `schema.add_primary_keys(keys)` | Set unique fields | `users.add_primary_keys({"email"})` |
+| `schema.schema_new_insertion()` | Create record | `users.schema_new_insertion()` |
+| `schema.get_resource_matching_primary_key(key, value)` | Find by key | `users.get_resource_matching_primary_key("email", "john@example.com")` |
+| `schema.schema_list()` | List all records | `users.schema_list()` |
+| `schema.schema_filter(func)` | Filter records | `users.schema_filter(function(user) ... end)` |
+
+---
+
+## 🆘 Need Help?
+
+- 📖 Check the main SDK documentation
+- 🔍 Look at other example scripts in the SDK
+- 🐛 Report issues on our GitHub repository
+
+---
+
+![Footer](https://img.shields.io/badge/Happy-Coding!-ff69b4?style=flat-square&logo=heart)
 
