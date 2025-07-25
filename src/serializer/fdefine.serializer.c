@@ -114,25 +114,24 @@ void ldtw_serialize_table(privateLuaDtwStringAppender *appender,LuaCEmbedTable *
     privateLuaDtwStringAppender_append(appender, " }");
 }
 
-LuaCEmbedResponse *ldtw_serialize_var(LuaCEmbed *args){
-
-
-    privateLuaDtwStringAppender *appender = newprivateLuaDtwStringAppender();
+void ldtw_serialize_first_value_of_table( privateLuaDtwStringAppender *appender ,LuaCEmbedTable *entries){
+   
+   
     privateLuaDtwStringAppender_append(appender,"(function();");
-    int type  = LuaCEmbed_get_arg_type(args, 0);
+    int type  = LuaCEmbedTable_get_type_by_index(entries, 0);
     if(type == LUA_CEMBED_STRING){
         lua_Integer size;
-        unsigned char *str = LuaCEmbed_get_raw_str_arg(args, &size, 0);
+        unsigned char *str = LuaCEmbedTable_get_raw_string_by_index(entries,0, &size);
         privateLuaDtwStringAppender_append(appender, "return ");
         ldtw_serialize_str(appender, str, size);
     }
     if(type == LUA_CEMBED_NUMBER){
-        double int_val = LuaCEmbed_get_double_arg(args, 0);
+        double int_val = LuaCEmbedTable_get_double_by_index(entries, 0);
         privateLuaDtwStringAppender_append_fmt(appender, "return %f", int_val);
     }
     
     if(type == LUA_CEMBED_BOOL){
-        bool bool_val = LuaCEmbed_get_bool_arg(args, 0);
+        bool bool_val = LuaCEmbedTable_get_bool_by_index(entries, 0);
         privateLuaDtwStringAppender_append_fmt(appender, "return %s", bool_val ? "true" : "false");
     }
     
@@ -142,16 +141,22 @@ LuaCEmbedResponse *ldtw_serialize_var(LuaCEmbed *args){
 
     if(type == LUA_CEMBED_TABLE){
         privateLuaDtwStringAppender_append(appender, "return");
-        LuaCEmbedTable *table = LuaCEmbed_get_arg_table(args, 0);
+        LuaCEmbedTable *table = LuaCEmbedTable_get_sub_table_by_index(entries, 0);
         ldtw_serialize_table(appender, table);
     }
 
     privateLuaDtwStringAppender_append(appender,";end)();");
+}
 
+LuaCEmbedResponse *ldtw_serialize_var(LuaCEmbed *args){
+    LuaCEmbedTable *converted_args = LuaCEmbed_transform_args_in_table(args);
+    privateLuaDtwStringAppender *appender = newprivateLuaDtwStringAppender();
+    ldtw_serialize_first_value_of_table(appender, converted_args);
     LuaCEmbedResponse *response = LuaCEmbed_send_str(appender->buffer);
     privateLuaDtwStringAppender_free(appender);
     return response;
 }
+
 LuaCEmbedResponse *ldtw_interpret_serialized_var(LuaCEmbed *args){
     char *serialized_str = LuaCEmbed_get_str_arg(args, 0);
     if(LuaCEmbed_has_errors(args)){

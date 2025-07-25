@@ -5,6 +5,8 @@
 
 void ldtw_serialize_str(privateLuaDtwStringAppender *appender, unsigned char *str, long size);
 
+void ldtw_serialize_first_value_of_table( privateLuaDtwStringAppender *appender ,LuaCEmbedTable *entries);
+
 void ldtw_serialize_table(privateLuaDtwStringAppender *appender,LuaCEmbedTable *table);
 
 LuaCEmbedResponse *ldtw_serialize_var(LuaCEmbed *args);

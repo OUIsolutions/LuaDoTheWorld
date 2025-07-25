@@ -63,7 +63,7 @@ LuaCEmbedResponse  * ldtw_execute_cache_callback(LuaCEmbedTable *self, LuaCEmbed
         1
     );
     privateLuaDtwStringAppender *appender = newprivateLuaDtwStringAppender();
-    ldtw_serialize_table(appender, callback_response);
+    ldtw_serialize_first_value_of_table(appender, callback_response);
     DtwResource_set_any(
         result,
         appender->buffer,
