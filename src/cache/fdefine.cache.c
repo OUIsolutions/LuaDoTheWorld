@@ -44,11 +44,13 @@ LuaCEmbedResponse  * ldtw_execute_cache_callback(LuaCEmbedTable *self, LuaCEmbed
     bool loaded_in_memory =  !execute_callback;
     if(loaded_in_memory){
         char *content = DtwResource_get_string(result);
-        LuaCEmbedTable *resp_table = LuaCembed_new_anonymous_table(args);
-        LuaCEmbedTable_set_evaluation_prop(resp_table, "result", content);
+
+        ///these its a quick hack ,since luacembembed dont provide a way 
+        LuaCEmbedTable *response_table = LuaCembed_new_anonymous_table(args);
+        LuaCEmbedTable_append_evaluation(response_table,content);
         if(!LuaCEmbed_has_errors(args)){
-            DtwResource_free(database);
-            return LuaCEmbed_send_table_prop(resp_table, "result");
+            DtwResource_free(database);            
+            return LuaCEmbed_send_multi_return(response_table);
         }
         LuaCEmbed_clear_errors(args);
         //it will execute the callback

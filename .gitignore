@@ -17,6 +17,7 @@ ssss.jpeg
 ai_docs
 "y.jpeg
 curl_cache
+curl_cache.lua
 # Linker output
 *.ilk
 *.map
