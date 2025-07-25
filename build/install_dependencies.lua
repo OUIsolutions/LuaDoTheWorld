@@ -1,7 +1,7 @@
 function install_dependencies()
     local hasher = darwin.dtw.newHasher()
     hasher.digest_folder_by_content("dependencies")
-    local EXPECTED_SHA = '7804766010f4211d75be0c054ec70e428c714149b2331b4bbf31f8b1021d8faf'
+    local EXPECTED_SHA = '8601393b053d1acc9a20b8946470bb668a727eaf0adabbfb962837961f0352c0'
     if hasher.get_value() == EXPECTED_SHA then
         return
     end
@@ -10,7 +10,7 @@ function install_dependencies()
     os.execute("mkdir -p dependencies")
 
 
-    os.execute("curl -L https://github.com/OUIsolutions/LuaCEmbed/releases/download/0.8.3/LuaCEmbedOne.c -o dependencies/LuaCEmbedOne.c")
+    os.execute("curl -L https://github.com/OUIsolutions/LuaCEmbed/releases/download/0.9.0/LuaCEmbedOne.c -o dependencies/LuaCEmbedOne.c")
     os.execute("curl -L https://github.com/OUIsolutions/DoTheWorld/releases/download/v8.002/doTheWorld.h -o dependencies/doTheWorld.h")
 
 

@@ -3,6 +3,9 @@
 #include "../imports/imports.fdeclare.h"
 //silver_chain_scope_end
 
+LuaCEmbedResponse  * ldtw_execute_cache_callback(LuaCEmbedTable *self, LuaCEmbed *args){
+    printf("Executing cache callback\n");
+}
 
 
 LuaCEmbedResponse  * create_cache_function(LuaCEmbed *args){
@@ -35,8 +38,13 @@ LuaCEmbedResponse  * create_cache_function(LuaCEmbed *args){
     LuaCEmbedTable_set_string_prop(object_respomse, "cache_dir", cache_dir);
   
     
+    if(LuaCEmbedTable_get_type_prop(entries,"callback") != LUA_CEMBED_FUNCTION){
+        return LuaCEmbed_send_error("Cache function must have a callback function");
+    }
     
+    LuaCEmbedTable_set_table_prop_with_table_prop(object_respomse, "callback", entries, "callback");
 
+    LuaCEmbedTable_set_method(object_respomse, "execute", ldtw_execute_cache_callback);
 
-    return NULL;
+    return LuaCEmbed_send_table_prop(object_respomse, "execute");
 }
