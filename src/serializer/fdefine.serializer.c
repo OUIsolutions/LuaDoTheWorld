@@ -18,16 +18,19 @@ void ldtw_serialize_str(privateLuaDtwStringAppender *appender,unsigned char *str
 void ldtw_serialize_table(privateLuaDtwStringAppender *appender,LuaCEmbedTable *table){
     privateLuaDtwStringAppender_append(appender, " {");
     lua_Integer size = LuaCEmbedTable_get_full_size(table);
+    
+    bool first_element = true;
+    
+    // First, serialize all indexed elements (array elements without keys)
     for(lua_Integer i = 0; i < size; i++){
-        if(i > 0) privateLuaDtwStringAppender_append(appender, ", ");
-        // Serialize key if present
- 
-        if(LuaCembedTable_has_key_at_index(table, i)){
-            char *key = LuaCembedTable_get_key_by_index(table, i);
-            privateLuaDtwStringAppender_append(appender, "[");
-            ldtw_serialize_str(appender, (unsigned char*)key, strlen(key));
-            privateLuaDtwStringAppender_append(appender, "] = ");
+        bool has_key = LuaCembedTable_has_key_at_index(table, i);
+        if (has_key) {
+            continue;
         }
+        
+        if(!first_element) privateLuaDtwStringAppender_append(appender, ", ");
+        first_element = false;
+        
         // Serialize value
         int type = LuaCEmbedTable_get_type_by_index(table, i);
         if(type == LUA_CEMBED_STRING){
@@ -49,6 +52,63 @@ void ldtw_serialize_table(privateLuaDtwStringAppender *appender,LuaCEmbedTable *
             privateLuaDtwStringAppender_append(appender, "nil"); // fallback for unknown types
         }
     }
+    
+    // Check if there are any keyed elements
+    bool has_keyed_elements = false;
+    for(lua_Integer i = 0; i < size; i++){
+        if(LuaCembedTable_has_key_at_index(table, i)){
+            has_keyed_elements = true;
+            break;
+        }
+    }
+    
+    if(has_keyed_elements){
+        // Collect all keys and sort them
+        DtwStringArray *keys = newDtwStringArray();
+        for(lua_Integer i = 0; i < size; i++){
+            bool has_key = LuaCembedTable_has_key_at_index(table, i);
+            if (!has_key) {
+                continue;
+            }
+            char *key = LuaCembedTable_get_key_by_index(table, i);
+            DtwStringArray_append(keys, key);
+        }
+        DtwStringArray_sort(keys);
+        
+        // Serialize sorted keyed elements
+        for(int i = 0; i < keys->size; i++){
+            char *key = keys->strings[i];
+            
+            if(!first_element) privateLuaDtwStringAppender_append(appender, ", ");
+            first_element = false;
+            
+            privateLuaDtwStringAppender_append(appender, "[");
+            ldtw_serialize_str(appender, (unsigned char*)key, strlen(key));
+            privateLuaDtwStringAppender_append(appender, "] = ");
+            
+            int type = LuaCEmbedTable_get_type_prop(table, key);
+            if(type == LUA_CEMBED_STRING){
+                lua_Integer str_size;
+                unsigned char *str = (unsigned char*)LuaCembedTable_get_raw_string_prop(table, key, &str_size);
+                ldtw_serialize_str(appender, str, str_size);
+            }else if(type == LUA_CEMBED_NUMBER){
+                double num = LuaCembedTable_get_double_prop(table, key);
+                privateLuaDtwStringAppender_append_fmt(appender, "%f", num);
+            }else if(type == LUA_CEMBED_BOOL){
+                bool b = LuaCembedTable_get_bool_prop(table, key);
+                privateLuaDtwStringAppender_append(appender, b ? "true" : "false");
+            }else if(type == LUA_CEMBED_NIL){
+                privateLuaDtwStringAppender_append(appender, "nil");
+            }else if(type == LUA_CEMBED_TABLE){
+                LuaCEmbedTable *sub = LuaCEmbedTable_get_sub_table_by_key(table, key);
+                ldtw_serialize_table(appender, sub);
+            }else{
+                privateLuaDtwStringAppender_append(appender, "nil"); // fallback for unknown types
+            }
+        }
+        DtwStringArray_free(keys);
+    }
+    
     privateLuaDtwStringAppender_append(appender, " }");
 }
 
