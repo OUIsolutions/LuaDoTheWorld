@@ -15,6 +15,10 @@ void ldtw_serialize_str(privateLuaDtwStringAppender *appender,unsigned char *str
     privateLuaDtwStringAppender_append(appender,"'");
 
 }
+void ldtw_serialize_table(privateLuaDtwStringAppender *appender,LuaCEmbedTable *table){
+
+}
+
 LuaCEmbedResponse *ldtw_serialize_var(LuaCEmbed *args){
 
 
@@ -42,7 +46,8 @@ LuaCEmbedResponse *ldtw_serialize_var(LuaCEmbed *args){
     }
 
     if(type == LUA_CEMBED_TABLE){
-        privateLuaDtwStringAppender_append(appender, "return {}");
+        LuaCEmbedTable *table = LuaCEmbed_get_arg_table(args, 0);
+        ldtw_serialize_table(appender, table);
     }
 
     privateLuaDtwStringAppender_append(appender,"\nend)();");
