@@ -5,7 +5,6 @@
 
 
 LuaCEmbedResponse  * ldtw_execute_cache_callback(LuaCEmbedTable *self, LuaCEmbed *args){
-    printf("Executing cache callback\n");
 
     long timeout = LuaCembedTable_get_long_prop(self, "timeout");
     char *cache_dir = LuaCembedTable_get_string_prop(self, "cache_dir");
@@ -20,18 +19,18 @@ LuaCEmbedResponse  * ldtw_execute_cache_callback(LuaCEmbedTable *self, LuaCEmbed
     DtwHash_free(hasher);
     DtwResource *result= DtwResource_sub_resource(cache_resource,"result.lua");
     DtwResource *error_resource = DtwResource_sub_resource(cache_resource, "error");
-    DtwResource *last_execution = DtwResource_sub_resource(cache_resource, "last_execution");
+    DtwResource *last_execution_resource = DtwResource_sub_resource(cache_resource, "last_execution");
 
     bool execute_callback = false;
     bool cached_content = false;
     bool cached_error = false;
     if(timeout != -1){
-        int last_execution_type = DtwResource_type(last_execution);
+        int last_execution_type = DtwResource_type(last_execution_resource);
         if(last_execution_type != DTW_COMPLEX_LONG_TYPE){
             execute_callback = true;
         }
         if(last_execution_type == DTW_COMPLEX_LONG_TYPE){
-            long last_execution = DtwResource_get_long(last_execution_type);
+            long last_execution = DtwResource_get_long(last_execution_resource);
             long now = time(NULL);
             if(now - last_execution > timeout){
                 execute_callback = true;
@@ -67,8 +66,9 @@ LuaCEmbedResponse  * ldtw_execute_cache_callback(LuaCEmbedTable *self, LuaCEmbed
 
     if(cached_error){
         char *error_msg = DtwResource_get_string(error_resource);
+        LuaCEmbedResponse *response =  LuaCEmbed_send_error(error_msg);
         DtwResource_free(database);
-        return LuaCEmbed_send_error(error_msg);
+        return response;
     }
 
 
@@ -79,7 +79,7 @@ LuaCEmbedResponse  * ldtw_execute_cache_callback(LuaCEmbedTable *self, LuaCEmbed
         1
     );
     DtwResource_set_long(
-        last_execution,
+        last_execution_resource,
         time(NULL)
     );
 
