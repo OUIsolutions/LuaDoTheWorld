@@ -325,43 +325,71 @@ print("Content length:", #content)
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
 -- Cache image processing results
-local process_image = dtw.create_cache_function({
-    timeout = dtw.INFINITY,  -- Images don't change often
+local cached_process_image = dtw.create_cache_function({
+    timeout = dtw.INFINITY,  -- Processing is deterministic
     cache_dir = "./image_cache/",
     callback = function(props)
-        local input_file = props.input
+        local input_file = props.input_file
         local operations = props.operations
+        local image_content = props.image_content  -- Content included as argument
         
         print("Processing image:", input_file)
         
-        -- Create signature based on file content AND operations
+        -- Write content to temporary file for processing
+        local temp_input = "temp_input_" .. os.time() .. ".jpg"
+        dtw.write_file(temp_input, image_content)
+        
+        -- Create unique output filename
         local hasher = dtw.newHasher()
-        hasher.digest_file(input_file)
+        hasher.digest(image_content)
         hasher.digest(dtw.serialize_var(operations))
-        
         local process_id = hasher.get_value()
-        local temp_output = "temp_" .. process_id .. ".png"
+        local temp_output = "temp_output_" .. process_id .. ".png"
         
-        -- Apply operations (example)
-        local cmd = "convert " .. input_file
+        -- Apply operations (example using ImageMagick)
+        local cmd = "convert " .. temp_input
         for _, op in ipairs(operations) do
             cmd = cmd .. " " .. op
         end
         cmd = cmd .. " " .. temp_output
         
-        os.execute(cmd)
+        local ok = os.execute(cmd)
+        if not ok then
+            error("Image processing failed")
+        end
+        
         local result = dtw.load_file(temp_output)
+        
+        -- Clean up temporary files
+        dtw.remove_any(temp_input)
         dtw.remove_any(temp_output)
         
         return result
     end
 })
 
+-- Smart wrapper function that includes file content in cache signature
+function process_image_with_cache(input_file, operations, output_file)
+    -- Read input file content to include in cache signature
+    local image_content = dtw.load_file(input_file)
+    if not image_content then
+        error("Failed to read input image: " .. input_file)
+    end
+    
+    -- Process with cache (content changes will invalidate cache)
+    local processed = cached_process_image({
+        input_file = input_file,
+        operations = operations,
+        image_content = image_content  -- File content tracked as dependency!
+    })
+    
+    -- Save result
+    dtw.write_file(output_file, processed)
+    print("Image processed and saved to:", output_file)
+end
+
 -- Usage
-local processed = process_image({
-    input = "photo.jpg",
-    operations = {"-resize 800x600", "-blur 0x1", "-sharpen 0x2"}
-})
+process_image_with_cache("photo.jpg", {"-resize 800x600", "-blur 0x1", "-sharpen 0x2"}, "processed.png")
 ```
 
 ### Example 3: Database Query Caching
