@@ -3,8 +3,81 @@
 #include "../imports/imports.fdeclare.h"
 //silver_chain_scope_end
 
+
 LuaCEmbedResponse  * ldtw_execute_cache_callback(LuaCEmbedTable *self, LuaCEmbed *args){
     printf("Executing cache callback\n");
+
+    long timeout = LuaCembedTable_get_long_prop(self, "timeout");
+    char *cache_dir = LuaCembedTable_get_string_prop(self, "cache_dir");
+
+
+    LuaCEmbedTable *function_args = LuaCEmbed_transform_args_in_table(args);
+    DtwHash *hasher = newDtwHash();
+    ldtw_digest_table(function_args, hasher);
+
+    DtwResource *database = new_DtwResource(cache_dir);
+    DtwResource *cache_resource = DtwResource_sub_resource(database, hasher->hash);
+    DtwHash_free(hasher);
+    DtwResource *timeout_resource = DtwResource_sub_resource(cache_resource, "timeout");
+
+    bool execute_callback = false;
+    if(timeout != -1){
+        int timeout_type = DtwResource_type(timeout_resource);
+        if(timeout_type != DTW_COMPLEX_LONG_TYPE){
+            execute_callback = true;
+        }
+        if(timeout_type == DTW_COMPLEX_LONG_TYPE){
+            long last_execution = DtwResource_get_long(timeout_resource);
+            long now = time(NULL);
+            if(now - last_execution > timeout){
+                execute_callback = true;
+            }
+        }
+    }
+    DtwResource *result= DtwResource_sub_resource(cache_resource,"result.lua");
+
+    if(!execute_callback){
+        if(DtwResource_type(result) != DTW_COMPLEX_STRING_TYPE){
+            execute_callback = true;
+        }
+    }
+    bool loaded_in_memory =  !execute_callback;
+    if(loaded_in_memory){
+        char *content = DtwResource_get_string(result);
+        LuaCEmbedTable *resp_table = LuaCembed_new_anonymous_table(args);
+        LuaCEmbedTable_set_evaluation_prop(resp_table, "result", content);
+        if(!LuaCEmbed_has_errors(args)){
+            DtwResource_free(database);
+            return LuaCEmbed_send_table_prop(resp_table, "result");
+        }
+        LuaCEmbed_clear_errors(args);
+        //it will execute the callback
+    }
+
+    LuaCEmbedTable *callback_response = LuaCEmbedTable_run_prop_function(
+        self,
+        "callback",
+        function_args,
+        1
+    );
+    privateLuaDtwStringAppender *appender = newprivateLuaDtwStringAppender();
+    ldtw_serialize_table(appender, callback_response);
+    DtwResource_set_any(
+        result,
+        appender->buffer,
+        appender->length,
+        false
+    );
+    DtwResource_set_long(
+        timeout_resource,
+        time(NULL)
+    );
+
+    // implement the execution
+    DtwResource_commit(database);
+    DtwResource_free(database);
+    privateLuaDtwStringAppender_free(appender);
+    return LuaCEmbed_send_multi_return(callback_response);
 }
 
 
