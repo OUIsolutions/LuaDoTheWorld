@@ -1,65 +1,106 @@
+# 🧩 Hashing Guide
 
+![Lua](https://img.shields.io/badge/Language-Lua-blue?style=flat-square&logo=lua)
+![API](https://img.shields.io/badge/API-Hashing-green?style=flat-square)
+![Difficulty](https://img.shields.io/badge/Difficulty-Beginner-brightgreen?style=flat-square)
+![Version](https://img.shields.io/badge/SDK-LuaDoTheWorld-orange?style=flat-square)
 
-### Hashing
-You can generate assignature of anything you want  with all the hash functions
+> 🚀 **Quick Start Guide** for hashing with LuaDoTheWorld
 
-#### Generating Sha from string
-Will generate a sha256 assignature of a string
+---
 
-~~~lua
+## 📋 What You'll Learn
 
+- ✅ How to create a SHA256 hash from a string
+- ✅ How to create a SHA256 hash from a file
+- ✅ How to create a SHA256 hash from a folder (by content or by last modification)
+- ✅ How to use the Hasher object to combine hashes
+
+---
+
+## 🛠️ Prerequisites
+
+- LuaDoTheWorld installed and required in your script
+
+---
+
+## 🔑 Hash a String
+
+```lua
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
-
-local sha = dtw.generate_sha("what ever you want")
+local sha = dtw.generate_sha("hello world")
 print(sha)
-~~~
+```
 
-#### Generating Sha from file
-Will generate a sha256 assignature of a file
+---
 
-~~~lua
+## 📄 Hash a File
 
+```lua
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
-
 local sha = dtw.generate_sha_from_file("tests/target/blob.png")
 print(sha)
-~~~
+```
 
-#### Generating Sha from folder by content
-Will generate a sha256 assignature of a folder based on content
+---
 
-~~~lua
+## 📁 Hash a Folder by Content
 
+```lua
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
-
 local sha = dtw.generate_sha_from_folder_by_content("tests/target/test_dir")
 print(sha)
-~~~
+```
 
+---
 
-#### Generating Sha from folder by last modification
-Will generate a sha256 assignature of a folder based on last modification
+## 🕒 Hash a Folder by Last Modification
 
-~~~lua
-
+```lua
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
-
 local sha = dtw.generate_sha_from_folder_by_last_modification("tests/target/test_dir")
 print(sha)
-~~~
+```
 
-### Hasher
-if you need to combine a lot of different entries, you can use the DtwHasher object
+---
 
+## 🧩 Combine Hashes with Hasher
 
-~~~lua
+If you want to hash many things together, use the Hasher object:
 
+```lua
 local dtw = require("luaDoTheWorld/luaDoTheWorld")
-
 local hasher = dtw.newHasher()
 hasher.digest_file("tests/target/blob.png")
-hasher.digest("what ever you want")
+hasher.digest("hello world")
 hasher.digest_folder_by_content("tests/target/test_dir")
---will print the acumulated haher
 print(hasher.get_value())
-~~~
+```
+
+---
+
+## 📚 Quick Reference
+
+| Function | What it does | Example |
+|----------|--------------|---------|
+| `dtw.generate_sha(str)` | Hash a string | `dtw.generate_sha("hello")` |
+| `dtw.generate_sha_from_file(path)` | Hash a file | `dtw.generate_sha_from_file("file.png")` |
+| `dtw.generate_sha_from_folder_by_content(path)` | Hash folder by content | `dtw.generate_sha_from_folder_by_content("dir")` |
+| `dtw.generate_sha_from_folder_by_last_modification(path)` | Hash folder by last modification | `dtw.generate_sha_from_folder_by_last_modification("dir")` |
+| `dtw.newHasher()` | Create a hasher object | `dtw.newHasher()` |
+| `hasher.digest(data)` | Add string to hasher | `hasher.digest("hello")` |
+| `hasher.digest_file(path)` | Add file to hasher | `hasher.digest_file("file.png")` |
+| `hasher.digest_folder_by_content(path)` | Add folder to hasher | `hasher.digest_folder_by_content("dir")` |
+| `hasher.get_value()` | Get the final hash | `hasher.get_value()` |
+
+---
+
+## 🆘 Need Help?
+
+- 📖 Check the main SDK documentation
+- 🔍 Look at other example scripts in the SDK
+- 🐛 Report issues on our GitHub repository
+
+---
+
+![Footer](https://img.shields.io/badge/Happy-Coding!-ff69b4?style=flat-square&logo=heart)
