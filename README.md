@@ -1,5 +1,3 @@
-
-
 # 🌍 LuaDoTheWorld
 
 ![Lua](https://img.shields.io/badge/Language-Lua-blue?style=flat-square&logo=lua)
@@ -84,6 +82,7 @@ dtw.copy_any_overwriting("hello.txt", "backup.txt")
 ### 🛠️ **Utilities**
 | Guide | What You'll Learn | Difficulty |
 |-------|------------------|------------|
+| [💾 Cache System](docs/cache.md) | Intelligent function caching | ![Beginner](https://img.shields.io/badge/Difficulty-Beginner-brightgreen?style=flat-square) |
 | [🕒 Modification Time](docs/modification_status.md) | Check file timestamps | ![Beginner](https://img.shields.io/badge/Difficulty-Beginner-brightgreen?style=flat-square) |
 | [🛠️ Build from Scratch](docs/build_from_scratch.md) | Compile the library | ![Beginner](https://img.shields.io/badge/Difficulty-Beginner-brightgreen?style=flat-square) |
 
