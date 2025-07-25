@@ -31,7 +31,7 @@ LuaDoTheWorld makes file operations **incredibly simple**! Whether you're a begi
 Download and extract in your project:
 
 ```bash
-curl -L -o luaDoTheWorld.zip https://github.com/OUIsolutions/LuaDoTheWorld/releases/download/0.8.0/luaDoTheWorld.zip && unzip luaDoTheWorld.zip && rm luaDoTheWorld.zip
+curl -L -o luaDoTheWorld.zip https://github.com/OUIsolutions/LuaDoTheWorld/releases/download/0.8.1/luaDoTheWorld.zip && unzip luaDoTheWorld.zip && rm luaDoTheWorld.zip
 ```
 
 ### 2️⃣ Use in Your Code
