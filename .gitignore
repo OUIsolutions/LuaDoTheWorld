@@ -8,6 +8,7 @@ cache2
 src/imports
 # Object files
 *.o
+teste.hml
 *.ko
 *.obj
 *.elf
