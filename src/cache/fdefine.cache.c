@@ -18,31 +18,40 @@ LuaCEmbedResponse  * ldtw_execute_cache_callback(LuaCEmbedTable *self, LuaCEmbed
     DtwResource *database = new_DtwResource(cache_dir);
     DtwResource *cache_resource = DtwResource_sub_resource(database, hasher->hash);
     DtwHash_free(hasher);
-    DtwResource *timeout_resource = DtwResource_sub_resource(cache_resource, "timeout");
+    DtwResource *result= DtwResource_sub_resource(cache_resource,"result.lua");
+    DtwResource *error_resource = DtwResource_sub_resource(cache_resource, "error");
+    DtwResource *last_execution = DtwResource_sub_resource(cache_resource, "last_execution");
 
     bool execute_callback = false;
+    bool cached_content = false;
+    bool cached_error = false;
     if(timeout != -1){
-        int timeout_type = DtwResource_type(timeout_resource);
-        if(timeout_type != DTW_COMPLEX_LONG_TYPE){
+        int last_execution_type = DtwResource_type(last_execution);
+        if(last_execution_type != DTW_COMPLEX_LONG_TYPE){
             execute_callback = true;
         }
-        if(timeout_type == DTW_COMPLEX_LONG_TYPE){
-            long last_execution = DtwResource_get_long(timeout_resource);
+        if(last_execution_type == DTW_COMPLEX_LONG_TYPE){
+            long last_execution = DtwResource_get_long(last_execution_type);
             long now = time(NULL);
             if(now - last_execution > timeout){
                 execute_callback = true;
             }
         }
     }
-    DtwResource *result= DtwResource_sub_resource(cache_resource,"result.lua");
-
+    
     if(!execute_callback){
-        if(DtwResource_type(result) != DTW_COMPLEX_STRING_TYPE){
-            execute_callback = true;
+        //database corruption
+        if(DtwResource_type(result) == DTW_COMPLEX_STRING_TYPE){
+            cached_content = true;
+        }
+        if(!cached_content){
+            if(DtwResource_type(error_resource) == DTW_COMPLEX_STRING_TYPE){
+                cached_error = true;
+            }
         }
     }
-    bool loaded_in_memory =  !execute_callback;
-    if(loaded_in_memory){
+
+    if(cached_content){
         char *content = DtwResource_get_string(result);
 
         ///these its a quick hack ,since luacembembed dont provide a way 
@@ -56,6 +65,13 @@ LuaCEmbedResponse  * ldtw_execute_cache_callback(LuaCEmbedTable *self, LuaCEmbed
         //it will execute the callback
     }
 
+    if(cached_error){
+        char *error_msg = DtwResource_get_string(error_resource);
+        DtwResource_free(database);
+        return LuaCEmbed_send_error(error_msg);
+    }
+
+
     LuaCEmbedTable *callback_response = LuaCEmbedTable_run_prop_function(
         self,
         "callback",
@@ -63,14 +79,13 @@ LuaCEmbedResponse  * ldtw_execute_cache_callback(LuaCEmbedTable *self, LuaCEmbed
         1
     );
     DtwResource_set_long(
-        timeout_resource,
+        last_execution,
         time(NULL)
     );
 
 
     if(LuaCEmbed_has_errors(args)){
         char *error_msg = LuaCEmbed_get_error_message(args);
-        DtwResource *error_resource = DtwResource_sub_resource(cache_resource, "error");
         DtwResource_set_string(error_resource, error_msg);
         DtwResource_commit(database);
         DtwResource_free(database);           
