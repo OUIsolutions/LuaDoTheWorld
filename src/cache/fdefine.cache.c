@@ -62,6 +62,21 @@ LuaCEmbedResponse  * ldtw_execute_cache_callback(LuaCEmbedTable *self, LuaCEmbed
         function_args,
         1
     );
+    DtwResource_set_long(
+        timeout_resource,
+        time(NULL)
+    );
+
+
+    if(LuaCEmbed_has_errors(args)){
+        char *error_msg = LuaCEmbed_get_error_message(args);
+        DtwResource *error_resource = DtwResource_sub_resource(cache_resource, "error");
+        DtwResource_set_string(error_resource, error_msg);
+        DtwResource_commit(database);
+        DtwResource_free(database);           
+        return LuaCEmbed_send_error(error_msg);
+    }
+
     privateLuaDtwStringAppender *appender = newprivateLuaDtwStringAppender();
     ldtw_serialize_first_value_of_table(appender, callback_response);
     DtwResource_set_any(
@@ -69,10 +84,6 @@ LuaCEmbedResponse  * ldtw_execute_cache_callback(LuaCEmbedTable *self, LuaCEmbed
         appender->buffer,
         appender->length,
         false
-    );
-    DtwResource_set_long(
-        timeout_resource,
-        time(NULL)
     );
 
     // implement the execution
