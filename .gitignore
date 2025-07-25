@@ -11,6 +11,7 @@ src/imports
 *.ko
 *.obj
 *.elf
+math_cache
 serialized.lua
 teste.lua
 gcc_cache
