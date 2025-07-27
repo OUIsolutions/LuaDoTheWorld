@@ -3,4 +3,4 @@
 #include "../../imports/imports.type.h"
 //silver_chain_scope_end
 
-LuaCEmbedResponse  * ldtw_clear_expired_cache(LuaCEmbed *args);
+LuaCEmbedResponse  * ldtw_clear_old_cache(LuaCEmbed *args);

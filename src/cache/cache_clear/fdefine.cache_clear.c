@@ -7,8 +7,7 @@
 
 
 //dtw.clear_cache
-LuaCEmbedResponse  * ldtw_clear_expired_cache(LuaCEmbed *args){
-
+LuaCEmbedResponse  * ldtw_clear_old_cache(LuaCEmbed *args){
 
     char *cache_dir = LuaCEmbed_get_str_arg(args, 0);
     if(LuaCEmbed_has_errors(args)){
