@@ -15,12 +15,16 @@ LuaCEmbedResponse  * ldtw_execute_cache(LuaCEmbed *args){
     if(LuaCEmbedTable_get_type_prop(entries, "timeout") != LUA_CEMBED_NIL){
         timeout = LuaCembedTable_get_long_prop(entries, "timeout");
     }
-
+    //--------------------------Store Errors Prop--------------------------
     bool store_errors = true;
     if(LuaCEmbedTable_get_type_prop(entries, "store_errors") != LUA_CEMBED_NIL){
         store_errors = LuaCembedTable_get_bool_prop(entries, "store_errors");
     }
-
+    //--------------------------Always Execute Prop--------------------------
+    bool always_execute = false;
+    if(LuaCEmbedTable_get_type_prop(entries, "always_execute") != LUA_CEMBED_NIL){
+        always_execute = LuaCembedTable_get_bool_prop(entries, "always_execute");
+    }   
   
     //-------------------------- Cache name Prop--------------------------
     char *cache_name = LuaCembedTable_get_string_prop(entries, "cache_name");
@@ -75,52 +79,54 @@ LuaCEmbedResponse  * ldtw_execute_cache(LuaCEmbed *args){
     bool execute_callback = false;
     bool cached_content = false;
     bool cached_error = false;
-    if(timeout != -1){
-        int last_execution_type = DtwResource_type(last_execution_resource);
-        if(last_execution_type != DTW_COMPLEX_LONG_TYPE){
-            execute_callback = true;
-        }
-        if(last_execution_type == DTW_COMPLEX_LONG_TYPE){
-            long last_execution = DtwResource_get_long(last_execution_resource);
-            long now = time(NULL);
-            if(now - last_execution > timeout){
+    if(!always_execute){
+
+        if(timeout != -1){
+            int last_execution_type = DtwResource_type(last_execution_resource);
+            if(last_execution_type != DTW_COMPLEX_LONG_TYPE){
                 execute_callback = true;
             }
-        }
-    }
-    if(!execute_callback){
-        //database corruption
-        if(DtwResource_type(result) == DTW_COMPLEX_STRING_TYPE){
-            cached_content = true;
-        }
-        if(!cached_content){
-            if(DtwResource_type(error_resource) == DTW_COMPLEX_STRING_TYPE){
-                cached_error = true;
+            if(last_execution_type == DTW_COMPLEX_LONG_TYPE){
+                long last_execution = DtwResource_get_long(last_execution_resource);
+                long now = time(NULL);
+                if(now - last_execution > timeout){
+                    execute_callback = true;
+                }
             }
         }
-    }
-
-    if(cached_content){
-        char *content = DtwResource_get_string(result);
-
-        ///these its a quick hack ,since luacembembed dont provide a way 
-        LuaCEmbedTable *response_table = LuaCembed_new_anonymous_table(args);
-        LuaCEmbedTable_append_evaluation(response_table,content);
-        if(!LuaCEmbed_has_errors(args)){
-            DtwResource_free(database);            
-            return LuaCEmbed_send_multi_return(response_table);
+        if(!execute_callback){
+            //database corruption
+            if(DtwResource_type(result) == DTW_COMPLEX_STRING_TYPE){
+                cached_content = true;
+            }
+            if(!cached_content){
+                if(DtwResource_type(error_resource) == DTW_COMPLEX_STRING_TYPE){
+                    cached_error = true;
+                }
+            }
         }
-        LuaCEmbed_clear_errors(args);
-        //it will execute the callback
-    }
 
-    if(cached_error){
-        char *error_msg = DtwResource_get_string(error_resource);
-        LuaCEmbedResponse *response =  LuaCEmbed_send_error(error_msg);
-        DtwResource_free(database);
-        return response;
-    }
+        if(cached_content){
+            char *content = DtwResource_get_string(result);
 
+            ///these its a quick hack ,since luacembembed dont provide a way 
+            LuaCEmbedTable *response_table = LuaCembed_new_anonymous_table(args);
+            LuaCEmbedTable_append_evaluation(response_table,content);
+            if(!LuaCEmbed_has_errors(args)){
+                DtwResource_free(database);            
+                return LuaCEmbed_send_multi_return(response_table);
+            }
+            LuaCEmbed_clear_errors(args);
+            //it will execute the callback
+        }
+
+        if(cached_error){
+            char *error_msg = DtwResource_get_string(error_resource);
+            LuaCEmbedResponse *response =  LuaCEmbed_send_error(error_msg);
+            DtwResource_free(database);
+            return response;
+        }
+    }
 
     LuaCEmbedTable *callback_response = LuaCEmbedTable_run_prop_function(
         entries,
