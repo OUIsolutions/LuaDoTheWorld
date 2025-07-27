@@ -6,31 +6,13 @@
 
 void ldtw_serialize_str(privateLuaDtwStringAppender *appender, unsigned char *str, long size) {
     privateLuaDtwStringAppender_append(appender, "'");
-    bool last_bye_was_decimal_format = false;
+
     for (int i = 0; i < size; i++) {
         unsigned char c = str[i];
-        if (c >= 32 && c <= 126 && c != '\'' && !(c >= '0' && c <= '9')) {
-            // Printable ASCII except single quote and digits
-            privateLuaDtwStringAppender_append_fmt(appender, "%c", c);
-            last_bye_was_decimal_format   = false;  
-        } 
-        else if(c >= '0' && c <= '9' && !last_bye_was_decimal_format) {
-            // Digits
-            privateLuaDtwStringAppender_append_fmt(appender, "%c", c);
-            last_bye_was_decimal_format = false;
-        }
-        else if (c == '\\'){
-            privateLuaDtwStringAppender_append(appender, "\\\\");
-            last_bye_was_decimal_format = false;
-        }
-        else {
-            // Non-printable, digit, or non-ASCII
-            privateLuaDtwStringAppender_append_fmt(appender, "\\%d", c);
-            last_bye_was_decimal_format = true;
-        }
+        privateLuaDtwStringAppender_append_fmt(appender, "\\%d", (unsigned char)c);
     }
-
     privateLuaDtwStringAppender_append(appender, "'");
+
 }
 void ldtw_serialize_table(privateLuaDtwStringAppender *appender,LuaCEmbedTable *table){
     privateLuaDtwStringAppender_append(appender, " {");
