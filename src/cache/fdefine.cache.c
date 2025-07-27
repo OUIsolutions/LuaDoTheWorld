@@ -151,6 +151,66 @@ LuaCEmbedResponse  * create_cache_function(LuaCEmbed *args){
 }
 
 
+LuaCEmbedResponse  * cache_execution(LuaCEmbed *args){
+    LuaCEmbedTable *entries = LuaCEmbed_get_arg_table(args, 0);
+    if(LuaCEmbed_has_errors(args)){
+        char *error_msg = LuaCEmbed_get_error_message(args);
+        return LuaCEmbed_send_error( error_msg);
+    }
+
+    //--------------------------Timeout Prop--------------------------
+    long timeout = -1;
+    if(LuaCEmbedTable_get_type_prop(entries, "timeout") != LUA_CEMBED_NIL){
+        timeout = LuaCembedTable_get_long_prop(entries, "timeout");
+    }
+  
+    //-------------------------- Cache name Prop--------------------------
+    char *cache_name = LuaCembedTable_get_string_prop(entries, "cache_name");
+    if(LuaCEmbed_has_errors(args)){
+        char *error_msg = LuaCEmbed_get_error_message(args);
+        return LuaCEmbed_send_error(error_msg);     
+    }
+
+    //--------------------------Cache Dir Prop--------------------------
+    char *cache_dir = LuaCembedTable_get_string_prop(entries, "cache_dir");
+    if(LuaCEmbed_has_errors(args)){
+        char *error_msg = LuaCEmbed_get_error_message(args);
+        return LuaCEmbed_send_error(error_msg);
+    }
+  
+    if(LuaCEmbedTable_get_type_prop(entries,"callback") != LUA_CEMBED_FUNCTION){
+        return LuaCEmbed_send_error("Cache function must have a callback function");
+    }
+
+
+    DtwHash *hasher = newDtwHash();
+
+    int input_type = LuaCEmbedTable_get_type_prop(entries, "input");
+    if(input_type == LUA_CEMBED_STRING){
+        char *content = LuaCembedTable_get_string_prop(entries, "input");
+        DtwHash_digest_string(hasher, content);
+    }
+    if(input_type == LUA_CEMBED_BOOL){
+        bool content = LuaCembedTable_get_bool_prop(entries, "input");
+        DtwHash_digest_bool(hasher, content);
+    }
+    if(input_type == LUA_CEMBED_NUMBER){
+        double content = LuaCCembedTable_get_double_prop(entries, "input");
+        DtwHash_digest_double(hasher, content);
+    }
+    if(input_type == LUA_CEMBED_NIL){
+        DtwHash_digest_string(hasher, "nil");
+    }
+    if(input_type == LUA_CEMBED_TABLE){
+        LuaCEmbedTable *table = LuaCEmbedTable_get_sub_table_by_key(entries, "input");
+        ldtw_digest_table(table, hasher);
+    }
+    
+    
+
+}
+
+
 
 LuaCEmbedResponse  * ldtw_clear_expired_cache(LuaCEmbed *args){
 

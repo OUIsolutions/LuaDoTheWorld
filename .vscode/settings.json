@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "imports.fdeclare.h": "c"
+        "imports.fdeclare.h": "c",
+        "compare": "c",
+        "type_traits": "c"
     }
 }
