@@ -237,7 +237,6 @@ LuaCEmbedResponse  * ldtw_execute_cache(LuaCEmbed *args){
             }
         }
     }
-    
     if(!execute_callback){
         //database corruption
         if(DtwResource_type(result) == DTW_COMPLEX_STRING_TYPE){
@@ -275,7 +274,7 @@ LuaCEmbedResponse  * ldtw_execute_cache(LuaCEmbed *args){
     LuaCEmbedTable *callback_response = LuaCEmbedTable_run_prop_function(
         entries,
         "callback",
-        NULL,
+        LuaCembed_new_anonymous_table(args),
         1
     );
 
