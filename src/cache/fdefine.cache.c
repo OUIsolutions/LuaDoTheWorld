@@ -313,7 +313,7 @@ LuaCEmbedResponse  * ldtw_execute_cache(LuaCEmbed *args){
 }
 
 
-//dtw.clear_expired_cache
+//dtw.clear_cache
 LuaCEmbedResponse  * ldtw_clear_expired_cache(LuaCEmbed *args){
 
 
