@@ -6,7 +6,7 @@
 
 LuaCEmbedResponse  * cache_clojure_factory(LuaCEmbedTable *self, LuaCEmbed *args){
 
-    long timeout = LuaCembedTable_get_long_prop(self, "timeout");
+    long expiration = LuaCembedTable_get_long_prop(self, "expiration");
     char *cache_dir = LuaCembedTable_get_string_prop(self, "cache_dir");
     
     // Get handle_errors property
@@ -37,7 +37,7 @@ LuaCEmbedResponse  * cache_clojure_factory(LuaCEmbedTable *self, LuaCEmbed *args
     bool execute_callback = false;
     bool cached_content = false;
     bool cached_error = false;
-    if(timeout != -1){
+    if(expiration != -1){
         int last_execution_type = DtwResource_type(last_execution_resource);
         if(last_execution_type != DTW_COMPLEX_LONG_TYPE){
             execute_callback = true;
@@ -45,7 +45,9 @@ LuaCEmbedResponse  * cache_clojure_factory(LuaCEmbedTable *self, LuaCEmbed *args
         if(last_execution_type == DTW_COMPLEX_LONG_TYPE){
             long last_execution = DtwResource_get_long(last_execution_resource);
             long now = time(NULL);
-            if(now - last_execution > timeout){
+            
+            // If the cache entry has timed out, remove it
+            if(now - last_execution > expiration){
                 execute_callback = true;
             }
         }
@@ -130,20 +132,20 @@ LuaCEmbedResponse  * create_cache_function(LuaCEmbed *args){
     LuaCEmbedTable *entries = LuaCEmbed_get_arg_table(args, 0);
     if(LuaCEmbed_has_errors(args)){
         char *error_msg = LuaCEmbed_get_error_message(args);
-        return LuaCEmbed_send_error( error_msg);
+        return LuaCEmbed_send_error(error_msg);
     }
     LuaCEmbedTable *object_respomse = LuaCembed_new_anonymous_table(args);   
 
-    //--------------------------Timeout Prop--------------------------
-    long timeout = -1;
-    if(LuaCEmbedTable_get_type_prop(entries, "timeout") != LUA_CEMBED_NIL){
-        timeout = LuaCembedTable_get_long_prop(entries, "timeout");
+    //--------------------------expiration Prop--------------------------
+    long expiration = -1;
+    if(LuaCEmbedTable_get_type_prop(entries, "expiration") != LUA_CEMBED_NIL){
+        expiration = LuaCembedTable_get_long_prop(entries, "expiration");
     }
     if(LuaCEmbed_has_errors(args)){
         char *error_msg = LuaCEmbed_get_error_message(args);
-        return LuaCEmbed_send_error( error_msg);
+        return LuaCEmbed_send_error(error_msg);
     }
-    LuaCEmbedTable_set_long_prop(object_respomse, "timeout", timeout);
+    LuaCEmbedTable_set_long_prop(object_respomse, "expiration", expiration);
 
     //--------------------------Handle Errors Prop--------------------------
     bool handle_errors = true;
@@ -152,7 +154,7 @@ LuaCEmbedResponse  * create_cache_function(LuaCEmbed *args){
     }
     if(LuaCEmbed_has_errors(args)){
         char *error_msg = LuaCEmbed_get_error_message(args);
-        return LuaCEmbed_send_error( error_msg);
+        return LuaCEmbed_send_error(error_msg);
     }
     LuaCEmbedTable_set_bool_prop(object_respomse, "handle_errors", handle_errors);
 

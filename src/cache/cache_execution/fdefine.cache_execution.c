@@ -10,10 +10,10 @@ LuaCEmbedResponse  * ldtw_execute_cache(LuaCEmbed *args){
         return LuaCEmbed_send_error( error_msg);
     }
 
-    //--------------------------Timeout Prop--------------------------
-    long timeout = -1;
-    if(LuaCEmbedTable_get_type_prop(entries, "timeout") != LUA_CEMBED_NIL){
-        timeout = LuaCembedTable_get_long_prop(entries, "timeout");
+    //--------------------------expiration Prop--------------------------
+    long expiration = -1;
+    if(LuaCEmbedTable_get_type_prop(entries, "expiration") != LUA_CEMBED_NIL){
+        expiration = LuaCembedTable_get_long_prop(entries, "expiration");
     }
     //--------------------------Handle Errors Prop--------------------------
     bool handle_errors = true;
@@ -81,7 +81,7 @@ LuaCEmbedResponse  * ldtw_execute_cache(LuaCEmbed *args){
     bool cached_error = false;
     if(!always_execute){
 
-        if(timeout != -1){
+        if(expiration != -1){
             int last_execution_type = DtwResource_type(last_execution_resource);
             if(last_execution_type != DTW_COMPLEX_LONG_TYPE){
                 execute_callback = true;
@@ -89,7 +89,8 @@ LuaCEmbedResponse  * ldtw_execute_cache(LuaCEmbed *args){
             if(last_execution_type == DTW_COMPLEX_LONG_TYPE){
                 long last_execution = DtwResource_get_long(last_execution_resource);
                 long now = time(NULL);
-                if(now - last_execution > timeout){
+                // If the cache entry has timed out, remove it
+                if(now - last_execution > expiration){
                     execute_callback = true;
                 }
             }

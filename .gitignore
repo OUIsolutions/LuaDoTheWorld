@@ -14,6 +14,7 @@ teste.hml
 *.elf
 math_cache
 serialized.lua
+luaDoTheWorld
 teste.lua
 main_cache
 gcc_cache

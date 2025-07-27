@@ -16,9 +16,9 @@ LuaCEmbedResponse  * ldtw_clear_old_cache(LuaCEmbed *args){
     }
 
     //--------------------------Timeout Prop--------------------------
-    long timeout = -1;
-    if(LuaCEmbedTable_get_type_prop(entries, "timeout") != LUA_CEMBED_NIL){
-        timeout = LuaCembedTable_get_long_prop(entries, "timeout");
+    long expiration = -1;
+    if(LuaCEmbedTable_get_type_prop(entries, "expiration") != LUA_CEMBED_NIL){
+        expiration = LuaCembedTable_get_long_prop(entries, "expiration");
     }
     
     //-------------------------- Cache name Prop--------------------------
@@ -50,7 +50,7 @@ LuaCEmbedResponse  * ldtw_clear_old_cache(LuaCEmbed *args){
             long last_execution = DtwResource_get_long(last_execution_resource);
             
             // If the cache entry has timed out, remove it
-            if(timeout > 0 && (now - last_execution > timeout)){
+            if(expiration > 0 && (now - last_execution > expiration)){
                 DtwResource_destroy(current_resource);
             }
         }
