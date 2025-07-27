@@ -213,12 +213,13 @@ LuaCEmbedResponse  * ldtw_execute_cache(LuaCEmbed *args){
 
     
     DtwResource *database = new_DtwResource(cache_dir);
-    DtwResource *cache_resource = DtwResource_sub_resource(database, hasher->hash);
+    DtwResource *cache_dir = DtwResource_sub_resource(database, cache_name);
+    DtwResource *cache_element = DtwResource_sub_resource(cache_dir, hasher->hash);
     DtwHash_free(hasher);
 
-    DtwResource *result= DtwResource_sub_resource(cache_resource,"result.lua");
-    DtwResource *error_resource = DtwResource_sub_resource(cache_resource, "error");
-    DtwResource *last_execution_resource = DtwResource_sub_resource(cache_resource, "last_execution");
+    DtwResource *result= DtwResource_sub_resource(cache_element,"result.lua");
+    DtwResource *error_resource = DtwResource_sub_resource(cache_element, "error");
+    DtwResource *last_execution_resource = DtwResource_sub_resource(cache_element, "last_execution");
 
     bool execute_callback = false;
     bool cached_content = false;
