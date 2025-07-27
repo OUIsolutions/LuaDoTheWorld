@@ -200,7 +200,7 @@ LuaCEmbedResponse  * ldtw_execute_cache(LuaCEmbed *args){
         DtwHash_digest_bool(hasher, content);
     }
     if(input_type == LUA_CEMBED_NUMBER){
-        double content = LuaCCembedTable_get_double_prop(entries, "input");
+        double content = LuaCembedTable_get_double_prop(entries, "input");
         DtwHash_digest_double(hasher, content);
     }
     if(input_type == LUA_CEMBED_NIL){
@@ -213,8 +213,8 @@ LuaCEmbedResponse  * ldtw_execute_cache(LuaCEmbed *args){
 
     
     DtwResource *database = new_DtwResource(cache_dir);
-    DtwResource *cache_dir = DtwResource_sub_resource(database, cache_name);
-    DtwResource *cache_element = DtwResource_sub_resource(cache_dir, hasher->hash);
+    DtwResource *cache_dir_resource = DtwResource_sub_resource(database, cache_name);
+    DtwResource *cache_element = DtwResource_sub_resource(cache_dir_resource, hasher->hash);
     DtwHash_free(hasher);
 
     DtwResource *result= DtwResource_sub_resource(cache_element,"result.lua");
