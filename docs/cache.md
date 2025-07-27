@@ -75,13 +75,16 @@ Understanding function purity is **crucial** for effective caching. This determi
 - Data transformations (JSON parsing)
 
 ```lua
-local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
--- ✅ PURE: Math never changes!
-local cached_fibonacci = dtw.create_cache_function({
-    expiration = dtw.INFINITY,  -- Never expires
-    cache_dir = "./math_cache/",
-    callback = function(n)
+local dtw = require("luaDoTheWorld/luaDoTheWorld")
+local cached_fibonacci = nil
+-- ✅ PURE: Mathematical calculations
+cached_fibonacci = dtw.create_cache_function({
+    expiration = dtw.INFINITY,  -- Never expires - math never changes!
+    cache_dir = "./main_cache/",
+    cache_name="Fibonacci",
+    handle_errors = false,
+    callback =  function (n)
         if n <= 1 then
             return n
         else
@@ -89,9 +92,19 @@ local cached_fibonacci = dtw.create_cache_function({
         end
     end
 })
+function Fibonacci(number)
 
-print(cached_fibonacci(50))  -- First time: calculates
-print(cached_fibonacci(50))  -- Second time: instant! ⚡
+    local last_number_str = dtw.load_file("last_fibonacci.txt")
+    local last_number = tonumber(last_number_str) or 0
+    -- use these to avoid recursion limit issues
+    for  i =last_number,number do 
+        cached_fibonacci(i)
+    end 
+    return cached_fibonacci(number)
+end
+
+
+print(Fibonacci(1000)) -- This will print the 1000th Fibonacci number
 ```
 
 ### 🟡 Impure Functions (Need Time-Based Caching)
