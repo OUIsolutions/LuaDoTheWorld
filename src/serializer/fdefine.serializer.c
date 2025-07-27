@@ -19,6 +19,10 @@ void ldtw_serialize_str(privateLuaDtwStringAppender *appender, unsigned char *st
             privateLuaDtwStringAppender_append_fmt(appender, "%c", c);
             last_bye_was_decimal_format = false;
         }
+        else if (c == '\\'){
+            privateLuaDtwStringAppender_append(appender, "\\\\");
+            last_bye_was_decimal_format = false;
+        }
         else {
             // Non-printable, digit, or non-ASCII
             privateLuaDtwStringAppender_append_fmt(appender, "\\%d", c);
