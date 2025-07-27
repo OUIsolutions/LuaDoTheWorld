@@ -99,7 +99,7 @@ LuaCEmbedResponse  * ldtw_execute_cache(LuaCEmbed *args){
             if(DtwResource_type(result) == DTW_COMPLEX_STRING_TYPE){
                 cached_content = true;
             }
-            if(!cached_content){
+            if(!cached_content && store_errors){
                 if(DtwResource_type(error_resource) == DTW_COMPLEX_STRING_TYPE){
                     cached_error = true;
                 }
