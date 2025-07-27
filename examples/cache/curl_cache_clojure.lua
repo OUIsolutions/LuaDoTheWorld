@@ -16,6 +16,9 @@ local curl_cache = dtw.create_cache_function({
         print("retriving data from URL: " .. url)
         os.execute("curl " .. url .. " -o temp")
         local content =  dtw.load_file("temp")
+        if not content then
+            error("Failed to retrieve data from URL: " .. url)
+        end
         dtw.remove_any("temp")
         return content
     end

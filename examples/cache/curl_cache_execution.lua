@@ -18,6 +18,10 @@ local cached_data = dtw.execute_cache({
         print("retriving data from URL: " .. URL)
         os.execute("curl " .. URL .. " -o temp")
         local content =  dtw.load_file("temp")
+        if not content then
+            error("Failed to retrieve data from URL: " .. URL)
+        end
+        -- Optionally, you can remove the temporary file after reading
         dtw.remove_any("temp")
         return content
     end
