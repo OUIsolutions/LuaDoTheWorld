@@ -8,14 +8,27 @@ LuaCEmbedResponse  * cache_clojure_factory(LuaCEmbedTable *self, LuaCEmbed *args
 
     long timeout = LuaCembedTable_get_long_prop(self, "timeout");
     char *cache_dir = LuaCembedTable_get_string_prop(self, "cache_dir");
-
+    
+    // Get handle_errors property
+    bool handle_errors = true;
+    if(LuaCEmbedTable_get_type_prop(self, "handle_errors") != LUA_CEMBED_NIL){
+        handle_errors = LuaCembedTable_get_bool_prop(self, "handle_errors");
+    }
 
     LuaCEmbedTable *function_args = LuaCEmbed_transform_args_in_table(args);
     DtwHash *hasher = newDtwHash();
     ldtw_digest_table(function_args, hasher);
 
     DtwResource *database = new_DtwResource(cache_dir);
-    DtwResource *cache_resource = DtwResource_sub_resource(database, hasher->hash);
+    
+    // Handle cache_name if it exists
+    DtwResource *cache_dir_resource = database;
+    if(LuaCEmbedTable_get_type_prop(self, "cache_name") != LUA_CEMBED_NIL){
+        char *cache_name = LuaCembedTable_get_string_prop(self, "cache_name");
+        cache_dir_resource = DtwResource_sub_resource(database, cache_name);
+    }
+    
+    DtwResource *cache_resource = DtwResource_sub_resource(cache_dir_resource, hasher->hash);
     DtwHash_free(hasher);
     DtwResource *result= DtwResource_sub_resource(cache_resource,"result.lua");
     DtwResource *error_resource = DtwResource_sub_resource(cache_resource, "error");
@@ -43,7 +56,7 @@ LuaCEmbedResponse  * cache_clojure_factory(LuaCEmbedTable *self, LuaCEmbed *args
         if(DtwResource_type(result) == DTW_COMPLEX_STRING_TYPE){
             cached_content = true;
         }
-        if(!cached_content){
+        if(!cached_content && handle_errors){
             if(DtwResource_type(error_resource) == DTW_COMPLEX_STRING_TYPE){
                 cached_error = true;
             }
@@ -86,8 +99,10 @@ LuaCEmbedResponse  * cache_clojure_factory(LuaCEmbedTable *self, LuaCEmbed *args
 
     if(LuaCEmbed_has_errors(args)){
         char *error_msg = LuaCEmbed_get_error_message(args);
-        DtwResource_set_string(error_resource, error_msg);
-        DtwResource_commit(database);
+        if(handle_errors){
+            DtwResource_set_string(error_resource, error_msg);
+            DtwResource_commit(database);
+        }
         DtwResource_free(database);           
         return LuaCEmbed_send_error(error_msg);
     }
@@ -130,6 +145,17 @@ LuaCEmbedResponse  * create_cache_function(LuaCEmbed *args){
     }
     LuaCEmbedTable_set_long_prop(object_respomse, "timeout", timeout);
 
+    //--------------------------Handle Errors Prop--------------------------
+    bool handle_errors = true;
+    if(LuaCEmbedTable_get_type_prop(entries, "handle_errors") != LUA_CEMBED_NIL){
+        handle_errors = LuaCembedTable_get_bool_prop(entries, "handle_errors");
+    }
+    if(LuaCEmbed_has_errors(args)){
+        char *error_msg = LuaCEmbed_get_error_message(args);
+        return LuaCEmbed_send_error( error_msg);
+    }
+    LuaCEmbedTable_set_bool_prop(object_respomse, "handle_errors", handle_errors);
+
     //--------------------------Cache Dir Prop--------------------------
     char *cache_dir = LuaCembedTable_get_string_prop(entries, "cache_dir");
     if(LuaCEmbed_has_errors(args)){
@@ -137,6 +163,17 @@ LuaCEmbedResponse  * create_cache_function(LuaCEmbed *args){
         return LuaCEmbed_send_error(error_msg);
     }
     LuaCEmbedTable_set_string_prop(object_respomse, "cache_dir", cache_dir);
+    
+    //--------------------------Cache Name Prop--------------------------
+    char *cache_name = NULL;
+    if(LuaCEmbedTable_get_type_prop(entries, "cache_name") != LUA_CEMBED_NIL){
+        cache_name = LuaCembedTable_get_string_prop(entries, "cache_name");
+        if(LuaCEmbed_has_errors(args)){
+            char *error_msg = LuaCEmbed_get_error_message(args);
+            return LuaCEmbed_send_error(error_msg);
+        }
+        LuaCEmbedTable_set_string_prop(object_respomse, "cache_name", cache_name);
+    }
   
     
     if(LuaCEmbedTable_get_type_prop(entries,"callback") != LUA_CEMBED_FUNCTION){
