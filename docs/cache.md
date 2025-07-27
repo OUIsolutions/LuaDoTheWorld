@@ -48,6 +48,7 @@ local content2 = get_webpage("https://example.com")  -- Downloads AGAIN! (2s) ü
 local cached_get_webpage = dtw.create_cache_function({
     expiration = 300,  -- 5 minutes
     cache_dir = "./web_cache/",
+    cache_name = "webpage",  -- Added cache_name
     callback = function(url)
         os.execute("curl " .. url .. " -o temp")
         return dtw.load_file("temp")
@@ -122,6 +123,7 @@ print(Fibonacci(1000)) -- This will print the 1000th Fibonacci number
 local cached_web = dtw.create_cache_function({
     expiration = 300,  -- 5 minutes - good balance
     cache_dir = "./web_cache/",
+    cache_name = "web_content",  -- Added cache_name
     callback = function(url)
         os.execute("curl " .. url .. " -o temp")
         return dtw.load_file("temp")
@@ -132,6 +134,7 @@ local cached_web = dtw.create_cache_function({
 local cached_weather = dtw.create_cache_function({
     expiration = 1800,  -- 30 minutes - weather updates
     cache_dir = "./weather_cache/",
+    cache_name = "weather",  -- Added cache_name
     callback = function(city)
         return get_weather_api(city)
     end
@@ -154,6 +157,7 @@ local dtw = require("luaDoTheWorld/luaDoTheWorld")
 local cached_function = dtw.create_cache_function({
     expiration = 60,                    -- Cache for 60 seconds
     cache_dir = "./my_cache/",          -- Directory to store cache files
+    cache_name = "my_function",         -- Added cache_name
     callback = function(input)
         print("Expensive operation with:", input)
         -- Your expensive operation here
@@ -176,7 +180,7 @@ local dtw = require("luaDoTheWorld/luaDoTheWorld")
 
 local cached_data = dtw.execute_cache({
     expiration = 30,                    -- 30 seconds
-    cache_name = "web_data",            -- Unique name for this cache
+    cache_name = "web_data",           -- Unique name for this cache
     cache_dir = "./web_cache/",         -- Directory to store cache
     input = "https://example.com/",     -- Input that determines cache uniqueness
     callback = function()
@@ -204,6 +208,7 @@ local dtw = require("luaDoTheWorld/luaDoTheWorld")
 local permanent_cache = dtw.create_cache_function({
     expiration = dtw.INFINITY,  -- Never expires
     cache_dir = "./permanent/",
+    cache_name = "permanent",  -- Added cache_name
     callback = function(x) return x * x end
 })
 
@@ -211,6 +216,7 @@ local permanent_cache = dtw.create_cache_function({
 local short_cache = dtw.create_cache_function({
     expiration = 30,
     cache_dir = "./short/",
+    cache_name = "short",  -- Added cache_name
     callback = function(url) return download_live_data(url) end
 })
 
@@ -218,6 +224,7 @@ local short_cache = dtw.create_cache_function({
 local medium_cache = dtw.create_cache_function({
     expiration = 3600,
     cache_dir = "./medium/",
+    cache_name = "medium",  -- Added cache_name
     callback = function(city) return get_weather(city) end
 })
 
@@ -225,6 +232,7 @@ local medium_cache = dtw.create_cache_function({
 local long_cache = dtw.create_cache_function({
     expiration = 86400,
     cache_dir = "./long/",
+    cache_name = "long",  -- Added cache_name
     callback = function(coords) return get_timezone(coords) end
 })
 ```
@@ -277,6 +285,7 @@ local dtw = require("luaDoTheWorld/luaDoTheWorld")
 local cached_compilation = dtw.create_cache_function({
     expiration = dtw.INFINITY,
     cache_dir = "./compile_cache/",
+    cache_name = "compilation",  -- Added cache_name
     callback = function(props)
         print("Compiling:", props.filename)
         os.execute("gcc " .. props.filename .. " -o temp")
@@ -332,6 +341,7 @@ dtw.clear_old_cache({
 local cached_api = dtw.create_cache_function({
     expiration = 1800,  -- 30 minutes
     cache_dir = "./web_cache/",
+    cache_name = "api",  -- Added cache_name
     callback = function(endpoint)
         return call_api(endpoint)
     end
@@ -381,6 +391,7 @@ dtw.clear_old_cache({
 local get_web_content = dtw.create_cache_function({
     expiration = 900,  -- 15 minutes
     cache_dir = CACHE_DIR,
+    cache_name = CACHE_NAME,  -- Added cache_name
     callback = function(url)
         print("üåê Fetching:", url)
         os.execute("curl -L '" .. url .. "' -o temp")
@@ -407,6 +418,7 @@ local dtw = require("luaDoTheWorld/luaDoTheWorld")
 local cached_fibonacci = dtw.create_cache_function({
     expiration = dtw.INFINITY,  -- Math never changes!
     cache_dir = "./math_cache/",
+    cache_name = "fibonacci",  -- Added cache_name
     callback = function(n)
         if n <= 1 then
             return n
@@ -484,6 +496,7 @@ local dtw = require("luaDoTheWorld/luaDoTheWorld")
 local cached_process_image = dtw.create_cache_function({
     expiration = dtw.INFINITY,  -- Processing is deterministic
     cache_dir = "./image_cache/",
+    cache_name = "process_image",  -- Added cache_name
     callback = function(props)
         local input_file = props.input_file
         local operations = props.operations
@@ -573,6 +586,7 @@ process_image_with_cache("photo.jpg", {"-resize 800x600", "-blur 0x1"}, "process
 **For `create_cache_function`:**
 - `expiration`: Cache timeout in seconds (or `dtw.INFINITY`)
 - `cache_dir`: Directory to store cache files
+- `cache_name`: Name for this cache entry (recommended)
 - `callback`: Function to execute when cache misses
 
 **For `execute_cache`:**
