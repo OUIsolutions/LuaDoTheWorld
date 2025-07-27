@@ -15,10 +15,10 @@ LuaCEmbedResponse  * ldtw_execute_cache(LuaCEmbed *args){
     if(LuaCEmbedTable_get_type_prop(entries, "timeout") != LUA_CEMBED_NIL){
         timeout = LuaCembedTable_get_long_prop(entries, "timeout");
     }
-    //--------------------------Store Errors Prop--------------------------
-    bool store_errors = true;
-    if(LuaCEmbedTable_get_type_prop(entries, "store_errors") != LUA_CEMBED_NIL){
-        store_errors = LuaCembedTable_get_bool_prop(entries, "store_errors");
+    //--------------------------Handle Errors Prop--------------------------
+    bool handle_errors = true;
+    if(LuaCEmbedTable_get_type_prop(entries, "handle_errors") != LUA_CEMBED_NIL){
+        handle_errors = LuaCembedTable_get_bool_prop(entries, "handle_errors");
     }
     //--------------------------Always Execute Prop--------------------------
     bool always_execute = false;
@@ -99,7 +99,7 @@ LuaCEmbedResponse  * ldtw_execute_cache(LuaCEmbed *args){
             if(DtwResource_type(result) == DTW_COMPLEX_STRING_TYPE){
                 cached_content = true;
             }
-            if(!cached_content && store_errors){
+            if(!cached_content && handle_errors){
                 if(DtwResource_type(error_resource) == DTW_COMPLEX_STRING_TYPE){
                     cached_error = true;
                 }
@@ -143,7 +143,7 @@ LuaCEmbedResponse  * ldtw_execute_cache(LuaCEmbed *args){
 
     if(LuaCEmbed_has_errors(args)){
         char *error_msg = LuaCEmbed_get_error_message(args);
-        if(store_errors){
+        if(handle_errors){
             DtwResource_set_string(error_resource, error_msg);
             DtwResource_commit(database);
         }
