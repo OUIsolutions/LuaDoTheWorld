@@ -2,8 +2,7 @@
 //mannaged by silver chain: https://github.com/OUIsolutions/SilverChain
 #include "../imports/imports.type.h"
 //silver_chain_scope_end
-#ifdef  __linux__
-
+#if defined(__linux__) || defined(__APPLE__)
 
 LuaCEmbedResponse * is_fork_alive(LuaCEmbedTable *self,LuaCEmbed *args);
 

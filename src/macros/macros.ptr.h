@@ -4,7 +4,7 @@
 //silver_chain_scope_end
 
 
-#ifdef __linux__
+#if defined(__linux__) || defined(__APPLE__)
 #define  ldtw_ptr_cast long long
 #endif
 

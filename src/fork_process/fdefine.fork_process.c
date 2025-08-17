@@ -2,7 +2,7 @@
 //mannaged by silver chain: https://github.com/OUIsolutions/SilverChain
 #include "../imports/imports.fdeclare.h"
 //silver_chain_scope_end
-#ifdef  __linux__
+#if defined(__linux__) || defined(__APPLE__)
 
 
 int lua_do_the_world_sleep_mili_seconds(long miliseconds){

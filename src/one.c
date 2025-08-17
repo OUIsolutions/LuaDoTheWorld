@@ -54,7 +54,7 @@ void start_lua_props(LuaCEmbed *l){
     LuaCEmbed_add_callback(l,STARTS_WITH,starts_with);
     LuaCEmbed_add_callback(l,ENDS_WITH,ends_with);
     LuaCEmbed_add_callback(l,NEW_RANDONIZER,create_randonizer);
-    #ifdef  __linux__
+ #if defined(__linux__) || defined(__APPLE__)
     LuaCEmbed_add_callback(l,NEW_FORK,create_fork_process);
     #endif
 
