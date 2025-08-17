@@ -46,7 +46,7 @@ LuaCEmbedResponse *dtw_get_absolute_time_from_str(LuaCEmbed *args) {
     struct tm tm = {0};
     long miliseconds = 0;
  
-    if (sscanf(time_str, "%d-%d-%dT%d:%d:%d.%dZ", 
+    if (sscanf(time_str, "%d-%d-%dT%d:%d:%d.%ldZ", 
                &tm.tm_year, &tm.tm_mon, &tm.tm_mday,
                &tm.tm_hour, &tm.tm_min, &tm.tm_sec, &miliseconds) != 7) {
         return LuaCEmbed_send_error("Invalid time format");
@@ -80,6 +80,6 @@ LuaCEmbedResponse *dtw_convert_absolute_time_to_str(LuaCEmbed *args) {
     tm_info = localtime(&rawtime);
     char buffer[60] ={0};
     strftime(buffer, sizeof(buffer), "%Y-%m-%dT%H:%M:%S", tm_info);
-    sprintf(buffer + strlen(buffer), ".%03ldZ", milliseconds);
+    sprintf(buffer + strlen(buffer), ".%03lldZ", milliseconds);
     return LuaCEmbed_send_str(buffer);
 }
