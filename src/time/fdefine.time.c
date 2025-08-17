@@ -60,3 +60,26 @@ LuaCEmbedResponse *dtw_get_absolute_time_from_str(LuaCEmbed *args) {
     LuaCEmbedTable_set_long_prop(created_table, "milliseconds", miliseconds);
     return LuaCEmbed_send_table(created_table);
 }  
+
+LuaCEmbedResponse *dtw_convert_absolute_time_to_str(LuaCEmbed *args) {
+    LuaCEmbedTable *absolute_time = LuaCEmbed_get_arg_table(args, 0);
+    if(LuaCEmbed_has_errors(args)) {
+        char *error_msg = LuaCEmbed_get_error_message(args);
+        return LuaCEmbed_send_error("Error getting absolute time table: %s", error_msg);
+    }
+    lua_Integer seconds = LuaCembedTable_get_long_prop(absolute_time, "seconds");
+    lua_Integer nanoseconds = LuaCembedTable_get_long_prop(absolute_time, "nanoseconds");
+    lua_Integer milliseconds = LuaCembedTable_get_long_prop(absolute_time, "milliseconds");
+
+    if(LuaCEmbed_has_errors(args)) {
+        char *error_msg = LuaCEmbed_get_error_message(args);
+        return LuaCEmbed_send_error("Error getting properties from absolute time table: %s", error_msg);
+    }
+    struct tm *tm_info;
+    time_t rawtime = seconds;
+    tm_info = localtime(&rawtime);
+    char buffer[60] ={0};
+    strftime(buffer, sizeof(buffer), "%Y-%m-%dT%H:%M:%S", tm_info);
+    sprintf(buffer + strlen(buffer), ".%03ldZ", milliseconds);
+    return LuaCEmbed_send_str(buffer);
+}

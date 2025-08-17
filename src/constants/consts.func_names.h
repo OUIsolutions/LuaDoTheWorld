@@ -66,6 +66,7 @@
 #define KILL_PROCESS_FUNC "kill_process"
 #define GET_ABSOLUTE_TIME "get_absolute_time"
 #define GET_ABSOLUTE_TIME_FROM_STRING "get_absolute_time_from_string"
+#define CONVERT_ABSOLUTE_TIME_TO_STRING "convert_absolute_time_to_string"
 #define GET_ENTITY_LAST_MODIFICATION_IN_UNIX "get_entity_last_modification_in_unix"
 #define  GET_ENTITY_LAST_MODIFICATION "get_entity_last_modification"
 

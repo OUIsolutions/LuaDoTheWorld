@@ -7,3 +7,4 @@
 LuaCEmbedResponse  * dtw_get_absolute_time(LuaCEmbed *args);
 
 LuaCEmbedResponse *dtw_get_absolute_time_from_str(LuaCEmbed *args);
+LuaCEmbedResponse *dtw_convert_absolute_time_to_str(LuaCEmbed *args);
