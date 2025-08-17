@@ -3,7 +3,7 @@
 #include "../imports/imports.dependencie.h"
 //silver_chain_scope_end
 
-#define  PID_PROP "pid_prop"
+#define  PID_PROP "pid"
 #define KILL_FORK_METHOD "kill"
 #define IS_FORK_ALIVE_METHOD "is_alive"
 #define FORK_STATUS_METHOD "status"
