@@ -11,6 +11,7 @@ void start_lua_props(LuaCEmbed *l){
     LuaCEmbed_add_callback(l,COPY_ANY_MERGING,copy_any_merging);
     LuaCEmbed_add_callback(l,MOVE_ANY_OVERWRITING,move_any_overwriting);
     LuaCEmbed_add_callback(l,MOVE_ANY_MERGING,move_any_merging);
+    LuaCEmbed_add_callback(l,DTW_CREATE_DIR_RECURSIVELY,lua_dtw_create_dir_recursively);
     LuaCEmbed_add_callback(l,REMOVE_ANY,remove_any);
     LuaCEmbed_add_callback(l,LIST_FILES,list_files);
     LuaCEmbed_add_callback(l,LIST_FILES_RECURSIVELY,list_files_recursively);

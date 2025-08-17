@@ -176,3 +176,12 @@ LuaCEmbedResponse  * remove_any(LuaCEmbed *args){
 }
 
 
+LuaCEmbedResponse *lua_dtw_create_dir_recursively(LuaCEmbed *args){
+    char *path = LuaCEmbed_get_str_arg(args, 0);
+    if(LuaCEmbed_has_errors(args)){
+        char *error_message = LuaCEmbed_get_error_message(args);
+        return  LuaCEmbed_send_error(error_message);
+    }
+    dtw_create_dir_recursively(path);
+    return NULL;
+}
