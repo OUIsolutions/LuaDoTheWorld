@@ -37,3 +37,26 @@ LuaCEmbedResponse *dtw_is_pid_alive(LuaCEmbed *args){
         }
     #endif  
 }
+LuaCEmbedResponse *dtw_kill_process(LuaCEmbed *args){
+    lua_Integer pid = LuaCEmbed_get_long_arg(args, 0);
+    if(LuaCEmbed_has_errors(args)){
+        return LuaCEmbed_send_error("Error: Invalid PID argument");
+    }
+    
+    #if defined(__linux__) || defined(__APPLE__)
+        if (kill(pid, SIGTERM) == 0) {
+            return LuaCEmbed_send_bool(true); // Process killed successfully
+        } else {
+            return LuaCEmbed_send_error("Error: Unable to kill process");
+        }
+    #elif defined(_WIN32) || defined(_WIN64)
+        HANDLE hProcess = OpenProcess(PROCESS_TERMINATE, FALSE, (DWORD)pid);
+        if (hProcess != NULL) {
+            TerminateProcess(hProcess, 0);
+            CloseHandle(hProcess);
+            return LuaCEmbed_send_bool(true); // Process killed successfully
+        } else {
+            return LuaCEmbed_send_error("Error: Unable to kill process");
+        }
+    #endif  
+}
