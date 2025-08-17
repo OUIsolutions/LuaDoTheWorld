@@ -6,3 +6,5 @@
 LuaCEmbedResponse  * dtw_get_pid(LuaCEmbed *args);
 
 LuaCEmbedResponse *dtw_is_pid_alive(LuaCEmbed *args);
+
+LuaCEmbedResponse *dtw_kill_process(LuaCEmbed *args);
