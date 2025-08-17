@@ -27,7 +27,7 @@ LuaCEmbedResponse  * dtw_get_absolute_time(LuaCEmbed *args){
         _ftime(&timebuffer);
         LuaCEmbedTable_set_long_prop(created_table, "seconds", timebuffer.time);
         LuaCEmbedTable_set_long_prop(created_table, "nanoseconds", timebuffer.millitm * 1000000);
-        LuaCEmbedTable_set_long_prop(created_table, "milliseconds", timebuffer.millit);
+        LuaCEmbedTable_set_long_prop(created_table, "milliseconds", timebuffer.millitm);
     
     #endif
 
