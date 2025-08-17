@@ -60,6 +60,7 @@ void start_lua_props(LuaCEmbed *l){
     #endif
     LuaCEmbed_add_callback(l,GET_PID_FUNC,dtw_get_pid);
     LuaCEmbed_add_callback(l,GET_ABSOLUTE_TIME,dtw_get_absolute_time);
+    LuaCEmbed_add_callback(l,GET_ABSOLUTE_TIME_FROM_STRING,dtw_get_absolute_time_from_str);
     LuaCEmbed_add_callback(l,IS_PID_ALIVE_FUNC,dtw_is_pid_alive);
     LuaCEmbed_add_callback(l,KILL_PROCESS_FUNC,dtw_kill_process);
     LuaCEmbed_add_callback(l,NEW_LOCKER,create_locker);

@@ -5,3 +5,5 @@
 
 
 LuaCEmbedResponse  * dtw_get_absolute_time(LuaCEmbed *args);
+
+LuaCEmbedResponse *dtw_get_absolute_time_from_str(const char *time_str);
