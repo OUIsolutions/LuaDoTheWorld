@@ -18,6 +18,7 @@
 #define LIST_DIRS_RECURSIVELY "list_dirs_recursively"
 #define LIST_ALL "list_all"
 #define LIST_ALL_RECURSIVELY "list_all_recursively"
+#define DTW_CREATE_DIR_RECURSIVELY "create_dir_recursively"
 
 #define BBASE_64_ENCODE_FILE "base64_encode_file"
 #define BBASE_64_ENCODE "base64_encode"
