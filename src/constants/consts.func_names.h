@@ -64,6 +64,7 @@
 #define GET_PID_FUNC "get_pid"
 #define IS_PID_ALIVE_FUNC "is_pid_alive"
 #define KILL_PROCESS_FUNC "kill_process"
+#define GET_ABSOLUTE_TIME "get_absolute_time"
 #define GET_ENTITY_LAST_MODIFICATION_IN_UNIX "get_entity_last_modification_in_unix"
 #define  GET_ENTITY_LAST_MODIFICATION "get_entity_last_modification"
 
