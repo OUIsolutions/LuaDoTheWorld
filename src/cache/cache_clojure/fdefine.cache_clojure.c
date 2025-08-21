@@ -66,15 +66,16 @@ LuaCEmbedResponse  * cache_clojure_factory(LuaCEmbedTable *self, LuaCEmbed *args
     }
 
     if(cached_content){
-        char *content = DtwResource_get_string(result);
 
-        ///these its a quick hack ,since luacembembed dont provide a way 
+        char *content = DtwResource_get_string(result);
+        ///these its a quick hack ,since luacembembed dont provide a way
         LuaCEmbedTable *response_table = LuaCembed_new_anonymous_table(args);
         LuaCEmbedTable_append_evaluation(response_table,content);
         if(!LuaCEmbed_has_errors(args)){
             DtwResource_free(database);            
             return LuaCEmbed_send_multi_return(response_table);
         }
+
         LuaCEmbed_clear_errors(args);
         //it will execute the callback
     }
