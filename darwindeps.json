@@ -1,0 +1,12 @@
+[
+  {
+    "type": "url",
+    "url": "https://github.com/OUIsolutions/LuaCEmbed/releases/download/0.11.0/LuaCEmbedOne.c",
+    "dest": "dependencies/LuaCEmbedOne.c"
+  },
+  {
+    "type": "url",
+    "url": "https://github.com/OUIsolutions/DoTheWorld/releases/download/11.1.0/doTheWorldOne.c",
+    "dest": "dependencies/doTheWorldOne.c"
+  }
+]
