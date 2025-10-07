@@ -1,7 +1,7 @@
 
 darwin.add_recipe({
-    name="main_site",
-    description="main_site",
+    name="build_all",
+    description="build_all",
     outs={"release/luadotheworld.zip", "release/luaDoTheWorld_no_dep.lua", "release/luaDoTheWorld.so"},
     inputs={"dependencies","extra","starter", "src", "darwinconf.lua"},
     callback= function ()
