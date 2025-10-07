@@ -1,5 +1,5 @@
 {
-	"assets":	["release/luaDoTheWorld.lua", "release/luaDoTheWorld.zip"],
+	"assets":	["release/luaDoTheWorld_no_dep.lua", "release/luaDoTheWorld.zip"],
 	"description":	"new release of LuaDoTheWorld available!",
 	"release":	"{BIG_VERSION}.{SMALL_VERSION}.{PATCH_VERSION}",
 	"replacers":	{
