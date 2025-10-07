@@ -19,7 +19,7 @@ function main()
   })
 
   cachify.register_first({
-      sources = {"src","dependencies","build","extra"},
+      sources = {"src","dependencies","build","extra", "darwinconf.lua"},
       cache_name="release",
       cache_dir=".cachify"
   })
@@ -44,7 +44,7 @@ function main()
   })  
 
   cachify.execute_config({
-      sources = {"src","dependencies","build","extra"},
+      sources = {"src","dependencies","build","extra", "darwinconf.lua"},
       callback = function()
            print("executed callback for release")
            dtw.remove_any("release")

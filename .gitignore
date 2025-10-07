@@ -28,6 +28,7 @@ gcc_cache
 ssss.jpeg
 
 .cache
+.darwincache/
 
 gcc.lua
 ai_docs
