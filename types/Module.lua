@@ -1,10 +1,4 @@
 
----@class DtwFork
----@field sleep_time number
----@field kill fun()
----@field is_alive fun():boolean
----@field wait fun(milliseconds:number)
-
 ---@class DtwLocker
 ---@field lock fun(element:string):boolean
 ---@field unlock fun(element:string):DtwLocker
